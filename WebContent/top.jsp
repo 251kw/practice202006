@@ -52,6 +52,17 @@
 			<td><input class="btn" type="submit" value="叫ぶ" /></td>
 		</tr>
 	</table>
+
+	<%-- 未記入のときは --%>
+	<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+		<tr>
+			<%-- リクエストスコープのalertの値を出力 --%>
+			<td colspan="2" class="color-error text-left">
+				<c:out value="${requestScope.alert}" />
+			</td>
+		</tr>
+	</c:if>
+
 </form>
 
 <%-- セッションスコープスコープにあるArrayList型のオブジェクトを参照 --%>

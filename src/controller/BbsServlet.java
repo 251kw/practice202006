@@ -53,6 +53,13 @@ public class BbsServlet extends HttpServlet {
 
 			// リストをセッションに保存
 			session.setAttribute("shouts", list);
+		}else {
+			String message = null;
+			message = "未記入です";
+
+			// エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+
 		}
 
 		// top.jsp に処理を転送
