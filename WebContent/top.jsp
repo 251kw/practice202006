@@ -44,6 +44,18 @@
 			<td><input class="form-control" type="text" name="shout" value="" size="40" /></td>
 			<td><input class="btn" type="submit" value="叫ぶ" /></td>
 		</tr>
+
+
+		<%-- リクエストスコープにalertがあれば --%>
+		<c:if test="${requestScope.alert2 != null && requestScope.alert2 != ''}">
+			<tr>
+				<%-- リクエストスコープのalertの値を出力 --%>
+				<td colspan="2" class="color-error text-left"><c:out
+						value="${requestScope.alert2}" /></td>
+			</tr>
+		</c:if>
+
+
 	</table>
 </form>
 <%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
