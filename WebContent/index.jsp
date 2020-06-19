@@ -24,7 +24,6 @@
 
 <%-- action属性にサーブレットを指定 --%>
 <form action="./login" method="post">
-	<%-- //////// table style="width: 400px" class="table"--%>
 	<table style="width: 40%" class="container padding-y-5">
 		<tr>
 			<%-- ログインID入力欄はloginId --%>
