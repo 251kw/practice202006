@@ -31,9 +31,9 @@
 		<form action="./logout" method="post">
 			<table class ="table table-bordered">
 				<tr>
-				<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td>
-				<td width="256">${user.userName}</td>
-				<td><input class="btn btn-lidht" type="submit" value="ログアウト" /></td>
+					<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td>
+					<td width="256">${user.userName}</td>
+					<td><input class="btn btn-lidht" type="submit" value="ログアウト" /></td>
 				</tr>
 				<tr>
 					<td colspan="2">${user.profile}</td>
@@ -49,7 +49,7 @@
 		<tr>
 			<%-- 今の気持ち入力欄はshout --%>
 			<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
-			<td><input class="btn" type="submit"value="叫ぶ" /></td>
+			<td><input class="btn" type="submit" value="叫ぶ" /></td>
 		</tr>
 	</table>
 </form>
