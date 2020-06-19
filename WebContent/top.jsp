@@ -51,9 +51,8 @@
 			<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
 			<td><input class="btn" type="submit" value="叫ぶ" /></td>
 		</tr>
-	</table>
 
-	<%-- 未記入のときは --%>
+		<%-- 未記入のときは --%>
 	<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
 		<tr>
 			<%-- リクエストスコープのalertの値を出力 --%>
@@ -62,6 +61,8 @@
 			</td>
 		</tr>
 	</c:if>
+	</table>
+
 
 </form>
 
