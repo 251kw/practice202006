@@ -1,13 +1,13 @@
 package dao;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import com.mysql.jdbc.PreparedStatement;
 
 import dto.ShoutDTO;
 import dto.UserDTO;
@@ -36,11 +36,11 @@ public class DBManager extends SnsDAO {
 			if(rset.next()) {
 				//必要な列から値を取り出し、ユーザー情報オブジェクトを生成
 				user = new UserDTO();
-				user.setLoginId(rset, getString(2));
-				user.setPassword(rset, getString(3));
-				user.setUserName(rset, getString(4));
-				user.setIcon(rset, getString(5));
-				user.setProfile(rset, getString(6));
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 			}
 		}catch (SQLException e) {
 			e.printStackTrace();
@@ -68,7 +68,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT文の実行
-			String sql = "SELECT * FROM shouts ORDER BY date DESC"
+			String sql = "SELECT * FROM shouts ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
@@ -111,7 +111,24 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(2, user.getIcon());
 			//現在日時の日付の書式指定
 			Calendar calender = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
+			pstmt.setString(3, sdf.format(calender.getTime()));
+			pstmt.setString(4, writing);
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				//INSERT文の実行結果が１なら登録成功
+				result = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
 		}
+
+		return result;
 	}
 }

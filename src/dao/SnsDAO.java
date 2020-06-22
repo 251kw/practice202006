@@ -1,10 +1,12 @@
 package dao;
 
+import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
-import sun.rmi.transport.Connection;
+//import sun.rmi.transport.Connection;
 
 public class SnsDAO {
 	private final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
