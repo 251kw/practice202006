@@ -18,7 +18,7 @@ import dto.UserDTO;
 /**
  * Servlet implementation class LoginServlet
  */
-@WebServlet("/ｌogin")
+@WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -49,6 +49,7 @@ public class LoginServlet extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 
+
 		RequestDispatcher dispatcher = null;	//なにこれ
 		String message = null;
 
@@ -73,7 +74,7 @@ public class LoginServlet extends HttpServlet {
 
 				//ログインユーザ情報、書き込み内容リストとしてセッションに保存
 				session.setAttribute("user", user);
-				session.setAttribute("shout", list);
+				session.setAttribute("shouts", list);
 
 				//処理の転送先をtop.jspに指定
 				dispatcher = request.getRequestDispatcher("top.jsp");

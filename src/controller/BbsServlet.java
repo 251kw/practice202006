@@ -13,13 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import dao.DataManager;
 import dto.ShoutDTO;
-import dto.UserDTO;
+import dto.UserDTO;;
 
 
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DataManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
+	String message = null;
 
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -46,14 +47,19 @@ public class BbsServlet extends HttpServlet {
 				dbm = new DataManager();
 			}
 
-			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
-			dbm.setWriting(user, writing);
+		// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
+		dbm.setWriting(user, writing);
 
-			// 書き込み内容追加後のリストを取得
-			ArrayList<ShoutDTO> list = dbm.getShoutList();
+		// 書き込み内容追加後のリストを取得
+		ArrayList<ShoutDTO> list = dbm.getShoutList();
 
-			// リストをセッションに保存
-			session.setAttribute("shouts", list);
+		// リストをセッションに保存
+		session.setAttribute("shouts", list);
+
+		}else {
+			//何も叫ばれてないとき、message変数に文字列をセット。LoginServletで使ったエラー表示文を使いまわす
+			message = "なにかかいてね";
+			request.setAttribute("alert", message);
 		}
 
 		// top.jsp に処理を転送

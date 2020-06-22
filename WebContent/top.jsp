@@ -1,4 +1,8 @@
-<%@page import="dto.ShoutDTO"%>
+<%@page import="com.sun.corba.se.impl.orb.ParserTable.TestAcceptor1"%>
+<%@page import="sun.misc.Request"%>
+<%@ page import="dto.ShoutDTO"%>
+<%@ page import="controller.BbsServlet"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -7,6 +11,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<link rel="stylesheet" href="./css/skyblue.css">
+	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
+	<link rel="stylesheet" href="./css/helper.css">
 <title>Insert title here</title>
 </head>
 <body>
@@ -39,8 +46,15 @@
 			<%-- 今の気持ち入力欄の名前はshout --%>
 			<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
 			<td><input class="btn" type="submit" value="叫ぶ" /></td>
-			<td class="text-left"><input class="form-control" type="text" name="loginId" value="" size="20" /></td>
 		</tr>
+				<%-- 空の状態で叫ぶボタンが押された時のエラーメッセージを表示 --%>
+				<%-- レスポンスにセットAttributeでぶち込んだアラートはrequestScope.alertで取り出せる --%>
+				<c:if
+					test="${requestScope.alert != null && requestScope.alert != ''}">
+				<%-- リクエストスコープのalertの値を出力 --%>
+				<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alert}" />
+				</td>
+			</c:if>
 	</table>
 </form>
 
