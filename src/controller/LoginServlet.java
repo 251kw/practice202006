@@ -11,36 +11,36 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DataManager;
+import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
-
 
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	public LoginServlet() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    public LoginServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
-
-
-//	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-//		response.getWriter().append("Served at: ").append(request.getContextPath());
-//	}
+	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
+	}
 
 	// index.jspのログインボタンから呼び出される
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
-		if(loginId.equals("") || password.equals("")) {
+		if (loginId.equals("") || password.equals("")) {
 			//ログインIDとパスワードどちらか、もしくは双方未入力なら
 			message = "ログインIDとパスワードは必須入力です";
 
@@ -52,10 +52,10 @@ public class LoginServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		} else {
 			//ログイン認証を行い、ユーザー情報を取得
-			DataManager dbm = new DataManager();
+			DBManager dbm = new DBManager();
 			UserDTO user = dbm.getLoginUser(loginId, password);
 
-			if(user != null) {
+			if (user != null) {
 				//ユーザー情報を取得出来たら、書き込み内容リストを取得
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
 				HttpSession session = request.getSession();

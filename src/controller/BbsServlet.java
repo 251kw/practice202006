@@ -1,3 +1,4 @@
+
 package controller;
 
 import java.io.IOException;
@@ -11,14 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DataManager;
+import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DataManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
+	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -33,16 +34,17 @@ public class BbsServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String writing = request.getParameter("shout");
 		RequestDispatcher dispatcher;
+		String message = null;
 
 		// 書き込み内容があれば、リストに追加
 		if (!writing.equals("")) {
-			HttpSession session = request.getSession();
+			HttpSession session = request.getSession();	//セッションオブジェクト取得
 			// セッションからログインユーザ情報を取得
 			UserDTO user = (UserDTO) session.getAttribute("user");
 
 			// １度だけ DataManager オブジェクトを生成
 			if(dbm == null){
-				dbm = new DataManager();
+				dbm = new DBManager();
 			}
 
 			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
@@ -53,6 +55,13 @@ public class BbsServlet extends HttpServlet {
 
 			// リストをセッションに保存
 			session.setAttribute("shouts", list);
+		} else {
+			//書き込み未入力なら
+			message = "コメントを入力してください";
+
+			//エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+
 		}
 
 		// top.jsp に処理を転送

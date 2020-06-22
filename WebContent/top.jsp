@@ -72,6 +72,18 @@
 	</div>
 
 <%---------------------------------------------------------------------------------%>
+			<%-- リクエストスコープにalertがあれば --%>
+			<c:if
+				test="${requestScope.alert != null && requestScorpe.alert !=''}">
+			<div class="padding-y-5">
+				<div style="width: 40%" class="container padding-y-5 text-left">
+						<%--リクエストスコープのalertの値を出力 --%>
+						<strong class="color-error text-center"><c:out
+							value="${requestScope.alert}" /></strong>
+				</div>
+			</div>
+			</c:if>
+
 	<div class="padding-y-5 text-center">
 		<div style="width: 40%" class="container padding-y-5 text-left">
 			<strong class="color-main">みんなの叫び</strong>
