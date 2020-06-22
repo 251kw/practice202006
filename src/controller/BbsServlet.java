@@ -11,14 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DBManager;
+import dao.DataManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
+	private DataManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -58,7 +58,7 @@ public class BbsServlet extends HttpServlet {
 
 			// １度だけ DataManager オブジェクトを生成
 			if(dbm == null){
-				dbm = new DBManager();
+				dbm = new DataManager();
 			}
 
 			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
