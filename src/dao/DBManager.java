@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.mysql.jdbc.PreparedStatement;
 
@@ -96,6 +97,21 @@ public class DBManager extends SnsDAO {
 
 	//ログインユーザー情報と書き込み内容を受け取り、リストに追加する
 	public boolean setWriting(UserDTO user, String writing) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
 
+		boolean result = false;
+		try {
+			conn = getConnection();
+
+			//INSErt文の登録と実行
+			String sql = "INSERT INTO shouts(userName, icon, date, writing) VALUES(?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getUserName());
+			pstmt.setString(2, user.getIcon());
+			//現在日時の日付の書式指定
+			Calendar calender = Calendar.getInstance();
+
+		}
 	}
 }
