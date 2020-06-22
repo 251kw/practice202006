@@ -77,10 +77,19 @@ public class DBManager extends SnsDAO {
 				shout.setIcon(rset.getString(3));
 				shout.setData(rset.getString(4));
 				shout.setWriting(rset.getString(5));
-				
+
 				//書き込み内容をリストに追加
 				list.add(shout);
 			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			// データベース切断処理
+						close(rset);
+//						close(pstmt);
+						close(conn);
 		}
+
+		return null;
 	}
 }
