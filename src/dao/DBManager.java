@@ -59,7 +59,7 @@ public class DBManager extends SnsDAO {
 		Statement pstmt = null;
 		ResultSet rset = null;
 
-		ArrayList<ShoutDTO> kist= new ArrayList<ShoutDTO>();
+		ArrayList<ShoutDTO> list= new ArrayList<ShoutDTO>();
 
 		try {
 			conn = getConnection();
@@ -75,6 +75,11 @@ public class DBManager extends SnsDAO {
 				ShoutDTO shout = new ShoutDTO();
 				shout.setUserName(rset.getString(2));
 				shout.setIcon(rset.getString(3));
+				shout.setData(rset.getString(4));
+				shout.setWriting(rset.getString(5));
+				
+				//書き込み内容をリストに追加
+				list.add(shout);
 			}
 		}
 	}
