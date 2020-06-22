@@ -9,6 +9,9 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import dto.ShoutDTO;
+import dto.UserDTO;
+
 public class DBManager extends SnsDAO{
 	// ログインIDとパスワードを受け取り、登録ユーザー一覧に一致したものがあるか検索
 	public UserDTO getLoginUser(String loginId, String password) {
