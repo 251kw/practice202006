@@ -2,9 +2,9 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 public class SnsDAO {
 	final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
@@ -42,7 +42,7 @@ public class SnsDAO {
 		}
 
 		// preparedStatement 型変数が持つデータベースとJDBCリソースの解放
-		public void close(PreparedStatement stmt) {
+		public void close(Statement stmt) {
 			if(stmt != null) {
 				try {
 					stmt.close();

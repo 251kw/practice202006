@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DataManager;
+import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
@@ -44,14 +44,14 @@ public class LoginServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//ログインからの呼び出し
 		//送信情報の取得
-		String loginId = request.getParameter("loginID");
+		String loginId = request.getParameter("loginID"); //indexで送った値
 		String password = request.getParameter("password");
 
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
 		if(loginId.equals("") || password.equals("")) {
-			//ＩＤとパスどちらも未入力なら
+			//ＩＤとパスどちらかでも未入力なら
 			message = "ログインIDとパスワードは入力必須です";
 
 			// エラーメッセージをリクエストオブジェクトに保存
@@ -62,17 +62,17 @@ public class LoginServlet extends HttpServlet {
 			dispatcher.forward(request, response);
 		}else {
 			//ログイン認証を行い、ユーザー情報を取得
-			DataManager dbm = new DataManager();
-			UserDTO user = dbm.getloginUser(loginId, password);
+			DBManager dbm = new DBManager();
+			UserDTO user = dbm.getloginUser(loginId, password);   //DBM内にあるメソッド 検索結果がなければnullで帰ってくる
 
 			if(user != null) {
 				//ユーザー情報を取得できたら、書き込み内容リストを取得
-				ArrayList<ShoutDTO> list = dbm.getShoutList();
+				ArrayList<ShoutDTO> list = dbm.getShoutList();  //DBM内にあるメソッド
 				HttpSession session = request.getSession();
 
 				//ログインユーザー情報、書き込み内容リストを取得
-				session.setAttribute("user", user);
-				session.setAttribute("shouts", list);
+				session.setAttribute("user", user); //ログインユーザー
+				session.setAttribute("shouts", list); //叫びのリスト
 
 				//処理の転送先をtop.jspに指定
 				dispatcher = request.getRequestDispatcher("top.jsp");
