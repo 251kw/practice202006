@@ -55,6 +55,40 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+	public boolean setUser(UserDTO udto) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			//INSERT文の登録と実行
+			String sql = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1,udto.getLoginId());
+			pstmt.setString(2,udto.getPassword());
+			pstmt.setString(3,udto.getUserName());
+			pstmt.setString(4,udto.getIcon());
+			pstmt.setString(5,udto.getProfile());
+
+			int cnt = pstmt.executeUpdate();  //実行
+			if(cnt == 1) {
+				//INSERT文の実行結果が1なら登録成功
+				result = true;
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			// データベース切断処理
+						close(pstmt);
+						close(conn);
+		}
+
+		return result;
+	}
+
 	// 書き込み内容リストの getter
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null;  //データベースへ接続して、接続情報を返す
@@ -77,7 +111,7 @@ public class DBManager extends SnsDAO {
 				ShoutDTO shout = new ShoutDTO();
 				shout.setUserName(rset.getString(2));
 				shout.setIcon(rset.getString(3));
-				shout.setData(rset.getString(4));
+				shout.setDate(rset.getString(4));
 				shout.setWriting(rset.getString(5));
 
 				//書き込み内容をリストに追加
@@ -130,4 +164,41 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
+
+	// 書き込み内容リストの getter
+		public boolean checkID(String password) {
+			boolean result = true;
+
+			Connection conn = null;  //データベースへ接続して、接続情報を返す
+			Statement pstmt = null;  //SQL文を作成して、ＳＱＬの管理情報を取得
+			ResultSet rset = null;  //SQLを実行する
+
+			try {
+				conn = getConnection();  //接続メソッド(SnsDAOへ)
+				pstmt = conn.createStatement();  //SQL実行準備(JAVAのメソッド)
+
+				//SELECT文の実行()
+				String sql = "SELECT loginId FROM users";
+				rset = pstmt.executeQuery(sql);
+
+				//検索結果(shouts)の数だけ繰り返す
+				while (rset.next()) {
+					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					if(password.equals(rset.getString(1))) {
+						result = false;
+					}
+
+
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				// データベース切断処理
+				close(rset);
+				close(pstmt);
+				close(conn);
+			}
+
+			return result;
+		}
 }

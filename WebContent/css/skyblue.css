@@ -667,6 +667,17 @@ button, input[type="submit"], input[type="button"] {
       color: #fff;
       top: 1px;
       position: relative; }
+  .btn.btn-grey {
+    background: #808080;
+    color: #fff; }
+    .btn.btn-grey:hover {
+      background-color: #808080;
+      color: #fff; }
+    .btn.btn-grey:active {
+      background-color: black;
+      color: #fff;
+      top: 1px;
+      position: relative; }
   .btn.btn-empty {
     background: transparent;
     border: 2px solid #3498DB;

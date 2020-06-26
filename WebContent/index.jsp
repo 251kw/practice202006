@@ -51,5 +51,11 @@
 	</table>
 </form>
 
+<div align="right">
+<form action="./newuser" method="get">
+	<input class="btn btn-sm" type="submit" value="新規ユーザー登録" />
+</form>
+</div>
+
 </body>
 </html>

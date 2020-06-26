@@ -3,7 +3,7 @@ package dto;
 public class ShoutDTO {
 	private String userName;
 	private String icon;
-	private String data;
+	private String date;
 	private String writing;
 
 	public ShoutDTO() {
@@ -13,7 +13,7 @@ public class ShoutDTO {
 	public ShoutDTO(String userName, String icon, String data,String writing) {
 		this.userName = userName;
 		this.icon = icon;
-		this.data = data;
+		this.date = data;
 		this.writing = writing;
 	}
 
@@ -33,12 +33,12 @@ public class ShoutDTO {
 		this.icon = icon;
 	}
 
-	public String getData() {
-		return data;
+	public String getDate() {
+		return date;
 	}
 
-	public void setData(String data) {
-		this.data = data;
+	public void setDate(String data) {
+		this.date = data;
 	}
 
 	public String getWriting() {

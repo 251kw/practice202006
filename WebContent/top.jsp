@@ -79,7 +79,7 @@
 				<td>${shout.userName}</td>
 			</tr>
 			<tr>
-				<td>${shout.data}</td>
+				<td>${shout.date}</td>
 			</tr>
 			<tr>
 				<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea></td>
