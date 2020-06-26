@@ -33,6 +33,10 @@
 						<td>${user.userName}</td>
 					</tr>
 					<tr>
+						<th>アイコン</th>
+						<td><span class="icon-${user.icon} pe-2x pe-va"></span></td>
+					</tr>
+					<tr>
 						<th>プロフィール</th>
 						<td>${user.profile}</td>
 					</tr>

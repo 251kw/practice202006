@@ -50,6 +50,7 @@ public class Register2 extends HttpServlet {
 		String loginId = (String)session.getAttribute("loginId");
 		String password = (String)session.getAttribute("password");
 		String userName = (String)session.getAttribute("userName");
+		String icon = (String)session.getAttribute("icon");
 		String profile = (String)session.getAttribute("profile");
 
 		// １度だけ DataManager オブジェクトを生成
@@ -57,7 +58,7 @@ public class Register2 extends HttpServlet {
 			dbm = new DBManager();
 		}
 
-		dbm.setNewUser(loginId, password, userName, profile);
+		dbm.setNewUser(loginId, password, userName, icon, profile);
 
 		// 文字化け対策
 		request.setCharacterEncoding("UTF-8");

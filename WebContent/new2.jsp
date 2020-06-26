@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-<jsp:useBean id="user" scope="session" type="dto.UserDTO"/>
+	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
 			<strong>登録内容はこれで大丈夫？</strong>
@@ -33,6 +33,10 @@
 						<td>${user.userName}</td>
 					</tr>
 					<tr>
+						<th>アイコン</th>
+						<td><span class="icon-${user.icon} pe-2x pe-va"></span></td>
+					</tr>
+					<tr>
 						<th>プロフィール</th>
 						<td>${user.profile}</td>
 					</tr>
@@ -42,8 +46,16 @@
 					</tr>
 				</table>
 			</form>
+			<form action='new.jsp' method='post'>
+				<table border='1' class='table'>
+					<tr>
+						<td colspan='2' style='text-align: right'><input
+							type='submit' value='戻る'></td>
+					</tr>
+				</table>
+			</form>
 
-</div>
-</div>
+		</div>
+	</div>
 </body>
 </html>

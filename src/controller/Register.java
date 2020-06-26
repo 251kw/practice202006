@@ -48,12 +48,13 @@ public class Register extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("pass");
 		String userName = request.getParameter("userName");
-		String remarks = request.getParameter("remarks");
+		String icon = request.getParameter("icon");
+		String profile = request.getParameter("remarks");
 
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
-		if (loginId.equals("") || password.equals("") || userName.equals("") || remarks.equals("")) {
+		if (loginId.equals("") || password.equals("") || userName.equals("") || profile.equals("")) {
 			//未入力
 			message = "*入力もれがあります";
 
@@ -75,15 +76,16 @@ public class Register extends HttpServlet {
 		user.setLoginId(loginId);
 		user.setPassword(password);
 		user.setUserName(userName);
-		user.setIcon(null);
-		user.setProfile(remarks);
+		user.setIcon(icon);
+		user.setProfile(profile);
 
 		session.setAttribute("user", user);
 
 		session.setAttribute("loginId", loginId);
 		session.setAttribute("password", password);
 		session.setAttribute("userName", userName);
-		session.setAttribute("profile", remarks);
+		session.setAttribute("icon",icon);
+		session.setAttribute("profile", profile);
 
 
 		//jspに処理を転送

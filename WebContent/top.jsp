@@ -17,7 +17,7 @@
 	<div style="width: 40%" class="container padding-y-5">
 	<%-- action 属性にサーブレットを指定 --%>
 	<form action="./logout" method="post">
-		<table class="table table-bordered">
+		<table class="table table-bordered container padding-y-5 ">
 			<tr>
 				<td rowspan="2" class="text-center"><span
 					class="${user.icon} pe-3x pe-va"></span></td>

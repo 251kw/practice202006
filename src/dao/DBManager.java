@@ -132,7 +132,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	public boolean setNewUser(String loginId, String password, String userName,  String profile) {
+	public boolean setNewUser(String loginId, String password, String userName, String icon, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -146,7 +146,7 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, password);
 			pstmt.setString(3, userName);
-			pstmt.setString(4, null);
+			pstmt.setString(4, "icon-"+icon);
 			pstmt.setString(5, profile);
 
 			int cnt = pstmt.executeUpdate();
