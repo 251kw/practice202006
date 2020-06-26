@@ -34,50 +34,68 @@ public class LoginServlet extends HttpServlet {
 	// index.jspのログインボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
-
+		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
-		String message = null;
+		String botton = request.getParameter("btn");
 
-		if (loginId.equals("") || password.equals("")) {
-			//ログインIDとパスワードどちらか、もしくは双方未入力なら
-			message = "ログインIDとパスワードは必須入力です";
+		if (botton.equals("ログイン")) {
 
-			//エラーメッセージをリクエストオブジェクトに保存
-			request.setAttribute("alert", message);
+			String loginId = request.getParameter("loginId");
+			String password = request.getParameter("password");
 
-			//index.jspに処理を転送
-			dispatcher = request.getRequestDispatcher("index.jsp");
-			dispatcher.forward(request, response);
-		} else {
-			//ログイン認証を行い、ユーザー情報を取得
-			DBManager dbm = new DBManager();
-			UserDTO user = dbm.getLoginUser(loginId, password);
+			String message = null;
 
-			if (user != null) {
-				//ユーザー情報を取得出来たら、書き込み内容リストを取得
-				ArrayList<ShoutDTO> list = dbm.getShoutList();
-				HttpSession session = request.getSession();
+			if (loginId.equals("") || password.equals("")) {
+				//ログインIDとパスワードどちらか、もしくは双方未入力なら
+				message = "ログインIDとパスワードは必須入力です";
 
-				//ログインユーザー情報、書き込み内容リストとしてセッションに保存
-				session.setAttribute("user", user);
-				session.setAttribute("shouts", list);
-
-				//処理の転送先をtop.jspに指定
-				dispatcher = request.getRequestDispatcher("top.jsp");
-			} else {
-				//ユーザー情報が取得できない場合
-				//エラーメッセージをリクエストオブジェクトの保存
-				message = "ログインIDまたはパスワードが違います";
+				//エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
+				request.setAttribute("id", loginId);
+				request.setAttribute("pass", password);
 
-				//処理の転送先をindex.jspに指定
+				//index.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("index.jsp");
+				dispatcher.forward(request, response);
+			} else {
+				//ログイン認証を行い、ユーザー情報を取得
+				DBManager dbm = new DBManager();
+				UserDTO user = dbm.getLoginUser(loginId, password);
+
+				if (user != null) {
+					//ユーザー情報を取得出来たら、書き込み内容リストを取得
+					ArrayList<ShoutDTO> list = dbm.getShoutList();
+					HttpSession session = request.getSession();
+
+					//ログインユーザー情報、書き込み内容リストとしてセッションに保存
+					session.setAttribute("user", user);
+					session.setAttribute("shouts", list);
+
+					//処理の転送先をtop.jspに指定
+					dispatcher = request.getRequestDispatcher("top.jsp");
+				} else {
+					//ユーザー情報が取得できない場合
+					//エラーメッセージをリクエストオブジェクトの保存
+					message = "ログインIDまたはパスワードが違います";
+					request.setAttribute("alert", message);
+					request.setAttribute("id", loginId);
+					request.setAttribute("pass", password);
+
+					//処理の転送先をindex.jspに指定
+					dispatcher = request.getRequestDispatcher("index.jsp");
+				}
+				//処理を転送
+				dispatcher.forward(request, response);
+
 			}
 
-			//処理を転送
+		} else if (botton.equals("新規登録")) {
+			UserDTO newuser = new UserDTO("","","","","");
+			HttpSession session = request.getSession();
+			session.setAttribute("newuser", newuser);
+			dispatcher = request.getRequestDispatcher("signup.jsp");
 			dispatcher.forward(request, response);
+
 		}
 
 	}

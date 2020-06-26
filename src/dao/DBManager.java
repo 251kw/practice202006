@@ -54,7 +54,77 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	public ArrayList<ShoutDTO> getShoutList(){
+	public void SignUp(UserDTO newuser) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL管理情報
+		ResultSet rset = null; //検索結果
+
+		String sql = "INSERT INTO users(loginId, password, userName, icon, profile) VALUES(?, ?, ?, ?, ?)";
+		//UserDTO user = null; //登録ユーザ情報
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, newuser.getLoginId());
+			pstmt.setString(2, newuser.getPassword());
+			pstmt.setString(3, newuser.getUserName());
+			pstmt.setString(4, newuser.getIcon());
+			pstmt.setString(5, newuser.getProfile());
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+	}
+
+	public boolean SameCheckId(String loginId) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL管理情報
+		ResultSet rset = null; //検索結果
+		int cnt = 0;
+		boolean result = false;
+
+		String sql = "SELECT COUNT(*) AS cnt FROM users WHERE loginId=?";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+
+			rset = pstmt.executeQuery();
+			while(rset.next()) {
+				cnt = rset.getInt("cnt");
+			}
+
+			if(cnt==0) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+
+	}
+
+	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null;
 		Statement pstmt = null;
 		ResultSet rset = null;
@@ -71,7 +141,7 @@ public class DBManager extends SnsDAO {
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
-			while(rset.next()) {
+			while (rset.next()) {
 				//必要な列から値を取り出し書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
 				shout.setUserName(rset.getString(2));
@@ -82,9 +152,9 @@ public class DBManager extends SnsDAO {
 				//書き込み内容をリストに追加
 				list.add(shout);
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			//データベース切断処理
 			close(rset);
 			close(pstmt);
@@ -110,18 +180,18 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(2, user.getIcon());
 			//現在日時の取得と日図家の書式設定
 			Calendar calender = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(3, sdf.format(calender.getTime()));
 			pstmt.setString(4, writing);
 
 			int cnt = pstmt.executeUpdate();
-			if(cnt == 1) {
+			if (cnt == 1) {
 				//INSERT文の実行結果が１なら登録成功
 				result = true;
 			}
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
-		}finally {
+		} finally {
 			//データベース切断処理
 			close(pstmt);
 			close(conn);
@@ -131,4 +201,3 @@ public class DBManager extends SnsDAO {
 	}
 
 }
-

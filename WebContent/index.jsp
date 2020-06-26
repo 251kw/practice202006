@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>ログイン</title>
+<title>shouter-ログイン-</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -15,7 +15,7 @@
 <%---------------------------------------------------------------------------------%>
 <div class="bg-success padding-y-5">
 	<div class="padding-y-5 text-center">
-		<h1>Shouter<span class="icon-smile pe-1x pe-va"></span></h1>
+		<h1>Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
 	</div>
 </div>
 <div class="padding-y-5 text-center">
@@ -25,24 +25,48 @@
 
 	<%-- action属性にサーブレットを指定 --%>
 	<form action="./login" method="post">
-		<%--table style="width: 400px;margin:0px auto" class="table"--%>
 		<table style="width: 40%" class="container padding-y-5">
+		<c:choose>
+			<c:when test="${requestScope.id == null && requestScorpe.id ==''}">
 			<tr>
 				<%-- ログインID入力欄の名前はloginId --%>
-				<td class="color-main text-left">aaaaaログインID</td>
+				<td class="color-main text-left">ログインID</td>
 				<td class="text-left"><input class="form-control" type="text"
 					name="loginId" value="" size="20" /></td>
-			</tr>
+			</tr></c:when>
+
+			<c:otherwise>
+			<tr>
+				<%-- ログインID入力欄の名前はloginId --%>
+				<td class="color-main text-left">ログインID</td>
+				<td class="text-left"><input class="form-control" type="text"
+					name="loginId" value="${requestScope.id}" size="20" /></td>
+			</tr></c:otherwise>
+		</c:choose>
+		<c:choose>
+			<c:when test="${requestScope.pass == null && requestScorpe.pass ==''}">
 			<tr>
 				<%-- パスワード入力欄の名前はpassword --%>
 				<td class="color-main text-left">パスワード</td>
 				<td class="text-left"><input class="form-control"
 					type="password" name="password" value="" size="20" /></td>
-			</tr>
+			</tr></c:when>
+
+			<c:otherwise>
 			<tr>
-				<td colspan="2" class="text-right"><input class="btn"
-					type="submit" value="ログイン" /></td>
+				<%-- パスワード入力欄の名前はpassword --%>
+				<td class="color-main text-left">パスワード</td>
+				<td class="text-left"><input class="form-control"
+					type="password" name="password" value="${requestScope.pass}" size="20" /></td>
+			</tr></c:otherwise>
+		</c:choose>
+
+			<tr>
+				<td colspan="2" class="text-right">
+				<input class="btn" type="submit" value="新規登録" name="btn"/>
+				<input class="btn" type="submit" value="ログイン" name="btn"/></td>
 			</tr>
+
 			<%-- リクエストスコープにalertがあれば --%>
 			<c:if
 				test="${requestScope.alert != null && requestScorpe.alert !=''}">
@@ -54,6 +78,5 @@
 			</c:if>
 		</table>
 	</form>
-
 </body>
 </html>

@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link rel="stylesheet" href="./css/button.css">
 </head>
 <body>
 
@@ -18,7 +20,7 @@
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
 			<h1>
-				Shouter<span class="icon-smile pe-1x pe-va"></span>
+				Shouter<span class="icon-speaker pe-1x pe-va"></span>
 			</h1>
 		</div>
 	</div>
@@ -58,13 +60,12 @@
 		<div style="width: 40%" class="container padding-y-5 text-center">
 
 			<%-- action属性にサーブレットを指定 --%>
-			<form action="./bbs" method="post">
+			<form method="post" action="./bbs">
 				<table class="table">
 					<tr>
 						<%--今の気持ち入力欄の名前は shout--%>
-						<td><input class="form-control" type="text" name="shout"
-							value="" size="60" /></td>
-						<td><input class="btn" type="submit" value="叫ぶ" /></td>
+						<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
+						<td><input type="submit" class="btn-gradient-3d-simple" value="叫ぶ"></td>
 					</tr>
 				</table>
 			</form>
