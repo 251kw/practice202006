@@ -19,6 +19,14 @@
 	<div class="text-center">
 	<h5>ログインIDとパスワードを入力してください</h5>
 	</div>
+	<form action="new.jsp" method="post">
+		<table class="table table-bordered">
+	<tr>
+		<td colspan="2" class="text-right"><input class="btn" type="submit"  value="新規登録" /></td>
+	</tr>
+		</table>
+	</form>
+
 	<form action="./login" method="post">
 		<table style="width: 400px" class="table">
 			<tr>

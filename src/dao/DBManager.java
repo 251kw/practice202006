@@ -111,10 +111,43 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(2, user.getIcon());
 			//現在日時の日付の書式指定
 			Calendar calender = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
 			pstmt.setString(3, sdf.format(calender.getTime()));
 			pstmt.setString(4, writing);
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				//INSERT文の実行結果が１なら登録成功
+				result = true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	public boolean setNewUser(String loginId, String password, String userName,  String profile) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+		try {
+			conn = getConnection();
+
+			//INSErt文の登録と実行
+			String sql = "INSERT INTO users(loginId, password, userName, icon, profile) VALUES(?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, password);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, null);
+			pstmt.setString(5, profile);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
