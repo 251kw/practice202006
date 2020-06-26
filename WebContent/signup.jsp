@@ -28,7 +28,7 @@
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
 		<form action="./signup" method="post">
-			<table border="1" class="table">
+		<table border="1" class="table">
 
 			<%-- リクエストスコープにalertがあれば --%>
 			<c:if
@@ -63,9 +63,9 @@
 							<c:otherwise><option value="icon-user">男性</option></c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-female')}">
+							<c:when test="${(newuser.icon).equals('icon-user-female')}">
 							<option value="icon-user-female" selected="selected">女性</option></c:when>
-							<c:otherwise><option value="icon-female">女性</option></c:otherwise>
+							<c:otherwise><option value="icon-user-female">女性</option></c:otherwise>
 						</c:choose>
 						<c:choose>
 							<c:when test="${(newuser.icon).equals('icon-bell')}">
@@ -79,12 +79,12 @@
 						</c:choose>
 						<c:choose>
 							<c:when test="${(newuser.icon).equals('icon-moon')}">
-							<option value="icon--moon" selected="selected">月</option></c:when>
+							<option value="icon-moon" selected="selected">月</option></c:when>
 							<c:otherwise><option value="icon-moon">月</option></c:otherwise>
 						</c:choose>
 						<c:choose>
 							<c:when test="${(newuser.icon).equals('icon-rocket')}">
-							<option value="icon-user-rocket" selected="selected">ロケット</option></c:when>
+							<option value="icon-rocket" selected="selected">ロケット</option></c:when>
 							<c:otherwise><option value="icon-rocket">ロケット</option></c:otherwise>
 						</c:choose>
 						</select>

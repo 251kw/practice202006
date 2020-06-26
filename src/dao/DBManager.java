@@ -146,7 +146,11 @@ public class DBManager extends SnsDAO {
 				ShoutDTO shout = new ShoutDTO();
 				shout.setUserName(rset.getString(2));
 				shout.setIcon(rset.getString(3));
-				shout.setDate(rset.getString(4));
+
+				//shout.setDate(rset.getString(4));
+				String str = rset.getString(4);
+				shout.setDate(str.substring(0, str.indexOf('.')));
+
 				shout.setWriting(rset.getString(5));
 
 				//書き込み内容をリストに追加
