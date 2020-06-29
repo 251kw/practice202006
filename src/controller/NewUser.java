@@ -42,15 +42,23 @@ public class NewUser extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
 		HttpSession session = request.getSession();
 
+		//送信データの取得
+		String userName = request.getParameter("userName");
+		String loginId = request.getParameter("loginId");
+		String password = request.getParameter("password");
+		String icon = request.getParameter("icon");
+		String profile = request.getParameter("profile");
+
 		//String loginId = request.getParameter("loginId");
-		String loginId = (String) session.getAttribute("loginId");
-		String password = (String) session.getAttribute("password");
-		String userName = (String) session.getAttribute("userName");
-		String icon = (String) session.getAttribute("icon");
-		String profile = (String) session.getAttribute("profile");
+		session.setAttribute("userName", userName);
+		session.setAttribute("loginId", loginId);
+		session.setAttribute("password", password);
+		session.setAttribute("icon", icon);
+		session.setAttribute("profile", profile);
 
 		String message = null;
 
@@ -67,20 +75,20 @@ public class NewUser extends HttpServlet {
 			flag = 1;
 
 			//新規登録画面に転送
-			RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
 			dispatcher.forward(request, response);
 
 		}
 		//半角チェック
 		if (ec.halfCheck(loginId)) {
 
-		}else {
+		} else {
 			message = "半角英数字で入力してください";
 			//エラーメッセージをオブジェクトに保存
 			request.setAttribute("alert2", message);
 
 			//新規登録画面に転送
-			RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
 			dispatcher.forward(request, response);
 
 		}
@@ -93,17 +101,16 @@ public class NewUser extends HttpServlet {
 				request.setAttribute("alert", message);
 
 				//新規登録画面に転送
-				RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
 				dispatcher.forward(request, response);
 			} else {
-				dnu.setNewUser(loginId, password, userName, icon, profile);
 
-				RequestDispatcher dispatcher = request.getRequestDispatcher("complete.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddConfirm.jsp");
 				dispatcher.forward(request, response);
 			}
 
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("add.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

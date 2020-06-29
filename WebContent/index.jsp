@@ -17,8 +17,6 @@
 			<h1><strong> Shouter</strong>  <span class="icon-speaker pe-1x pe-va"></span></h1>
 		</div>
 	</div>
-
-</body>
 <%-- action 属性にサーブレットを指定 --%>
 <form action="./login" method="post">
 
@@ -44,7 +42,7 @@
 		<table style="width: 450px" class="table">
 		<tr>
 				<!--  <td><input type="submit" value="新規登録" class="btn"></td> -->
-				<td><input type="button" onclick="location.href='./add.jsp'"
+				<td><input type="button" onclick="location.href='./userAddinput.jsp'"
 					value="新規登録はこちら" class="btn"></td>
 				<td colspan="2" class="text-right"><input type="submit"
 					value="ログイン" class="btn"></td>
@@ -73,4 +71,5 @@
 </form>
  -->
 <!--  <input type="button" onclick="location.href='./add.jsp'" value="新規登録はこちら"> -->
+</body>
 </html>

@@ -21,26 +21,17 @@
 		</div>
 	</div>
 
-</body>
 
-<form action="./nu" method="post">
+<form action="./ua" method="post">
 	<%
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 
-		//送信データの取得
-		String userName = request.getParameter("userName");
-		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
-		String icon = request.getParameter("icon");
-		String profile = request.getParameter("profile");
-		String cookieCheck = request.getParameter("cookieCheck");
-
-		session.setAttribute("userName", userName);
-		session.setAttribute("loginId", loginId);
-		session.setAttribute("password", password);
-		session.setAttribute("icon", icon);
-		session.setAttribute("profile", profile);
+	String icon = (String) session.getAttribute("icon");
+	String loginId = (String) session.getAttribute("loginId");
+	String userName = (String) session.getAttribute("userName");
+	String password = (String) session.getAttribute("password");
+	String profile = (String) session.getAttribute("profile");
 	%>
 
 	<table border="1" style="border-collapse: collapse">
@@ -71,11 +62,12 @@
 	<table style="width: 300px" class="table">
 
 		<tr>
-			<td><input type="button" onclick="location.href='./add.jsp'"
+			<td><input type="button" onclick="location.href='./userAddinput.jsp'"
 				value="いいえ" class="btn"></td>
 			<td colspan="4" class="text-center"><input type="submit"
 				value="はい" class="btn"></td>
 		</tr>
 	</table>
 </form>
+</body>
 </html>

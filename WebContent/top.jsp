@@ -13,8 +13,7 @@
 </head>
 <body>
 
-</body>
-</html>
+
 <%--　セッションスコープにある　UserDTOオブジェクトを参照 --%>
 <jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 <div class="padding-y-5">
@@ -82,3 +81,5 @@
 		</c:forEach>
 	</div>
 </div>
+</body>
+</html>
