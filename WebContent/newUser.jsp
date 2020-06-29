@@ -20,11 +20,17 @@
 	</div>
 </div>
 
-<div class="padding-y-5 text-center" >登録情報を入力してください</div>
+<h5 class="padding-y-5 text-center">登録情報を入力してください</h5>
 
 <%-- action属性にサーブレットを指定 --%>
 <form action="./newuser" method="post">
-	<table style="width: 70%" class="container padding-y-5">
+	<table style="width: 70%" class="table container">
+		<tr>
+			<%-- リクエストスコープのalertの値を出力 --%>
+			<td colspan="2" class="color-error text-left">
+				<c:out value="${requestScope.alert}" />
+			</td>
+		</tr>
 		<tr>
 			<td></td>
 			<td align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</td>
@@ -68,13 +74,9 @@
 		<tr>
 			<%-- ログインID入力欄はloginId --%>
 			<td class="color-main text-left" height="100%">プロフィール</td>
-			<td></td>
-		</tr>
-		<tr>
-		<tr>
-			<td></td>
 			<td><textarea name="profile" rows="4" cols="40">${profile}</textarea></td>
 		</tr>
+		<tr>
 		<%-- リクエストスコープにalertがあれば --%>
 		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
 		<tr>

@@ -111,7 +111,8 @@ public class DBManager extends SnsDAO {
 				ShoutDTO shout = new ShoutDTO();
 				shout.setUserName(rset.getString(2));
 				shout.setIcon(rset.getString(3));
-				shout.setDate(rset.getString(4));
+				String str = rset.getString(4);
+				shout.setDate(str.substring(0, str.indexOf('.')));
 				shout.setWriting(rset.getString(5));
 
 				//書き込み内容をリストに追加
@@ -145,7 +146,7 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(2, user.getIcon());
 			//現在日時の取得と日付の書式設定
 			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(3, sdf.format(calendar.getTime()));
 			pstmt.setString(4, writing);
 
@@ -165,7 +166,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	// 書き込み内容リストの getter
+	// ログインIDの重複チェック
 		public boolean checkID(String password) {
 			boolean result = true;
 

@@ -44,9 +44,11 @@
 	</div>
 </div>
 
+<h5 class="padding-y-5 text-center">今の気持ちを叫ぼう</h5>
+
 <%-- 属性にサーブレットを追加 --%>
 <form action="./bbs" method="post">
-	<table class="table">
+	<table style="width: 40%" class="container padding-y-5">
 		<tr>
 			<%-- 今の気持ち入力欄はshout --%>
 			<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>

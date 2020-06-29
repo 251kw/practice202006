@@ -10,9 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import checker.MakeNewUser;
 import dao.DBManager;
 import dto.UserDTO;
+import util.CheckAddUserInfo;
 
 /**
  * Servlet implementation class NewUserServlet
@@ -64,7 +64,7 @@ public class NewUserServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.setAttribute("user", udto);
 
-		String checker = MakeNewUser.checkinfo(loginID,password1,password2,userName);
+		String checker = CheckAddUserInfo.checkinfo(loginID,password1,password2,userName);
 		if (checker == null) {
 			if(dbm == null){
 				dbm = new DBManager();

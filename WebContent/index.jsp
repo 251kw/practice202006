@@ -20,11 +20,10 @@
 	</div>
 </div>
 
-<div class="padding-y-5 text-center" >ログインIDとパスワードを入力してください</div>
+<h5 class="padding-y-5 text-center">ログインIDとパスワードを入力してください</h5>
 
-<%-- action属性にサーブレットを指定 --%>
 <form action="./login" method="post">
-	<table style="width: 40%" class="container padding-y-5">
+	<table style="width: 40%" class="table container">
 		<tr>
 			<%-- ログインID入力欄はloginId --%>
 			<td class="color-main text-left">ログインID</td>

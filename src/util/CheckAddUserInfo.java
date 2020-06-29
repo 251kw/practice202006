@@ -1,8 +1,14 @@
-package checker;
+package util;
 
 import java.util.regex.Pattern;
 
-public class MakeNewUser {
+public class CheckAddUserInfo {
+
+	/*
+	 * 登録情報にエラーがないか調べるメソッド
+	 * エラーがなければnullを返す
+	 * エラーがあれば内容に応じたString型のメッセージを返す
+	 */
 
 	public static String checkinfo(String loginID, String password1, String password2, String userName) {
 		String massage = null;
