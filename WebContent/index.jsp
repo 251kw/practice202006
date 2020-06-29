@@ -14,39 +14,63 @@
 <body>
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
-			<strong>Shouter</strong>
+			<h1><strong> Shouter</strong>  <span class="icon-speaker pe-1x pe-va"></span></h1>
 		</div>
 	</div>
-	ログインIDとパスワードを入力してください
+
 </body>
 <%-- action 属性にサーブレットを指定 --%>
 <form action="./login" method="post">
-	<table style="width: 400px" class="table">
+
+		<table style="width: 450px" class="table">
 		<tr>
-			<%-- ログインID入力欄の名前はloginId --%>
-			<td class="color-main text-left">ログインID</td>
-			<td class="text-left"><input class="form-control" type="text"
-				name="loginId" value="" size="20" /></td>
+		<td><nobr>ログインIDとパスワードを入力してください</nobr></td>
 		</tr>
-		<tr>
-			<%-- パスワード入力欄の名前はpassword --%>
-			<td class="color-main text-left">パスワード</td>
-			<td class="text-left"><input class="form-control"
-				type="password" name="password" value="" size="20" /></td>
-		</tr>
-		<tr>
-			<td colspan="2" class="text-right"><input type="submit"
-				value="ログイン" class="btn"></td>
-		</tr>
-		<%-- リクエストスコープにalertがあれば --%>
-		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+
 			<tr>
-				<%-- リクエストスコープのalertの値を出力 --%>
-				<td colspan="2" class="color-error text-left"><c:out
-						value="${requestScope.alert}" /></td>
+				<%-- ログインID入力欄の名前はloginId --%>
+				<td class="color-main text-left">ログインID</td>
+				<td class="text-right"><input class="form-control" type="text"
+					name="loginId" value=""  /></td>
 			</tr>
-		</c:if>
-	</table>
+			<tr>
+				<%-- パスワード入力欄の名前はpassword --%>
+				<td class="color-main text-left">パスワード</td>
+				<td class="text-right"><input class="form-control"
+					type="password" name="password" value=""  /></td>
+			</tr>
+
+		</table>
+		<table style="width: 450px" class="table">
+		<tr>
+				<!--  <td><input type="submit" value="新規登録" class="btn"></td> -->
+				<td><input type="button" onclick="location.href='./add.jsp'"
+					value="新規登録はこちら" class="btn"></td>
+				<td colspan="2" class="text-right"><input type="submit"
+					value="ログイン" class="btn"></td>
+			</tr>
+			<%-- リクエストスコープにalertがあれば --%>
+			<c:if
+				test="${requestScope.alert != null && requestScope.alert != ''}">
+				<tr>
+					<%-- リクエストスコープのalertの値を出力 --%>
+					<td colspan="2" class="color-error text-center"><c:out
+							value="${requestScope.alert}" /></td>
+				</tr>
+			</c:if>
+			</table>
 
 </form>
+
+
+<!--
+<form action="./nu" method="post">
+<table style="width: 400px" class="table">
+<tr>
+	<td><input type="submit" value="新規登録" class="btn"></td>
+</tr>
+</table>
+</form>
+ -->
+<!--  <input type="button" onclick="location.href='./add.jsp'" value="新規登録はこちら"> -->
 </html>

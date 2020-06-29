@@ -78,8 +78,12 @@ public class DBManager extends SnsDAO {
 				ShoutDTO shout = new ShoutDTO();
 				shout.setUserName(rset.getString(2));
 				shout.setIcon(rset.getString(3));
-				shout.setDate(rset.getString(4));
+  				String str = rset.getString(4);
+				shout.setDate(str.substring(0, str.indexOf('.')));
 				shout.setWriting(rset.getString(5));
+
+
+
 
 				// 書き込みリストに追加
 				list.add(shout);
@@ -113,10 +117,39 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(2, user.getIcon());
 			// 日時取得
 			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(3, sdf.format(calendar.getTime()));
 			pstmt.setString(4, writing);
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+	public boolean setNewUser(String loginId, String password, String userName, String icon ,String profile) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+		try {
+			conn = getConnection();
+
+			// INSERT文
+			String sql = "INSERT INTO sns.user(loginId,password,userName,icon ,profile) VALUES(?,?,?,?,?)";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, password);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, icon);
+			pstmt.setString(5, profile);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
