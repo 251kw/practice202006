@@ -11,15 +11,30 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+
+<%
+	session.invalidate();
+%>
 <div class="bg-success padding-y-30">
-	<div class="padding-y-5 text-center">
-		<strong>Shouter</strong>&nbsp;<span class="icon-speaker pe-2x pe-va"></span>
+	<div class="container padding-y-5">
+		<h2 class="text-center">Shouter&nbsp;<span class="icon-speaker pe-2x pe-va"></span></h2>
 	</div>
 </div>
-<h5>ログインIDとパスワードを入力してください</h5>
+
+<%-- 新規登録ボタン --%>
+<form action="UserAddInput.jsp" method="post">
+<table style="width: 400px" class="table container padding-y-5">
+	<tr>
+		<td colspan="2" class="text-right">
+			<input class="btn" type="submit" value="新規登録はこちらから" />
+		</td>
+	</tr>
+</table>
+</form>
+<h5 class="text-center padding-y-5">ログインIDとパスワードを入力してください</h5>
 <%-- action 属性にサーブレットを指定 --%>
 <form action="./login" method="post" >
-	<table style="width: 400px" class="table">
+	<table style="width: 400px" class="table container padding-y-5">
 		<tr>
 			<%-- ログインID入力欄の名前はloginId --%>
 			<td class="color-main text-left">ログインID</td>

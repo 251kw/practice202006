@@ -11,7 +11,13 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-<h5>ログインユーザー情報</h5>
+<div class="bg-success padding-y-30">
+	<div class="container padding-y-5">
+		<h2 class="text-center">Shouter&nbsp;<span class="icon-speaker pe-2x pe-va"></span></h2>
+	</div>
+</div>
+<br>
+<h4 class="color-main text-center">今の気持ちを叫ぼう</h4>
 <%-- セッションスコープにある UserDTO型のオブジェクトを参照 --%>
 <jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 <div class="padding-y-5">
@@ -33,18 +39,25 @@
 </div>
 <%-- action 属性にサーブレットを指定 --%>
 
-<h5>みんなの叫び</h5>
+<h4 class="color-main text-center">みんなの叫び</h4>
 <form action="./bbs" method="post">
-	<table class="table">
+	<table style="width: 40%" class="table container padding-y-5 text-right">
 		<tr>
 			<%-- 今の気持ち入力欄の名前は shout --%>
-			<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
+			<td><input class="form-control" type="text" name="shout" value="" size="40"/></td>
 			<td><input class="btn" type="submit" value="叫ぶ" /></td>
 		</tr>
 	</table>
 </form>
 
-<%-- この辺に入力エラー --%>
+<%--入力エラーメッセージ --%>
+		<c:if
+			test="${requestScope.alert != null && requestScope.alert != ''}">
+			<tr>
+				<%-- リクエストスコープの alert の値を出力 --%>
+				<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alert}" /></td>
+			</tr>
+		</c:if>
 
 <%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
 <jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />

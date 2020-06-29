@@ -64,6 +64,7 @@ public class LoginServlet extends HttpServlet {
 		}else {
 			// ログイン認証を行い、ユーザー情報を取得
 			DBManager dbm = new DBManager();
+
 			UserDTO user = dbm.getLoginUser(loginId,password);
 
 			if(user != null) {
