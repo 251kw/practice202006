@@ -121,6 +121,7 @@ public class insertCheckServlet extends HttpServlet {
 					cookie = new Cookie("userName", userName);
 				}
 			}
+			response.addCookie(cookie);
 		}
 		if(cookies != null) {
 			for(Cookie data : cookies) {
@@ -132,6 +133,7 @@ public class insertCheckServlet extends HttpServlet {
 					cookie = new Cookie("icon", icon);
 				}
 			}
+			response.addCookie(cookie);
 		}
 		if(cookies != null) {
 			for(Cookie data : cookies) {

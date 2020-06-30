@@ -61,7 +61,10 @@
 					<br><font size="2" color="color-error">※英数字で入力してください</font></td>
 					<td class="text-left"><input class="form-control" type="password"
 						name="password"
-						value=""
+						<c:if test="${CookieDTO != null && CokkieDTO != ''}">
+						value="${CookieDTO.logId}"</c:if>
+						<c:if test="${CokkieDTO == null && CokkieDTO == ''}">
+						value="${CookieDTO.logId}"</c:if>
 						size="30" maxlength="15" />
 					<c:if test="${errorDTO != null && errorDTO != ''}">
 						<br><font size="2" color="color-error">${errorDTO.errMsPass}</font>
