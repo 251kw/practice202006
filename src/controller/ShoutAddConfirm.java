@@ -16,7 +16,7 @@ import dto.ShoutDTO;
 import dto.UserDTO;
 
 @WebServlet("/bbs")
-public class BbsServlet extends HttpServlet {
+public class ShoutAddConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 

@@ -16,14 +16,14 @@ import dao.DBManager;
  * Servlet implementation class Register2
  */
 @WebServlet("/rst2")
-public class Register2 extends HttpServlet {
+public class UserAddConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Register2() {
+	public UserAddConfirm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -66,7 +66,7 @@ public class Register2 extends HttpServlet {
 
 		//jspに処理を転送
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("new3.jsp");
+		dispatcher = request.getRequestDispatcher("UserAddResult.jsp");
 		dispatcher.forward(request, response);
 
 	}

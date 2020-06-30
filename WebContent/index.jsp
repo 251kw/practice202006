@@ -11,6 +11,12 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+	<%
+		HttpSession session2 = request.getSession();
+		if (session2 != null) {
+			session2.invalidate();
+		}
+	%>
 	<div class="bg-success padding-y-10">
 		<div class="text-center ">
 			<h1>
@@ -19,14 +25,7 @@
 		</div>
 	</div>
 	<div class="text-center padding-y-5">
-		<h4>ログインIDとパスワードを入力してください</h4>
-	</div>
-	<div class="text-right padding-y-5">
-		<form action="new.jsp" method="post">
-
-			<input class="btn" type="submit" value="新規登録" />
-
-		</form>
+		<h5>ログインIDとパスワードを入力してください</h5>
 	</div>
 
 	<form action="./login" method="post">
@@ -44,8 +43,10 @@
 					name="password" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-right"><input class="btn"
-					type="submit" value="ログイン" /></td>
+				<td colspan="2" class="text-left"><a href="UserAddInput.jsp">
+				<button	type="button" class="btn">新規登録</button></a>
+				<input class="btn" type="submit" value="ログイン"></td>
+
 			</tr>
 			<%-- リクエストスコープにalertがあれば --%>
 			<c:if

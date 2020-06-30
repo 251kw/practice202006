@@ -10,19 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DBManager;
 import dto.UserDTO;
 
 /**
  * Servlet implementation class Register
  */
 @WebServlet("/rst")
-public class Register extends HttpServlet {
+public class UserAddInput extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public Register() {
+	public UserAddInput() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -51,25 +52,55 @@ public class Register extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("remarks");
 
+		HttpSession session = request.getSession();
+
+		session.setAttribute("loginId", loginId);
+		session.setAttribute("password", password);
+		session.setAttribute("userName", userName);
+		session.setAttribute("icon", icon);
+		session.setAttribute("profile", profile);
+
 		RequestDispatcher dispatcher = null;
 		String message = null;
+		DBManager dbm = new DBManager();
+		UserDTO check = dbm.checkUser(loginId);
 
-		if (loginId.equals("") || password.equals("") || userName.equals("") || profile.equals("")) {
+		if (loginId.equals("")) {
 			//未入力
-			message = "*入力もれがあります";
+			message = "*ログインIDとパスワードは必須です";
 
 			//エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 
 			//jspに処理を転送
-			dispatcher = request.getRequestDispatcher("new.jsp");
+			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 			dispatcher.forward(request, response);
-		} else
-			// 文字化け対策
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
 
-		HttpSession session = request.getSession();
+		} else if (password.equals("")) {
+			//未入力
+			message = "*ログインIDとパスワードは必須です";
+
+			//エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+
+			//jspに処理を転送
+			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher.forward(request, response);
+
+		} else if (check != null) {
+			//Idかぶり
+			message = "*このIDは使われています";
+
+			//エラーメッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+
+			//jspに処理を転送
+			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher.forward(request, response);
+		} else {
+			// 文字化け対策
+			request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 
 		UserDTO user = null;
 		user = new UserDTO();
@@ -81,16 +112,10 @@ public class Register extends HttpServlet {
 
 		session.setAttribute("user", user);
 
-		session.setAttribute("loginId", loginId);
-		session.setAttribute("password", password);
-		session.setAttribute("userName", userName);
-		session.setAttribute("icon",icon);
-		session.setAttribute("profile", profile);
-
-
 		//jspに処理を転送
-		dispatcher = request.getRequestDispatcher("new2.jsp");
+		dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");
 		dispatcher.forward(request, response);
+		}
 
 	}
 
