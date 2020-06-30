@@ -52,6 +52,7 @@ public class CookieServat extends HttpServlet {
 		String Icon = "";
 		String prof = "";
 
+
 		RequestDispatcher dispatcher = null;
 
 		// クッキーがあるかを確認

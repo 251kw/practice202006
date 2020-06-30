@@ -6,7 +6,6 @@
 <%@ page import="dto.errorDTO"%>
 <%@ page import="dto.CookieDTO"%>
 <%@ page import="dto.UserDTO"%>
-<%@ page import="dto.CookieDTO" %>
 <%@ page import="controller.CookieServat"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -34,15 +33,32 @@
 					<td class="none" nowrap><span class="color-main text-left"><font
 							size="4">新規会員登録</font></span></td>
 				</tr>
-				<% request.setCharacterEncoding("Shift_JIS");%>
-				<% %>
+
+				<% //cookieの取得
+				request.setCharacterEncoding("Shift_JIS");
+				CookieDTO ckDto = (CookieDTO)request.getAttribute("CookieDTO");
+				String logId = "";
+				String pass = "";
+				String uName = "";
+				String Icon = "";
+				String prof = "";
+
+				//cookieがnullじゃなければ、変数に値を入れる
+				if(ckDto != null) {
+					logId = ckDto.getUserName();
+					pass = ckDto.getUserName();
+					uName = ckDto.getUserName();
+					Icon = ckDto.getUserName();
+					prof = ckDto.getUserName();
+				}
+			%>
 				<tr>
 					<%-- ログインID入力欄の名前はLoginId --%>
 					<td class="color-main text-left">ログインID
 					<br><font size="2" color="color-error">※英数字で入力してください</font></td>
 					<td class="text-left"><input class="form-control" type="text"
 						name="loginId"
-						value=""
+						value="<%= logId %>"
 						size="30" maxlength="15" />
 					<c:if test="${errorDTO != null && errorDTO != ''}">
 						<br><font size="2" color="color-error">${errorDTO.errMsId}</font>
@@ -61,10 +77,7 @@
 					<br><font size="2" color="color-error">※英数字で入力してください</font></td>
 					<td class="text-left"><input class="form-control" type="password"
 						name="password"
-						<c:if test="${CookieDTO != null && CokkieDTO != ''}">
-						value="${CookieDTO.logId}"</c:if>
-						<c:if test="${CokkieDTO == null && CokkieDTO == ''}">
-						value="${CookieDTO.logId}"</c:if>
+						value="<%= pass %>"
 						size="30" maxlength="15" />
 					<c:if test="${errorDTO != null && errorDTO != ''}">
 						<br><font size="2" color="color-error">${errorDTO.errMsPass}</font>
@@ -78,7 +91,7 @@
 					<%-- 名前入力欄の名前はuserName --%>
 					<td class="color-main text-left">氏名</td>
 					<td class="text-left"><input class="form-control" type="text"
-						name="userName" value="<%= request.getParameter("uName")%>"
+						name="userName" value="<%= uName %>"
 						size="30" maxlength="100" />
 					<c:if test="${errorDTO != null && errorDTO != ''}">
 						<br><font size="2" color="color-error">${errorDTO.errMsUname}</font>
@@ -89,14 +102,25 @@
 					<%-- icon入力欄の名前はicon --%>
 					<td class="color-main text-left">アイコン</td>
 					<td class="text-left">
-						<%-- 属性値checked="checked" --%> <br> <input
-						class="form-control" type="radio" name="icon" value="icon-sun"
-						size="30" checked="checked" /><span class="icon-sun pe-2x pe-va"></span>
+						<%-- 属性値checked="checked" --%>
+						<br>
+						<input class="form-control" type="radio" name="icon" value="icon-sun" size="30"
+						<c:if test="${not empty Icon and Icon == 'icon-sun'}">
+						checked="checked"</c:if>
+						 /><span class="icon-sun pe-2x pe-va"></span>
+
 						<br> <input class="form-control" type="radio" name="icon"
-						value="icon-umbrella" size="30" /><span
-						class="icon-umbrella pe-2x pe-va"></span> <br> <input
-						class="form-control" type="radio" name="icon" value="icon-moon"
-						size="30" /><span class="icon-moon pe-2x pe-va"></span>
+						value="icon-umbrella" size="30"
+						<c:if test="${not empty Icon and Icon == 'icon-umbrella'}">
+						checked="checked"</c:if>/><span
+						class="icon-umbrella pe-2x pe-va"></span>
+
+						<br> <input
+						class="form-control" type="radio" name="icon" value="icon-Moon"
+						size="30"
+						<c:if test="${not empty Icon and Icon == 'icon-Moon'}">
+						checked="checked"</c:if>/><span class="icon-moon pe-2x pe-va"></span>
+
 					<c:if test="${errorDTO != null && errorDTO != ''}">
 						<br><font size="2" color="color-error">${errorDTO.errMsIcon}</font>
 					</c:if>
@@ -106,7 +130,7 @@
 					<%-- プロフィール入力欄の名前はprofile --%>
 					<td class="color-main text-left">プロフィール</td>
 					<td class="text-left"><input class="form-control" type="text"
-						name="profile" value="<%= request.getParameter("prof")%>"
+						name="profile" value="<%= prof %>"
 						size="30" maxlength="200" />
 					<c:if test="${errorDTO != null && errorDTO != ''}">
 						<br><font size="2" color="color-error">${errorDTO.errMsProf}</font>

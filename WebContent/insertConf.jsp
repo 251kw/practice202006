@@ -47,8 +47,8 @@
 				<tr>
 					<%-- icon入力欄の名前はicon --%>
 					<td class="color-main text-left">アイコン</td>
-					<td class="text-left"><span
-						class="${userDTO.icon} pe-2x pe-va"></span></td>
+					<td class="text-left">
+					<span class="${userDTO.icon} pe-2x pe-va"></span></td>
 				</tr>
 				<tr>
 					<%-- プロフィール入力欄の名前はprofile --%>

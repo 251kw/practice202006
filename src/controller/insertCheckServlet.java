@@ -79,7 +79,7 @@ public class insertCheckServlet extends HttpServlet {
 		loginId = URLEncoder.encode(loginId, "UTF-8");
 		password = URLEncoder.encode(password, "UTF-8");
 		userName = URLEncoder.encode(userName, "UTF-8");
-		icon = URLEncoder.encode(icon, "UTF-8");
+		//icon = URLEncoder.encode(icon, "UTF-8");
 		profile = URLEncoder.encode(profile, "UTF-8");
 
 		//クッキーの取得
@@ -135,6 +135,7 @@ public class insertCheckServlet extends HttpServlet {
 			}
 			response.addCookie(cookie);
 		}
+
 		if(cookies != null) {
 			for(Cookie data : cookies) {
 				if("profile".equals(data.getName())) {
@@ -153,7 +154,7 @@ public class insertCheckServlet extends HttpServlet {
 		loginId = URLDecoder.decode(loginId, "UTF-8");
 		password = URLDecoder.decode(password, "UTF-8");
 		userName = URLDecoder.decode(userName, "UTF-8");
-		icon = URLDecoder.decode(icon, "UTF-8");
+		//icon = URLDecoder.decode(icon, "UTF-8");
 		profile = URLDecoder.decode(profile, "UTF-8");
 
 //未入力のエラーチェック-------------------------------------------------------
@@ -175,8 +176,8 @@ public class insertCheckServlet extends HttpServlet {
 			errMsUname = "名前が未入力です";
 		}
 
-		//icon　未選択ならエラー文入れる　初期値icon1チェックつけたからこいつは動かん
-		if (icon.equals("")) {
+		//icon　未選択ならエラー文入れる
+		if (icon == null) {
 			boo = false;
 			errMsIcon = "アイコンが未選択です";
 		}

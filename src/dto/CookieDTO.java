@@ -42,10 +42,6 @@ public class CookieDTO {
 		return uName;
 	}
 
-	public String getIcon() {
-		return Icon;
-	}
-
 	public String getProf() {
 		return prof;
 	}
@@ -54,13 +50,20 @@ public class CookieDTO {
 		this.uName = uName;
 	}
 
-	public void setIcon(String Icon) {
-		this.Icon = Icon;
-	}
-
 	public void setProfile(String prof) {
 		this.prof = prof;
 	}
+
+	public String getIcon() {
+		return Icon;
+	}
+
+	public void setIcon(String icon) {
+		Icon = icon;
+	}
+
+
+
 
 
 }

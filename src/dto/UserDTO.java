@@ -42,10 +42,6 @@ public class UserDTO {
 		return userName;
 	}
 
-	public String getIcon() {
-		return icon;
-	}
-
 	public String getProfile() {
 		return profile;
 	}
@@ -54,13 +50,20 @@ public class UserDTO {
 		this.userName = userName;
 	}
 
+	public void setProfile(String profile) {
+		this.profile = profile;
+	}
+
+	public String getIcon() {
+		return icon;
+	}
+
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
 
-	public void setProfile(String profile) {
-		this.profile = profile;
-	}
+
+
 
 
 }
