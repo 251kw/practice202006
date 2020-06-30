@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DataManager;
+import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
@@ -49,8 +49,7 @@ public class LoginServlet extends HttpServlet {
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 
-
-		RequestDispatcher dispatcher = null;	//なにこれ
+		RequestDispatcher dispatcher = null;	//dispatcherを定義
 		String message = null;
 
 		if(loginId.equals("") || password.equals("")) {
@@ -64,7 +63,7 @@ public class LoginServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 		}else {
 			//ログイン認証を行い、ユーザ情報を取得
-			DataManager dbm = new DataManager();
+			DBManager dbm = new DBManager();
 			UserDTO user = dbm.getLoginUser(loginId, password);
 
 			if(user != null) {

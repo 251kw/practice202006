@@ -22,6 +22,11 @@
 <jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
+	<table class="table">
+		<tr>
+			<td class="none nowrap"><span class="color-main text-left"><font size="5">ログインユーザ情報</font></span></td>
+		</tr>
+	</table>
 		<%-- action属性にサーブレットを指定 --%>
 		<form action="./logout" method="post">
 			<table class="table table-bordered">
@@ -41,11 +46,14 @@
 
 <%-- action属性にサーブレットを指定 --%>
 <form action="./bbs" method="post">
-	<table class="table">
+<div class="container padding-y-5" style="width: 40%">
+	<span class="color-main text-left container padding-y-5"><font size="5">今の気持ちを叫ぼう</font></span>
+</div>
+	<table style="width: 40%" class="table container padding-y-5">
 		<tr>
 			<%-- 今の気持ち入力欄の名前はshout --%>
-			<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
-			<td><input class="btn" type="submit" value="叫ぶ" /></td>
+			<td class="none"><input class="form-control" type="text" name="shout" value="" size="60" /></td>
+			<td class="none"><input class="btn" type="submit" value="叫ぶ" /></td>
 		</tr>
 				<%-- 空の状態で叫ぶボタンが押された時のエラーメッセージを表示 --%>
 				<%-- レスポンスにセットAttributeでぶち込んだアラートはrequestScope.alertで取り出せる --%>
@@ -62,6 +70,10 @@
 
 <%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
 <jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
+<%-- 見出し --%>
+<div class="container padding-y-5" style="width: 40%">
+	<span class="color-main text-left container padding-y-5"><font size="5">みんなの叫び</font></span>
+</div>
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
 		<%-- リストにある要素の数だけ繰り返し --%>

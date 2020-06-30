@@ -11,27 +11,28 @@
 	<title>ログイン画面</title>
 </head>
 <body>
-<div class="bg-success padding-y-5">
+<div class="bg-main padding-y-5">
 	<div class="padding-y-5 text-center">
-		<strong>Shouter</strong>
+		<font size="6"><strong>&nbsp;Shouter&nbsp;</strong><span class="icon-speaker pe-2x pe-va"></span></font>
 	</div>
 </div>
 <%-- action属性にサーブレットを指定 --%>
 <div class="padding-y-5">
 <form action="./login" method="post">
-	<table style="width: 400px" class="table">
-		<tr>
-			<td><span class="color-main text-left" >ログインIDとパスワードを入力してください</span></td>
-		</tr>
+	<table style="width: 40%" class="container padding-y-5 table">
+		<caption>
+			<nobr><span class="color-main text-left"><font size="4">ログインIDとパスワードを入力してください</font></span></nobr>
+		</caption>
+
 		<tr>
 			<%-- ログインID入力欄の名前はloginId --%>
-			<td class="color-main text-left">aaaaaaaaaログインID</td>
-			<td class="text-left"><input class="form-control" type="text" name="loginId" value="" size="20" /></td>
+			<td class="color-main text-left">ログインID</td>
+			<td class="text-left"><input class="form-control" type="text" name="loginId" value="" size="30" /></td>
 		</tr>
 		<tr>
 			<%-- パスワード入力欄の名前はpassword --%>
 			<td class="color-main text-left">パスワード</td>
-			<td class="text-left"><input class="form-control" type="password" name="password" value="" size="20" /></td>
+			<td class="text-left"><input class="form-control" type="password" name="password" value="" size="30" /></td>
 		</tr>
 		<tr>
 			<td colspan="2" class="text-right"><input class="btn" type="submit" value="ログイン" /></td>
@@ -47,6 +48,10 @@
 	</table>
 </form>
 </div>
-
+<div class="container padding-y-5" style="width: 15%">
+<form action="./insert.jsp" method="post">
+	<span class="text-right"><input class="btn" type="submit" value="新規会員登録はこちら"></span>
+</form>
+</div>
 </body>
 </html>

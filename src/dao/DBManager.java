@@ -12,9 +12,10 @@ import java.util.Calendar;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
-public class DataManager extends SnsDAO{
+public class DBManager extends SnsDAO{
 
 	//ログインIDとパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
+	//SnsDAOでJDBCドライバの読み込みは終わってる。継承してるからしなくていい。
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null;	//データベース接続情報
 		PreparedStatement pstmt = null;	//SQL管理情報
@@ -28,9 +29,11 @@ public class DataManager extends SnsDAO{
 			conn = getConnection();
 
 			//SELECT文の登録と実行
-			pstmt = conn.prepareStatement(sql);	//SELECT構成登録
+			pstmt = conn.prepareStatement(sql);	//SELECT構成登録　データベース接続情報をオブジェクトにして(conn)、ParameterStatement型の変数を受けとる
+			//プレースホルダーへの値のセット
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, password);
+			//SQL文の実行
 			rset = pstmt.executeQuery();
 
 			//検索結果があれば
@@ -46,12 +49,50 @@ public class DataManager extends SnsDAO{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
-			//データベース切断処理
+			//データベース切断処理　これつないだ時と逆の順番から切っていくんか
 			close(rset);
 			close(pstmt);
 			close(conn);
 		}
 
+		return user;
+
+	}
+
+	//ユーザID重複チェック
+	public UserDTO getCheckUser(String loginId) {
+		Connection conn = null;	//データベース接続情報
+		PreparedStatement pstmt = null;	//SQL管理情報
+		ResultSet rset = null;	//検索結果
+
+		String sql = "SELECT * FROM users WHERE loginId=?";
+		UserDTO user = null;	//登録ユーザ情報
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);	//SELECT構成登録　データベース接続情報をオブジェクトにして(conn)、ParameterStatement型の変数を受けとる
+			//プレースホルダーへの値のセット
+			pstmt.setString(1, loginId);
+			//SQL文の実行
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば
+			if(rset.next()) {
+				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理　これつないだ時と逆の順番から切っていくんか
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
 		return user;
 
 	}
@@ -69,9 +110,10 @@ public class DataManager extends SnsDAO{
 
 			//データベース接続処理
 			conn = getConnection();
+			//.createStatement()はパラメータなしのSQL実行に使用する
 			pstmt = conn.createStatement();
 
-			//SELECT文の登録と実行
+			//SELECT文の登録と実行　パラメータなしの、SQL文だけ突っ込んでる
 			String sql = "SELECT * FROM shouts ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
@@ -101,12 +143,14 @@ public class DataManager extends SnsDAO{
 
 
 	//ログインユーザ情報と書き込み内容リストを受け取り、リストにする
+	//booleanメソッドは、戻り値が固定の数字か否かを調べるのに最適
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
 		boolean result = false;
 		try {
+			//データベースに接続
 			conn = getConnection();
 
 			//INSERT文の登録と実行
@@ -116,7 +160,7 @@ public class DataManager extends SnsDAO{
 			pstmt.setString(2, user.getIcon());
 			//現在日時の取得と日付の書式の指定
 			Calendar calendar = Calendar.getInstance();
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(3, sdf.format(calendar.getTime()));
 			pstmt.setString(4, writing);
 
@@ -134,5 +178,42 @@ public class DataManager extends SnsDAO{
 		}
 
 		return result;
+	}
+
+
+	//入力チェッククリアしてユーザから再確認もOKだったらDBに登録。
+	public boolean getEndUser(UserDTO user) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+		try {
+			//データベースに接続
+			conn = getConnection();
+
+			//INSERT文の登録と実行
+			String sql = "INSERT INTO users (loginId, password, userName, icon, profile) VALUES(?,?,?,?,?)";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, user.getLoginId());
+			pstmt.setString(2, user.getPassword());
+			pstmt.setString(3, user.getUserName());
+			pstmt.setString(4, user.getIcon());
+			pstmt.setString(5, user.getProfile());
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				//INSERT文の実行結果が1なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+
 	}
 }

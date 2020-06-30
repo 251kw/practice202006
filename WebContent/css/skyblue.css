@@ -593,7 +593,7 @@ button, input[type="submit"], input[type="button"] {
   text-align: center;
   text-decoration: none;
   transition: border-color 0.25s, background-color 0.25s, color 0.25s;
-  background: #3498DB;
+  background: #5BC8AC;
   color: #fff; }
   .btn.btn-sm {
     padding: 5px 15px;
@@ -5170,3 +5170,44 @@ img {
   .xl-padding-x-100 {
     padding-left: 100px;
     padding-right: 100px; } }
+
+
+ /* ここから自作 */
+caption{
+	text-align:left;}
+td.none{
+	border: none;
+	color: }
+btn.btn-main {
+  display: inline-block;
+  min-width: 120px;
+  padding: 10px 25px;
+  margin-bottom: 1em;
+  border: none;
+  border-radius: 3px;
+  font-size: 1em;
+  line-height: 1.4em;
+  text-align: center;
+  text-decoration: none;
+  transition: border-color 0.25s, background-color 0.25s, color 0.25s;
+  background: #5BC8AC;
+  color: #fff; }
+
+
+
+.bg-base {
+  background-color: #98DBC6;
+  color: #fff; }
+.bg-main {
+  background-color: #5BC8AC;
+  color: #fff; }
+ .bg-accyell {
+  background-color: #E6D72A;
+  color: #fff; }
+ .bg-accpink {
+  background-color: #F18D9E;
+  color: #fff; }
+
+.nomargin {
+	margin:0px;
+	padding:0px;}
