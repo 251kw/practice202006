@@ -18,14 +18,14 @@ import util.CheckAddUserInfo;
  * Servlet implementation class NewUserServlet
  */
 @WebServlet("/newuser")
-public class NewUserServlet extends HttpServlet {
+public class NewUserInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NewUserServlet() {
+    public NewUserInputServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,14 +33,15 @@ public class NewUserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    //index.jspの新規登録ボタンからの呼び出し
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;
 		request.setAttribute("loginID","");
 		request.setAttribute("icon","icon-car");
 		request.setAttribute("userName","");
 		request.setAttribute("profile","よろしくお願いします");
-		// newUser.jsp に処理を転送
-		dispatcher = request.getRequestDispatcher("newUser.jsp");
+		// input.jsp に処理を転送
+		dispatcher = request.getRequestDispatcher("input.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -77,7 +78,7 @@ public class NewUserServlet extends HttpServlet {
 				//ログインユーザー情報、書き込み内容リストを取得
 				HttpSession session = request.getSession();
 				session.setAttribute("user", udto);*/
-				dispatcher = request.getRequestDispatcher("confirmation.jsp");
+				dispatcher = request.getRequestDispatcher("confirm.jsp");
 			}else {
 
 				String message = null;
@@ -90,7 +91,7 @@ public class NewUserServlet extends HttpServlet {
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
 				// top.jsp に処理を転送
-				dispatcher = request.getRequestDispatcher("newUser.jsp");
+				dispatcher = request.getRequestDispatcher("input.jsp");
 			}
 		}else {
 			String message = null;
@@ -103,7 +104,7 @@ public class NewUserServlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 			// top.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("newUser.jsp");
+			dispatcher = request.getRequestDispatcher("input.jsp");
 
 		}
 

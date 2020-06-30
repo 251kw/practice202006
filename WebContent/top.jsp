@@ -29,18 +29,23 @@
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
 		<%-- action 属性にサーブレットを指定 --%>
-		<form action="./logout" method="post">
 			<table class ="table table-bordered">
 				<tr>
 					<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td>
 					<td width="256">${user.userName}</td>
-					<td><input class="btn btn-lidht" type="submit" value="ログアウト" /></td>
+					<td>
+						<form action="./logout" method="post">
+							<input class="btn btn-lidht" type="submit" value="ログアウト" />
+						</form>
+						<form action="search.jsp" method="get">
+							<input class="btn btn-lidht" type="submit" value="ユーザー検索" />
+						</form>
+					</td>
 				</tr>
 				<tr>
 					<td colspan="2">${user.profile}</td>
 				</tr>
 			</table>
-		</form>
 	</div>
 </div>
 
@@ -72,7 +77,7 @@
 <%-- セッションスコープスコープにあるArrayList型のオブジェクトを参照 --%>
 <jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 <div class="padding-y-5">
-	<div style="width: 40%" class="container padding-y-5">
+	<div style="width: 50%" class="container padding-y-5">
 	<%-- リストにある要素の数だけ繰り返し --%>
 	<c:forEach var="shout" items="${shouts}">
 		<table class="table table-striped table-borderd">

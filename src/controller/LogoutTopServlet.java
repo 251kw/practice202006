@@ -10,19 +10,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dto.UserDTO;
-
 /**
- * Servlet implementation class FailureServlet
+ * Servlet implementation class LogoutServlet
  */
-@WebServlet("/fails")
-public class FailureServlet extends HttpServlet {
+@WebServlet("/logout")
+public class LogoutTopServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public FailureServlet() {
+    public LogoutTopServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,29 +29,22 @@ public class FailureServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		//直接アクセスがあった場合はindex.jspに処理を転送
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
+		// top.jspのログアウトボタンから呼び出される
+		//　セッションを破棄
 		HttpSession session = request.getSession();
-		UserDTO udto = (UserDTO)session.getAttribute("user");
-		String loginID = udto.getLoginId();
-		String icon = udto.getIcon();
-		String userName = udto.getUserName();
-		String profile = udto.getProfile();
+		session.invalidate();
 
-		request.setAttribute("loginID",loginID);
-		request.setAttribute("icon", icon);
-		request.setAttribute("userName", userName);
-		request.setAttribute("profile", profile);
-
-		dispatcher = request.getRequestDispatcher("newUser.jsp");
-		dispatcher.forward(request, response);
+		//doGetメソッドを呼び出し、index.jspに処理転送
+		doGet(request, response);
 	}
 
 }

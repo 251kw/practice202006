@@ -17,13 +17,13 @@ import dto.UserDTO;
  * Servlet implementation class InsertUserServlet
  */
 @WebServlet("/InsertUser")
-public class InsertUserServlet extends HttpServlet {
+public class InsertUserConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertUserServlet() {
+    public InsertUserConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +31,24 @@ public class InsertUserServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+    // 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher;
-		HttpSession session = request.getSession();
-		UserDTO udto = (UserDTO)session.getAttribute("user");
-		DBManager dbm = new DBManager();
-		dbm.setUser(udto);
-		dispatcher = request.getRequestDispatcher("success.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	// comfirm.jspから登録確定ボタンでの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+		RequestDispatcher dispatcher;
+		HttpSession session = request.getSession();
+		UserDTO udto = (UserDTO)session.getAttribute("user");
+		DBManager dbm = new DBManager();
+		dbm.setUser(udto);
+		dispatcher = request.getRequestDispatcher("result.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
