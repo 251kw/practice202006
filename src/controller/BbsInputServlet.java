@@ -16,18 +16,18 @@ import dto.ShoutDTO;
 import dto.UserDTO;
 
 @WebServlet("/bbs")
-public class BbsTopServlet extends HttpServlet {
+public class BbsInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
-	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	// 直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	// top.jsp の「叫ぶ」ボタンから呼ばれる
+	// topInput.jsp の「叫ぶ」ボタンから呼ばれる
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -62,8 +62,8 @@ public class BbsTopServlet extends HttpServlet {
 
 		}
 
-		// top.jsp に処理を転送
-		dispatcher = request.getRequestDispatcher("top.jsp");
+		// topInput.jsp に処理を転送
+		dispatcher = request.getRequestDispatcher("topInput.jsp");
 		dispatcher.forward(request, response);
 	}
 }

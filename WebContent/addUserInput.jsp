@@ -32,27 +32,28 @@
 			</td>
 		</tr>
 		<tr>
-			<td></td>
-			<td align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</td>
-		</tr>
-		<tr>
 			<%-- ログインID入力欄はloginId --%>
 			<td class="color-main text-left">ログインID</td>
-			<td class="text-left"><input class="form-control" type="text" name="loginID" value="${loginID}" size="20" maxlength="20" /></td>
-		</tr>
-		<tr>
-			<td></td>
-			<td align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</td>
+			<td class="text-left">
+			<p align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</p>
+			<input class="form-control" type="text" name="loginID" value="${loginID}" size="20" maxlength="20" />
+			</td>
 		</tr>
 		<tr>
 			<%-- パスワード入力欄の名前はpassword --%>
 			<td class="color-main text-left">パスワード</td>
-			<td class="text-left"><input class="form-control" type="password" name="password1" value="" size="20" maxlength="20" /></td>
+			<td class="text-left">
+				<p align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</p>
+				<input class="form-control" type="password" name="password1" value="" size="20" maxlength="20" />
+			</td>
 		</tr>
 		<tr>
 			<%-- パスワード入力欄の名前はpassword --%>
 			<td class="color-main text-left">パスワード確認</td>
-			<td class="text-left"><input class="form-control" type="password" name="password2" value="" size="20" maxlength="20" /></td>
+			<td class="text-left">
+				<p align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</p>
+				<input class="form-control" type="password" name="password2" value="" size="20" maxlength="20" />
+			</td>
 		</tr>
 		<tr>
 			<%-- ログインID入力欄はloginId --%>
@@ -96,7 +97,7 @@
 	</table>
 </form>
 
-<form action="./index.jsp" method="get">
+<form action="./indexInput.jsp" method="get">
 	<table style="width: 100%" class="container padding-y-5">
 		<tr>
 			<td colspan="2" class="text-right"><input class="btn btn-grey btn-sm" type="submit" value="INDEXに戻る" /></td>

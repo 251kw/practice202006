@@ -8,6 +8,9 @@ public class CheckAddUserInfo {
 	 * 登録情報にエラーがないか調べるメソッド
 	 * エラーがなければnullを返す
 	 * エラーがあれば内容に応じたString型のメッセージを返す
+	 * エラー文は
+	 *  未記入 > IDの誤り = PASSの誤り > passの不一致
+	 * の順番で優先される(IDとPASSは両方が間違っている場合はs同時に警告する)
 	 */
 
 	public static String checkinfo(String loginID, String password1, String password2, String userName) {
@@ -15,6 +18,8 @@ public class CheckAddUserInfo {
 		String log ="";
 		String pass ="";
 		String passequ = "";
+
+		//空文字を検討すると入賞する
 		if (loginID.equals("") || password1.equals("") || password2.equals("") || userName.equals("")) {
 			massage = "記入していない項目があります";
 			return massage;

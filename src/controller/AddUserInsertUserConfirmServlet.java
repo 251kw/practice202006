@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -17,13 +16,13 @@ import dto.UserDTO;
  * Servlet implementation class InsertUserServlet
  */
 @WebServlet("/InsertUser")
-public class InsertUserConfirmServlet extends HttpServlet {
+public class AddUserInsertUserConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public InsertUserConfirmServlet() {
+    public AddUserInsertUserConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,23 +30,38 @@ public class InsertUserConfirmServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-    // 直接アクセスがあった場合は index.jsp  に処理を転送
+    // 直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	// comfirm.jspから登録確定ボタンでの呼び出し
+	// addUserComfirm.jspから登録確定ボタンでの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
-		HttpSession session = request.getSession();
-		UserDTO udto = (UserDTO)session.getAttribute("user");
+		request.setCharacterEncoding("UTF-8");
+
+		//入力情報の取得
+		String loginID = request.getParameter("loginID");
+		String password = request.getParameter("password");
+		String icon = request.getParameter("icon");
+		String userName = request.getParameter("userName");
+		String profile = request.getParameter("profile");
+
+		//UserDTOにset
+		UserDTO udto;
+		udto = new UserDTO(loginID, password, userName,  icon,  profile);
+
+		//udtoをリクエストスコープに入れる
+		request.setAttribute("user", udto);
+
+		//DBに接続しuserテーブルに追加
 		DBManager dbm = new DBManager();
 		dbm.setUser(udto);
-		dispatcher = request.getRequestDispatcher("result.jsp");
+		dispatcher = request.getRequestDispatcher("addUserResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

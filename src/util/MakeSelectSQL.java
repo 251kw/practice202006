@@ -2,6 +2,12 @@ package util;
 
 public class MakeSelectSQL {
 
+
+	/*
+	 * 引数にloginID,userName,profile,icon-car,icon-clip,icon-radioを渡すと
+	 * 渡されたものが空文字の場合無視し、引数に値があるものだけを条件に加えた
+	 * SQL文を生成するメソッド
+	 */
 	public static String makeSelect(String loginID, String userName, String profile, String icon_car,String icon_clip,String icon_radio) {
 		String select = "SELECT * FROM users ORDER BY loginId;";
 
@@ -35,7 +41,7 @@ public class MakeSelectSQL {
 			name = ("userName LIKE '%" + userName + "%'" );
 			judg++;
 
-			//上で使われていなかった場合は1
+			//上で使われていなかった場合はitem1にnameが入る
 			if(item1.equals("")) {
 				item1 = name;
 			}else {

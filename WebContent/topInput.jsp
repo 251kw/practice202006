@@ -24,7 +24,7 @@
 
 <div class="padding-y-5 text-center" >ログインユーザ情報</div>
 
-<%-- セッションスコープにある　UserDTO型のオブジェクトを参照 --%>
+<%-- セッションスコープにあるUserDTO型のオブジェクトを参照 --%>
 <jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
@@ -37,7 +37,7 @@
 						<form action="./logout" method="post">
 							<input class="btn btn-lidht" type="submit" value="ログアウト" />
 						</form>
-						<form action="search.jsp" method="get">
+						<form action="./searchFirst" method="post">
 							<input class="btn btn-lidht" type="submit" value="ユーザー検索" />
 						</form>
 					</td>
@@ -76,11 +76,10 @@
 
 <%-- セッションスコープスコープにあるArrayList型のオブジェクトを参照 --%>
 <jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
-<div class="padding-y-5">
 	<div style="width: 50%" class="container padding-y-5">
 	<%-- リストにある要素の数だけ繰り返し --%>
 	<c:forEach var="shout" items="${shouts}">
-		<table class="table table-striped table-borderd">
+		<table class="table table-striped table-bordered">
 			<tr>
 				<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
 				<td>${shout.userName}</td>
@@ -93,7 +92,6 @@
 			</tr>
 		</table>
 	 </c:forEach>
-	</div>
 </div>
 
 

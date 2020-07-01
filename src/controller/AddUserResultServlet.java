@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class SuccessServlet
  */
-@WebServlet("/logout")
-public class LogoutTopServlet extends HttpServlet {
+@WebServlet("/result")
+public class AddUserResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutTopServlet() {
+    public AddUserResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,23 +27,21 @@ public class LogoutTopServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
+ // 直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//直接アクセスがあった場合はindex.jspに処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	//addUserResult.jspのINDEXへ戻るボタンからの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// top.jspのログアウトボタンから呼び出される
-		//　セッションを破棄
-		HttpSession session = request.getSession();
-		session.invalidate();
-
-		//doGetメソッドを呼び出し、index.jspに処理転送
-		doGet(request, response);
+		RequestDispatcher dispatcher;
+		//indexに転送
+		dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }

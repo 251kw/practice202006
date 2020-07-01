@@ -19,13 +19,13 @@ import dto.UserDTO;
  * Servlet implementation class LoginServlet
  */
 @WebServlet("/login")
-public class LoginIndexServlet extends HttpServlet {
+public class LoginIndexInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LoginIndexServlet() {
+    public LoginIndexInputServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -57,8 +57,8 @@ public class LoginIndexServlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 
-			//index.jspに処理を転送
-			dispatcher = request.getRequestDispatcher("index.jsp");
+			//indexInput.jspに処理を転送
+			dispatcher = request.getRequestDispatcher("indexInput.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			//ログイン認証を行い、ユーザー情報を取得
@@ -74,16 +74,16 @@ public class LoginIndexServlet extends HttpServlet {
 				session.setAttribute("user", user); //ログインユーザー
 				session.setAttribute("shouts", list); //叫びのリスト
 
-				//処理の転送先をtop.jspに指定
-				dispatcher = request.getRequestDispatcher("top.jsp");
+				//処理の転送先をtopInput.jspに指定
+				dispatcher = request.getRequestDispatcher("topInput.jsp");
 			}else {
 				//ユーザー情報を取得できない場合
 				//エラーメッセージをリクエストオブジェクトに保存
 				message = "ログインIDまたはパスワードが違います";
 				request.setAttribute("alert", message);
 
-				//処理の転送先をindex.jspに指定
-				dispatcher = request.getRequestDispatcher("index.jsp");
+				//処理の転送先をindexInput.jspに指定
+				dispatcher = request.getRequestDispatcher("indexInput.jsp");
 			}
 			//処理を転送
 			dispatcher.forward(request, response);

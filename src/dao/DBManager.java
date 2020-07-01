@@ -166,8 +166,13 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	// ログインIDの重複チェック
-	public boolean checkID(String password) {
+	/*
+	 * ログインIDの重複チェックメソッド
+	 * 引数に調査したいloginIDを渡すと、
+	 * 重複を検知するとBoolean型でfalseを返す
+	 * 重複がなければtrueを返す
+	 */
+	public boolean checkID(String loginId) {
 		boolean result = true;
 
 		Connection conn = null; //データベースへ接続して、接続情報を返す
@@ -185,7 +190,7 @@ public class DBManager extends SnsDAO {
 			//検索結果(shouts)の数だけ繰り返す
 			while (rset.next()) {
 				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				if (password.equals(rset.getString(1))) {
+				if (loginId.equals(rset.getString(1))) {
 					result = false;
 				}
 
@@ -202,7 +207,11 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	//ユーザー検索
+	/*
+	 * ユーザー検索用のメソッド
+	 * あらかじめ作成されたSELECTのSQL文を引数に渡すと、
+	 * UserDTOのリスト型で取得した情報を返す
+	 */
 	public ArrayList<UserDTO> getSearchUserList(String sql) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -218,9 +227,6 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
-			// 検索結果があれば
-			if (rset.next()) {
-
 				//検索結果(users)の数だけ繰り返す
 				while (rset.next()) {
 					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
@@ -234,7 +240,7 @@ public class DBManager extends SnsDAO {
 					//書き込み内容をリストに追加
 					list.add(searchUser);
 				}
-			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {

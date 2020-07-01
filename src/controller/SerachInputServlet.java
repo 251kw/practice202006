@@ -9,7 +9,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -44,23 +43,40 @@ public class SerachInputServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
+		request.setCharacterEncoding("UTF-8");
 		DBManager dbm = new DBManager();
 
-		//並び替えで指定された、もしくはhiddenで受け取ったsortを入れる
+		//受け取った情報をString型にいれる
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
 		String profile = request.getParameter("profile");
-		String car = request.getParameter("icon-car");
-		String clip = request.getParameter("icon-paperclip");
-		String radio = request.getParameter("icon-radio");
+		String car = request.getParameter("icon_car");
+		String clip = request.getParameter("icon_paperclip");
+		String radio = request.getParameter("icon_radio");
+
+		//nullが送られてきていないか確かめて、nullだったら空文字にする
+		if(car == null) {
+			car = "";
+		}
+		if(clip == null) {
+			clip = "";
+		}
+		if(radio == null) {
+			radio = "";
+		}
 
 		//SQL文の作成メソッド
 		String sql = MakeSelectSQL.makeSelect(loginId, userName, profile, car, clip, radio);
 		//作成したSQLを渡しserchUserで受け取る
 		ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
-
-		HttpSession session = request.getSession();
-		session.setAttribute("searchUser",searchUser );
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("userName", userName);
+		request.setAttribute("profile",profile);
+		request.setAttribute("icon_car",car);
+		request.setAttribute("icon_paperclip",clip);
+		request.setAttribute("icon_radio",radio);
+		/*ここまでは値は入ってる*/
+		request.setAttribute("searchUser",searchUser );
 
 		dispatcher = request.getRequestDispatcher("SearchResult.jsp");
 		dispatcher.forward(request, response);

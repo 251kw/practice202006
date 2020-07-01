@@ -1,12 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <!DOCTYPE html>
 <html lang ="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Shouter-ログイン-</title>
+<title>Shouter-確認-</title>
 	<link rel="stylesheet" href="./css/skyblue.css">
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
@@ -20,13 +22,12 @@
 	</div>
 </div>
 
-<div class="padding-y-5 text-center" >登録に成功しました</div>
+<div class="padding-y-5 text-center" >ログインユーザ情報</div>
 
 <%-- リクエストスコープにある　UserDTO型のオブジェクトを参照 --%>
-<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
+<jsp:useBean id="user" scope="request" type="dto.UserDTO" />
 <div class="padding-y-5">
 	<div style="width: 65%" class="container padding-y-5">
-		<form action="./logout" method="post">
 			<table class ="table table-bordered">
 				<tr>
 					<td class="color-main text-left">ログインID</td>
@@ -49,18 +50,32 @@
 					<td><span class="${user.icon} pe-2x pe-va"></span></td>
 				</tr>
 			</table>
-		</form>
 	</div>
 </div>
 
-<%-- action属性にサーブレットを指定 --%>
-<form action="./result" method="get">
-	<table style="width: 40%" class="container padding-y-5">
-		<tr>
-			<td colspan="2" class="text-right"><input class="btn" type="submit" value="INDEXに戻る" /></td>
-		</tr>
-	</table>
+<div align="right">
+<form action="./InsertUser" method="post">
+	<input type="hidden" name="loginID" value="${user.loginId}">
+	<input type="hidden" name="password" value="${user.password}">
+	<input type="hidden" name="userName" value="${user.userName}">
+	<input type="hidden" name="profile" value="${user.profile}">
+	<input type="hidden" name="icon" value="${user.icon}">
+
+	<input class="btn" type="submit" style="height:50px" value="登録確定" />
 </form>
+</div>
+
+
+<div align="right">
+<form action="./fails" method="post">
+	<input type="hidden" name="loginID" value="${user.loginId}">
+	<input type="hidden" name="userName" value="${user.userName}">
+	<input type="hidden" name="profile" value="${user.profile}">
+	<input type="hidden" name="icon" value="${user.icon}">
+	<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
+</form>
+</div>
+
 
 </body>
 </html>

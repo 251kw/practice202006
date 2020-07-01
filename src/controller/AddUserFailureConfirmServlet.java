@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class SuccessServlet
+ * Servlet implementation class FailureServlet
  */
-@WebServlet("/result")
-public class ResultServlet extends HttpServlet {
+@WebServlet("/fails")
+public class AddUserFailureConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ResultServlet() {
+    public AddUserFailureConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,21 +27,33 @@ public class ResultServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
- // 直接アクセスがあった場合は index.jsp  に処理を転送
+    // 直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	//result.jspのINDEXへ戻るボタンからの呼び出し
+	//addUSerConfirm/jspの戻るボタンからの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
-		HttpSession session = request.getSession();
-		dispatcher = request.getRequestDispatcher("index.jsp");
-		session.invalidate();
+		request.setCharacterEncoding("UTF-8");
+
+		//入力情報の取得
+		String loginID = request.getParameter("loginID");
+		String icon = request.getParameter("icon");
+		String userName = request.getParameter("userName");
+		String profile = request.getParameter("profile");
+
+		//入力情報の受け渡し
+		request.setAttribute("loginID",loginID);
+		request.setAttribute("icon", icon);
+		request.setAttribute("userName", userName);
+		request.setAttribute("profile", profile);
+
+		dispatcher = request.getRequestDispatcher("addUserInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
