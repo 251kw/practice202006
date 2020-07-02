@@ -38,9 +38,9 @@
 				<td class="text-center"><span class="${resultList.icon} pe-2x pe-va"></span></td>
 				<td class="text-center">${resultList.profile}</td>
 				<td class="text-center">
-					<form action="UserSearchInput.jsp" method="post"><input class="butten" type="submit" value="更新">
+					<form action="./EditUser" method="post"><input class="butten" type="submit" value="更新">
 						<%-- 該当するログインIDと入力情報を送る --%>
-						<input type="hidden" name="dloginId" value="${resultList.loginId}">
+						<input type="hidden" name="eloginId" value="${resultList.loginId}">
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
@@ -60,7 +60,7 @@
 			</tr>
 			</c:forEach>
 		</table>
-	<form action="./ReturnSearchInput" method="post">
+	<form action="./TurnSearchInput" method="post">
 		<table style="width: 600px" class="table container padding-y-5">
 			<tr>
 				<td><input type="hidden" name="sloginId" value="${requestScope.sloginId}"></td>

@@ -25,7 +25,7 @@
 	String newicon = request.getParameter("newicon");
 	String newprofile = request.getParameter("newprofile");
 %>
-	<form action="./ReturnLogin" method="post">
+	<form action="./TurnLogin" method="post">
 		<table style="width: 400px" class="table container padding-y-5">
 			<tr>
 				<th class="color-main">ログインID:</th>

@@ -17,27 +17,26 @@
 		</div>
 	</div>
 	<br>
-<%
-	String sloginId = request.getParameter("sloginId");
-	String suserName = request.getParameter("suserName");
-	String sicon = request.getParameter("sicon");
-	String sprofile = request.getParameter("sprofile");
-%>
-	<h5 class="text-center">検索したい条件を入力または選択してください</h5>
+		<h5 class="text-center">編集したい内容を入力または選択してください</h5>
 	<br>
-	<form action="./UserSearchSqueeze" method="post">
+	<form action="./EditUserRegist" method="post">
 		<table style="width: 400px" class="table container padding-y-5">
 			<%-- 全入力チェック --%>
-			<c:if test="${requestScope.notfound != null && requestScope.notfound != ''}">
+			<c:if test="${requestScope.alertblank != null && requestScope.alertblank != ''}">
 				<tr>
-					<td colspan="2" class="color-error text-center"><c:out value="${requestScope.notfound}" /></td>
+					<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alertblank}" /></td>
 				</tr>
 			</c:if>
 			<tr>
-				<%-- ログインID検索入力欄の名前はsloginId --%>
 				<td class="color-main text-center">ログインID</td>
-				<td class="text-center"><input class="form-control" type="text" name="sloginId" value="${requestScope.sloginId}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${requestScope.user.loginId}" size="20" /></td>
 			</tr>
+			<%-- ID被りチェック --%>
+			<c:if test="${requestScope.alertsame != null && requestScope.alertsame != ''}">
+				<tr>
+					<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alertsame}" /></td>
+				</tr>
+			</c:if>
 			<%-- ID文字数or半角英数チェック --%>
 			<c:if test="${requestScope.alertid != null && requestScope.alertid != ''}">
 				<tr>
@@ -45,27 +44,35 @@
 				</tr>
 			</c:if>
 			<tr>
-				<%-- ユーザー名検索入力欄の名前はsuserName --%>
+				<td class="color-main text-center">パスワード</td>
+				<td class="text-center"><input class="form-control" type="password" name="epassword" value="${requestScope.user.password}" size="20" /></td>
+			</tr>
+			<%-- パスワード文字数チェック --%>
+			<c:if test="${requestScope.alertpass != null && requestScope.alertpass != ''}">
+				<tr>
+					<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alertpass}" /></td>
+				</tr>
+			</c:if>
+			<tr>
 				<td class="color-main text-center">ユーザー名</td>
-				<td class="text-center"><input class="form-control" type="text" name="suserName" value="${requestScope.suserName}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="euserName" value="${requestScope.user.userName}" size="20" /></td>
 			</tr>
 			<tr>
-				<%-- icon検索入力欄の名前はsicon --%>
 				<td class="color-main text-center">アイコン</td>
 				<td>
-					<select name="sicon" class="form-control">
+					<select name="eicon" class="form-control">
 						<c:choose>
-							<c:when test="${requestScope.sicon==''}">
+							<c:when test="${requestScope.user.icon==''}">
 								<option value="all" selected>全選択</option>
 								<option value="icon-user">男性</option>
 								<option value="icon-user-female">女性</option>
 							</c:when>
-							<c:when test="${requestScope.sicon=='icon-user'}">
+							<c:when test="${requestScope.user.icon=='icon-user'}">
 								<option value="all">全選択</option>
 								<option value="icon-user" selected>男性</option>
 								<option value="icon-user-female">女性</option>
 							</c:when>
-							<c:when test="${requestScope.sicon=='icon-user-female'}">
+							<c:when test="${requestScope.user.icon=='icon-user-female'}">
 								<option value="all">全選択</option>
 								<option value="icon-user">男性</option>
 								<option value="icon-user-female" selected>女性</option>
@@ -75,21 +82,11 @@
 				</td>
 			</tr>
 			<tr>
-				<%-- プロフィール検索入力欄の名前はsprofile --%>
 				<td class="color-main text-center">プロフィール</td>
-				<td class="text-center"><input class="form-control" type="text" name="sprofile" value="${requestScope.sprofile}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="eprofile" value="${requestScope.user.profile}" size="20" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-right"><input class="btn" type="submit" value="検索" /></td>
-			</tr>
-		</table>
-	</form>
-	<form action="./TurnBoardTop" method="post">
-		<table style="width: 400px" class="table container padding-y-5">
-			<tr>
-				<td colspan="2" class="text-right">
-					<input class="btn" type="submit" value="入力画面に戻る" />
-				</td>
+				<td colspan="2" class="text-right"><input class="btn" type="submit" value="この内容で変更する" /></td>
 			</tr>
 		</table>
 	</form>

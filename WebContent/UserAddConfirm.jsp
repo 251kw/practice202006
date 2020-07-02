@@ -57,7 +57,7 @@
 			</tr>
 		</table>
 	</form>
-	<form action="./ReturnInput" method="post">
+	<form action="./TurnInput" method="post">
 		<table style="width: 400px" class="table container padding-y-5">
 			<tr>
 				<td><input type="hidden" name="newloginId" value="${requestScope.newloginId}"></td>

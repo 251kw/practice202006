@@ -134,4 +134,90 @@ public class CheckDB {
 		}
 		return;
 	}
+
+
+	public static UserDTO SearchUser(String loginId) {
+
+		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+		final String USER = "root";
+		final String PASSWORD = "root";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		UserDTO user = null;
+
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
+			String sql = "select * from users where loginId = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {}
+		}
+		return user;
+	}
+
+/*
+	public static void EditUser(String eloginId, String epassword, String euserName, String eicon, String eprofile) {
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+
+			final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+			final String USER = "root";
+			final String PASSWORD = "root";
+
+			Connection conn = null;
+			PreparedStatement pstmt1 = null;
+			ResultSet rset1 = null;
+			UserDTO user = null;
+
+			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
+
+			String sqlselect = "select * from users where loginId = ?";
+			String sql2 = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,?,?,?,?)";
+
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt1.setString(1, eloginId);
+			rset1 = pstmt1.executeQuery();
+
+			if(rset1.next()) {
+				if(!(rset1.getString(2)).equals(eloginId)) {
+					sql1 = "Insert"
+
+				}
+			}
+
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				pstmt1.close();
+			} catch (SQLException e) {
+			}
+		}
+
+	}
+*/
 }

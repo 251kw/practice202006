@@ -40,14 +40,19 @@ public class TurnSearchInputServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		String sloginId = "";
-		String spassword = "";
-		String suserName = "";
-		String sicon = "";
-		String sprofile = "";
+		String sloginId = request.getParameter("sloginId");
+		String suserName = request.getParameter("suserName");
+		String sicon = request.getParameter("sicon");
+		String sprofile = request.getParameter("sprofile");
+
+		if(sloginId==null ) {
+			sloginId = "";
+			suserName = "";
+			sicon = "";
+			sprofile = "";
+		}
 
 		request.setAttribute("sloginId", sloginId);
-		request.setAttribute("spassword", spassword);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);

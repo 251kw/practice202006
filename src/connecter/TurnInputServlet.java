@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReturnBoardTopServlet
+ * Servlet implementation class TurnInput
  */
-@WebServlet("/ReturnBoardTop")
-public class ReturnBoardTopServlet extends HttpServlet {
+@WebServlet("/TurnInput")
+public class TurnInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReturnBoardTopServlet() {
+    public TurnInputServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,8 +40,20 @@ public class ReturnBoardTopServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		String newloginId = request.getParameter("newloginId");
+		String newpassword = request.getParameter("newpassword");
+		String newuserName = request.getParameter("newuserName");
+		String newicon = request.getParameter("newicon");
+		String newprofile = request.getParameter("newprofile");
+
+		request.setAttribute("newloginId", newloginId);
+		request.setAttribute("newpassword", newpassword);
+		request.setAttribute("newuserName", newuserName);
+		request.setAttribute("newicon", newicon);
+		request.setAttribute("newprofile", newprofile);
+
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("BoardTop.jsp");
+		dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 		dispatcher.forward(request,response);
 	}
 

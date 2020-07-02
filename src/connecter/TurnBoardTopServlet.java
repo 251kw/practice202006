@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReturnIndex
+ * Servlet implementation class TurnBoardTopServlet
  */
-@WebServlet("/ReturnLogin")
-public class ReturnLoginTopServlet extends HttpServlet {
+@WebServlet("/TurnBoardTop")
+public class TurnBoardTopServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReturnLoginTopServlet() {
+    public TurnBoardTopServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,7 +41,7 @@ public class ReturnLoginTopServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher = request.getRequestDispatcher("BoardTop.jsp");
 		dispatcher.forward(request,response);
 	}
 
