@@ -17,36 +17,41 @@
 		</div>
 	</div>
 	<br>
+	<h4 class="text-center">検索結果</h4>
+	<br>
 	<%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
 	<jsp:useBean id="resultList" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
-	<div class="padding-y-5">
-		<div style="width: 400px" class="container padding-y-5">
-			<%-- リストにある要素の数だけ繰り返し --%>
+		<%-- リストにある要素の数だけ繰り返し --%>
+		<table style="width: 600px" class="table table-borderd container padding-y-5">
+			<tr class="bg-light">
+				<th class="text-center"><input type="checkbox" name="checkall" value="checkall"></th>
+				<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
+				<th class="text-center">アイコン</th><th class="text-center">プロフィール</th>
+				<th class="text-center">更新</th>
+				<th class="text-center">削除</th>
+			</tr>
 			<c:forEach var="resultList" items="${resultList}">
-				<table style="width: 400px" class="table table-striped table-borderd container">
-					<tr>
-						<th>ログインID</th>
-						<td>${resultList.loginId}</td>
-					</tr>
-					<tr>
-						<th>ユーザー名</th>
-						<td>${resultList.userName}</td>
-					</tr>
-					<tr>
-						<th>アイコン</th>
-						<td><span class="${resultList.icon} pe-2x pe-va"></span></td>
-					</tr>
-					<tr>
-						<th>プロフィール</th>
-						<td>${resultList.profile}</td>
-					</tr>
-				</table>
-				<hr>
+			<tr>
+				<td class="text-center"><input type="checkbox" name="select" value="select"></td>
+				<td class="text-center">${resultList.loginId}</td>
+				<td class="text-center">${resultList.userName}</td>
+				<td class="text-center"><span class="${resultList.icon} pe-2x pe-va"></span></td>
+				<td class="text-center">${resultList.profile}</td>
+				<td class="text-center">
+					<form action="UserSearchInput.jsp" method="post"><input class="butten" type="submit" value="更新"></form>
+				</td>
+				<td class="text-center">
+					<form action="./UserDelete" method="post"><input class="butten" type="submit" value="削除"></form>
+				</td>
+				<%-- ログインIDを送る --%>
+				<td>
+					<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+				</td>
+			</tr>
 			</c:forEach>
-		</div>
-	</div>
+		</table>
 	<form action="./ReturnSearchInput" method="post">
-		<table style="width: 400px" class="table container padding-y-5">
+		<table style="width: 600px" class="table container padding-y-5">
 			<tr>
 				<td><input type="hidden" name="sloginId" value="${requestScope.sloginId}"></td>
 				<td><input type="hidden" name="suserName" value="${requestScope.suserName}"></td>
@@ -54,7 +59,7 @@
 				<td><input type="hidden" name="sprofile" value="${requestScope.sprofile}"></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-right">
+				<td colspan="4" class="text-right">
 					<input class="btn" type="submit" value="入力画面に戻る" />
 				</td>
 			</tr>

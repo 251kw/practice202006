@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Util.CheckDB;
+import dto.UserDTO;
 
 /**
  * Servlet implementation class UserSearchSqueezeServlet
@@ -60,10 +62,22 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
-		request.setAttribute("resultList", CheckDB.joinsql(sloginId, suserName, sicon, sprofile));
+		ArrayList<UserDTO> resultList = new ArrayList<UserDTO>();
+		resultList = CheckDB.joinsql(sloginId, suserName, sicon, sprofile);
 
-		dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-		dispatcher.forward(request,response);
+		String notfoundmessage = null;
 
+		if(resultList.isEmpty()) {
+			notfoundmessage = "該当するユーザーが見つかりませんでした";
+			request.setAttribute("notfound", notfoundmessage);
+
+			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+			dispatcher.forward(request,response);
+		} else {
+			request.setAttribute("resultList", resultList);
+
+			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			dispatcher.forward(request,response);
+		}
 	}
 }

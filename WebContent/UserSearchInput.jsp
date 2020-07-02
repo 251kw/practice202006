@@ -27,6 +27,12 @@
 	<br>
 	<form action="./UserSearchSqueeze" method="post">
 		<table style="width: 400px" class="table container padding-y-5">
+			<%-- 全入力チェック --%>
+			<c:if test="${requestScope.notfound != null && requestScope.notfound != ''}">
+				<tr>
+					<td colspan="2" class="color-error text-center"><c:out value="${requestScope.notfound}" /></td>
+				</tr>
+			</c:if>
 			<tr>
 				<%-- ログインID検索入力欄の名前はsloginId --%>
 				<td class="color-main text-center">ログインID</td>
