@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -69,16 +70,19 @@ public class SerachInputServlet extends HttpServlet {
 		String sql = MakeSelectSQL.makeSelect(loginId, userName, profile, car, clip, radio);
 		//作成したSQLを渡しserchUserで受け取る
 		ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
-		request.setAttribute("loginId", loginId);
-		request.setAttribute("userName", userName);
-		request.setAttribute("profile",profile);
-		request.setAttribute("icon_car",car);
-		request.setAttribute("icon_paperclip",clip);
-		request.setAttribute("icon_radio",radio);
-		/*ここまでは値は入ってる*/
+		HttpSession session = request.getSession();
+
+		session.setAttribute("select_loginId", loginId);
+		session.setAttribute("userName", userName);
+		session.setAttribute("profile",profile);
+		session.setAttribute("icon_car",car);
+		session.setAttribute("icon_paperclip",clip);
+		session.setAttribute("icon_radio",radio);
+		session.setAttribute("sql", sql);
+
 		request.setAttribute("searchUser",searchUser );
 
-		dispatcher = request.getRequestDispatcher("SearchResult.jsp");
+		dispatcher = request.getRequestDispatcher("updateUserComfirm.jsp");
 		dispatcher.forward(request, response);
 	}
 

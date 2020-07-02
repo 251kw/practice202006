@@ -55,6 +55,47 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+	//ログインIDを受け取りユーザー情報を返す
+	public UserDTO getUser(String loginId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		String sql = "SELECT * FROM users WHERE loginId=?";
+
+		UserDTO user = null;
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SERECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				//必要な列から値を取り出し、ユーザ情報オブジェクトの生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
+	}
+
 	public boolean setUser(UserDTO udto) {
 		boolean result = false;
 
@@ -253,5 +294,36 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
+	//ログインIDを受け取りユーザー情報を返す
+		public boolean deleteUser(String loginId) {
+			boolean result = false;
+
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				conn = getConnection();
+
+				//INSERT文の登録と実行
+				String sql = "DELETE FROM users WHERE loginId=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, loginId);
+
+				int cnt = pstmt.executeUpdate(); //実行
+				if (cnt == 1) {
+					//INSERT文の実行結果が1なら登録成功
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				// データベース切断処理
+				close(pstmt);
+				close(conn);
+			}
+
+			return result;
+
+		}
 
 }

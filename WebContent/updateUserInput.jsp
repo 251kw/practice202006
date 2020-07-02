@@ -6,7 +6,7 @@
 <html lang ="ja">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Shouter-新規登録-</title>
+<title>Shouter-更新-</title>
 	<link rel="stylesheet" href="./css/skyblue.css">
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
@@ -20,10 +20,10 @@
 	</div>
 </div>
 
-<h5 class="padding-y-5 text-center">登録情報を入力してください</h5>
+<h5 class="padding-y-5 text-center">更新情報を入力してください</h5>
 
 <%-- action属性にサーブレットを指定 --%>
-<form action="./newuser" method="post">
+<form action="./" method="post">
 	<table style="width: 70%" class="table container">
 		<tr>
 			<%-- リクエストスコープのalertの値を出力 --%>
@@ -44,7 +44,7 @@
 			<td class="color-main text-left">パスワード</td>
 			<td class="text-left">
 				<p align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</p>
-				<input class="form-control" type="password" name="password1" value="" size="20" maxlength="20" />
+				<input class="form-control" type="password" name="password1" value="${password}" size="20" maxlength="20" />
 			</td>
 		</tr>
 		<tr>
@@ -96,7 +96,7 @@
 	</table>
 </form>
 
-<form action="./indexInput.jsp" method="get">
+<form action="./" method="get">
 	<table style="width: 100%" class="container padding-y-5">
 		<tr>
 			<td colspan="2" class="text-right"><input class="btn btn-grey btn-sm" type="submit" value="INDEXに戻る" /></td>

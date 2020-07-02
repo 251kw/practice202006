@@ -20,43 +20,61 @@
 	</div>
 </div>
 
-<div class="padding-y-5 text-center" >検索に成功しました</div>
+<div class="padding-y-5 text-center" >検索結果</div>
 
-
-<%-- セッションスコープスコープにあるArrayList型のオブジェクトを参照 --%>
 <jsp:useBean id="searchUser" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 <div class="padding-y-5">
-	<div style="width: 50%" class="container padding-y-5">
-	<%-- リストにある要素の数だけ繰り返し --%>
-	<table class ="table table-bordered">
+	<div style="width: 75%" class="container padding-y-5">
+	<table class ="table table-striped table-bordered table-hover">
 		<tr>
+			<td><input type="submit" name="all" />すべて選択</td>
 			<td class="color-main text-left">ログインID</td>
 			<td class="color-main text-left">ユーザー名</td>
 			<td class="color-main text-left">プロフィール</td>
 			<td class="color-main text-left">アイコン</td>
+			<td class="color-main text-left">更新</td>
+			<td class="color-main text-left">削除</td>
 		</tr>
 		<c:forEach var="search" items="${searchUser}">
 				<tr>
+					<td><input type="checkbox" name="checked[]" value="${search.loginId}" form="form-check" /></td>
 					<td>${search.loginId}</td>
 					<td>${search.userName}</td>
 					<td>${search.profile}</td>
-					<td><span class="${search.icon} pe-3x pe-va"></span></td>
+					<td><span class="${search.icon} pe-2x pe-va"></span></td>
+					<td>
+						<form action="./deleteUser" method="post">
+							<input type="hidden" name="loginId" value="${search.loginId}">
+							<input class="btn btn-sm" type="submit" value="更 新" />
+						</form>
+					</td>
+					<td>
+						<form action="./deleteUser" method="post">
+							<input type="hidden" name="loginId" value="${search.loginId}">
+							<input class="btn btn-sm" type="submit" value="削 除" />
+						</form>
+					</td>
 				</tr>
 		 </c:forEach>
 	</table>
-	</div>
+		<form action="./" id="form-check" method="post">
+							<input class="btn " type="submit" value="選択したユーザーを削除" />
+						</form>
+		</div>
 </div>
 
 <form action="./searchBack" method="post">
-	<input type="hidden" name="loginId" value="${requestScope.loginId}">
-	<input type="hidden" name="userName" value="${requestScope.userName}">
-	<input type="hidden" name="profile" value="${requestScope.profile}">
-	<input type="hidden" name="icon_car" value="${requestScope.icon_car}">
-	<input type="hidden" name="icon_paperclip" value="${requestScope.icon_paperclip}">
-	<input type="hidden" name="icon_radio" value="${requestScope.icon_radio}">
 	<table style="width: 40%" class="container padding-y-5">
 		<tr>
 			<td colspan="2" class="text-right"><input class="btn" type="submit" value="検索条件に戻る" /></td>
+		</tr>
+	</table>
+</form>
+
+<form action="./returnTop" method="post" id="check">
+	<table style="width: 40%" class="container padding-y-5">
+		<tr>
+			<td colspan="2" class="text-right"><input class="btn btn-grey" type="submit" value="TOPに戻る" /></td>
 		</tr>
 	</table>
 </form>

@@ -23,11 +23,10 @@
 <h5 class="padding-y-5 text-center">ユーザー検索</h5>
 
 <form action="./search" method="post">
-	<input type="hidden" name="sort" value="loginId">
 	<table style="width: 70%" class="table container">
 		<tr>
 			<td class="text-left">
-				<input class="form-control" type="text" name="loginId" value="${loginID}" size="20" maxlength="20" />
+				<input class="form-control" type="text" name="loginId" value="${select_loginId}" size="20" maxlength="20" />
 			</td>
 			<td class="color-main text-left">ログインID</td>
 		</tr>
@@ -38,11 +37,11 @@
 		<tr>
 			<td>
 
-				<label class="fancy-radio"><input type="checkbox" name="icon_car" value="icon-car" <% if(request.getAttribute("icon_car").equals("icon-car")){ out.print("checked"); } %>><span>車</span></label>
+				<label><input type="checkbox" name="icon_car" value="icon-car" <% if(session.getAttribute("icon_car").equals("icon-car")){ out.print("checked"); } %>><span></span></label>
 				<span class="icon-car pe-2x pe-va"></span>
-				<label class="fancy-radio"><input type="checkbox" name="icon_paperclip" value="icon-paperclip" <% if(request.getAttribute("icon_paperclip").equals("icon-paperclip")){ out.print("checked"); } %> ><span>クリップ</span></label>
+				<label><input type="checkbox" name="icon_paperclip" value="icon-paperclip" <% if(session.getAttribute("icon_paperclip").equals("icon-paperclip")){ out.print("checked"); } %> ><span></span></label>
 				<span class="icon-paperclip pe-2x pe-va"></span>
-				<label class="fancy-radio"><input type="checkbox" name="icon_radio" value="icon-radio" <% if(request.getAttribute("icon_radio").equals("icon-radio")){ out.print("checked"); } %> ><span>ラジオ</span></label>
+				<label><input type="checkbox" name="icon_radio" value="icon-radio" <% if(session.getAttribute("icon_radio").equals("icon-radio")){ out.print("checked"); } %> ><span></span></label>
 				<span class="icon-radio pe-2x pe-va"></span>
 			</td>
 			<td class="color-main text-left">アイコン</td>
@@ -59,7 +58,7 @@
 
 </form>
 
-<form action="./topInput.jsp" method="get">
+<form action="./returnTop" method="post">
 	<div align="right">
 		<input class="btn btn-grey" type="submit" value="戻る" />
 	</div>
