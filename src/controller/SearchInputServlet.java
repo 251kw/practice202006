@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DBUserSearch;
 import dto.SearchUserDTO;
 import dto.UserDTO;
+import util.Check;
 
 
 @WebServlet("/sis")
@@ -27,15 +28,7 @@ public class SearchInputServlet extends HttpServlet {
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String botton = request.getParameter("btn");
-		RequestDispatcher dispatcher = null;
-
-		if(botton.equals("検索")) {
-			SearchUserDTO user = new SearchUserDTO("", "", null, "");
-			request.setAttribute("user", user);
-			dispatcher = request.getRequestDispatcher("search_input.jsp");
-		}
-
+		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -50,6 +43,11 @@ public class SearchInputServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("top.jsp");
 
 		} else if(botton.equals("検索")) {
+				SearchUserDTO user = new SearchUserDTO("", "", null, "");
+				request.setAttribute("user", user);
+				dispatcher = request.getRequestDispatcher("search_input.jsp");
+
+		} else if(botton.equals("検索する")) {
 				request.setCharacterEncoding("UTF-8");
 				response.setContentType("text/html;charset=UTF-8");
 				DBUserSearch dbu = new DBUserSearch();
@@ -63,19 +61,32 @@ public class SearchInputServlet extends HttpServlet {
 
 				SearchUserDTO searchuser = new SearchUserDTO(loginId, userName, icon, profile);	//データ保持
 
-				ArrayList<UserDTO> users = dbu.userSearch(loginId, userName, profile, icon);	//検索メソッド
+				 if(Check.checkLogic(loginId)==false) {		//入力チェック
+					message = "ログインIDに使用できるのは半角英数字のみです。";
 
-				if(users.size()==0) {	//arraylistサイズ測る
-					//検索結果無し
-					message = "検索結果がありませんでした。";
+					//エラーメッセージをリクエストオブジェクトに保存
 					request.setAttribute("alert", message);
 					request.setAttribute("user", searchuser);
+					message = "";
 					dispatcher = request.getRequestDispatcher("search_input.jsp");
-				} else {
-					//検索結果表示へ
-					request.setAttribute("users", users);
-					dispatcher = request.getRequestDispatcher("search_result.jsp");
-				}
+
+				 }	else {
+
+					 ArrayList<UserDTO> users = dbu.userSearch(loginId, userName, profile, icon);	//検索メソッド
+
+					 if(users.size()==0) {	//arraylistサイズ測る
+						 //検索結果無し
+						 message = "検索結果がありませんでした。";
+						 request.setAttribute("alert", message);
+						 request.setAttribute("user", searchuser);
+						 dispatcher = request.getRequestDispatcher("search_input.jsp");
+					 } else {
+						 //検索結果表示へ
+						 request.setAttribute("users", users);
+						 request.setAttribute("user", searchuser);
+						 dispatcher = request.getRequestDispatcher("search_result.jsp");
+					 }
+				 }
 
 		}
 		dispatcher.forward(request, response);

@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import dto.SearchUserDTO;
+
 @WebServlet("/srs")
 public class SearchResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -29,7 +31,17 @@ public class SearchResultServlet extends HttpServlet {
 		String botton = request.getParameter("btn");
 
 		if(botton.equals("戻る")) {
-			
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+
+			//送信情報の取得
+			String loginId = request.getParameter("loginId");
+			String userName = request.getParameter("userName");
+			String icon[] = request.getParameterValues("icon");		//アイコンは配列で
+			String profile = request.getParameter("profile");
+
+			SearchUserDTO searchuser = new SearchUserDTO(loginId, userName, icon, profile);	//データ保持
+			request.setAttribute("user", searchuser);
 			//処理の転送先をsearch_input.jspに指定
 			dispatcher = request.getRequestDispatcher("search_input.jsp");
 		}

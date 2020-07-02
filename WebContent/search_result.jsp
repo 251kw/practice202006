@@ -63,11 +63,22 @@
 					</tr>
 				</c:forEach>
 			</table>
+
+			<form action="./srs" method="post">
 			<table class="padding-y-5"><tr>
 					<td colspan="2" class="text-right">
-					<input type="button" value="戻る" onClick="location.href='search_input.jsp'" class="btn">
+					<jsp:useBean id="user" scope="request" type="dto.SearchUserDTO" />
+					<input type="hidden" name="loginId" value="${user.loginId}">
+					<input type="hidden" name="userName" value="${user.userName}">
+
+				<c:forEach var="icon" items="${user.icon}">
+					<input type="hidden" name="icon" value="${icon}"/>
+				</c:forEach>
+
+					<input type="hidden" name="profile" value="${user.profile}">
+					<input type="submit" value="戻る" name="btn" class="btn">
 					</td>
-				</tr></table>
+				</tr></table></form>
 
 		</div>
 	</div>

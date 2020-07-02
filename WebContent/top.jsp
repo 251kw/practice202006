@@ -43,7 +43,7 @@
 							class="${user.icon} pe-3x pe-va"></span></td>
 						<td width="256">${user.userName}</td>
 						<td><form action="./logout" method="post"><input class="btn btn-sm btn-light" type="submit" value="ログアウト" /></form>
-							<form action="./sis" method="get"><input class="btn btn-sm btn-light" type="submit" value="検索" name="btn" /></form></td>
+							<form action="./sis" method="post"><input class="btn btn-sm btn-light" type="submit" value="検索" name="btn" /></form></td>
 					</tr>
 					<tr>
 						<td colspan="2">${user.profile}</td>
