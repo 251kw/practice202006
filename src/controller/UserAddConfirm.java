@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 
@@ -45,13 +44,12 @@ public class UserAddConfirm extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		HttpSession session = request.getSession();
 
-		String loginId = (String)session.getAttribute("loginId");
-		String password = (String)session.getAttribute("password");
-		String userName = (String)session.getAttribute("userName");
-		String icon = (String)session.getAttribute("icon");
-		String profile = (String)session.getAttribute("profile");
+		String loginId = (String)request.getParameter("loginId");
+		String password = (String)request.getParameter("password");
+		String userName = (String)request.getParameter("userName");
+		String icon = (String)request.getParameter("icon");
+		String profile = (String)request.getParameter("profile");
 
 		// １度だけ DataManager オブジェクトを生成
 		if (dbm == null) {
@@ -63,6 +61,12 @@ public class UserAddConfirm extends HttpServlet {
 		// 文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("password", password);
+		request.setAttribute("userName", userName);
+		request.setAttribute("icon", icon);
+		request.setAttribute("profile", profile);
 
 		//jspに処理を転送
 		RequestDispatcher dispatcher = null;

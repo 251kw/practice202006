@@ -8,7 +8,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -47,18 +46,19 @@ public class UserAddInput extends HttpServlet {
 
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("pass");
+		String password = request.getParameter("password");
 		String userName = request.getParameter("userName");
 		String icon = request.getParameter("icon");
-		String profile = request.getParameter("remarks");
+		String profile = request.getParameter("profile");
 
-		HttpSession session = request.getSession();
 
-		session.setAttribute("loginId", loginId);
-		session.setAttribute("password", password);
-		session.setAttribute("userName", userName);
-		session.setAttribute("icon", icon);
-		session.setAttribute("profile", profile);
+
+
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("password", password);
+		request.setAttribute("userName", userName);
+		request.setAttribute("icon", icon);
+		request.setAttribute("profile", profile);
 
 		RequestDispatcher dispatcher = null;
 		String message = null;
@@ -99,7 +99,7 @@ public class UserAddInput extends HttpServlet {
 			dispatcher.forward(request, response);
 		} else {
 			// 文字化け対策
-			request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
 		UserDTO user = null;
@@ -110,7 +110,7 @@ public class UserAddInput extends HttpServlet {
 		user.setIcon(icon);
 		user.setProfile(profile);
 
-		session.setAttribute("user", user);
+		request.setAttribute("user", user);
 
 		//jspに処理を転送
 		dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");

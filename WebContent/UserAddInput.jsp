@@ -10,14 +10,13 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-
+	<% request.setCharacterEncoding("UTF-8");
+	%>
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
 			<strong>会員情報入力フォーム</strong>
 		</div>
 	</div>
-	<%-- リクエストスコープにalertがあれば --%>
-
 	<div class="padding-y-5">
 		<div style="width: 50%" class="padding-y-5 container ">
 			<form action="./rst" method="post">
@@ -35,52 +34,52 @@
 								class="icon-smile pe-2x pe-va"></span>&nbsp;ログインID</label></th>
 						<td><input type="text" pattern="^[0-9A-Za-z]+$" title="半角英数字"
 							name="loginId" maxlength="15" id="loginId"
-							value="${sessionScope.loginId}" class="form-control"></td>
+							value="${param.loginId}" class="form-control">
 
+							</td>
 					</tr>
-
 					<tr>
-						<th><label for="pass"><span
+						<th><label for="password"><span
 								class="icon-key pe-2x pe-va"></span>&nbsp;パスワード</label></th>
-						<td><input type="password" name="pass" maxlength="15"
-							id="pass" value="${sessionScope.password}" class="form-control"></td>
+						<td><input type="password" name="password" maxlength="15"
+							id="pass" value="${param.password}" class="form-control"></td>
 					</tr>
 
 					<tr>
 						<th><label for="userName"><span
 								class="icon-note pe-2x pe-va"></span>&nbsp;名前</label></th>
 						<td><input type="text" name="userName" id="userName"
-							value="${sessionScope.userName}" class="form-control"></td>
+							value="${param.userName}" class="form-control"></td>
 					</tr>
 					<tr>
 						<th><span class="icon-users pe-2x pe-va"></span>&nbsp;アイコン</th>
 						<td><input type="radio" name="icon" value="joy"
-							<c:if test="${sessionScope.icon =='joy'}">checked</c:if>
-							<c:if test="${sessionScope.icon ==null}">checked</c:if>>
+							<c:if test="${param.icon =='joy'}">checked</c:if>
+							<c:if test="${param.icon ==null}">checked</c:if>>
 							<span class="icon-joy pe-2x pe-va"></span>&nbsp; <input
 							type="radio" name="icon" value="moon"
-							<c:if test="${sessionScope.icon =='moon'}">checked</c:if>>
+							<c:if test="${param.icon =='moon'}">checked</c:if>>
 							<span class="icon-moon pe-2x pe-va"></span>&nbsp; <input
 							type="radio" name="icon" value="smile"
-							<c:if test="${sessionScope.icon =='smile'}">checked</c:if>>
+							<c:if test="${param.icon =='smile'}">checked</c:if>>
 							<span class="icon-smile pe-2x pe-va"></span>&nbsp; <input
 							type="radio" name="icon" value="music"
-							<c:if test="${sessionScope.icon =='music'}">checked</c:if>>
+							<c:if test="${param.icon =='music'}">checked</c:if>>
 							<span class="icon-music pe-2x pe-va"></span>&nbsp; <input
 							type="radio" name="icon" value="cloud"
-							<c:if test="${sessionScope.icon =='cloud'}">checked</c:if>>
+							<c:if test="${param.icon =='cloud'}">checked</c:if>>
 							<span class="icon-cloud pe-2x pe-va"></span>&nbsp; <input
 							type="radio" name="icon" value="ball"
-							<c:if test="${sessionScope.icon =='ball'}">checked</c:if>>
+							<c:if test="${param.icon =='ball'}">checked</c:if>>
 							<span class="icon-ball pe-2x pe-va"></span>&nbsp; <input
 							type="radio" name="icon" value="coffee"
-							<c:if test="${sessionScope.icon =='coffee'}">checked</c:if>>
+							<c:if test="${param.icon =='coffee'}">checked</c:if>>
 							<span class="icon-coffee pe-2x pe-va"></span>&nbsp;</td>
 					</tr>
 					<tr>
 						<th><span class="icon-note2 pe-2x pe-va"></span>&nbsp;プロフィール</th>
-						<td><textarea rows="5" cols="20" name="remarks"
-								class="form-control">${sessionScope.profile}</textarea></td>
+						<td><textarea rows="5" cols="20" name="profile"
+								class="form-control">${param.profile}</textarea></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="text-left"><input class="btn"

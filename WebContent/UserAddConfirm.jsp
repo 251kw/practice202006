@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
+	<jsp:useBean id="user" scope="request" type="dto.UserDTO" />
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
 			<strong>登録内容はこれで大丈夫？</strong>
@@ -21,7 +21,8 @@
 			<table border='1' class="table">
 				<tr>
 					<th>ログインID</th>
-					<td>${user.loginId}</td>
+					<td>${user.loginId}
+					</td>
 				</tr>
 				<tr>
 					<th>パスワード</th>
@@ -41,7 +42,13 @@
 				</tr>
 				<tr>
 					<td colspan='2' style='text-align: right'><input type='submit'
-						value='OK'></td>
+						value='OK'>
+						<input type="hidden" name="loginId" value="${user.loginId}">
+						<input type="hidden" name="password" value="${user.password}">
+						<input type="hidden" name="userName" value="${user.userName}">
+						<input type="hidden" name="icon" value="${user.icon}">
+						<input type="hidden" name="profile" value="${user.profile}">
+					</td>
 				</tr>
 			</table>
 		</form>
@@ -49,7 +56,13 @@
 			<table border='1' class='table'>
 				<tr>
 					<td colspan='2' style='text-align: right'><input type='submit'
-						value='戻る'></td>
+						value='戻る'>
+						<input type="hidden" name="loginId" value="${user.loginId}">
+						<input type="hidden" name="password" value="${user.password}">
+						<input type="hidden" name="userName" value="${user.userName}">
+						<input type="hidden" name="icon" value="${user.icon}">
+						<input type="hidden" name="profile" value="${user.profile}">
+					</td>
 				</tr>
 			</table>
 		</form>

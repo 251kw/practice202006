@@ -20,7 +20,16 @@
 	</div>
 	<br>
 	<div class="text-center padding-y-5">
-		<h4>ログインユーザー情報</h4>
+		<div class="boxContainer ">
+			<div class="box ">
+				<h4>ログインユーザー情報</h4>
+			</div>
+			<div class="box">
+				<form action="UserSearchInput.jsp" method="post">
+					<input class="btn" type="submit" value="検索">
+				</form>
+			</div>
+		</div>
 	</div>
 	<%-- セッションスコープにある UserdTO型のオブジェクトを参照 --%>
 	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
@@ -53,8 +62,8 @@
 		<table style="width: 400px;" class="table container padding-y-5">
 			<tr>
 				<%-- 今の気持ち入力欄の名前は shout --%>
-					<td class="text-center"><input class="form-contorol" type="text"
-					name="shout" value="" size="60" /></td>
+				<td class="text-center"><input class="form-contorol"
+					type="text" name="shout" value="" size="60" /></td>
 				<td><input class="btn" type="submit" value="叫ぶ" /></td>
 			</tr>
 			<%-- リクエストスコープにalertがあれば --%>

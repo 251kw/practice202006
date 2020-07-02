@@ -5172,7 +5172,14 @@ img {
     padding-right: 100px; }
 
 
+.box{
+     font-size: 12pt;
+    display: inline-block;
+}
 
+.boxContainer{
+  font-size: 10;
+}
 
 
     }

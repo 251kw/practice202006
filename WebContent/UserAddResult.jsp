@@ -10,7 +10,13 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
+	<%
+	String loginId = (String)request.getAttribute("loginId");
+	String password = (String)request.getAttribute("password");
+	String userName = (String)request.getAttribute("userName");
+	String icon = (String)request.getAttribute("icon");
+	String profile = (String)request.getAttribute("profile");
+	%>
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
 			<strong>登録しました</strong>
@@ -21,23 +27,23 @@
 			<table border='1' class='table'>
 				<tr>
 					<th>ログインID</th>
-					<td>${user.loginId}</td>
+					<td><%= loginId %></td>
 				</tr>
 				<tr>
 					<th>パスワード</th>
-					<td>${user.password}</td>
+					<td><%= password %></td>
 				</tr>
 				<tr>
 					<th>名前</th>
-					<td>${user.userName}</td>
+					<td><%= userName %></td>
 				</tr>
 				<tr>
 					<th>アイコン</th>
-					<td><span class="icon-${user.icon} pe-2x pe-va"></span></td>
+					<td><span class="icon-<%= icon %> pe-2x pe-va"></span></td>
 				</tr>
 				<tr>
 					<th>プロフィール</th>
-					<td>${user.profile}</td>
+					<td><%= profile %></td>
 				</tr>
 				<tr>
 					<td colspan='2' style='text-align: right'><input type='submit'
