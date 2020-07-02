@@ -38,12 +38,27 @@
 			</c:forEach>
 		</div>
 	</div>
-	<table style="width: 500px" class="table">
-	<tr>
-				<td><input type="button"
-					onclick="location.href='./userSearchInput.jsp'" value="戻る"
-					class="btn"></td>
+	<form action="./userSearchInput.jsp" method="post">
+		<%
+			//文字化け対策
+			request.setCharacterEncoding("UTF-8");
+
+			//String icon = (String) request.getAttribute("icon");
+			String loginId = (String) request.getAttribute("loginId");
+			String userName = (String) request.getAttribute("userName");
+			String profile = (String) request.getAttribute("profile");
+		%>
+		<input type="hidden" name="suserName" value="<%=userName%>">
+		<input type="hidden" name="sloginId" value="<%=loginId%>">
+		<!--  <input type="hidden" name="icon" value=""> -->
+		<input type="hidden" name="sprofile" value="<%=profile%>">
+
+		<table style="width: 500px" class="table">
+			<tr>
+				<td colspan="4" class="text-center"><input type="submit"
+					value="戻る" class="btn"></td>
 			</tr>
-	</table>
+		</table>
+	</form>
 </body>
 </html>

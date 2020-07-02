@@ -98,7 +98,7 @@
 			<tr>
 
 				<%-- アイコン入力欄の名前はicon --%>
-				<td width="150" class="color-main text-left">アイコン</td>
+				<td width="150" class="color-main text-left">アイコン${param.icon}</td>
 				<td><select name="icon" class="form-control">
 						<c:choose>
 							<c:when test="${param.icon == 'icon-rocket'}">

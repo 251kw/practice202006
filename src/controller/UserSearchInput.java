@@ -47,11 +47,36 @@ public class UserSearchInput extends HttpServlet {
 		// 送信データの取得
 		String userName = request.getParameter("userName");
 		String loginId = request.getParameter("loginId");
-		String icon = request.getParameter("icon");
-		if(icon == null) {
-			icon = "";
+		String[] sicon = request.getParameterValues("sicon");
+		String profile = request.getParameter("profile");
+
+		//データ保持
+		request.setAttribute("userName", userName);
+		request.setAttribute("loginId", loginId);
+		//request.setAttribute("icon", icon);
+		request.setAttribute("profile", profile);
+
+		String str = null;
+		//int i;
+
+		if(sicon != null) {
+			if(sicon.length == 2) {
+				if(sicon[0].equals("icon-plane") && sicon[1].equals("icon-rocket")) {
+					str = sicon[1];
+				}
+			}else {
+				if(sicon[0].equals("icon-plane")) {
+					str = sicon[0];
+				}
+				if(sicon.length == 2) {
+					if(sicon[1].equals("icon-rocket")) {
+						str = "double";
+					}
+				}
+			}
+
 		}
-		//String profile = request.getParameter("profile");
+		request.setAttribute("icon", str);
 
 		String message = null;
 
@@ -60,7 +85,7 @@ public class UserSearchInput extends HttpServlet {
 		UserSearch us = new UserSearch();
 
 		//全件検索の場合
-		 if(loginId.equals("") &&  userName.equals("") && icon.equals("")){
+		 if(loginId.equals("") &&  userName.equals("") && sicon == null && profile.equals("")){
 			 ArrayList<SearchDTO> list = us.SearchAllUser();
 			 	//検索したユーザー情報を、ユーザリストとしてセッションに追加
 				request.setAttribute("users", list);
@@ -77,7 +102,7 @@ public class UserSearchInput extends HttpServlet {
 				}
 		 }else{
 			 //ユーザーを検索するメソッド
-			 ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId,userName,icon);
+			 ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId,userName,profile,sicon);
 				//検索したユーザー情報を、ユーザリストとしてセッションに追加
 				request.setAttribute("users", list);
 

@@ -53,7 +53,7 @@ public class UserSearch extends SnsDAO {
 	}
 
 	//loginIdのみ一致
-	public ArrayList<SearchDTO> SearchloginIDlUser(String loginId, String userName, String icon) {
+	public ArrayList<SearchDTO> SearchloginIDlUser(String loginId, String userName,String profile, String[] icon) {
 		try {
 			int counter = 0;
 			conn = getConnection();
@@ -70,9 +70,24 @@ public class UserSearch extends SnsDAO {
 				sql += "AND userName LIKE ?";
 			}
 
+			//プロフィールが空白でなければWHERE句追加
+			if(!profile.equals("")) {
+				sql += "AND profile LIKE ?";
+			}
+
+
 			//アイコンが空白でなければWHERE句追加
-			if(!icon.equals("")) {
-				sql += "AND icon LIKE ?";
+			if(icon != null) {
+				if(icon.length != 0) {
+					sql += "AND icon LIKE ?";
+					//アイコンが二つ以上選択されている
+					if(icon.length >= 2) {
+						//iconの配列数だけ繰り返す
+						for(int i = 0; i < icon.length - 1; i++) {
+							sql += "OR icon LIKE ?";
+						}
+					}
+				}
 			}
 
 			pstmt = conn.clientPrepareStatement(sql);
@@ -85,8 +100,21 @@ public class UserSearch extends SnsDAO {
 				pstmt.setString(++counter,"%" +userName + "%" );
 			}
 
-			if(!icon.equals("")) {
-				pstmt.setString(++counter,"%" +icon + "%" );
+			if(!profile.equals("")) {
+				pstmt.setString(++counter,"%" +profile + "%" );
+			}
+
+			if(icon != null) {
+				if(icon.length == 1) {
+					pstmt.setString(++counter,"%" +icon[0] + "%" );
+				}
+
+
+				if(icon.length >= 2) {
+					for(int i = 0; i <= icon.length - 1; i++) {
+						pstmt.setString(++counter,"%" +icon[i] + "%" );
+					}
+				}
 			}
 			//sql文の実行
 			rset = pstmt.executeQuery();
