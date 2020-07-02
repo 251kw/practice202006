@@ -9,6 +9,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+import org.apache.catalina.User;
+
 import dto.ShoutDTO;
 import dto.UserDTO;
 
@@ -220,6 +222,78 @@ public class DBManager extends SnsDAO{
 		}
 
 		return result;
+
+	}
+
+
+	//ログイン後、検索画面でのユーザ検索
+	public UserDTO getSearchUser(String loginId, String password, String userName, String icon, String profile ) {
+		Connection conn = null;	//データベース接続情報
+		PreparedStatement pstmt = null;	//SQL管理情報
+		ResultSet rset = null;	//検索結果
+
+		//取ってきた値がnullじゃなければ、WHERE句のCASE文で検索対象に加える(長いので見やすく段落分けする)
+		//メモ：【users】…ユーザー情報格納してるテーブル
+		String sql = "SELECT * FROM users WHERE"
+				+ "CASE "
+				+ "WHEN loginId != '' THEN loginId = ? AND"
+				+ "WHEN password != '' THEN password = ? AND"
+				+ "WHEN userName != '' THEN userName = ? AND"
+				+ "WHEN icon != '' THEN icon = ? AND"
+				+ "WHEN profile != '' THEN profile = ? "
+				+ "END";
+
+		//登録ユーザ情報
+		UserDTO user = null;
+		//検索結果いれるためのArrayList
+		ArrayList<User> list = new ArrayList<>();
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);	//SELECT構成登録　データベース接続情報をオブジェクトにして(conn)、ParameterStatement型の変数を受けとる
+			//プレースホルダーへの値のセット
+			if(loginId != null) {
+				pstmt.setString(1, loginId);
+			}else if(password != null) {
+				pstmt.setString(2, password);
+			}else if(userName != null) {
+				pstmt.setString(3, userName);
+			}else if(icon != null) {
+				pstmt.setString(4, icon);
+			}else if(profile != null) {
+				pstmt.setString(5, profile);
+			}
+
+//			pstmt.setString(1, loginId);
+//			pstmt.setString(2, password);
+			//SQL文の実行
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば ここも繰り返す
+			if(rset.next()) {
+				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理　これつないだ時と逆の順番から切っていくんか
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return user;
 
 	}
 }

@@ -22,7 +22,7 @@
 
 	<%-- 入力情報をinsertCheckに飛ばす --%>
 	<div class="padding-y-5">
-		<form action="./inCheck" method="post">
+		<form action="./searchSrv" method="post">
 			<table style="width: 40%" class="container padding-y-5 table">
 				<tr>
 					<td class="none" nowrap><span class="color-main text-left"><font size="4">検索項目を選択してください</font></span></td>

@@ -60,6 +60,19 @@ public class CheckUtil {
 		return message;
 	}
 
+	public static boolean inputCheck(String errId, String errPass) {
+		//エラーメッセージがすべて空文字ならtrue
+		//ひとつでも空文字でないならどこかでエラーが発生しているのでfalse
+
+		boolean boo;
+		if(errId == "" && errPass == "") {
+			boo = true;
+		}else {
+			boo = false;
+		}
+		return boo;
+	}
+
 }
 
 
