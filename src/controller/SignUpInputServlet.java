@@ -8,25 +8,25 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.Check;
 import dao.DBManager;
 import dto.UserDTO;
+import util.Check;
 
 
-@WebServlet("/signup")
-public class SignUpServlet extends HttpServlet {
+@WebServlet("/sui")
+public class SignUpInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public SignUpServlet() {
+	public SignUpInputServlet() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+
+		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -39,17 +39,17 @@ public class SignUpServlet extends HttpServlet {
 		String botton = request.getParameter("btn");
 		String message = null;
 
-		if (botton.equals("確認画面へ")) {
-			//送信情報の取得
-			String loginId = request.getParameter("loginId");
-			String pass = request.getParameter("pass");
-			String userName = request.getParameter("userName");
-			String icon = request.getParameter("icon");
-			String profile = request.getParameter("profile");
+		//送信情報の取得
+		String loginId = request.getParameter("loginId");
+		String pass = request.getParameter("pass");
+		String userName = request.getParameter("userName");
+		String icon = request.getParameter("icon");
+		String profile = request.getParameter("profile");
 
-			UserDTO newuser = new UserDTO(loginId, pass, userName, icon, profile);
-			HttpSession session = request.getSession();
-			session.setAttribute("newuser", newuser);
+		UserDTO newuser = new UserDTO(loginId, pass, userName, icon, profile);
+
+		if (botton.equals("確認画面へ")) {
+			request.setAttribute("newuser", newuser);
 
 			if (loginId.equals("") || pass.equals("")) {
 				//ログインIDとパスワードどちらか、もしくは双方未入力なら
@@ -60,14 +60,9 @@ public class SignUpServlet extends HttpServlet {
 				message = "";
 
 				//index.jspに処理を転送
-				dispatcher = request.getRequestDispatcher("signup.jsp");
-				dispatcher.forward(request, response);
-			}
+				dispatcher = request.getRequestDispatcher("signup_input.jsp");
 
-			Check check = new Check();
-			boolean rsult = check.checkLogic(loginId);
-
-			if(rsult==false) {
+			} else if(Check.checkLogic(loginId)==false) {
 				message = "ログインIDに使用できるのは半角英数字のみです。";
 
 				//エラーメッセージをリクエストオブジェクトに保存
@@ -75,29 +70,35 @@ public class SignUpServlet extends HttpServlet {
 				message = "";
 
 				//index.jspに処理を転送
-				dispatcher = request.getRequestDispatcher("signup.jsp");
-				dispatcher.forward(request, response);
-			}
+				dispatcher = request.getRequestDispatcher("signup_input.jsp");
 
+			} else if (dbm.SameCheckId(loginId)) {
 
-			if (dbm.SameCheckId(loginId)) {
+				dispatcher = request.getRequestDispatcher("signup_confirm.jsp");
 
-				dispatcher = request.getRequestDispatcher("signup_check.jsp");
 			} else {
 				message = "このログインIDは既に使われています。";
 				request.setAttribute("alert", message);
 				message = "";
 
-				dispatcher = request.getRequestDispatcher("signup.jsp");
+				dispatcher = request.getRequestDispatcher("signup_input.jsp");
 			}
 
 		} else if (botton.equals("登録する")) {
-			HttpSession session = request.getSession();
-			UserDTO newuser = (UserDTO) session.getAttribute("newuser");
+			request.setAttribute("newuser", newuser);
 
 			dbm.SignUp(newuser);
-			dispatcher = request.getRequestDispatcher("signup_comp.jsp");
+			dispatcher = request.getRequestDispatcher("signup_result.jsp");
+
+		} else if(botton.equals("戻る")) {
+			dispatcher = request.getRequestDispatcher("signup_input.jsp");
 		}
+		//jspに送る
+		request.setAttribute("loginId",loginId);
+		request.setAttribute("password",pass);
+		request.setAttribute("userName",userName);
+		request.setAttribute("icon",icon);
+		request.setAttribute("profile",profile);
 
 		dispatcher.forward(request, response);
 

@@ -90,10 +90,14 @@ public class LoginServlet extends HttpServlet {
 			}
 
 		} else if (botton.equals("新規登録")) {
-			UserDTO newuser = new UserDTO("","","","","");
-			HttpSession session = request.getSession();
-			session.setAttribute("newuser", newuser);
-			dispatcher = request.getRequestDispatcher("signup.jsp");
+			//初回のテキストボックスに
+			request.setAttribute("loginId", "");
+			request.setAttribute("pass", "");
+			request.setAttribute("userName", "");
+			request.setAttribute("icon", "");
+			request.setAttribute("profile", "");
+
+			dispatcher = request.getRequestDispatcher("signup_input.jsp");
 			dispatcher.forward(request, response);
 
 		}

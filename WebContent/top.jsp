@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>みんなの心の叫び</title>
+<title>shouter-みんなの叫び-</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
@@ -31,24 +31,24 @@
 	</div>
 <%---------------------------------------------------------------------------------%>
 
-	<%-- セッションスコープにあるUserDTO型のオブジェクトを参照 --%>
+	<%-- リクエストスコープにあるUserDTO型のオブジェクトを参照 --%>
 	<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 	<div class="padding-y-5">
 		<div style="width: 40%" class="container padding-y-5">
 			<%-- action属性にサーブレットを指定 --%>
-			<form action="./logout" method="post">
+			<%--form action="./logout" method="post"--%>
 				<table class="table table-bordered">
 					<tr>
 						<td rowspan="2" class="text-center"><span
 							class="${user.icon} pe-3x pe-va"></span></td>
 						<td width="256">${user.userName}</td>
-						<td><input class="btn btn-light" type="submit" value="ログアウト" /></td>
+						<td><form action="./logout" method="post"><input class="btn btn-sm btn-light" type="submit" value="ログアウト" /></form>
+							<form action="./sis" method="get"><input class="btn btn-sm btn-light" type="submit" value="検索" name="btn" /></form></td>
 					</tr>
 					<tr>
 						<td colspan="2">${user.profile}</td>
 					</tr>
 				</table>
-			</form>
 		</div>
 	</div>
 	<div class="padding-y-5">
@@ -60,7 +60,7 @@
 		<div style="width: 40%" class="container padding-y-5 text-center">
 
 			<%-- action属性にサーブレットを指定 --%>
-			<form method="post" action="./bbs">
+			<form method="post" action="./top">
 				<table class="table">
 					<tr>
 						<%--今の気持ち入力欄の名前は shout--%>

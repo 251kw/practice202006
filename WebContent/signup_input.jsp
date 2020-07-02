@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="util.Check" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -24,10 +25,10 @@
 <%-- 頭 --%>
 
 <%-- 登録内容 --%>
-<jsp:useBean id="newuser" scope="session" type="dto.UserDTO" />
+<%--jsp:useBean id="newuser" scope="request" type="dto.UserDTO"/--%>
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
-		<form action="./signup" method="post">
+		<form action="./sui" method="post">
 		<table border="1" class="table">
 
 			<%-- リクエストスコープにalertがあれば --%>
@@ -43,47 +44,48 @@
 				<tr>
 					<th><label for="loginId"><font color="#00CCFF"><span class="icon-id pe-2x pe-va"></span></font>&nbsp;ログインID
 					</label></th>
-					<td><div><h6>半角英数字で入力してください</h6></div><input type="text" name="loginId" id="loginId" value="${newuser.loginId}" class="form-control"></td>
+					<td><div><h6>半角英数字で入力してください</h6></div><input type="text" name="loginId" id="loginId" value="${loginId}" class="form-control"></td>
 				</tr>
 				<tr>
+
 					<th><label for="pass"><font color="#CC99CC"><span class="icon-key pe-2x pe-va"></span></font>&nbsp;パスワード</label></th>
-					<td><input type="password"name="pass" id="pass" value="${newuser.password}" class="form-control"></td>
+					<td><input type="password"name="pass" id="pass" value="${password}" class="form-control"></td>
 				</tr>
 				<tr>
 					<th><label for="userName"><font color="#FF3333"><span class="icon-users pe-2x pe-va"></span></font>&nbsp;ユーザ名</label></th>
-					<td><input type="text"name="userName" id="userName" value="${newuser.userName}" class="form-control"></td>
+					<td><input type="text"name="userName" id="userName" value="${userName}" class="form-control"></td>
 				</tr>
 				<tr>
 					<th><font color="#FFCC33"><span class="icon-smile pe-2x pe-va"></span></font>&nbsp;アイコン</th>
 					<td>
 						<select name="icon" class="form-control">
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-user') || newuser.icon==null || newuser.icon==''}">
+							<c:when test="${(icon).equals('icon-user') || icon==null || icon==''}">
 							<option value="icon-user" selected="selected">男性</option></c:when>
 							<c:otherwise><option value="icon-user">男性</option></c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-user-female')}">
+							<c:when test="${(icon).equals('icon-user-female')}">
 							<option value="icon-user-female" selected="selected">女性</option></c:when>
 							<c:otherwise><option value="icon-user-female">女性</option></c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-bell')}">
+							<c:when test="${(icon).equals('icon-bell')}">
 							<option value="icon-bell" selected="selected">ベル</option></c:when>
 							<c:otherwise><option value="icon-bell">ベル</option></c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-star')}">
+							<c:when test="${(icon).equals('icon-star')}">
 							<option value="icon-star" selected="selected">星</option></c:when>
 							<c:otherwise><option value="icon-star">星</option></c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-moon')}">
+							<c:when test="${(icon).equals('icon-moon')}">
 							<option value="icon-moon" selected="selected">月</option></c:when>
 							<c:otherwise><option value="icon-moon">月</option></c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${(newuser.icon).equals('icon-rocket')}">
+							<c:when test="${(icon).equals('icon-rocket')}">
 							<option value="icon-rocket" selected="selected">ロケット</option></c:when>
 							<c:otherwise><option value="icon-rocket">ロケット</option></c:otherwise>
 						</c:choose>
@@ -92,7 +94,7 @@
 				</tr>
 				<tr>
 					<th><font color="#99CC66"><span class="icon-comment pe-2x pe-va"></span></font>&nbsp;プロフィール</th>
-					<td><textarea rows="5" cols="20" name="profile" class="form-control">${newuser.profile}</textarea></td>
+					<td><textarea rows="5" cols="20" name="profile" class="form-control">${profile}</textarea></td>
 				</tr>
 				<tr>
 					<td colspan="2" class="text-right">

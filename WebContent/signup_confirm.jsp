@@ -5,29 +5,29 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>shouter-登録完了-</title>
+<title>shouter-登録確認-</title>
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
 
-<%---------------------------------------------------------------------------------%>
+<%-- 頭 --%>
 <div class="bg-success padding-y-5">
 	<div class="padding-y-5 text-center">
 		<h1>Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
 	</div>
 </div>
 <div class="padding-y-5 text-center">
-<h5>以下の内容で登録を完了いたしました。</h5>
+<h5>以下の登録内容でよろしいですか？</h5>
 </div>
-<%---------------------------------------------------------------------------------%>
+<%-- 頭end --%>
 
-<%-- 登録内容表示 --%>
-<jsp:useBean id="newuser" scope="session" type="dto.UserDTO" />
+<%-- 登録確認内容表示 --%>
+<jsp:useBean id="newuser" scope="request" type="dto.UserDTO" />
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
-		<form action="./suc" method="post">
+		<form action="./sui" method="post">
 			<table border="1" class="table">
 				<tr>
 					<th><label for="loginId"><font color="#00CCFF"><span class="icon-id pe-2x pe-va"></span></font>&nbsp;ログインID</label></th>
@@ -51,13 +51,20 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="text-right">
-					<input type="submit" value="ログイン画面へ戻る" class="btn">
+					<input type="hidden" name="loginId" value="${newuser.loginId}">
+					<input type="hidden" name="pass" value="${newuser.password}">
+					<input type="hidden" name="userName" value="${newuser.userName}">
+					<input type="hidden" name="icon" value="${newuser.icon}">
+					<input type="hidden" name="profile" value="${newuser.profile}">
+					<input class="btn" type="submit" value="登録する" name="btn"/>
+					<input class="btn" type="submit" value="戻る" name="btn">
 					</td>
 				</tr>
 			</table>
 		</form>
 	</div>
 </div>
+
 
 </body>
 </html>

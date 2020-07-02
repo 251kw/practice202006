@@ -2,11 +2,11 @@ package dto;
 
 //ユーザ情報を保持するクラス
 public class UserDTO {
-	private String loginId;	//ログインid
-	private String password;	//パスワード
-	private String userName;	//ユーザ名
-	private String icon;		//ユーザアイコン
-	private String profile;	//プロフィール
+	private String loginId="";	//ログインid
+	private String password="";	//パスワード
+	private String userName="";	//ユーザ名
+	private String icon="";		//ユーザアイコン
+	private String profile="";	//プロフィール
 
 	public UserDTO() {
 		//

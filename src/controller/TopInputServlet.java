@@ -16,8 +16,8 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
-@WebServlet("/bbs")
-public class BbsServlet extends HttpServlet {
+@WebServlet("/top")
+public class TopInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
@@ -54,7 +54,7 @@ public class BbsServlet extends HttpServlet {
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
 
 			// リストをセッションに保存
-			session.setAttribute("shouts", list);
+			request.setAttribute("shouts", list);
 		} else {
 			//書き込み未入力なら
 			message = "コメントを入力してください";
