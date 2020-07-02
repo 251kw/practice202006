@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,22 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Util.CheckDB;
-import dto.UserDTO;
 
 /**
- * Servlet implementation class UserSearchSqueezeServlet
+ * Servlet implementation class UserDeleteServlet
  */
-@WebServlet("/UserSearchSqueeze")
-public class UserSearchSqueezeServlet extends HttpServlet {
+@WebServlet("/UserDelete")
+public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserSearchSqueezeServlet() {
+    public UserDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,17 +42,14 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		HttpSession session = request.getSession();
+		RequestDispatcher dispatcher = null;
 
 		// 送信情報の取得
+		String dloginId = request.getParameter("dloginId");
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
-
-		if(sicon.equals("all")) {
-			sicon = "";
-		}
 
 		// 値の保持用
 		request.setAttribute("sloginId", sloginId);
@@ -63,25 +57,10 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		RequestDispatcher dispatcher = null;
+		CheckDB.DeleteUser(dloginId);
 
-		ArrayList<UserDTO> resultList = new ArrayList<UserDTO>();
-		resultList = CheckDB.joinsql(sloginId, suserName, sicon, sprofile);
-
-		String notfoundmessage = null;
-
-		if(resultList.isEmpty()) {
-			notfoundmessage = "該当するユーザーが見つかりませんでした";
-			request.setAttribute("notfound", notfoundmessage);
-
-			dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
-			dispatcher.forward(request,response);
-		} else {
-			request.setAttribute("resultList", resultList);
-			session.setAttribute("rersultList", resultList);
-
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
-			dispatcher.forward(request,response);
-		}
+		dispatcher = request.getRequestDispatcher("DeleteResult.jsp");
+		dispatcher.forward(request,response);
 	}
+
 }

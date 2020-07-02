@@ -102,4 +102,36 @@ public class CheckDB {
 		}
 		return resultList;
 	}
+
+
+
+	public static void DeleteUser(String dloginId) {
+
+		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+		final String USER = "root";
+		final String PASSWORD = "root";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
+			String sql = "delete from users where loginId = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, dloginId);
+			pstmt.executeUpdate();
+
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {}
+		}
+		return;
+	}
 }

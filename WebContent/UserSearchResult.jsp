@@ -19,7 +19,7 @@
 	<br>
 	<h4 class="text-center">検索結果</h4>
 	<br>
-	<%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
+	<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
 	<jsp:useBean id="resultList" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 		<%-- リストにある要素の数だけ繰り返し --%>
 		<table style="width: 600px" class="table table-borderd container padding-y-5">
@@ -38,14 +38,24 @@
 				<td class="text-center"><span class="${resultList.icon} pe-2x pe-va"></span></td>
 				<td class="text-center">${resultList.profile}</td>
 				<td class="text-center">
-					<form action="UserSearchInput.jsp" method="post"><input class="butten" type="submit" value="更新"></form>
+					<form action="UserSearchInput.jsp" method="post"><input class="butten" type="submit" value="更新">
+						<%-- 該当するログインIDと入力情報を送る --%>
+						<input type="hidden" name="dloginId" value="${resultList.loginId}">
+						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+						<input type="hidden" name="suserName" value="${requestScope.suserName}">
+						<input type="hidden" name="sicon" value="${requestScope.sicon}">
+						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+					</form>
 				</td>
 				<td class="text-center">
-					<form action="./UserDelete" method="post"><input class="butten" type="submit" value="削除"></form>
-				</td>
-				<%-- ログインIDを送る --%>
-				<td>
-					<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+					<form action="./UserDelete" method="post"><input class="butten" type="submit" value="削除">
+						<%-- 該当するログインIDと入力情報を送る --%>
+						<input type="hidden" name="dloginId" value="${resultList.loginId}">
+						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+						<input type="hidden" name="suserName" value="${requestScope.suserName}">
+						<input type="hidden" name="sicon" value="${requestScope.sicon}">
+						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+					</form>
 				</td>
 			</tr>
 			</c:forEach>
