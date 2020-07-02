@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	// index.jspの「ログイン」ボタンから呼び出される
+	// LoginTop.jspの「ログイン」ボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		// 送信情報の取得
@@ -58,8 +58,8 @@ public class LoginServlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 
-			// index.jsp に処理を転送
-			dispatcher = request.getRequestDispatcher("index.jsp");
+			// LoginTop.jsp に処理を転送
+			dispatcher = request.getRequestDispatcher("LoginTop.jsp");
 			dispatcher.forward(request,response);
 		}else {
 			// ログイン認証を行い、ユーザー情報を取得
@@ -76,16 +76,16 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user", user);
 				session.setAttribute("shouts", list);
 
-				// 処理の転送先をtop.jspに指定
-				dispatcher = request.getRequestDispatcher("top.jsp");
+				// 処理の転送先をBoardTop.jspに指定
+				dispatcher = request.getRequestDispatcher("BoardTop.jsp");
 			}else {
 				// ユーザー情報が取得できない場合
 				// エラーメッセージをリクエストオブジェクトに保存
 				message = "ログインIDまたはパスワードが違います";
 				request.setAttribute("alert", message);
 
-				// 処理の転送先をindex.jspに指定
-				dispatcher = request.getRequestDispatcher("index.jsp");
+				// 処理の転送先をLoginTop.jspに指定
+				dispatcher = request.getRequestDispatcher("LoginTop.jsp");
 			}
 
 			// 処理を転送

@@ -1,4 +1,4 @@
-package controller;
+package connecter;
 
 import java.io.IOException;
 
@@ -8,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class LogoutServlet
+ * Servlet implementation class TurnUserAddInputServlet
  */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/TurnUserAddInput")
+public class TurnUserAddInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public LogoutServlet() {
+    public TurnUserAddInputServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -28,27 +27,34 @@ public class LogoutServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-
-    // 直接アクセスがあった場合はLoginTop.jspに処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
-			dispatcher.forward(request, response);
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-
-	// BoardTop.jspの「ログアウト」ボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		// セッションを破棄
-		HttpSession session = request.getSession();
-		session.invalidate();
 
-		// doGetメソッドを呼び出し、LoginTop.jspに処理を転送
-		doGet(request,response);
+		request.setCharacterEncoding("UTF-8");
+
+		String newloginId = "";
+		String newpassword = "";
+		String newuserName = "";
+		String newicon = "";
+		String newprofile = "";
+
+		request.setAttribute("newloginId", newloginId);
+		request.setAttribute("newpassword", newpassword);
+		request.setAttribute("newuserName", newuserName);
+		request.setAttribute("newicon", newicon);
+		request.setAttribute("newprofile", newprofile);
+
+		RequestDispatcher dispatcher = null;
+		dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+		dispatcher.forward(request,response);
 	}
 
 }
