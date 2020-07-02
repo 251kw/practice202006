@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ page import="dto.UserDTO"%>
-<%@ page import="controller.insertCheckServlet"%>
+<%@ page import="controller.InsertCheckServlet"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -20,8 +19,7 @@
 		</div>
 	</div>
 
-	<jsp:useBean id="userDTO" scope="session" type="dto.UserDTO" />
-	<%-- action属性にサーブレットを指t定 --%>
+	<%-- action属性にサーブレットを指定 --%>
 	<div class="padding-y-5">
 		<form action="./registraction" method="post">
 			<table style="width: 40%" class="container padding-y-5 table">
@@ -29,31 +27,34 @@
 					<td class="none" nowrap><span class="color-main text-left"><font
 							size="4">新規会員登録【確認画面】</font></span></td>
 				</tr>
+				<%//文字化け防止
+				request.setCharacterEncoding("UTF-8");
+				%>
 				<tr>
 					<%-- ログインID入力欄の名前はLoginId --%>
 					<td class="color-main text-left">ログインID</td>
-					<td class="text-left">${userDTO.loginId}</td>
+					<td class="text-left">${loginId}</td>
 				</tr>
 				<tr>
 					<%-- パスワード入力欄の名前はpassword --%>
 					<td class="color-main text-left">パスワード</td>
-					<td class="text-left">${userDTO.password}</td>
+					<td class="text-left">${password}</td>
 				</tr>
 				<tr>
 					<%-- 名前入力欄の名前はuserName --%>
 					<td class="color-main text-left">氏名</td>
-					<td class="text-left">${userDTO.userName}</td>
+					<td class="text-left">${userName}</td>
 				</tr>
 				<tr>
 					<%-- icon入力欄の名前はicon --%>
 					<td class="color-main text-left">アイコン</td>
 					<td class="text-left">
-					<span class="${userDTO.icon} pe-2x pe-va"></span></td>
+					<span class="${icon} pe-2x pe-va"></span></td>
 				</tr>
 				<tr>
 					<%-- プロフィール入力欄の名前はprofile --%>
 					<td class="color-main text-left">プロフィール</td>
-					<td class="text-left">${userDTO.profile}</td>
+					<td class="text-left">${profile}</td>
 				</tr>
 				<tr>
 					<%-- <td class="none" nowrap><span class="color-main text-left"><font
@@ -67,14 +68,26 @@
 						type="submit" value="OK" /></td>
 				</tr>
 			</table>
+			<input type="hidden" name="loginId" value="${param.loginId}">
+			<input type="hidden" name="password" value="${param.password}">
+			<input type="hidden" name="userName" value="${param.userName}">
+			<input type="hidden" name="icon" value="${param.icon}">
+			<input type="hidden" name="profile" value="${param.profile}">
 		</form>
-		<form action="./CookieSrv" method="post">
+
+		<%-- 修正の場合は入力情報保持したままinsert.jspに戻る --%>
+		<form action="insert.jsp" method="post">
 			<table style="width: 40%" class="container padding-y-5 table">
 				<tr>
 					<td class="none text-right" colspan="2"><input class="btn" type="submit"
 						value="修正する" /></td>
 				</tr>
 			</table>
+			<input type="hidden" name="loginId" value="${param.loginId}">
+			<input type="hidden" name="password" value="${param.password}">
+			<input type="hidden" name="userName" value="${param.userName}">
+			<input type="hidden" name="icon" value="${param.icon}">
+			<input type="hidden" name="profile" value="${param.profile}">
 		</form>
 	</div>
 </body>

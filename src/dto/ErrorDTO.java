@@ -1,7 +1,7 @@
 package dto;
 
 //情報を保持するクラス
-public class errorDTO {
+public class ErrorDTO {
 	public String errMsId;
 	public String errMsPass;
 	public String errMsUname;
@@ -11,11 +11,11 @@ public class errorDTO {
 	public String errId;
 	public String errPass;
 
-	public errorDTO() {
+	public ErrorDTO() {
 
 	}
 
-	public errorDTO(String errMsId, String errMsPass, String errMsUname, String errMsIcon, String errMsProf, String errDepMs, String errId, String errPass) {
+	public ErrorDTO(String errMsId, String errMsPass, String errMsUname, String errMsIcon, String errMsProf, String errDepMs, String errId, String errPass) {
 		this.errMsId = errMsId;
 		this.errMsPass = errMsPass;
 		this.errMsUname = errMsUname;

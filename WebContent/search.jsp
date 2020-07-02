@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="./css/skyblue.css">
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
-<title>ユーザ登録画面</title>
+<title>ユーザ検索画面</title>
 </head>
 <body>
 	<div class="bg-accyell padding-y-5">
@@ -25,7 +25,7 @@
 		<form action="./inCheck" method="post">
 			<table style="width: 40%" class="container padding-y-5 table">
 				<tr>
-					<td class="none" nowrap><span class="color-main text-left"><font size="4">新規会員登録</font></span></td>
+					<td class="none" nowrap><span class="color-main text-left"><font size="4">検索項目を選択してください</font></span></td>
 				</tr>
 				<%//文字化け防止
 				request.setCharacterEncoding("UTF-8");
@@ -109,11 +109,11 @@
 				<tr>
 					<%-- ボタン --%>
 					<td colspan="2" class="text-right"><input class="btn"
-						type="submit" value="OK" /></td>
+						type="submit" value="検索する" /></td>
 				</tr>
 			</table>
 		</form>
-		<form action="index.jsp" method="post">
+		<form action="top.jsp" method="post">
 			<table style="width: 40%" class="container padding-y-5 table">
 				<tr>
 					<td class="none text-right"><input class="btn" type="submit"

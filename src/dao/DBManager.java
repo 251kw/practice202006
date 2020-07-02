@@ -182,9 +182,15 @@ public class DBManager extends SnsDAO{
 
 
 	//入力チェッククリアしてユーザから再確認もOKだったらDBに登録。
-	public boolean getEndUser(UserDTO user) {
+	public boolean getEndUser(String loginId, String password, String userName, String icon, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+
+		String getLogId = loginId;
+		String getPass = password;
+		String getUName = userName;
+		String getIcon = icon;
+		String getProf = profile;
 
 		boolean result = false;
 		try {
@@ -194,11 +200,11 @@ public class DBManager extends SnsDAO{
 			//INSERT文の登録と実行
 			String sql = "INSERT INTO users (loginId, password, userName, icon, profile) VALUES(?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getLoginId());
-			pstmt.setString(2, user.getPassword());
-			pstmt.setString(3, user.getUserName());
-			pstmt.setString(4, user.getIcon());
-			pstmt.setString(5, user.getProfile());
+			pstmt.setString(1, getLogId);
+			pstmt.setString(2, getPass);
+			pstmt.setString(3, getUName);
+			pstmt.setString(4, getIcon);
+			pstmt.setString(5, getProf);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {

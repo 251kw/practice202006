@@ -1,26 +1,27 @@
 package dto;
 
-//cookie情報を保持するクラス
-public class CookieDTO {
+public class UserDTOErr {
 	private String logId;
 	private String pass;
 	private String uName;
 	private String Icon;
 	private String prof;
 
-	public CookieDTO() {
+	public UserDTOErr() {
 
 	}
 
-	public CookieDTO(String logId, String pass, String uName, String Icon, String prof) {
+	//エラーで返るときの保持情報---------------------------------------------
+
+	public UserDTOErr(String logId, String pass, String uName, String Icon, String prof) {
 		this.logId = logId;
 		this.pass = pass;
 		this.uName = uName;
 		this.Icon = Icon;
 		this.prof = prof;
-
 	}
 
+	//ゲッターセッターの生成
 	public String getLogId() {
 		return logId;
 	}
@@ -60,5 +61,7 @@ public class CookieDTO {
 	public void setProf(String prof) {
 		this.prof = prof;
 	}
+
+
 
 }

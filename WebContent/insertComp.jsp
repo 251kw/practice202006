@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="dto.UserDTO"%>
-<%@ page import="controller.insertCheckServlet"%>
+<%@ page import="controller.InsertCheckServlet"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -19,7 +18,6 @@
 	</div>
 </div>
 
-<jsp:useBean id="userDTO" scope="session" type="dto.UserDTO" />
 <div class="padding-y-5">
 <form action="./index.jsp"   method="post">
 	<table style="width: 40%" class="container padding-y-5 table">
@@ -29,28 +27,28 @@
 		<tr>
 			<%-- ログインID入力欄の名前はLoginId --%>
 			<td class="color-main text-left">ログインID</td>
-			<td class="text-left">${userDTO.loginId}</td>
+			<td class="text-left">${param.loginId}</td>
 		</tr>
 		<tr>
 			<%-- パスワード入力欄の名前はpassword --%>
 			<td class="color-main text-left">パスワード</td>
-			<td class="text-left">${userDTO.password}</td>
+			<td class="text-left">${param.password}</td>
 		</tr>
 		<tr>
 			<%-- 名前入力欄の名前はuserName --%>
 			<td class="color-main text-left">氏名</td>
-			<td class="text-left">${userDTO.userName}</td>
+			<td class="text-left">${param.userName}</td>
 		</tr>
 		<tr>
 			<%-- icon入力欄の名前はicon --%>
 			<td class="color-main text-left">アイコン選択</td>
 			<td class="text-left">
-			<span class="${userDTO.icon} pe-2x pe-va"></span></td>
+			<span class="${param.icon} pe-2x pe-va"></span></td>
 		</tr>
 		<tr>
 			<%-- プロフィール入力欄の名前はprofile --%>
 			<td class="color-main text-left">プロフィール</td>
-			<td class="text-left">${userDTO.profile}</td>
+			<td class="text-left">${param.profile}</td>
 		</tr>
 		<%-- 登録して登録完了結果引っ張ってくる --%>
 		<%
@@ -65,11 +63,10 @@
 		<c:if
 			test="${result == false}">
 				<tr>
-					<td nowrap><span class="color-error text-left">
-					<font size="3">登録時にエラーが発生しました。最初からやり直してください。</font></span></td>
-					<td></td>
+				<td nowrap><span class="color-error text-left"><font size="3">エラーが発生しました。最初からやり直してください。</font></span></td>
+				<td></td>
 				</tr>
-			</c:if>
+		</c:if>
 		<tr>
 			<%-- ボタン --%>
 			<td class="none text-right" colspan="2" class="text-right"><input class="btn" type="submit" value="TOPに戻る" /></td>

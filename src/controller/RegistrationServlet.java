@@ -5,14 +5,11 @@ import java.io.IOException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
-import dto.UserDTO;
 
 /**
  * Servlet implementation class LoginServlet
@@ -44,33 +41,28 @@ public class RegistrationServlet extends HttpServlet {
 
 	//insertConfの「OK」ボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		;	// ログインユーザ情報、書き込み内容管理クラス
-		boolean result;
+		//DBManagerのgetEndUserメソッドを実行、DBに登録
 
-		//DBManagerのgetEndUserメソッドを実行、DBに登録する
+		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO) session.getAttribute("userDTO");
+
+		//送信情報の取得
+		String loginId = request.getParameter("loginId");
+		String password = request.getParameter("password");
+		String userName = request.getParameter("userName");
+		String icon = request.getParameter("icon");
+		String profile = request.getParameter("profile");
+
+		//登録結果を代入する用の変数
+		boolean result;
 
 		//dbmでDBmanagerをインスタンス化
 		dbm = new DBManager();
-		result = dbm.getEndUser(user);
+		result = dbm.getEndUser(loginId,password,userName,icon,profile);
 		request.setAttribute("result", result);
 
-		//cookieをすべて削除(明示的にクッキーの内容を削除する手段は無い→
-		//既存のクッキーを有効期間がゼロ秒のクッキーに変更する事で、ブラウザ側で破棄の処理を行うように促す。)
-		Cookie cookies[] = ((HttpServletRequest)request).getCookies();
-		if(cookies != null) {
-			for(int i = 0; i < cookies.length; i++) {
-				// クッキーの有効期間を0秒に設定する
-				cookies[i].setMaxAge(0);
-	                        ((HttpServletResponse)response).addCookie(cookies[i]);
-			}
-		}
-		//insertConpに処理を転送
+		//insertCompに処理を転送
 		RequestDispatcher dispatcher = request.getRequestDispatcher("insertComp.jsp");
 		dispatcher.forward(request, response);
 	}
-
 }

@@ -17,17 +17,40 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<div class="bg-main padding-y-5">
+	<div class="padding-y-5 text-center">
+		<font size="6"><strong>&nbsp;Shouter&nbsp;</strong><span class="icon-speaker pe-2x pe-va"></span></font>
+	</div>
+</div>
 <%-- セッションスコープにあるUserDTO型のオブジェクトを参照 --%>
 <jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 <div class="padding-y-5">
 	<div style="width: 40%" class="container padding-y-5">
-	<table class="table">
-		<tr>
-			<td class="none nowrap"><span class="color-main text-left"><font size="5">ログインユーザ情報</font></span></td>
-		</tr>
-	</table>
-		<%-- action属性にサーブレットを指定 --%>
+		<table class="table">
+			<tr>
+				<td class="none nowrap"><span class="color-main text-left"><font size="5">ログインユーザ情報</font></span></td>
+			</tr>
+		</table>
+
+		<table class="table table-bordered">
+    		<tr>
+    			<td rowspan="2" class="text-centr"><span class="${user.icon} pe-3x pe-va"></span></td>
+				<td width="256">${user.userName}</td>
+				<td>
+					<form action="search.jsp" method="post" >
+						<input class="btn" type="submit" value="ユーザ検索" />
+            		</form>
+            		<form action="./logout" method="post" >
+						<input class="btn btn-light" type="submit" value="ログアウト" />
+            		</form>
+        		</td>
+    		</tr>
+    		<tr>
+				<td colspan="2">${user.profile}</td>
+			</tr>
+		</table>
+
+<%--
 		<form action="./logout" method="post">
 			<table class="table table-bordered">
 				<tr>
@@ -41,6 +64,9 @@
 				</tr>
 			</table>
 		</form>
+--%>
+
+
 	</div>
 </div>
 
