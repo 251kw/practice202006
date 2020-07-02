@@ -8,22 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.DBNewUser;
-import dao.ErrorCheck;
+import dao.DBUserAddInput;
+import util.ErrorCheck;
 
 /**
  * Servlet implementation class NewUser
  */
 @WebServlet("/nu")
-public class NewUser extends HttpServlet {
+public class UserAddconfirn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public NewUser() {
+	public UserAddconfirn() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -44,7 +43,6 @@ public class NewUser extends HttpServlet {
 			throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
-		HttpSession session = request.getSession();
 
 		//送信データの取得
 		String userName = request.getParameter("userName");
@@ -54,19 +52,22 @@ public class NewUser extends HttpServlet {
 		String profile = request.getParameter("profile");
 
 		//String loginId = request.getParameter("loginId");
-		session.setAttribute("userName", userName);
-		session.setAttribute("loginId", loginId);
-		session.setAttribute("password", password);
-		session.setAttribute("icon", icon);
-		session.setAttribute("profile", profile);
+		request.setAttribute("userName", userName);
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("password", password);
+		request.setAttribute("icon", icon);
+		request.setAttribute("profile", profile);
+
+
 
 		String message = null;
 
-		DBNewUser dnu = new DBNewUser();
+		DBUserAddInput dnu = new DBUserAddInput();
 		ErrorCheck ec = new ErrorCheck();
 
 		int flag = 0;
 
+		//入力画面の入力必須項目の空白をチェック
 		if (loginId.equals("") || password.equals("") || userName.equals("")) {
 			message = "ログインIDとパスワード、名前は必須入力です";
 			//エラーメッセージをオブジェクトに保存
@@ -75,22 +76,24 @@ public class NewUser extends HttpServlet {
 			flag = 1;
 
 			//新規登録画面に転送
-			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddInput.jsp");
 			dispatcher.forward(request, response);
 
-		}
+		}else {
 		//半角チェック
-		if (ec.halfCheck(loginId)) {
+		if (flag != 1) {
+			if (ec.halfCheck(loginId)) {
 
-		} else {
-			message = "半角英数字で入力してください";
-			//エラーメッセージをオブジェクトに保存
-			request.setAttribute("alert2", message);
+			} else {
+				message = "半角英数字で入力してください";
+				//エラーメッセージをオブジェクトに保存
+				request.setAttribute("alert2", message);
 
-			//新規登録画面に転送
-			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
-			dispatcher.forward(request, response);
+				//新規登録画面に転送
+				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddInput.jsp");
+				dispatcher.forward(request, response);
 
+			}
 		}
 
 		//ログインIDに重複がないかチェック
@@ -101,7 +104,7 @@ public class NewUser extends HttpServlet {
 				request.setAttribute("alert", message);
 
 				//新規登録画面に転送
-				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddInput.jsp");
 				dispatcher.forward(request, response);
 			} else {
 
@@ -110,9 +113,10 @@ public class NewUser extends HttpServlet {
 			}
 
 		} else {
-			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddinput.jsp");
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userAddInput.jsp");
 			dispatcher.forward(request, response);
 		}
+	}
 	}
 
 }

@@ -23,26 +23,45 @@
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 		//一度入力してされた値を取得
-		String sicon = (String) session.getAttribute("icon");
-		String sloginId = (String) session.getAttribute("loginId");
-		String suserName = (String) session.getAttribute("userName");
-		String spassword = (String) session.getAttribute("password");
-		String sprofile = (String) session.getAttribute("profile");
+		String sicon = (String) request.getAttribute("icon");
+		String sloginId = (String) request.getAttribute("loginId");
+		String suserName = (String) request.getAttribute("userName");
+		String spassword = (String) request.getAttribute("password");
+		String sprofile = (String) request.getAttribute("profile");
 
+		String check = request.getParameter("suserName");
 
-		if (sloginId == null) {
-			sloginId = "";
-		}
-		if (suserName == null) {
-			suserName = "";
-		}
-		if (spassword == null) {
-			spassword = "";
-		}
-		if (sprofile == null) {
-			sprofile = "";
+		if(suserName == null){
+			suserName = request.getParameter("suserName");
+			if (suserName == null) {
+				suserName = "";
+			}
 		}
 
+		if(sloginId == null){
+			sloginId = request.getParameter("sloginId");
+			if (sloginId == null) {
+				sloginId = "";
+			}
+		}
+
+		if(spassword == null){
+			spassword = request.getParameter("spassword");
+			if (spassword == null) {
+				spassword = "";
+			}
+		}
+
+		if(sprofile == null){
+			sprofile = request.getParameter("sprofile");
+			if (sprofile == null) {
+				sprofile = "";
+			}
+		}
+
+		if(check != null){
+			sicon = request.getParameter("icon");
+		}
 	%>
 	<%-- action 属性にサーブレットを指定 --%>
 	<form action="./nu" method="post">
@@ -79,10 +98,10 @@
 			<tr>
 
 				<%-- アイコン入力欄の名前はicon --%>
-				<td width="150" class="color-main text-left">アイコン<%=sicon%></td>
+				<td width="150" class="color-main text-left">アイコン</td>
 				<td><select name="icon" class="form-control">
 						<c:choose>
-							<c:when test="${sicon == 'icon-rocket'}">
+							<c:when test="${param.icon == 'icon-rocket'}">
 								<option value="icon-rocket" selected>ロケット</option>
 							</c:when>
 							<c:otherwise>
@@ -90,7 +109,7 @@
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${sicon == 'icon-car'}">
+							<c:when test="${param.icon == 'icon-car'}">
 								<option value="icon-car" selected>車</option>
 							</c:when>
 							<c:otherwise>
@@ -98,7 +117,7 @@
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${sicon == 'icon-bicycle'}">
+							<c:when test="${param.icon == 'icon-bicycle'}">
 								<option value="icon-bicycle" selected>自転車</option>
 							</c:when>
 							<c:otherwise>
@@ -106,7 +125,7 @@
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${sicon == 'icon-cart'}">
+							<c:when test="${param.icon == 'icon-cart'}">
 								<option value="icon-cart" selected>カート</option>
 							</c:when>
 							<c:otherwise>
@@ -114,7 +133,7 @@
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
-							<c:when test="${sicon == 'icon-plane'}">
+							<c:when test="${param.icon == 'icon-plane'}">
 								<option value="icon-plane" selected>飛行機</option>
 							</c:when>
 							<c:otherwise>

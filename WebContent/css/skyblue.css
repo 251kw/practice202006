@@ -7334,6 +7334,9 @@ img {
 }
 
 /* 以下自作　*/
+shout {
+	width: 250px;
+}
 table {
 	margin-left: auto;
 	margin-right: auto;
@@ -7354,3 +7357,4 @@ table td { /*table内のtdに対して*/
 .complete td {
 	border:solid 2px black;
 }
+div{ text-align : center ; }

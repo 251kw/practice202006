@@ -14,13 +14,13 @@ import javax.servlet.http.HttpSession;
  * Servlet implementation class Cut
  */
 @WebServlet("/Cut")
-public class Cut extends HttpServlet {
+public class SessionCut extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Cut() {
+    public SessionCut() {
         super();
         // TODO Auto-generated constructor stub
     }

@@ -8,21 +8,20 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.DBNewUser;
+import dao.DBUserAddInput;
 
 /**
  * Servlet implementation class UserAdd
  */
-@WebServlet("/ua")
-public class UserAdd extends HttpServlet {
+@WebServlet("/uar")
+public class UserAddResult extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserAdd() {
+    public UserAddResult() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -41,15 +40,21 @@ public class UserAdd extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
 				request.setCharacterEncoding("UTF-8");
-		DBNewUser dnu = new DBNewUser();
-		HttpSession session = request.getSession();
-		String icon = (String) session.getAttribute("icon");
-		String loginId = (String) session.getAttribute("loginId");
-		String userName = (String) session.getAttribute("userName");
-		String password = (String) session.getAttribute("password");
-		String profile = (String) session.getAttribute("profile");
+
+		DBUserAddInput dnu = new DBUserAddInput();
+		String icon = (String) request.getParameter("icon");
+		String loginId = (String) request.getParameter("sloginId");
+		String userName = (String) request.getParameter("suserName");
+		String password = (String) request.getParameter("spassword");
+		String profile = (String) request.getParameter("sprofile");
 		dnu.setNewUser(loginId, password, userName, icon, profile);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("complete.jsp");
+
+		request.setAttribute("userName", userName);
+		request.setAttribute("loginId", loginId);
+		request.setAttribute("password", password);
+		request.setAttribute("icon", icon);
+		request.setAttribute("profile", profile);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("userAddResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

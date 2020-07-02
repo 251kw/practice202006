@@ -14,11 +14,11 @@
 <%
 	//文字化け対策
 	request.setCharacterEncoding("UTF-8");
-	String userName = (String) session.getAttribute("userName");
-	String loginId = (String) session.getAttribute("loginId");
-	String password = (String) session.getAttribute("password");
-	String icon = (String) session.getAttribute("icon");
-	String profile = (String) session.getAttribute("profile");
+	String icon = (String) request.getAttribute("icon");
+	String loginId = (String) request.getAttribute("loginId");
+	String userName = (String) request.getAttribute("userName");
+	String password = (String) request.getAttribute("password");
+	String profile = (String) request.getAttribute("profile");
 %>
 <body>
 	<div class="bg-success padding-y-5">
@@ -50,9 +50,6 @@
 	</table>
 
 	<table>
-		<%
-			session.invalidate();
-		%>
 		<tr>
 			<td><input type="button" onclick="location.href='./index.jsp'"
 				value="戻る" class="btn"></td>

@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 import com.mysql.jdbc.Connection;
 
-public class DBNewUser extends SnsDAO {
+public class DBUserAddInput extends SnsDAO {
 
 	public boolean UserCheck(String loginId)  {
 		Connection conn = null;

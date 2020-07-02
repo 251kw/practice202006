@@ -22,52 +22,69 @@
 	</div>
 
 
-<form action="./ua" method="post">
-	<%
-		//文字化け対策
-		request.setCharacterEncoding("UTF-8");
+	<form action="./uar" method="post">
+		<%
+			//文字化け対策
+			request.setCharacterEncoding("UTF-8");
 
-	String icon = (String) session.getAttribute("icon");
-	String loginId = (String) session.getAttribute("loginId");
-	String userName = (String) session.getAttribute("userName");
-	String password = (String) session.getAttribute("password");
-	String profile = (String) session.getAttribute("profile");
-	%>
+			String icon = (String) request.getAttribute("icon");
+			String loginId = (String) request.getAttribute("loginId");
+			String userName = (String) request.getAttribute("userName");
+			String password = (String) request.getAttribute("password");
+			String profile = (String) request.getAttribute("profile");
 
+		%>
+		<input type="hidden" name="suserName" value="<%=userName%>">
+		<input type="hidden" name="spassword" value="<%=password%>">
+		<input type="hidden" name="sloginId" value="<%=loginId%>">
+		<input type="hidden" name="icon" value="<%=icon%>">
+		<input type="hidden" name="sprofile" value="<%=profile%>">
+
+		<table border="1" style="border-collapse: collapse">
+			<tr>
+				<td class="text-left">名前</td>
+				<td class="text-right"><%=userName%></td>
+			</tr>
+			<tr>
+				<td class="text-left">ログインID</td>
+				<td class="text-right"><%=loginId%></td>
+			</tr>
+			<tr>
+				<td class="text-left">パスワード</td>
+				<td class="text-right"><%=password%></td>
+			</tr>
+			<tr>
+				<td class="text-left">アイコン</td>
+				<td><span class="<%=icon%> pe-3x pe-va text-right"></span></td>
+			</tr>
+			<tr>
+				<td class="text-left">プロフィール</td>
+				<td class="text-right"><%=profile%></td>
+			</tr>
+			<tr>
+				<td class="color-main text-right"><nobr>上記の内容でよろしいですか</nobr></td>
+			</tr>
+		</table>
+		<table style="width: 300px" class="table">
+
+			<tr>
+				<td colspan="4" class="text-center"><input type="submit"
+					value="はい" class="btn"></td>
+			</tr>
+		</table>
+	</form>
+	<form action="./userAddInput.jsp" method="post">
+	<input type="hidden" name="suserName" value="<%=userName%>">
+	<input type="hidden" name="spassword" value="<%=password%>">
+	<input type="hidden" name="sloginId" value="<%=loginId%>">
+	<input type="hidden" name="icon" value="<%=icon%>">
+	<input type="hidden" name="sprofile" value="<%=profile%>">
 	<table border="1" style="border-collapse: collapse">
 		<tr>
-			<td class="text-left">名前</td>
-			<td class="text-right"><%=userName%></td>
-		</tr>
-		<tr>
-			<td class="text-left">ログインID</td>
-			<td class="text-right"><%=loginId%></td>
-		</tr>
-		<tr>
-			<td class="text-left">パスワード</td>
-			<td class="text-right"><%=password%></td>
-		</tr>
-		<tr>
-			<td class="text-left">アイコン</td>
-			<td><span class="<%=icon%> pe-3x pe-va text-right"></span></td>
-		</tr>
-		<tr>
-			<td class="text-left">プロフィール</td>
-			<td class="text-right"><%=profile%></td>
-		</tr>
-		<tr>
-			<td class="color-main text-right"><nobr>上記の内容でよろしいですか</nobr></td>
+		<td colspan="4" class="text-center"><input type="submit"
+			value="いいえ" class="btn"></td>
 		</tr>
 	</table>
-	<table style="width: 300px" class="table">
-
-		<tr>
-			<td><input type="button" onclick="location.href='./userAddinput.jsp'"
-				value="いいえ" class="btn"></td>
-			<td colspan="4" class="text-center"><input type="submit"
-				value="はい" class="btn"></td>
-		</tr>
-	</table>
-</form>
+	</form>
 </body>
 </html>
