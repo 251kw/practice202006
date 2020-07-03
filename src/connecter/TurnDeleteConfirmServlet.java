@@ -1,4 +1,4 @@
-package controller;
+package connecter;
 
 import java.io.IOException;
 
@@ -8,21 +8,22 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Util.CheckDB;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class UserDeleteServlet
+ * Servlet implementation class TurnDeleteConfirmServlet
  */
-@WebServlet("/UserDelete")
-public class UserDeleteServlet extends HttpServlet {
+@WebServlet("/TurnDeleteConfirm")
+public class TurnDeleteConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserDeleteServlet() {
+    public TurnDeleteConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -45,31 +46,38 @@ public class UserDeleteServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		HttpSession session = request.getSession();
+
 		// 送信情報の取得
 		String dloginId = request.getParameter("dloginId");
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
-		String logoutalert = request.getParameter("logoutalert");
 
-		// 検索画面入力値の保持用
+		// 値の保持用
+		request.setAttribute("dloginId", dloginId);
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		UserDTO user = new UserDTO();
-		user = CheckDB.SearchUser(dloginId);
-		CheckDB.DeleteUser(dloginId);
+		UserDTO user1 = new UserDTO();
+		UserDTO user2 = new UserDTO();
 
-		request.setAttribute("user", user);
+		String logoutmessage = null;
 
-		if(logoutalert!=null) {
-			request.setAttribute("logoutalert",logoutalert);
+		user1 = (UserDTO)session.getAttribute("user");
+		user2 = CheckDB.SearchUser(dloginId);
+
+		request.setAttribute("user", user2);
+
+		if(user1.getLoginId().equals(user2.getLoginId())) {
+			logoutmessage = "※登録情報の削除後はログアウトする必要があります";
+			request.setAttribute("logoutalert",logoutmessage);
 		}
 
-		dispatcher = request.getRequestDispatcher("DeleteResult.jsp");
+		dispatcher = request.getRequestDispatcher("DeleteConfirm.jsp");
 		dispatcher.forward(request,response);
 	}
 

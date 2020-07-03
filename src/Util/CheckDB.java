@@ -177,7 +177,8 @@ public class CheckDB {
 		return user;
 	}
 
-/*
+
+	/* 未完成の関数のためコメントアウトしてます
 	public static void EditUser(String eloginId, String epassword, String euserName, String eicon, String eprofile) {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -202,7 +203,7 @@ public class CheckDB {
 
 			if(rset1.next()) {
 				if(!(rset1.getString(2)).equals(eloginId)) {
-					sql1 = "Insert"
+				sql1 = "Insert"
 
 				}
 			}
@@ -219,5 +220,5 @@ public class CheckDB {
 		}
 
 	}
-*/
+	*/
 }

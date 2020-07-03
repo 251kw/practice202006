@@ -22,7 +22,7 @@
 	<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
 	<jsp:useBean id="resultList" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 		<%-- リストにある要素の数だけ繰り返し --%>
-		<table style="width: 600px" class="table table-borderd container padding-y-5">
+		<table style="width: 700px" class="table table-borderd container padding-y-5">
 			<tr class="bg-light">
 				<th class="text-center"><input type="checkbox" name="checkall" value="checkall"></th>
 				<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
@@ -48,7 +48,7 @@
 					</form>
 				</td>
 				<td class="text-center">
-					<form action="./UserDelete" method="post"><input class="butten" type="submit" value="削除">
+					<form action="./TurnDeleteConfirm" method="post"><input class="butten" type="submit" value="削除">
 						<%-- 該当するログインIDと入力情報を送る --%>
 						<input type="hidden" name="dloginId" value="${resultList.loginId}">
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
@@ -61,7 +61,7 @@
 			</c:forEach>
 		</table>
 	<form action="./TurnSearchInput" method="post">
-		<table style="width: 600px" class="table container padding-y-5">
+		<table style="width: 700px" class="table container padding-y-5">
 			<tr>
 				<td><input type="hidden" name="sloginId" value="${requestScope.sloginId}"></td>
 				<td><input type="hidden" name="suserName" value="${requestScope.suserName}"></td>

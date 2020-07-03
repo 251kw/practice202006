@@ -30,6 +30,7 @@
 			<tr>
 				<td class="color-main text-center">ログインID</td>
 				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${requestScope.user.loginId}" size="20" /></td>
+				<td><input type="hidden" name="sloginId" value="${requestScope.sloginId}"></td>
 			</tr>
 			<%-- ID被りチェック --%>
 			<c:if test="${requestScope.alertsame != null && requestScope.alertsame != ''}">

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Util.CheckInput;
-import dto.UserDTO;
 
 /**
  * Servlet implementation class EditUserRegistServlet
@@ -84,13 +83,9 @@ public class EditUserRegistServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		UserDTO user = new UserDTO();
-
-		request.setAttribute("user", user);
-
 		// 文字判定
-		if (CheckInput.checkLogic(regex_AlphaNum, user.getLoginId()) == false
-				&& CheckInput.checkLogic(regex_AlphaNum, user.getPassword()) == false) {
+		if (CheckInput.checkLogic(regex_AlphaNum, eloginId) == false
+				&& CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {
 			checkid = "ログインIDは半角英数字で記入してください";
 			checkpass = "パスワードは半角英数字で記入してください";
 			request.setAttribute("alertid", checkid);
@@ -98,12 +93,12 @@ public class EditUserRegistServlet extends HttpServlet {
 
 			dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 			dispatcher.forward(request, response);
-		} else if (CheckInput.checkLogic(regex_AlphaNum, user.getLoginId()) == false) {
+		} else if (CheckInput.checkLogic(regex_AlphaNum, eloginId) == false) {
 			checkid = "ログインIDは半角英数字で記入してください";
 			request.setAttribute("alertid", checkid);
 			dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 			dispatcher.forward(request, response);
-		} else if (CheckInput.checkLogic(regex_AlphaNum, user.getPassword()) == false) {
+		} else if (CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {
 			checkpass = "パスワードは半角英数字で記入してください";
 			request.setAttribute("alertpass", checkpass);
 			dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
@@ -111,7 +106,7 @@ public class EditUserRegistServlet extends HttpServlet {
 		} else { // 文字が正常な場合
 
 			// 文字数チェック
-			if (user.getLoginId().length() <= 4 && user.getPassword().length() <= 7) {
+			if (eloginId.length() <= 4 && epassword.length() <= 7) {
 				checkid = "IDは５文字以上で入力してください";
 				checkpass = "パスワードは８文字以上で入力してください";
 				request.setAttribute("alertid", checkid);
@@ -119,13 +114,13 @@ public class EditUserRegistServlet extends HttpServlet {
 
 				dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 				dispatcher.forward(request, response);
-			} else if (user.getLoginId().length() <= 4) {
+			} else if (eloginId.length() <= 4) {
 				checkid = "IDは５文字以上で入力してください";
 				request.setAttribute("alertid", checkid);
 
 				dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 				dispatcher.forward(request, response);
-			} else if (user.getPassword().length() <= 7) {
+			} else if (epassword.length() <= 7) {
 				checkpass = "パスワードは８文字以上で入力してください";
 				request.setAttribute("alertpass", checkpass);
 
@@ -133,8 +128,8 @@ public class EditUserRegistServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 			} else { // 文字が正常かつID・パスワードの両方が正常な時
 
-				if (false == CheckInput.excludeBlank(user.getLoginId(), user.getPassword(), user.getUserName(),
-						user.getIcon(), user.getProfile())) {
+				if (false == CheckInput.excludeBlank(eloginId, epassword, euserName,
+						eicon, eprofile)) {
 
 					checkblank = "全ての入力欄を埋めてください";
 
@@ -154,7 +149,7 @@ public class EditUserRegistServlet extends HttpServlet {
 						// ID被りをチェック
 						String sql = "SELECT * FROM users WHERE LOGINID=?";
 						pstmt = conn.prepareStatement(sql);
-						pstmt.setString(1, user.getLoginId());
+						pstmt.setString(1, eloginId);
 						rset = pstmt.executeQuery();
 
 						if (rset.next()) {
@@ -176,7 +171,7 @@ public class EditUserRegistServlet extends HttpServlet {
 						}
 					}
 
-//			CheckDB.EditUser(eloginId, epassword, euserName, eicon, eprofile);
+				//	CheckDB.EditUser(eloginId, epassword, euserName, eicon, eprofile);
 					dispatcher.forward(request, response);
 				}
 			}

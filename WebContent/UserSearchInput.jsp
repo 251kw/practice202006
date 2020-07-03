@@ -88,7 +88,7 @@
 		<table style="width: 400px" class="table container padding-y-5">
 			<tr>
 				<td colspan="2" class="text-right">
-					<input class="btn" type="submit" value="入力画面に戻る" />
+					<input class="btn" type="submit" value="掲示板に戻る" />
 				</td>
 			</tr>
 		</table>
