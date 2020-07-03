@@ -19,7 +19,7 @@
 	<br>
 		<h5 class="text-center">編集したい内容を入力または選択してください</h5>
 	<br>
-	<form action="./EditUserRegist" method="post">
+	<form action="./EditUserCheckChar" method="post">
 		<table style="width: 400px" class="table container padding-y-5">
 			<%-- 全入力チェック --%>
 			<c:if test="${requestScope.alertblank != null && requestScope.alertblank != ''}">
@@ -29,8 +29,7 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">ログインID</td>
-				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${requestScope.user.loginId}" size="20" /></td>
-				<td><input type="hidden" name="sloginId" value="${requestScope.sloginId}"></td>
+				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${sessionScope.user.loginId}" size="20" /></td>
 			</tr>
 			<%-- ID被りチェック --%>
 			<c:if test="${requestScope.alertsame != null && requestScope.alertsame != ''}">
@@ -46,7 +45,7 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">パスワード</td>
-				<td class="text-center"><input class="form-control" type="password" name="epassword" value="${requestScope.user.password}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="password" name="epassword" value="${sessionScope.user.password}" size="20" /></td>
 			</tr>
 			<%-- パスワード文字数チェック --%>
 			<c:if test="${requestScope.alertpass != null && requestScope.alertpass != ''}">
@@ -56,24 +55,24 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">ユーザー名</td>
-				<td class="text-center"><input class="form-control" type="text" name="euserName" value="${requestScope.user.userName}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="euserName" value="${sessionScope.user.userName}" size="20" /></td>
 			</tr>
 			<tr>
 				<td class="color-main text-center">アイコン</td>
 				<td>
 					<select name="eicon" class="form-control">
 						<c:choose>
-							<c:when test="${requestScope.user.icon==''}">
+							<c:when test="${sessionScope.user.icon==''}">
 								<option value="all" selected>全選択</option>
 								<option value="icon-user">男性</option>
 								<option value="icon-user-female">女性</option>
 							</c:when>
-							<c:when test="${requestScope.user.icon=='icon-user'}">
+							<c:when test="${sessionScope.user.icon=='icon-user'}">
 								<option value="all">全選択</option>
 								<option value="icon-user" selected>男性</option>
 								<option value="icon-user-female">女性</option>
 							</c:when>
-							<c:when test="${requestScope.user.icon=='icon-user-female'}">
+							<c:when test="${sessionScope.user.icon=='icon-user-female'}">
 								<option value="all">全選択</option>
 								<option value="icon-user">男性</option>
 								<option value="icon-user-female" selected>女性</option>
@@ -84,12 +83,34 @@
 			</tr>
 			<tr>
 				<td class="color-main text-center">プロフィール</td>
-				<td class="text-center"><input class="form-control" type="text" name="eprofile" value="${requestScope.user.profile}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="eprofile" value="${sessionScope.user.profile}" size="20" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-right"><input class="btn" type="submit" value="この内容で変更する" /></td>
+				<td colspan="2" class="text-right"><input class="btn" type="submit" value="この内容で変更する" />
+					<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+					<input type="hidden" name="suserName" value="${requestScope.suserName}">
+					<input type="hidden" name="sicon" value="${requestScope.sicon}">
+					<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+				</td>
 			</tr>
 		</table>
 	</form>
-</body>
+	<form action="./UserSearchSqueeze" method="post">
+			<table style="width: 400px" class="table container padding-y-5">
+				<tr>
+					<td>
+						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+						<input type="hidden" name="suserName" value="${requestScope.suserName}">
+						<input type="hidden" name="sicon" value="${requestScope.sicon}">
+						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" class="text-right">
+						<input class="btn" type="submit" value="検索結果に戻る" />
+					</td>
+				</tr>
+			</table>
+		</form>
+	</body>
 </html>

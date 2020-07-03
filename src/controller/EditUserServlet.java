@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Util.CheckDB;
 import dto.UserDTO;
@@ -43,6 +44,8 @@ public class EditUserServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		HttpSession session = request.getSession();
+
 		// 送信情報の取得
 		String eloginId = request.getParameter("eloginId");
 		String sloginId = request.getParameter("sloginId");
@@ -50,7 +53,7 @@ public class EditUserServlet extends HttpServlet {
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
 
-		// 値の保持用
+		// 検索画面入力値の保持用
 		request.setAttribute("eloginId", eloginId);
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
@@ -59,10 +62,14 @@ public class EditUserServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		UserDTO originaluser = new UserDTO();
 		UserDTO user = new UserDTO();
+
+		originaluser = CheckDB.SearchUser(eloginId);
 		user = CheckDB.SearchUser(eloginId);
 
-		request.setAttribute("user", user);
+		session.setAttribute("originaluser", originaluser);
+		session.setAttribute("user", user);
 
 		dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 		dispatcher.forward(request, response);

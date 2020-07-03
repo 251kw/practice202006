@@ -178,8 +178,10 @@ public class CheckDB {
 	}
 
 
-	/* 未完成の関数のためコメントアウトしてます
-	public static void EditUser(String eloginId, String epassword, String euserName, String eicon, String eprofile) {
+
+	public static void EditUser(UserDTO originaluser, UserDTO user) {
+
+
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 
@@ -189,22 +191,23 @@ public class CheckDB {
 
 			Connection conn = null;
 			PreparedStatement pstmt1 = null;
+			PreparedStatement pstmt2 = null;
 			ResultSet rset1 = null;
-			UserDTO user = null;
+			ResultSet rset2 = null;
 
 			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
 
-			String sqlselect = "select * from users where loginId = ?";
-			String sql2 = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,?,?,?,?)";
-
-			pstmt1 = conn.prepareStatement(sql1);
-			pstmt1.setString(1, eloginId);
-			rset1 = pstmt1.executeQuery();
+			String sqleId = "update users set loginId=? where loginId=?";
+			String sqlepass = "update users set password=? where loginId=?";
+			String sqlename = "update users set userName=? where loginId=?";
+			String sqleicon = "update users set icon=? where loginId=?";
+			String sqleprofile = "update users set profile=? where loginId=?";
 
 			if(rset1.next()) {
-				if(!(rset1.getString(2)).equals(eloginId)) {
-				sql1 = "Insert"
-
+				if(!(user.getLoginId().equals(originaluser.getLoginId()))) {
+					pstmt1 = conn.prepareStatement();
+					pstmt1.setString(1, originaluser.getLoginId());
+					rset1 = pstmt1.executeQuery();
 				}
 			}
 
@@ -220,5 +223,4 @@ public class CheckDB {
 		}
 
 	}
-	*/
 }

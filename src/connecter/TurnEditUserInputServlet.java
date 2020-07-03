@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReturnSearchInputServlet
+ * Servlet implementation class TurnEditUserInputServlet
  */
-@WebServlet("/ReturnSearchInput")
-public class ReturnSearchInputServlet extends HttpServlet {
+@WebServlet("/TurnEditUserInput")
+public class TurnEditUserInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ReturnSearchInputServlet() {
+    public TurnEditUserInputServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -38,9 +38,9 @@ public class ReturnSearchInputServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
-		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher dispatcher = null;
 
-		// 送信情報の取得
+		// 入力値の保持用
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
@@ -51,9 +51,8 @@ public class ReturnSearchInputServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
-		dispatcher.forward(request,response);
+		dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 }
