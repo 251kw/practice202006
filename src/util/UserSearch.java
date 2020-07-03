@@ -78,14 +78,15 @@ public class UserSearch extends SnsDAO {
 
 			//アイコンが空白でなければWHERE句追加
 			if(icon != null) {
-				if(icon.length != 0) {
+				if(icon.length == 1) {
 					sql += "AND icon LIKE ?";
-					//アイコンが二つ以上選択されている
-					if(icon.length >= 2) {
-						//iconの配列数だけ繰り返す
-						for(int i = 0; i < icon.length - 1; i++) {
-							sql += "OR icon LIKE ?";
-						}
+				}
+				//アイコンが二つ以上選択されている
+				if(icon.length >= 2) {
+					sql += "AND (icon LIKE ?";
+					//iconの配列数だけ繰り返す
+					for(int i = 0; i < icon.length - 1; i++) {
+						sql += "OR icon LIKE ?)";
 					}
 				}
 			}
