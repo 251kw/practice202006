@@ -26,11 +26,8 @@ public class SignUpResultServlet extends HttpServlet {
    		dispatcher.forward(request, response);
    	}
 
-   	//signup_cmp.jspのログアウトボタンから呼び出される
+   	//signup_result.jspのログアウトボタンから呼び出される
    	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-   		//セッションを破棄
-   		//HttpSession session = request.getSession();
-   		//session.invalidate();
 
    		//doGetメソッドを呼び出し、index.jspに処理を転送
    		doGet(request, response);

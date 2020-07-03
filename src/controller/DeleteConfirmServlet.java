@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,13 +10,15 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dto.SearchUserDTO;
+import dao.DBUserSearch;
+import dto.UserDTO;
 
-@WebServlet("/srs")
-public class SearchResultServlet extends HttpServlet {
+@WebServlet("/dcs")
+public class DeleteConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public SearchResultServlet() {
+
+    public DeleteConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,27 +32,22 @@ public class SearchResultServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
-
-		//送信情報の取得
-		String loginId = request.getParameter("loginId");
-		String userName = request.getParameter("userName");
-		String icon[] = request.getParameterValues("icon");		//アイコンは配列で
-		String profile = request.getParameter("profile");
-
-		SearchUserDTO searchuser = new SearchUserDTO(loginId, userName, icon, profile);	//データ保持
-		request.setAttribute("user", searchuser);
+		String loginId = request.getParameter("loginid");
+		ArrayList<UserDTO> list;
+		DBUserSearch dbs = new DBUserSearch();
 
 
-		if(botton.equals("戻る")) {
-			response.setContentType("text/html;charset=UTF-8");
+		if(botton.equals("削除")) {
 
-			//処理の転送先をsearch_input.jspに指定
-			dispatcher = request.getRequestDispatcher("search_input.jsp");
-		} else if(botton.equals("削除")) {
-			String dloginId = request.getParameter("loginIds");
-			request.setAttribute("loginId", dloginId);
+			list = dbs.userSearch(loginId, null, null, null);
+			request.setAttribute("users", list);
 
+			//処理の転送先をdelete_confirm.jspに指定
+			dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
 		}
+
+
+
 		dispatcher.forward(request, response);
 	}
 

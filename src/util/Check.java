@@ -23,16 +23,17 @@ public class Check {
 
 	public static String checkIcons(String icontype, String[] icons) {
 
-		if(icons==null) {
+		if(icons==null) {				//初回
 			return "";
 		}
 
-		for(String i: icons) {
+		for(String i: icons) {			//配列に入っていたらチェック
 			if(i.equals(icontype)) {
 				return "checked";
 			}
 		}
-		return "";
+
+		return "";						//入っていなかったので何も書かない
 	}
 
 }

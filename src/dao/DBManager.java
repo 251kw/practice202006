@@ -144,14 +144,13 @@ public class DBManager extends SnsDAO {
 			while (rset.next()) {
 				//必要な列から値を取り出し書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
-				shout.setUserName(rset.getString(2));
-				shout.setIcon(rset.getString(3));
+				shout.setUserName(rset.getString(3));
+				shout.setIcon(rset.getString(4));
 
-				//shout.setDate(rset.getString(4));
-				String str = rset.getString(4);
+				String str = rset.getString(5);
 				shout.setDate(str.substring(0, str.indexOf('.')));
 
-				shout.setWriting(rset.getString(5));
+				shout.setWriting(rset.getString(6));
 
 				//書き込み内容をリストに追加
 				list.add(shout);
@@ -178,15 +177,16 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(userName, icon, date, writing) VALUES(?, ?, ?, ?)";
+			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?, ?, ?, ?, ?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getUserName());
-			pstmt.setString(2, user.getIcon());
+			pstmt.setString(1, user.getLoginId());
+			pstmt.setString(2, user.getUserName());
+			pstmt.setString(3, user.getIcon());
 			//現在日時の取得と日図家の書式設定
 			Calendar calender = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(3, sdf.format(calender.getTime()));
-			pstmt.setString(4, writing);
+			pstmt.setString(4, sdf.format(calender.getTime()));
+			pstmt.setString(5, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 1) {

@@ -54,7 +54,7 @@ public class DBUserSearch extends SnsDAO {
 			for(i=0; i<icon.length-1; i++) {
 				icons += "'" +icon[i]+ "',";
 			}
-			icons += "'" +icon[i++]+ "'";
+			icons += "'" +icon[i++]+ "'";			//最後は「,」つけない
 
 			String iconsql = "icon IN (" +icons+ ")";			//アイコンsql完成
 
