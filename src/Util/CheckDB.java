@@ -178,7 +178,7 @@ public class CheckDB {
 	}
 
 
-
+/*
 	public static void EditUser(UserDTO originaluser, UserDTO user) {
 
 
@@ -223,4 +223,5 @@ public class CheckDB {
 		}
 
 	}
+	*/
 }
