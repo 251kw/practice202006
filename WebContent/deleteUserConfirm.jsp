@@ -22,16 +22,16 @@
 	</div>
 </div>
 
-<div class="padding-y-5 text-center" >選択ユーザー情報</div>
+<div class="padding-y-5 text-center" >ログインユーザ情報</div>
 
 <%-- リクエストスコープにある　UserDTO型のオブジェクトを参照 --%>
-<jsp:useBean id="deleteUser" scope="request" type="dto.UserDTO" />
+<jsp:useBean id="user" scope="request" type="dto.UserDTO" />
 <div class="padding-y-5">
 	<div style="width: 65%" class="container padding-y-5">
 			<table class ="table table-bordered">
 				<tr>
 					<td class="color-main text-left">ログインID</td>
-					<td colspan="2">${deleteUser.loginId}</td>
+					<td colspan="2">${user.loginId}</td>
 				</tr>
 				<tr>
 					<td class="color-main text-left">パスワード</td>
@@ -39,35 +39,28 @@
 				</tr>
 				<tr>
 					<td class="color-main text-left">ユーザー名</td>
-					<td width="256">${deleteUser.userName}</td>
+					<td width="256">${user.userName}</td>
 				</tr>
 				<tr>
 					<td class="color-main text-left">プロフィール</td>
-					<td colspan="2">${deleteUser.profile}</td>
+					<td colspan="2">${user.profile}</td>
 				</tr>
 				<tr>
 					<td class="color-main text-left">アイコン</td>
-					<td><span class="${deleteUser.icon} pe-2x pe-va"></span></td>
+					<td><span class="${user.icon} pe-2x pe-va"></span></td>
 				</tr>
 			</table>
 	</div>
 </div>
 
-<%-- リクエストスコープにalertがあれば --%>
-		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
-		<table>
-		<tr>
-			<%-- リクエストスコープのalertの値を出力 --%>
-			<td colspan="2" class="color-error text-left">
-				<c:out value="${requestScope.alert}" />
-			</td>
-		</tr>
-		</table>
-		</c:if>
-
 <div align="right">
 <form action="./deleteUserResult" method="post">
-		<input type="hidden" name="loginId" value="${deleteUser.loginId}">
+	<input type="hidden" name="loginID" value="${user.loginId}">
+	<input type="hidden" name="password" value="${user.password}">
+	<input type="hidden" name="userName" value="${user.userName}">
+	<input type="hidden" name="profile" value="${user.profile}">
+	<input type="hidden" name="icon" value="${user.icon}">
+
 	<input class="btn" type="submit" style="height:50px" value="削除確定" />
 </form>
 </div>
@@ -75,6 +68,11 @@
 
 <div align="right">
 <form action="./returnSearchResult" method="post">
+	<input type="hidden" name="loginID" value="${user.loginId}">
+	<input type="hidden" name="password" value="${user.password}">
+	<input type="hidden" name="userName" value="${user.userName}">
+	<input type="hidden" name="profile" value="${user.profile}">
+	<input type="hidden" name="icon" value="${user.icon}">
 	<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
 </form>
 </div>

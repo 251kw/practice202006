@@ -27,7 +27,7 @@
 	<div style="width: 75%" class="container padding-y-5">
 	<table class ="table table-striped table-bordered table-hover">
 		<tr>
-			<td><input type="submit" name="all" />すべて選択</td>
+			<td><input type="checkbox" name="all" /></td>
 			<td class="color-main text-left">ログインID</td>
 			<td class="color-main text-left">ユーザー名</td>
 			<td class="color-main text-left">プロフィール</td>
@@ -43,7 +43,7 @@
 					<td>${search.profile}</td>
 					<td><span class="${search.icon} pe-2x pe-va"></span></td>
 					<td>
-						<form action="./deleteUser" method="post">
+						<form action="./updateUser" method="post">
 							<input type="hidden" name="loginId" value="${search.loginId}">
 							<input class="btn btn-sm" type="submit" value="更 新" />
 						</form>

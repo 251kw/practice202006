@@ -130,6 +130,45 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
+	/*
+	 * UPDATE文を実行するメソッド
+	 * 引数には更新内容を持つUserDTOと更新前のloginIdを渡す
+	 */
+	public boolean uppdateUser(UserDTO udto,String loginId) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			//UPDATE文の登録と実行
+			String sql = "UPDATE users SET loginId=? ,password=? ,userName=? ,icon=?,profile=? WHERE loginId =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, udto.getLoginId());
+			pstmt.setString(2, udto.getPassword());
+			pstmt.setString(3, udto.getUserName());
+			pstmt.setString(4, udto.getIcon());
+			pstmt.setString(5, udto.getProfile());
+			pstmt.setString(6, loginId);
+
+			int cnt = pstmt.executeUpdate(); //実行
+			if (cnt == 1) {
+				//UPDATE文の実行結果が1なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
 	// 書き込み内容リストの getter
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null; //データベースへ接続して、接続情報を返す

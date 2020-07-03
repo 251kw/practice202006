@@ -9,20 +9,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DBManager;
-import dto.UserDTO;
-
 /**
- * Servlet implementation class UpdateUserInputServlet
+ * Servlet implementation class UppdateUserFailureConfirmServlet
  */
-@WebServlet("/updateUser")
-public class UpdateUserInputServlet extends HttpServlet {
+@WebServlet("/uppdateUserFailureConfirm")
+public class UppdateUserFailureConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateUserInputServlet() {
+    public UppdateUserFailureConfirmServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,22 +36,25 @@ public class UpdateUserInputServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginId = request.getParameter("loginId");
-		DBManager dbm = new DBManager();
-		UserDTO updateUser = dbm.getUser(loginId);
-
-		request.setAttribute("originalloginId",updateUser.getLoginId());
-		request.setAttribute("loginID",updateUser.getLoginId());
-		request.setAttribute("password",updateUser.getPassword());
-		request.setAttribute("icon",updateUser.getIcon());
-		request.setAttribute("userName",updateUser.getUserName());
-		request.setAttribute("profile",updateUser.getProfile());
-
-		//処理の転送先を.jspに指定
 		RequestDispatcher dispatcher;
+		request.setCharacterEncoding("UTF-8");
+
+		//入力情報の取得
+		String loginID = request.getParameter("loginID");
+		String password = request.getParameter("password");
+		String icon = request.getParameter("icon");
+		String userName = request.getParameter("userName");
+		String profile = request.getParameter("profile");
+
+		//入力情報の受け渡し
+		request.setAttribute("loginID",loginID);
+		request.setAttribute("password",password);
+		request.setAttribute("icon", icon);
+		request.setAttribute("userName", userName);
+		request.setAttribute("profile", profile);
+
 		dispatcher = request.getRequestDispatcher("updateUserInput.jsp");
 		dispatcher.forward(request, response);
-
 	}
 
 }

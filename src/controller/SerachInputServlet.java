@@ -82,7 +82,7 @@ public class SerachInputServlet extends HttpServlet {
 
 		request.setAttribute("searchUser",searchUser );
 
-		dispatcher = request.getRequestDispatcher("updateUserComfirm.jsp");
+		dispatcher = request.getRequestDispatcher("SearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

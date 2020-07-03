@@ -52,7 +52,7 @@
 </div>
 
 <%-- action属性にサーブレットを指定 --%>
-<form action="./result" method="get">
+<form action="./indexInput.jsp" method="post">
 	<table style="width: 40%" class="container padding-y-5">
 		<tr>
 			<td colspan="2" class="text-right"><input class="btn" type="submit" value="INDEXに戻る" /></td>

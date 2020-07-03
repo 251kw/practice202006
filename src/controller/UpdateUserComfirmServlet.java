@@ -39,6 +39,7 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	//updateUSerInputからの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher;
@@ -46,6 +47,7 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 		DBManager dbm = new DBManager();
 
 		//入力情報の取得
+		String originalLoginId = request.getParameter("originalLoginId");
 		String loginID = request.getParameter("loginID");
 		String password1 = request.getParameter("password1");
 		String password2 = request.getParameter("password2");
@@ -63,9 +65,9 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 		if (checker == null) {
 
 			//ログインＩＤの使用の可否を確かめる
-			if(dbm.checkID(loginID)) {
+			if(dbm.checkID(loginID) || originalLoginId.equals(loginID)) {
 				//使用可能ならaddUserConfirmに転送先を指定
-				dispatcher = request.getRequestDispatcher("addUserConfirm.jsp");
+				dispatcher = request.getRequestDispatcher("updateUserComfirm.jsp");
 			}else {
 
 				String message = null;
@@ -74,7 +76,7 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 				// エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
 				// addUserInput.jsp に転送先を指定
-				dispatcher = request.getRequestDispatcher("addUserInput.jsp");
+				dispatcher = request.getRequestDispatcher("updateUserInput.jsp");
 			}
 		}else {
 			//エラーが見つかった場合
@@ -84,12 +86,14 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 			// addUserInput.jsp に処理を転送を指定
-			dispatcher = request.getRequestDispatcher("addUserInput.jsp");
+			dispatcher = request.getRequestDispatcher("updateUserInput.jsp");
 
 		}
 
 		//入力情報の受け渡し
+		request.setAttribute("originalLoginId",originalLoginId );
 		request.setAttribute("loginID",loginID);
+		request.setAttribute("password",password1);
 		request.setAttribute("icon", icon);
 		request.setAttribute("userName", userName);
 		request.setAttribute("profile", profile);

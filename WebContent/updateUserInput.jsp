@@ -23,7 +23,8 @@
 <h5 class="padding-y-5 text-center">更新情報を入力してください</h5>
 
 <%-- action属性にサーブレットを指定 --%>
-<form action="./" method="post">
+<form action="./updateUserComfirm" method="post">
+<input type="hidden" name="originalLoginId" value="${originalloginId}">
 	<table style="width: 70%" class="table container">
 		<tr>
 			<%-- リクエストスコープのalertの値を出力 --%>
@@ -91,15 +92,15 @@
 
 	<table style="width: 100%" class="container padding-y-5">
 		<tr>
-			<td colspan="2" class="text-right"><input class="btn" type="submit" value="登録" /></td>
+			<td colspan="2" class="text-right"><input class="btn" type="submit" value="更新" /></td>
 		</tr>
 	</table>
 </form>
 
-<form action="./" method="get">
+<form action="./returnSearchResult" method="post">
 	<table style="width: 100%" class="container padding-y-5">
 		<tr>
-			<td colspan="2" class="text-right"><input class="btn btn-grey btn-sm" type="submit" value="INDEXに戻る" /></td>
+			<td colspan="2" class="text-right"><input class="btn btn-grey btn-sm" type="submit" value="検索結果に戻る" /></td>
 		</tr>
 	</table>
 </form>
