@@ -56,27 +56,13 @@ public class UserSearchInput extends HttpServlet {
 		//request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
 
-		String str = null;
-		//int i;
+		int lengths = 0;
 
 		if(sicon != null) {
-			if(sicon.length == 2) {
-				if(sicon[0].equals("icon-plane") && sicon[1].equals("icon-rocket")) {
-					str = sicon[1];
-				}
-			}else {
-				if(sicon[0].equals("icon-plane")) {
-					str = sicon[0];
-				}
-				if(sicon.length == 2) {
-					if(sicon[1].equals("icon-rocket")) {
-						str = "double";
-					}
-				}
-			}
-
+			lengths = sicon.length;
 		}
-		request.setAttribute("icon", str);
+		request.setAttribute("length", lengths);
+		request.setAttribute("icon", sicon);
 
 		String message = null;
 

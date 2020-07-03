@@ -43,18 +43,38 @@
 			//文字化け対策
 			request.setCharacterEncoding("UTF-8");
 
-			//String icon = (String) request.getAttribute("icon");
+			String[] icon = (String[]) request.getAttribute("icon");
 			String loginId = (String) request.getAttribute("loginId");
 			String userName = (String) request.getAttribute("userName");
 			String profile = (String) request.getAttribute("profile");
+
+
+
+			//request.setAttribute("length", lengths);
+
+			request.setAttribute("icons", icon);
+
 		%>
 		<input type="hidden" name="suserName" value="<%=userName%>">
 		<input type="hidden" name="sloginId" value="<%=loginId%>">
-		<!--  <input type="hidden" name="icon" value=""> -->
 		<input type="hidden" name="sprofile" value="<%=profile%>">
+		<c:choose>
+			<c:when test="${length == 1}">
+				<input type="hidden" name="sicon" value="<%=icon[0]%>">
+				<input type="hidden" name="length" value="${length}">
+				<input type="hidden" name="flag" value="<%="on"%>">
+			</c:when>
+			<c:when test="${length == 2}">
+				<input type="hidden" name="sicon" value="<%=icon[0]%>">
+				<input type="hidden" name="sicon2" value="<%=icon[1]%>">
+				<input type="hidden" name="length" value="${length}">
+				<input type="hidden" name="flag" value="<%="on"%>">
+			</c:when>
+		</c:choose>
 
 		<table style="width: 500px" class="table">
 			<tr>
+				<td></td>
 				<td colspan="4" class="text-center"><input type="submit"
 					value="戻る" class="btn"></td>
 			</tr>

@@ -98,7 +98,7 @@
 			<tr>
 
 				<%-- アイコン入力欄の名前はicon --%>
-				<td width="150" class="color-main text-left">アイコン${param.icon}</td>
+				<td width="150" class="color-main text-left">アイコン</td>
 				<td><select name="icon" class="form-control">
 						<c:choose>
 							<c:when test="${param.icon == 'icon-rocket'}">
@@ -106,30 +106,6 @@
 							</c:when>
 							<c:otherwise>
 								<option value="icon-rocket">ロケット</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${param.icon == 'icon-car'}">
-								<option value="icon-car" selected>車</option>
-							</c:when>
-							<c:otherwise>
-								<option value="icon-car">車</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${param.icon == 'icon-bicycle'}">
-								<option value="icon-bicycle" selected>自転車</option>
-							</c:when>
-							<c:otherwise>
-								<option value="icon-bicycle">自転車</option>
-							</c:otherwise>
-						</c:choose>
-						<c:choose>
-							<c:when test="${param.icon == 'icon-cart'}">
-								<option value="icon-cart" selected>カート</option>
-							</c:when>
-							<c:otherwise>
-								<option value="icon-cart">カート</option>
 							</c:otherwise>
 						</c:choose>
 						<c:choose>
