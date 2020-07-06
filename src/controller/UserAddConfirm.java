@@ -41,9 +41,12 @@ public class UserAddConfirm extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		/**
+		 * 送られてきた情報をデータベースに登録する
+		 * 値の保持のためにリクエストスコープに情報を送る
+		 */
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
 
 		String loginId = (String)request.getParameter("loginId");
 		String password = (String)request.getParameter("password");
@@ -56,12 +59,10 @@ public class UserAddConfirm extends HttpServlet {
 			dbm = new DBManager();
 		}
 
+		//ユーザーを新規登録
 		dbm.setNewUser(loginId, password, userName, icon, profile);
 
-		// 文字化け対策
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
-
+		//値の保持のため
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("password", password);
 		request.setAttribute("userName", userName);

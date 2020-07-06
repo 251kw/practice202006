@@ -37,12 +37,17 @@ public class UserAddInput extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#dopost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
+
+		/**
+		 * 入力された情報を確認画面に持っていく
+		 * IDかぶりや、未記入などもはじく
+		 */
 
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");
@@ -51,9 +56,7 @@ public class UserAddInput extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 
-
-
-
+		//値の保持のため送信
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("password", password);
 		request.setAttribute("userName", userName);
@@ -65,7 +68,7 @@ public class UserAddInput extends HttpServlet {
 		DBManager dbm = new DBManager();
 		UserDTO check = dbm.checkUser(loginId);
 
-		if (loginId.equals("")) {
+		if (loginId.equals("") || password.equals("")) {
 			//未入力
 			message = "*ログインIDとパスワードは必須です";
 
@@ -75,18 +78,6 @@ public class UserAddInput extends HttpServlet {
 			//jspに処理を転送
 			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 			dispatcher.forward(request, response);
-
-		} else if (password.equals("")) {
-			//未入力
-			message = "*ログインIDとパスワードは必須です";
-
-			//エラーメッセージをリクエストオブジェクトに保存
-			request.setAttribute("alert", message);
-
-			//jspに処理を転送
-			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
-			dispatcher.forward(request, response);
-
 		} else if (check != null) {
 			//Idかぶり
 			message = "*このIDは使われています";
@@ -98,23 +89,19 @@ public class UserAddInput extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 			dispatcher.forward(request, response);
 		} else {
-			// 文字化け対策
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html;charset=UTF-8");
+			UserDTO user = null;
+			user = new UserDTO();
+			user.setLoginId(loginId);
+			user.setPassword(password);
+			user.setUserName(userName);
+			user.setIcon(icon);
+			user.setProfile(profile);
 
-		UserDTO user = null;
-		user = new UserDTO();
-		user.setLoginId(loginId);
-		user.setPassword(password);
-		user.setUserName(userName);
-		user.setIcon(icon);
-		user.setProfile(profile);
+			request.setAttribute("user", user);
 
-		request.setAttribute("user", user);
-
-		//jspに処理を転送
-		dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");
-		dispatcher.forward(request, response);
+			//jspに処理を転送
+			dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");
+			dispatcher.forward(request, response);
 		}
 
 	}

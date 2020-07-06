@@ -54,7 +54,7 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	//ログインIDとを受け取り、登録ユーザー一覧に一致したものがあるか検索
+	//ログインIDを受け取り、登録ユーザー一覧に一致したものがあるか検索
 	public UserDTO checkUser(String loginId) {
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL 管理情報
@@ -101,9 +101,7 @@ public class DBManager extends SnsDAO {
 
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-
 		String sql = "SELECT * FROM users "+str;
-
 
 		try {
 			//データベース接続情報取得
@@ -217,6 +215,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
+	//情報を受け取り新規登録する
 	public boolean setNewUser(String loginId, String password, String userName, String icon, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

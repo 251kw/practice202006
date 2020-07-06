@@ -3,11 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<title>登録内容確認</title>
-<link rel="stylesheet" href="./css/skyblue.css">
-<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
-<link rel="stylesheet" href="./css/helper.css">
+	<meta charset="UTF-8">
+	<title>登録内容確認</title>
+	<link rel="stylesheet" href="./css/skyblue.css">
+	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
+	<link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
 	<jsp:useBean id="user" scope="request" type="dto.UserDTO" />
@@ -21,8 +21,7 @@
 			<table border='1' class="table">
 				<tr>
 					<th>ログインID</th>
-					<td>${user.loginId}
-					</td>
+					<td>${user.loginId}</td>
 				</tr>
 				<tr>
 					<th>パスワード</th>
@@ -41,8 +40,8 @@
 					<td>${user.profile}</td>
 				</tr>
 				<tr>
-					<td colspan='2' style='text-align: right'><input type='submit'
-						value='OK'>
+					<td colspan='2' style='text-align: right'>
+						<input type='submit' value='OK'>
 						<input type="hidden" name="loginId" value="${user.loginId}">
 						<input type="hidden" name="password" value="${user.password}">
 						<input type="hidden" name="userName" value="${user.userName}">
@@ -55,8 +54,8 @@
 		<form action='UserAddInput.jsp' method='post'>
 			<table border='1' class='table'>
 				<tr>
-					<td colspan='2' style='text-align: right'><input type='submit'
-						value='戻る'>
+					<td colspan='2' style='text-align: right'>
+						<input type='submit' value='戻る'>
 						<input type="hidden" name="loginId" value="${user.loginId}">
 						<input type="hidden" name="password" value="${user.password}">
 						<input type="hidden" name="userName" value="${user.userName}">
