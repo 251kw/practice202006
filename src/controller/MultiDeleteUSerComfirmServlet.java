@@ -51,18 +51,16 @@ public class MultiDeleteUSerComfirmServlet extends HttpServlet {
 			String sql = MakeSelectSQL.makeSelects(loginIds);
 			ArrayList<UserDTO> deleteUser = dbm.getSearchUserList(sql);
 			request.setAttribute("deleteUser",deleteUser);
+			for (String log : loginIds) {
+				if(log.equals(loginUser.getLoginId())) {
+					String message = "現在ログイン中のユーザーが含まれるため削除を実行すると、自動的にログアウトします";
+					request.setAttribute("alert", message);
+				}
+			}
 			dispatcher = request.getRequestDispatcher("multiDeleteUserConfirm.jsp");
 		}else {
 			dispatcher = request.getRequestDispatcher("/returnSearchResult");
 		}
-
-		for (String log : loginIds) {
-			if(log.equals(loginUser.getLoginId())) {
-				String message = "現在ログイン中のユーザーが含まれるため削除を実行すると、自動的にログアウトします";
-				request.setAttribute("alert", message);
-			}
-		}
-
 
 		dispatcher.forward(request, response);
 	}

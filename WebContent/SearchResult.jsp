@@ -13,6 +13,14 @@
 </head>
 <body>
 
+<script type="text/javascript">
+function Click_Sub1(check) {
+    for(i = 0; i < document.all.checked.length; i++){
+        document.all.checked[i].checked = check;
+    }
+}
+</script>
+
 <div class="bg-warning padding-y-5">
 	<div class="padding-y-5 text-center">
 		<strong>Shouter</strong>
@@ -28,7 +36,10 @@
 	<form action="./multiDeleteUSerComfirmServlet" id="checks" method="post"></form>
 	<table class ="table table-striped table-bordered table-hover">
 		<tr>
-			<td><input type="checkbox" name="all" /></td>
+			<td>
+				<input type="button" onclick="Click_Sub1(true)" value="全選択">
+				<input type="button" onclick="Click_Sub1(false)" value="全解除">
+			</td>
 			<td class="color-main text-left">ログインID</td>
 			<td class="color-main text-left">ユーザー名</td>
 			<td class="color-main text-left">プロフィール</td>
