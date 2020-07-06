@@ -41,7 +41,7 @@
 						<input class="btn" type="submit" value="ユーザ検索" />
             		</form>
             		<form action="./logout" method="post" >
-						<input class="btn btn-light" type="submit" value="ログアウト" />
+						<input class="btn" type="submit" value="ログアウト" />
             		</form>
         		</td>
     		</tr>
