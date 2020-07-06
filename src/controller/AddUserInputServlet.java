@@ -14,25 +14,24 @@ import dto.UserDTO;
 import util.CheckAddUserInfo;
 
 /**
- * Servlet implementation class NewUserServlet
+ * dogetは初回呼び出し時に初期値をセットする
+ * dopostは入力された情報を判定しエラーがあればaddUserInput.jspにエラーメッセージを出し
+ * 正常ならaddUserConfirm.jspに処理を転送する
  */
 @WebServlet("/newuser")
 public class AddUserInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AddUserInputServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * indexInput.jspの新規登録ボタンからの呼び出し
+	 * 初期値をセットする
 	 */
-    //indexInput.jspの新規登録ボタンからの呼び出し
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;
 		request.setAttribute("loginID","");
@@ -45,9 +44,8 @@ public class AddUserInputServlet extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * addUserInput.jspの登録ボタンからの呼び出し
 	 */
-	//addUserInput.jspの登録ボタンからの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher;

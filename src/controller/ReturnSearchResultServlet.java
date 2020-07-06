@@ -15,42 +15,47 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class ReturnSearchResult
+ * 検索結果に戻るときに呼び出される
+ * セッションスコープのsql文を再利用するため
+ * ユーザーを削除・更新した場合でも正しく表示可能
  */
 @WebServlet("/returnSearchResult")
-public class ReturnSearchResult extends HttpServlet {
+public class ReturnSearchResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public ReturnSearchResult() {
+    public ReturnSearchResultServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 検索結果に戻るときに呼び出される
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;
 		HttpSession session = request.getSession();
 
+		//検索時に作成したＳＱＬ文を再利用し、現在のデータを取得
 		String sql = (String)session.getAttribute("sql");
 		DBManager dbm = new DBManager();
 		ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
 
+		//検索結果が0件なら処理をSearchEmptyResult.jspに転送
+		if(searchUser.isEmpty()) {
+			dispatcher = request.getRequestDispatcher("SearchEmptyResult.jsp");
+		}else {
+			dispatcher = request.getRequestDispatcher("SearchResult.jsp");
+		}
+
 		request.setAttribute("searchUser", searchUser);
 
-		dispatcher = request.getRequestDispatcher("SearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

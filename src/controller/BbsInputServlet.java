@@ -15,12 +15,18 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+/**
+ *	top.jspの叫ぶボタンで入力された情報を
+ *shoutテーブルに追加してtop.jspに処理を戻す
+ */
 @WebServlet("/bbs")
 public class BbsInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
-	// 直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	/**
+	 * 直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");

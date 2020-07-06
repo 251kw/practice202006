@@ -25,18 +25,18 @@
 <form action="./search" method="post">
 	<table style="width: 70%" class="table container">
 		<tr>
+			<td class="color-main text-left">ログインID</td>
 			<td class="text-left">
 				<input class="form-control" type="text" name="loginId" value="${select_loginId}" size="20" maxlength="20" />
 			</td>
-			<td class="color-main text-left">ログインID</td>
 		</tr>
 		<tr>
-			<td class="text-left"><input class="form-control" type="text" name="userName" value="${userName}" size="20" maxlength="15" /></td>
 			<td class="color-main text-left">ユーザー名</td>
+			<td class="text-left"><input class="form-control" type="text" name="userName" value="${userName}" size="20" maxlength="15" /></td>
 		</tr>
 		<tr>
+			<td class="color-main text-left">アイコン</td>
 			<td>
-
 				<label><input type="checkbox" name="icon_car" value="icon-car" <% if(session.getAttribute("icon_car").equals("icon-car")){ out.print("checked"); } %>><span></span></label>
 				<span class="icon-car pe-2x pe-va"></span>
 				<label><input type="checkbox" name="icon_paperclip" value="icon-paperclip" <% if(session.getAttribute("icon_paperclip").equals("icon-paperclip")){ out.print("checked"); } %> ><span></span></label>
@@ -44,22 +44,22 @@
 				<label><input type="checkbox" name="icon_radio" value="icon-radio" <% if(session.getAttribute("icon_radio").equals("icon-radio")){ out.print("checked"); } %> ><span></span></label>
 				<span class="icon-radio pe-2x pe-va"></span>
 			</td>
-			<td class="color-main text-left">アイコン</td>
 		</tr>
 		<tr>
-			<td><textarea name="profile" rows="4" cols="40" >${profile}</textarea></td>
 			<td class="color-main text-left" height="100%">プロフィール</td>
+			<td><textarea name="profile" rows="4" cols="40" >${profile}</textarea></td>
+
 		</tr>
 	</table>
 
-	<div align="right">
+	<div align="center">
 		<input class="btn" type="submit" value="検索" />
 	</div>
 
 </form>
 
 <form action="./returnTop" method="post">
-	<div align="right">
+	<div align="center">
 		<input class="btn btn-grey" type="submit" value="戻る" />
 	</div>
 </form>

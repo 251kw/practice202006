@@ -10,30 +10,28 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class UppdateUserFailureConfirmServlet
+ * updateUserComfirm.jspのキャンセルボタンからの呼び出し
+ * 必要な情報をリクエストスコープに詰めて
+ * updateUserInput.jspに処理を転送する
  */
 @WebServlet("/uppdateUserFailureConfirm")
 public class UppdateUserFailureConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UppdateUserFailureConfirmServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * updateUserComfirm.jspのキャンセルボタンからの呼び出し
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;

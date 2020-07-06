@@ -668,7 +668,7 @@ button, input[type="submit"], input[type="button"] {
       top: 1px;
       position: relative; }
   .btn.btn-grey {
-    background: #808080;
+    background: #ff8000;
     color: #fff; }
     .btn.btn-grey:hover {
       background-color: #808080;

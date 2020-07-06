@@ -16,25 +16,22 @@ import dto.UserDTO;
 import util.MakeSelectSQL;
 
 /**
- * Servlet implementation class MultiDeleteUserResult
+ * セッションに入っているdeleteUserを削除する
  */
 @WebServlet("/multiDeleteUserResult")
-public class MultiDeleteUserResult extends HttpServlet {
+public class MultiDeleteUserResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     *  セッションに入っているdeleteUserを削除する
-     */
-    public MultiDeleteUserResult() {
+    public MultiDeleteUserResultServlet() {
         super();
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

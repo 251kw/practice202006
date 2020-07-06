@@ -13,33 +13,30 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class InsertUserServlet
+ * addUserComfirm.jspから登録確定ボタンでの呼び出され
+ * 入力された情報をuserテーブルに追加する
+ *
  */
 @WebServlet("/InsertUser")
 public class AddUserInsertUserConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AddUserInsertUserConfirmServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
-    // 直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * addUserComfirm.jspから登録確定ボタンでの呼び出し
 	 */
-	// addUserComfirm.jspから登録確定ボタンでの呼び出し
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		request.setCharacterEncoding("UTF-8");

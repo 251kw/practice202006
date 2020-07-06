@@ -13,26 +13,25 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class DeleteUserResult
+ * multiDELETEUserConfirm.jspの削除確定ボタンからの呼び出され
+ * 送られてきたloginIdをもとにuserテーブルから
+ * ユーザーを1件削除する
  */
 @WebServlet("/deleteUserResult")
-public class DeleteUserResult extends HttpServlet {
+public class DeleteUserResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public DeleteUserResult() {
+    public DeleteUserResultServlet() {
         super();
-        // TODO Auto-generated constructor stub
+
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**

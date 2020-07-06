@@ -16,32 +16,30 @@ import dto.UserDTO;
 import util.MakeSelectSQL;
 
 /**
- * Servlet implementation class SerachInputServlet
+ * searchInput.jspの検索ボタンからの呼び出され
+ * 送られてきた情報をもとに
+ * SELECTのSQL文を作成して
+ * SearchResult.jspに処理を転送する
  */
 @WebServlet("/search")
 public class SerachInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public SerachInputServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * searchInput.jspの検索ボタンからの呼び出し
 	 */
-
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		request.setCharacterEncoding("UTF-8");
@@ -72,6 +70,12 @@ public class SerachInputServlet extends HttpServlet {
 		ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
 		HttpSession session = request.getSession();
 
+		if(searchUser.isEmpty()) {
+			dispatcher = request.getRequestDispatcher("SearchEmptyResult.jsp");
+		}else {
+			dispatcher = request.getRequestDispatcher("SearchResult.jsp");
+		}
+
 		session.setAttribute("select_loginId", loginId);
 		session.setAttribute("userName", userName);
 		session.setAttribute("profile",profile);
@@ -82,7 +86,6 @@ public class SerachInputServlet extends HttpServlet {
 
 		request.setAttribute("searchUser",searchUser );
 
-		dispatcher = request.getRequestDispatcher("SearchResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

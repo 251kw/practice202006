@@ -60,8 +60,9 @@
 	<input type="hidden" name="userName" value="${user.userName}">
 	<input type="hidden" name="profile" value="${user.profile}">
 	<input type="hidden" name="icon" value="${user.icon}">
-
-	<input class="btn" type="submit" style="height:50px" value="登録確定" />
+	<div align="center">
+		<input class="btn" type="submit" style="height:50px" value="登録確定" />
+	</div>
 </form>
 </div>
 
@@ -72,7 +73,9 @@
 	<input type="hidden" name="userName" value="${user.userName}">
 	<input type="hidden" name="profile" value="${user.profile}">
 	<input type="hidden" name="icon" value="${user.icon}">
-	<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
+	<div align="center">
+		<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
+	</div>
 </form>
 </div>
 

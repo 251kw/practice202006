@@ -58,24 +58,24 @@
 				</tr>
 		 </c:forEach>
 	</table>
-			<input class="btn " type="submit" form="checks" value="選択したユーザーを削除" />
 		</div>
 </div>
 
+	<div align="center">
+		<input class="btn " type="submit" form="checks" value="選択したユーザーを削除" />
+	</div>
+
+
 <form action="./searchBack" method="post">
-	<table style="width: 40%" class="container padding-y-5">
-		<tr>
-			<td colspan="2" class="text-right"><input class="btn" type="submit" value="検索条件に戻る" /></td>
-		</tr>
-	</table>
+	<div align="center">
+		<input class="btn" type="submit" value="検索条件に戻る" />
+	</div>
 </form>
 
 <form action="./returnTop" method="post" id="check">
-	<table style="width: 40%" class="container padding-y-5">
-		<tr>
-			<td colspan="2" class="text-right"><input class="btn btn-grey" type="submit" value="TOPに戻る" /></td>
-		</tr>
-	</table>
+	<div align="center">
+		<input class="btn btn-grey" type="submit" value="TOPに戻る" />
+	</div>
 </form>
 
 </body>

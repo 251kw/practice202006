@@ -13,30 +13,27 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class UpdateUserInputServlet
+ * ユーザー検索結果のの更新ボタンからの呼び出され
+ * "updateUserInput.jspに処理を転送する
  */
 @WebServlet("/updateUser")
 public class UpdateUserInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UpdateUserInputServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * ユーザー検索結果の更新ボタンからの呼び出し
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String loginId = request.getParameter("loginId");
