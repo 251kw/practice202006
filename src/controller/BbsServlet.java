@@ -15,7 +15,9 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;;
 
-
+/*
+ * top.jspより呼び出される。「叫ぶ」内容を取得しリストに追加し、top.jspに返すサーブレット
+ */
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

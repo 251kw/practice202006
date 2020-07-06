@@ -1,6 +1,7 @@
 package dto;
 
 //cookie情報を保持するクラス
+//TODO 使ってないので削除予定
 public class CookieDTO {
 	private String logId;
 	private String pass;

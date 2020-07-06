@@ -1,5 +1,11 @@
 package dto;
 
+/*
+ * ユーザDTOエラーを保持するクラス
+ */
+
+//TODO 使ってないので削除予定
+
 public class UserDTOErr {
 	private String logId;
 	private String pass;

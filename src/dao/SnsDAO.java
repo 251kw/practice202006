@@ -6,6 +6,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+/*
+ * DBへの接続、コネクションの開放を操作するDAO
+ */
 public class SnsDAO {
 	//データベース接続に必要な情報
 	//DSN(データソース名)　Final修飾子ついてるから他から変更できない。

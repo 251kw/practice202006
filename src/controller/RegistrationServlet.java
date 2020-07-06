@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DBManager;
 
 /**
- * Servlet implementation class LoginServlet
+ * 新規登録時、DBにユーザ情報を登録するサーブレット
  */
 @WebServlet("/registraction")
 public class RegistrationServlet extends HttpServlet {
@@ -58,6 +58,7 @@ public class RegistrationServlet extends HttpServlet {
 
 		//dbmでDBmanagerをインスタンス化
 		dbm = new DBManager();
+		//入力された情報をDBに登録
 		result = dbm.getEndUser(loginId,password,userName,icon,profile);
 		request.setAttribute("result", result);
 

@@ -1,6 +1,6 @@
 package dto;
 
-//ユーザ情報を保持するクラス
+//Shoutユーザ情報を保持するクラス
 public class ShoutDTO {
 	private String userName;	//ユーザ名
 	private String icon;	//ユーザアイコン

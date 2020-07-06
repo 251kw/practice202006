@@ -5211,3 +5211,7 @@ btn.btn-main {
 .nomargin {
 	margin:0px;
 	padding:0px;}
+
+.middle {
+ 	vertical-align: middle;
+}

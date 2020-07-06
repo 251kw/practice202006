@@ -1,6 +1,5 @@
 <%@page import="dto.UserDTO"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="controller.InsertCheckServlet"%>
 <%@ page import="controller.SearchServlet"%>
@@ -20,13 +19,9 @@
 				<span class="icon-diamond pe-2x pe-va"></span></font>
 			</div>
 		</div>
-
-
 		<%request.setCharacterEncoding("UTF-8"); //文字化け防止%>
 		<%-- requestスコープにあるArrayList型のオブジェクトを参照 --%>
 		<jsp:useBean id="searchList" scope="request" type="java.util.ArrayList<UserDTO>" />
-
-
 		<div class="container padding-y-5" style="width: 60%">
 			<span class="color-main text-left padding-y-5"><font size="4">検索結果</font></span>
 		</div>
@@ -49,13 +44,15 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<%-- <c:if test="${searchList}">
-					<div class="color-error text-left"><font size="3">上記の方がhitしました！</font></div>
-				</c:if>
-				--%>
-				<c:if test="${search.isEmpty()}">
-					<div class="color-error text-left"><font size="3">検索結果は0件です</font></div>
-				</c:if>
+				<%-- 検索結果が0件の場合はエラーメッセージを表示する --%>
+				<c:choose>
+					<c:when test="${searchList.isEmpty()}">
+						<div class="color-error text-left"><font size="3">検索結果は0件です</font></div>
+					</c:when>
+					<c:otherwise>
+						<div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div>
+					</c:otherwise>
+				</c:choose>
 			</div>
 		</div>
 		<%-- 入力情報保持したままsearch.jspに戻る --%>

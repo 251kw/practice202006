@@ -1,6 +1,6 @@
 package dto;
 
-//情報を保持するクラス
+//エラー情報を保持するクラス
 public class ErrorDTO {
 	public String errMsId;
 	public String errMsPass;
