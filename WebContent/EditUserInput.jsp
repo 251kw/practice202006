@@ -5,7 +5,7 @@
 <html lang="ja">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>ユーザー検索条件</title>
+	<title>登録情報の変更</title>
 	<link rel="stylesheet" href="./css/skyblue.css">
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
@@ -29,7 +29,7 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">ログインID</td>
-				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${sessionScope.user.loginId}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${sessionScope.euser.loginId}" size="20" /></td>
 			</tr>
 			<%-- ID被りチェック --%>
 			<c:if test="${requestScope.alertsame != null && requestScope.alertsame != ''}">
@@ -45,7 +45,7 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">パスワード</td>
-				<td class="text-center"><input class="form-control" type="password" name="epassword" value="${sessionScope.user.password}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="password" name="epassword" value="${sessionScope.euser.password}" size="20" /></td>
 			</tr>
 			<%-- パスワード文字数チェック --%>
 			<c:if test="${requestScope.alertpass != null && requestScope.alertpass != ''}">
@@ -55,25 +55,22 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">ユーザー名</td>
-				<td class="text-center"><input class="form-control" type="text" name="euserName" value="${sessionScope.user.userName}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="euserName" value="${sessionScope.euser.userName}" size="20" /></td>
 			</tr>
 			<tr>
 				<td class="color-main text-center">アイコン</td>
 				<td>
 					<select name="eicon" class="form-control">
 						<c:choose>
-							<c:when test="${sessionScope.user.icon==''}">
-								<option value="all" selected>全選択</option>
+							<c:when test="${sessionScope.euser.icon==''}">
 								<option value="icon-user">男性</option>
 								<option value="icon-user-female">女性</option>
 							</c:when>
-							<c:when test="${sessionScope.user.icon=='icon-user'}">
-								<option value="all">全選択</option>
+							<c:when test="${sessionScope.euser.icon=='icon-user'}">
 								<option value="icon-user" selected>男性</option>
 								<option value="icon-user-female">女性</option>
 							</c:when>
-							<c:when test="${sessionScope.user.icon=='icon-user-female'}">
-								<option value="all">全選択</option>
+							<c:when test="${sessionScope.euser.icon=='icon-user-female'}">
 								<option value="icon-user">男性</option>
 								<option value="icon-user-female" selected>女性</option>
 							</c:when>
@@ -83,7 +80,7 @@
 			</tr>
 			<tr>
 				<td class="color-main text-center">プロフィール</td>
-				<td class="text-center"><input class="form-control" type="text" name="eprofile" value="${sessionScope.user.profile}" size="20" /></td>
+				<td class="text-center"><input class="form-control" type="text" name="eprofile" value="${sessionScope.euser.profile}" size="20" /></td>
 			</tr>
 			<tr>
 				<td colspan="2" class="text-right"><input class="btn" type="submit" value="この内容で変更する" />

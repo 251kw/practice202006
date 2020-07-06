@@ -76,15 +76,15 @@ public class EditUserCheckCharServlet extends HttpServlet {
 		String eicon = request.getParameter("eicon");
 		String eprofile = request.getParameter("eprofile");
 
-		UserDTO user = new UserDTO();
-		user.setLoginId(eloginId);
-		user.setPassword(epassword);
-		user.setUserName(euserName);
-		user.setIcon(eicon);
-		user.setProfile(eprofile);
+		UserDTO euser = new UserDTO();
+		euser.setLoginId(eloginId);
+		euser.setPassword(epassword);
+		euser.setUserName(euserName);
+		euser.setIcon(eicon);
+		euser.setProfile(eprofile);
 
 		// sessionを上書き
-		session.setAttribute("user", user);
+		session.setAttribute("euser", euser);
 
 		// 入力値の保持用
 		String sloginId = request.getParameter("sloginId");
@@ -166,7 +166,11 @@ public class EditUserCheckCharServlet extends HttpServlet {
 						pstmt.setString(1, eloginId);
 						rset = pstmt.executeQuery();
 
-						if (rset.next()) {
+						UserDTO originaluser = new UserDTO();
+						originaluser = (UserDTO)session.getAttribute("originaluser");
+
+						// 入力されたログインIDが元のIDと一致している場合はエラーを出さなくていい
+						if (rset.next() && !(eloginId.equals(originaluser.getLoginId()))){
 							String checksame = "入力されたログインIDは既に使用されています";
 							// エラーメッセージをリクエストオブジェクトに保存
 							request.setAttribute("alertsame", checksame);

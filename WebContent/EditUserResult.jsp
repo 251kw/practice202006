@@ -5,7 +5,7 @@
 <html lang="ja">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>変更確認</title>
+		<title>変更完了</title>
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 		<link rel="stylesheet" href="./css/helper.css">
@@ -17,9 +17,9 @@
 			</div>
 		</div>
 		<br>
-		<h4 class="text-center">以下の内容で登録情報を変更しますか？</h4>
+		<h4 class="text-center">以下の内容で登録情報を変更しました</h4>
 		<br>
-		<form action="./EditUserRegist" method="post">
+		<form action="./UserSearchSqueeze" method="post">
 			<table style="width: 400px" class="table table-borderd container padding-y-5">
 				<tr>
 				<tr>
@@ -44,28 +44,11 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="変更する" />
+						<input class="btn" type="submit" value="検索結果に戻る" />
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
 						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
-					</td>
-				</tr>
-			</table>
-		</form>
-		<form action="./TurnEditUserInput" method="post">
-			<table style="width: 400px" class="table table-borderd container padding-y-5">
-				<tr>
-					<td>
-						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
-						<input type="hidden" name="suserName" value="${requestScope.suserName}">
-						<input type="hidden" name="sicon" value="${requestScope.sicon}">
-						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="入力画面に戻る" />
 					</td>
 				</tr>
 			</table>

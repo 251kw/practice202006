@@ -58,14 +58,14 @@ public class EditUserRegistServlet extends HttpServlet {
 		request.setAttribute("sprofile", sprofile);
 
 		UserDTO originaluser = new UserDTO();
-		UserDTO user = new UserDTO();
+		UserDTO euser = new UserDTO();
 
 		originaluser = (UserDTO)session.getAttribute("originaluser");
-		user = (UserDTO)session.getAttribute("user");
-		
-		CheckDB.EditUser(originaluser, user);
+		euser = (UserDTO)session.getAttribute("euser");
 
-		dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
+		CheckDB.EditUser(originaluser, euser);
+
+		dispatcher = request.getRequestDispatcher("EditUserResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

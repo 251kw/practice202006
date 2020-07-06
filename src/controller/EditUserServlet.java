@@ -63,13 +63,13 @@ public class EditUserServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 
 		UserDTO originaluser = new UserDTO();
-		UserDTO user = new UserDTO();
+		UserDTO euser = new UserDTO();
 
 		originaluser = CheckDB.SearchUser(eloginId);
-		user = CheckDB.SearchUser(eloginId);
+		euser = CheckDB.SearchUser(eloginId);
 
 		session.setAttribute("originaluser", originaluser);
-		session.setAttribute("user", user);
+		session.setAttribute("euser", euser);
 
 		dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 		dispatcher.forward(request, response);
