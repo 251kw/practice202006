@@ -137,4 +137,36 @@ public class MakeSelectSQL {
 
 		return select;
 	}
+
+	public static String makeSelects(String[] loginIds) {
+		String sql ="";
+
+		if(loginIds.length == 1) {
+			sql = ("SELECT * FROM users WHERE loginId='" + loginIds[0] + "';");
+		}else {
+			sql = ("SELECT * FROM users WHERE loginId='"+loginIds[0]+"'");
+			for(int i =1 ;loginIds.length > i ; i++) {
+				sql = (sql + " OR loginId='" +loginIds[i] + "'");
+			}
+			sql = (sql +";");
+		}
+
+		return sql;
+	}
+
+	public static String makeDeletes(String[] loginIds) {
+		String sql ="";
+
+		if(loginIds.length == 1) {
+			sql = ("DELETE FROM users WHERE loginId='" + loginIds[0] + "';");
+		}else {
+			sql = ("DELETE FROM users WHERE loginId='"+loginIds[0]+"'");
+			for(int i =1 ;loginIds.length > i ; i++) {
+				sql = (sql + " OR loginId='" +loginIds[i] + "'");
+			}
+			sql = (sql +";");
+		}
+
+		return sql;
+	}
 }

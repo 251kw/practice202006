@@ -343,14 +343,43 @@ public class DBManager extends SnsDAO {
 			try {
 				conn = getConnection();
 
-				//INSERT文の登録と実行
+				//DELETE文の登録と実行
 				String sql = "DELETE FROM users WHERE loginId=?";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, loginId);
 
 				int cnt = pstmt.executeUpdate(); //実行
 				if (cnt == 1) {
-					//INSERT文の実行結果が1なら登録成功
+					//DELETE文の実行結果が1なら登録成功
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				// データベース切断処理
+				close(pstmt);
+				close(conn);
+			}
+
+			return result;
+
+		}
+
+		public boolean deleteUsers(String sql) {
+			boolean result = false;
+
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				conn = getConnection();
+
+				//DELETE文の登録と実行
+				pstmt = conn.prepareStatement(sql);
+
+				int cnt = pstmt.executeUpdate(); //実行
+				if (cnt <= 1) {
+					//DELETE文の実行結果が1なら登録成功
 					result = true;
 				}
 			} catch (SQLException e) {

@@ -25,6 +25,7 @@
 <jsp:useBean id="searchUser" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 <div class="padding-y-5">
 	<div style="width: 75%" class="container padding-y-5">
+	<form action="./multiDeleteUSerComfirmServlet" id="checks" method="post"></form>
 	<table class ="table table-striped table-bordered table-hover">
 		<tr>
 			<td><input type="checkbox" name="all" /></td>
@@ -37,7 +38,7 @@
 		</tr>
 		<c:forEach var="search" items="${searchUser}">
 				<tr>
-					<td><input type="checkbox" name="checked[]" value="${search.loginId}" form="form-check" /></td>
+					<td><input type="checkbox" name="checked" form="checks" value="${search.loginId}" /></td>
 					<td>${search.loginId}</td>
 					<td>${search.userName}</td>
 					<td>${search.profile}</td>
@@ -57,9 +58,7 @@
 				</tr>
 		 </c:forEach>
 	</table>
-		<form action="./" id="form-check" method="post">
-							<input class="btn " type="submit" value="選択したユーザーを削除" />
-						</form>
+			<input class="btn " type="submit" form="checks" value="選択したユーザーを削除" />
 		</div>
 </div>
 
