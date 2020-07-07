@@ -27,6 +27,7 @@ public class UppdateUserInsertUserConfirmServlet extends HttpServlet {
 
 	/**
 	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 *  s
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
@@ -55,6 +56,7 @@ public class UppdateUserInsertUserConfirmServlet extends HttpServlet {
 		//DBに接続しuserテーブルを更新
 		DBManager dbm = new DBManager();
 		dbm.uppdateUser(udto,originalLoginId);
+		dbm.uppdateShouts(udto);
 
 		//もし更新したユーザーがログイン中のユーザーならログインユーザーの変更処理
 		HttpSession session = request.getSession();

@@ -50,14 +50,18 @@ public class MultiDeleteUserResultServlet extends HttpServlet {
 			}
 		}
 
-		String sql = MakeSelectSQL.makeSelects(loginIds);
-		ArrayList<UserDTO> deleteUser = dbm.getSearchUserList(sql);
+		//Shoutsの削除
+		String sql = MakeSelectSQL.makeDeletesShouts(loginIds);
+		dbm.deleteSQL(sql);
+
 		//削除結果に表示するデータをリクエストスコープにいれる
+		sql = MakeSelectSQL.makeSelects(loginIds);
+		ArrayList<UserDTO> deleteUser = dbm.getSearchUserList(sql);
 		request.setAttribute("deleteUser", deleteUser);
 
-		//DELETE文の実行メソッド
+		//usersの削除
 		sql = MakeSelectSQL.makeDeletes(loginIds);
-		dbm.deleteUsers(sql);
+		dbm.deleteSQL(sql);
 
 		//処理の転送先を.jspに指定deleteUserResult
 		RequestDispatcher dispatcher;

@@ -42,7 +42,7 @@ public class DeleteUserConfirmServlet extends HttpServlet {
 	 * ユーザー検索で一件削除をする際に呼び出される
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginId = request.getParameter("loginId"); //indexで送った値
+		String loginId = request.getParameter("loginId");
 		HttpSession session = request.getSession();
 
 		//ログインユーザー情報、書き込み内容リストを取得
@@ -58,7 +58,7 @@ public class DeleteUserConfirmServlet extends HttpServlet {
 
 		request.setAttribute("deleteUser", deleteUser);
 
-			//処理の転送先をtopInput.jspに指定
+			//処理の転送先をdeleteUserConfirm.jspに指定
 			RequestDispatcher dispatcher;
 			dispatcher = request.getRequestDispatcher("deleteUserConfirm.jsp");
 			dispatcher.forward(request, response);

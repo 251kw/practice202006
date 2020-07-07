@@ -45,6 +45,7 @@ public class DeleteUserResultServlet extends HttpServlet {
 		//削除結果に表示するデータをリクエストスコープにいれる
 		UserDTO deleteUser = dbm.getUser(loginId);
 		request.setAttribute("deleteUser", deleteUser);
+		dbm.deleteUserShout(loginId);
 		dbm.deleteUser(loginId);
 
 		//処理の転送先を.jspに指定deleteUserResult

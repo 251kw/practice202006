@@ -12,8 +12,18 @@ import java.util.Calendar;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+/**
+ * データベースとのやり取りをするメソッド
+ */
 public class DBManager extends SnsDAO {
-	//ログインIDとパスワードを受け取り、登録ユーザー一覧に一致したものがあるか検索
+
+
+	/**
+	 * @param loginId
+	 * @param password
+	 * @return user
+	 * ログインIDとパスワードを受け取り、登録ユーザー一覧に一致したものがあるか検索
+	 */
 	public UserDTO getloginUser(String loginId, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -55,7 +65,11 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	//ログインIDを受け取りユーザー情報を返す
+	/**
+	 * @param loginId
+	 * @return ユーザー情報
+	 * ログインIDを受け取りユーザー情報を返す
+	 */
 	public UserDTO getUser(String loginId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -96,6 +110,10 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+	/**
+	 * @param udto
+	 * @return 成否
+	 */
 	public boolean setUser(UserDTO udto) {
 		boolean result = false;
 
@@ -130,7 +148,7 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	/*
+	/**
 	 * UPDATE文を実行するメソッド
 	 * 引数には更新内容を持つUserDTOと更新前のloginIdを渡す
 	 */
@@ -169,7 +187,46 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	// 書き込み内容リストの getter
+	/**
+	 * @param udto
+	 * @return 成否
+	 */
+	public boolean uppdateShouts(UserDTO udto) {
+		boolean result = false;
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			conn = getConnection();
+
+			//UPDATE文の登録と実行
+			String sql = "UPDATE shouts SET userName=? ,icon=? WHERE loginId =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, udto.getUserName());
+			pstmt.setString(2, udto.getIcon());
+			pstmt.setString(3, udto.getLoginId());
+
+			int cnt = pstmt.executeUpdate(); //実行
+			if (cnt == 1) {
+				//UPDATE文の実行結果が1なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	/**
+	 * @return
+	 * 書き込み内容リストの getter
+	 */
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null; //データベースへ接続して、接続情報を返す
 		Statement pstmt = null; //SQL文を作成して、ＳＱＬの管理情報を取得
@@ -210,7 +267,12 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
-	// ログインユーザ情報と書き込み内容を受け取り、リストに追加する
+	/**
+	 * @param user ユーザー情報
+	 * @param writing 叫び内容
+	 * @return 成否
+	 * ログインユーザ情報と書き込み内容を受け取り、リストに追加する
+	 */
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -220,7 +282,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(userName,icon,date,writing) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO shouts(userName,icon,date,writing,loginId) VALUES(?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getIcon());
@@ -229,6 +291,7 @@ public class DBManager extends SnsDAO {
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(3, sdf.format(calendar.getTime()));
 			pstmt.setString(4, writing);
+			pstmt.setString(5, user.getLoginId());
 
 			int cnt = pstmt.executeUpdate(); //実行
 			if (cnt == 1) {
@@ -365,7 +428,46 @@ public class DBManager extends SnsDAO {
 
 		}
 
-		public boolean deleteUsers(String sql) {
+		/**
+		 * @param loginId 削除するshoutsのログインID
+		 * @return tf
+		 */
+		public boolean deleteUserShout(String loginId) {
+			boolean result = false;
+
+			Connection conn = null;
+			PreparedStatement pstmt = null;
+
+			try {
+				conn = getConnection();
+
+				//DELETE文の登録と実行
+				String sql = "DELETE FROM shouts WHERE loginId=?";
+				pstmt = conn.prepareStatement(sql);
+				pstmt.setString(1, loginId);
+
+				int cnt = pstmt.executeUpdate(); //実行
+				if (cnt == 1) {
+					//DELETE文の実行結果が1なら登録成功
+					result = true;
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				// データベース切断処理
+				close(pstmt);
+				close(conn);
+			}
+
+			return result;
+
+		}
+
+		/**
+		 * @param sql 作成したDELETEのSQL
+		 * @return 成否
+		 */
+		public boolean deleteSQL(String sql) {
 			boolean result = false;
 
 			Connection conn = null;

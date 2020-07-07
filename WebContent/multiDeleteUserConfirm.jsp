@@ -62,7 +62,7 @@
 		</c:if>
 	</div>
 
-	<div align="right">
+	<div align="center">
 		<form action="./multiDeleteUserResult" method="post">
 		<c:forEach var="deleteUser" items="${deleteUser}">
 			<input type="hidden" name="loginId" value="${deleteUser.loginId}">
@@ -72,7 +72,7 @@
 	</div>
 
 
-	<div align="right">
+	<div align="center">
 	<form action="./returnSearchResult" method="post">
 		<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
 	</form>

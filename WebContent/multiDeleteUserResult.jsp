@@ -60,7 +60,7 @@
 
 <jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 <c:if test="${user.loginId != alert}">
-	<div align="right">
+	<div align="center">
 	<form action="./returnSearchResult" method="post">
 		<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="検索結果に戻る" />
 	</form>
@@ -68,7 +68,7 @@
 </c:if>
 
 <c:if test="${user.loginId == alert}">
-	<div align="right">
+	<div align="center">
 	<form action="./logout" method="post">
 		<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="INDEXにもどる" />
 	</form>

@@ -3,7 +3,7 @@ package util;
 public class MakeSelectSQL {
 
 
-	/*
+	/**
 	 * 引数にloginID,userName,profile,icon-car,icon-clip,icon-radioを渡すと
 	 * 渡されたものが空文字の場合無視し、引数に値があるものだけを条件に加えた
 	 * SQL文を生成するメソッド
@@ -154,6 +154,10 @@ public class MakeSelectSQL {
 		return sql;
 	}
 
+	/**
+	 * @param loginIds 削除したいユーザーのログインIDの配列
+	 * @return String型のSQL文(user削除)
+	 */
 	public static String makeDeletes(String[] loginIds) {
 		String sql ="";
 
@@ -161,6 +165,26 @@ public class MakeSelectSQL {
 			sql = ("DELETE FROM users WHERE loginId='" + loginIds[0] + "';");
 		}else {
 			sql = ("DELETE FROM users WHERE loginId='"+loginIds[0]+"'");
+			for(int i =1 ;loginIds.length > i ; i++) {
+				sql = (sql + " OR loginId='" +loginIds[i] + "'");
+			}
+			sql = (sql +";");
+		}
+
+		return sql;
+	}
+
+	/**
+	 * @param loginIds 削除したいユーザーのログインIDの配列
+	 * @return sql String型のSQL文(shouts削除)
+	 */
+	public static String makeDeletesShouts(String[] loginIds) {
+		String sql ="";
+
+		if(loginIds.length == 1) {
+			sql = ("DELETE FROM shouts WHERE loginId='" + loginIds[0] + "';");
+		}else {
+			sql = ("DELETE FROM shouts WHERE loginId='"+loginIds[0]+"'");
 			for(int i =1 ;loginIds.length > i ; i++) {
 				sql = (sql + " OR loginId='" +loginIds[i] + "'");
 			}

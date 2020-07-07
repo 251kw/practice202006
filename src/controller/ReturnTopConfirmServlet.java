@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import dao.DBManager;
+import dto.ShoutDTO;
 
 /**
  *  ユーザー検索中のTOP移動時に呼び出され
@@ -36,6 +40,7 @@ public class ReturnTopConfirmServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = null;
+		DBManager dbm = new DBManager();
 		HttpSession session = request.getSession();
 
 		//空文字をリクエストスコープにset
@@ -47,6 +52,10 @@ public class ReturnTopConfirmServlet extends HttpServlet {
 		session.setAttribute("profile","");
 
 		session.setAttribute("sql", "");
+
+		ArrayList<ShoutDTO> list = dbm.getShoutList();  //DBM内にあるメソッド
+		session.setAttribute("shouts", list); //叫びのリスト
+
 		// input.jsp に処理を転送
 		dispatcher = request.getRequestDispatcher("topInput.jsp");
 		dispatcher.forward(request, response);

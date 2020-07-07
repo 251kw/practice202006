@@ -34,6 +34,8 @@ function Click_Sub1(check) {
 <div class="padding-y-5">
 	<div style="width: 75%" class="container padding-y-5">
 	<form action="./multiDeleteUSerComfirmServlet" id="checks" method="post"></form>
+	<form action="./updateUser" id="update" method="post"></form>
+	<form action="./deleteUser" id="delete" method="post"></form>
 	<table class ="table table-striped table-bordered table-hover">
 		<tr>
 			<td>
@@ -55,16 +57,10 @@ function Click_Sub1(check) {
 					<td>${search.profile}</td>
 					<td><span class="${search.icon} pe-2x pe-va"></span></td>
 					<td>
-						<form action="./updateUser" method="post">
-							<input type="hidden" name="loginId" value="${search.loginId}">
-							<input class="btn btn-sm" type="submit" value="更 新" />
-						</form>
+						<button class="btn btn-sm" type="submit" form="update" name="loginId" value="${search.loginId}">更 新</button>
 					</td>
 					<td>
-						<form action="./deleteUser" method="post">
-							<input type="hidden" name="loginId" value="${search.loginId}">
-							<input class="btn btn-sm" type="submit" value="削 除" />
-						</form>
+						<button class="btn btn-sm" type="submit" form="delete" name="loginId" value="${search.loginId}">削 除</button>
 					</td>
 				</tr>
 		 </c:forEach>
