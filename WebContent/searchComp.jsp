@@ -3,6 +3,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page import="controller.InsertCheckServlet"%>
 <%@ page import="controller.SearchServlet"%>
+<%@ page import="java.net.URLEncoder" %>
+<%@ page import="java.net.URLDecoder" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -34,6 +36,7 @@
 					<td class="color-main container padding-y-5"><font size="3">氏名</font>
 					<td class="color-main container padding-y-5"><font size="3">アイコン</font>
 					<td class="color-main container padding-y-5"><font size="3">プロフィール</font>
+					<td>ユーザメニュー</td>
 				</tr>
 					<c:forEach var="search" items="${searchList}">
 						<tr>
@@ -41,6 +44,22 @@
 							<td>${search.userName}</td>
 							<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
 							<td>${search.profile}</td>
+							<td>
+								<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
+								<a href="http://localhost:8080/c11/update.jsp
+									?loginId=${search.loginId}&password=${search.password}
+									&userName=${search.userName}&icon=${search.icon}
+									profile=<%
+									String profile = null;
+									profile = URLEncoder.encode(request.getParameter(profile), "UTF-8");%>">変更
+								</a>">変更
+							</td>
+							<td>
+								<button type="submit">
+
+								</button>
+							</td>
+							<td>削除</td>
 						</tr>
 					</c:forEach>
 				</table>

@@ -264,7 +264,8 @@ public class DBManager extends SnsDAO{
 				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				UserDTO user = new UserDTO();
 				user.setLoginId(rset.getString(2));
-				//user.setPassword(rset.getString(3));
+				//ユーザ情報変更時にpasswordも必要なため取得する
+				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
