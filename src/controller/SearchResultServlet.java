@@ -27,9 +27,13 @@ public class SearchResultServlet extends HttpServlet {
         super();
     }
 
+    /**
+	 * 直接アクセスがないように、index.jspに飛ぶ
+	 *
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO 後で
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
 	}
 
 	/**
