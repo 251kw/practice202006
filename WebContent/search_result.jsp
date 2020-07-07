@@ -28,6 +28,7 @@
 		<jsp:useBean id="users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
+<form action="./dcs" method="post">
 				<table class="table table-striped table-bordered table-hover">
 
 					<thead>
@@ -49,19 +50,19 @@
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
 							<td>${users.profile}</td>
-							<td><%-- 編集ボタン後で --%>
-									<input class="btn btn-sm btn-warning" type="submit" value="編集" />
+							<td>
+								<%-- これから --%>
+									<input class="btn btn-sm btn-warning" type="submit" name="${loop.count}" value="編集" />
+
 							</td>
 							<td>
-								<form action="./dcs" method="post">
-									<input type="hidden" name="loginIds" value="${users.loginId}">
-									<input class="btn btn-sm btn-error" type="submit" name="btn" value="削除" />
-								</form>
+									<%--input type="hidden" name="loginIds" value="${users.loginId}"--%>
+									<button class="btn btn-sm btn-error" type="submit" name="loginIds" value="${users.loginId}">削除</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
-
+</form>
 				<form action="./srs" method="post">
 				<table class="container padding-y-5">
 

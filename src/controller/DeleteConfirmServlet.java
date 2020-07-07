@@ -35,6 +35,9 @@ public class DeleteConfirmServlet extends HttpServlet {
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+
 		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -45,7 +48,7 @@ public class DeleteConfirmServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String botton = request.getParameter("btn");
+//		String botton = request.getParameter("btn");
 		String[] loginIds = request.getParameterValues("loginIds");
 		ArrayList<UserDTO> list;
 		RequestDispatcher dispatcher = null;
@@ -57,24 +60,22 @@ public class DeleteConfirmServlet extends HttpServlet {
 		UserDTO user = (UserDTO)session.getAttribute("user");
 
 
-		if(botton.equals("削除")) {
 
-			list = dbs.userIdSearch(loginIds);
-			request.setAttribute("users", list);
+		list = dbs.userIdSearch(loginIds);
+		request.setAttribute("users", list);
 
 			for(String id: loginIds) {
 				if(user.getLoginId().equals(id)) {
 					//今ログインしているユーザーなら
-					message = "現在、ログインしているユーザーを削除するログアウトされます。";
+					message = "現在、ログインしているユーザーを削除するとログアウトされます。";
 
 					//メッセージをリクエストオブジェクトに保存
 					request.setAttribute("alert", message);
 				}
-			}
 
 			//処理の転送先をdelete_confirm.jspに指定
 			dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
-		}
+			}
 
 		dispatcher.forward(request, response);
 	}

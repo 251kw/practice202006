@@ -60,7 +60,7 @@ public class SearchResultServlet extends HttpServlet {
 
 			//処理の転送先をsearch_input.jspに指定
 			dispatcher = request.getRequestDispatcher("search_input.jsp");
-		} else if(botton.equals("削除")) {
+		} else {
 			String dloginId = request.getParameter("loginIds");
 			request.setAttribute("loginId", dloginId);
 

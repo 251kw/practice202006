@@ -51,8 +51,6 @@ public class DeleteResultServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
 		String[] loginIds = request.getParameterValues("loginIds");
-		String message = null;
-
 		ArrayList<UserDTO> list;
 		DBUserSearch dbs = new DBUserSearch();
 
@@ -71,17 +69,12 @@ public class DeleteResultServlet extends HttpServlet {
 			for(String id: loginIds) {
 
 				if(user.getLoginId().equals(id)) {
-					//今ログインしているユーザーなら
-					message = "現在、ログインしているユーザーを削除するとログアウトされます。";
-
-					//メッセージをリクエストオブジェクトに保存
-					request.setAttribute("alert", message);
-
+					//今ログインしているユーザーを削除したら
 					//ログイン画面へ戻る削除結果jspへ
 					dispatcher = request.getRequestDispatcher("delete_result_index.jsp");
 					break;
 
-				}else {
+				} else {
 					//検索画面へ戻る削除結果画面へ
 					dispatcher = request.getRequestDispatcher("delete_result.jsp");
 				}
