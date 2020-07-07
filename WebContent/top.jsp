@@ -17,17 +17,16 @@
 	<body>
 
 		<%---------------------------------------------------------------------------------%>
-			<div class="bg-success padding-y-5">
-				<div class="padding-y-5 text-center">
-					<h1>
-						Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
-				</div>
-			</div>
+		<div class="bg-success padding-y-5">
 			<div class="padding-y-5 text-center">
-				<div style="width: 40%" class="container padding-y-5 text-left">
-					<strong class="color-main">ログインユーザー情報</strong>
-				</div>
+				<h1>Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
 			</div>
+		</div>
+		<div class="padding-y-5 text-center">
+			<div style="width: 40%" class="container padding-y-5 text-left">
+				<strong class="color-main">ログインユーザー情報</strong>
+			</div>
+		</div>
 		<%---------------------------------------------------------------------------------%>
 
 		<%-- リクエストスコープにあるUserDTO型のオブジェクトを参照 --%>
@@ -41,8 +40,8 @@
 							<td rowspan="2" class="text-center"><span
 								class="${user.icon} pe-3x pe-va"></span></td>
 							<td width="256">${user.userName}</td>
-							<td><form action="./logout" method="post"><input class="btn btn-sm btn-light" type="submit" value="ログアウト" /></form>
-								<form action="./sis" method="post"><input class="btn btn-sm btn-light" type="submit" value="検索" name="btn" /></form></td>
+							<td><form action="./logout" method="post"><input class="btn btn-sm" type="submit" value="ログアウト" /></form>
+								<form action="./sis" method="post"><input class="btn btn-sm" type="submit" value="検索" name="btn" /></form></td>
 						</tr>
 						<tr>
 							<td colspan="2">${user.profile}</td>

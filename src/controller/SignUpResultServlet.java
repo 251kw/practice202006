@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 
+/**
+ * 新規登録結果サーブレット
+ * doGet
+ * doPost
+ * @author y.sato
+ *
+ */
 @WebServlet("/sur")
 public class SignUpResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,13 +27,19 @@ public class SignUpResultServlet extends HttpServlet {
         // TODO Auto-generated constructor stub
     }
 
-    //直接アクセスがあった場合はindex.jspに処理を転送
+    /**
+     * 直接アクセスがあった場合はindex.jspに処理を転送
+     * doGetメソッド
+     */
    	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
    		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
    		dispatcher.forward(request, response);
    	}
 
-   	//signup_result.jspのログアウトボタンから呼び出される
+   	/**
+   	 * signup_result.jspから呼び出される
+     * doPostメソッド
+     */
    	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
    		//doGetメソッドを呼び出し、index.jspに処理を転送

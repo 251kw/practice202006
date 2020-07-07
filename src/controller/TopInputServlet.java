@@ -16,19 +16,34 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+
+/**
+ * 掲示板書き込みサーブレット
+ * doPost
+ * doGet
+ * @author y.sato
+ *
+ */
 @WebServlet("/top")
 public class TopInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
-	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	/**
+	 * 直接アクセスがあった場合は
+	 * index.jsp  に処理を転送
+	 * doGetメソッド
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	// top.jsp の「叫ぶ」ボタンから呼ばれる
+	/**
+	 * top.jsp の「叫ぶ」ボタンから呼ばれる
+	 * doPostメソッド
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

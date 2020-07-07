@@ -7,12 +7,27 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+/**
+ * データベースにアクセスするための
+ * 情報、機能を持つクラス
+ *
+ * getConnection
+ * close(conn)
+ * close(stmt)
+ * close(rset)
+ *
+ * @author y.sato
+ *
+ */
 public class SnsDAO {
 	private final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
 	private final String USER = "root";
 	private final String PASSWORD = "root";
 
-	//データベースの接続情報を返す
+	/**
+	 * データベースの接続情報を返す
+	 * @return conn 接続情報
+	 */
 	public Connection getConnection() {
 		Connection conn = null;
 
@@ -31,7 +46,11 @@ public class SnsDAO {
 		return conn;
 	}
 
-	//Conection型変数が持つデータベースとJDBCリソースの開放
+
+	/**
+	 * Conection型変数が持つデータベースとJDBCリソースの開放
+	 * @param conn
+	 */
 	public void close(Connection conn) {
 		if(conn != null) {
 			try {
@@ -42,7 +61,10 @@ public class SnsDAO {
 		}
 	}
 
-	//Statement型変数が持つデータベースとJDBCリソースの開放
+	/**
+	 * Statement型変数が持つデータベースとJDBCリソースの開放
+	 * @param stmt sql管理情報
+	 */
 	public void close(Statement stmt) {
 		if(stmt != null) {
 			try {
@@ -53,14 +75,17 @@ public class SnsDAO {
 		}
 	}
 
-	//ResultSet型変数が持つデータベースとJDBCリソースの開放
-		public void close(ResultSet rset) {
-			if(rset != null) {
-				try {
-					rset.close();
-				}catch(SQLException e) {
-					e.printStackTrace();
-				}
+	/**
+	 * ResultSet型変数が持つデータベースとJDBCリソースの開放
+	 * @param rset sql実行結果
+	 */
+	public void close(ResultSet rset) {
+		if(rset != null) {
+			try {
+				rset.close();
+			}catch(SQLException e) {
+				e.printStackTrace();
 			}
 		}
+	}
 }

@@ -14,6 +14,12 @@ import dto.UserDTO;
 import util.Check;
 
 
+/**
+ * 新規登録入力サーブレット
+ * doGet
+ * doPost
+ * @author y.sato
+ */
 @WebServlet("/sui")
 public class SignUpInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +29,11 @@ public class SignUpInputServlet extends HttpServlet {
 		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * 直接アクセスがあった場合に起動する
+	 * doGetメソッド
+	 *
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -30,6 +41,11 @@ public class SignUpInputServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
+	/**
+	 * signup_input.jspから呼び出される
+	 * doPostメソッド
+	 *
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -59,7 +75,7 @@ public class SignUpInputServlet extends HttpServlet {
 				request.setAttribute("alert", message);
 				message = "";
 
-				//index.jspに処理を転送
+				//signup_input.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("signup_input.jsp");
 
 			} else if(Check.checkLogic(loginId)==false) {
@@ -69,11 +85,11 @@ public class SignUpInputServlet extends HttpServlet {
 				request.setAttribute("alert", message);
 				message = "";
 
-				//index.jspに処理を転送
+				//signup_input.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("signup_input.jsp");
 
 			} else if (dbm.SameCheckId(loginId)) {
-
+				//signup_confirm.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("signup_confirm.jsp");
 
 			} else {
@@ -81,13 +97,15 @@ public class SignUpInputServlet extends HttpServlet {
 				request.setAttribute("alert", message);
 				message = "";
 
+				//signup_input.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("signup_input.jsp");
 			}
 
 		} else if (botton.equals("登録する")) {
 			request.setAttribute("newuser", newuser);
 
-			dbm.SignUp(newuser);
+			dbm.SignUp(newuser);	//新規登録メソッド
+			//登録結果画面へ
 			dispatcher = request.getRequestDispatcher("signup_result.jsp");
 
 		} else if(botton.equals("戻る")) {

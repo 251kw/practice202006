@@ -1,5 +1,11 @@
 package dto;
 
+/**
+ * 掲示板書き込み
+ * ユーザー情報と書き込み情報保持bean
+ *
+ */
+
 public class ShoutDTO {
 	private String userName; //ユーザ名
 	private String icon; //ユーザアイコン
@@ -10,6 +16,15 @@ public class ShoutDTO {
 		//
 	}
 
+	/**
+	 * private変数に代入
+	 *
+	 * @param userName ユーザー名
+	 * @param icon アイコン
+	 * @param date 日付
+	 * @param writing 書き込み内容
+	 *
+	 */
 	public ShoutDTO(String userName, String icon, String date, String writing) {
 		this.userName = userName;
 		this.icon = icon;
@@ -17,6 +32,10 @@ public class ShoutDTO {
 		this.writing = writing;
 	}
 
+	/**
+	 * 以下getterとsetter
+	 *
+	 */
 	public String getUserName() {
 		return userName;
 	}

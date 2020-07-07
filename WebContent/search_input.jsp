@@ -23,7 +23,7 @@
 		</div>
 		<%---------------------------------------------------------------------------------%>
 
-		<jsp:useBean id="user" scope="request" type="dto.SearchUserDTO"/>
+		<jsp:useBean id="search" scope="session" type="dto.SearchUserDTO"/>
 		<div class="padding-y-5">
 			<div style="width: 40%" class="container padding-y-5">
 				<form action="./sis" method="post">
@@ -45,7 +45,7 @@
 							</th>
 							<td>
 								<div><h6>半角英数字で入力してください</h6></div>
-								<input type="text" name="loginId" id="loginId" value="${user.loginId}" class="form-control">
+								<input type="text" name="loginId" id="loginId" value="${search.loginId}" class="form-control">
 							</td>
 						</tr>
 
@@ -53,24 +53,24 @@
 							<th><label for="userName"><font color="#FF3333"><span class="icon-users pe-2x pe-va"></span></font>
 								&nbsp;ユーザ名</label>
 							</th>
-							<td><input type="text"name="userName" id="userName" value="${user.userName}" class="form-control"></td>
+							<td><input type="text"name="userName" id="userName" value="${search.userName}" class="form-control"></td>
 						</tr>
 
 						<tr>
 							<th><font color="#FFCC33"><span class="icon-smile pe-2x pe-va"></span></font>&nbsp;アイコン</th>
 							<td>
-							<input type="checkbox" name="icon" value="icon-user" ${Check.checkIcons("icon-user", user.icon)} /><span class="icon-user pe-va"></span><%-- 男性 --%>
-							<input type="checkbox" name="icon" value="icon-user-female" ${Check.checkIcons("icon-user-female", user.icon)}/><span class="icon-user-female pe-va"></span><%-- 女性 --%>
-							<input type="checkbox" name="icon" value="icon-bell" ${Check.checkIcons("icon-bell", user.icon)}/><span class="icon-bell pe-va"></span><%-- ベル --%>
-							<input type="checkbox" name="icon" value="icon-star" ${Check.checkIcons("icon-star", user.icon)}/><span class="icon-star pe-va"></span><%-- 星 --%>
-							<input type="checkbox" name="icon" value="icon-moon" ${Check.checkIcons("icon-moon", user.icon)}/><span class="icon-moon pe-va"></span><%-- 月 --%>
-							<input type="checkbox" name="icon" value="icon-rocket" ${Check.checkIcons("icon-rocket", user.icon)}/><span class="icon-rocket pe-va"></span><%-- ロケット --%>
+							<input type="checkbox" name="icon" value="icon-user" ${Check.checkIcons("icon-user", search.icon)} /><span class="icon-user pe-va"></span><%-- 男性 --%>
+							<input type="checkbox" name="icon" value="icon-user-female" ${Check.checkIcons("icon-user-female", search.icon)}/><span class="icon-user-female pe-va"></span><%-- 女性 --%>
+							<input type="checkbox" name="icon" value="icon-bell" ${Check.checkIcons("icon-bell", search.icon)}/><span class="icon-bell pe-va"></span><%-- ベル --%>
+							<input type="checkbox" name="icon" value="icon-star" ${Check.checkIcons("icon-star", search.icon)}/><span class="icon-star pe-va"></span><%-- 星 --%>
+							<input type="checkbox" name="icon" value="icon-moon" ${Check.checkIcons("icon-moon", search.icon)}/><span class="icon-moon pe-va"></span><%-- 月 --%>
+							<input type="checkbox" name="icon" value="icon-rocket" ${Check.checkIcons("icon-rocket", search.icon)}/><span class="icon-rocket pe-va"></span><%-- ロケット --%>
 							</td>
 						</tr>
 
 						<tr>
 							<th><font color="#99CC66"><span class="icon-comment pe-2x pe-va"></span></font>&nbsp;プロフィール</th>
-							<td><textarea rows="5" cols="20" name="profile" class="form-control">${user.profile}</textarea></td>
+							<td><textarea rows="5" cols="20" name="profile" class="form-control">${search.profile}</textarea></td>
 						</tr>
 
 						<tr>

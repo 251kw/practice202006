@@ -15,13 +15,18 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+/**
+ * ログインサーブレット
+ * doGet
+ * doPost
+ * @author y.sato
+ */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public LoginServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
@@ -31,7 +36,10 @@ public class LoginServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	// index.jspのログインボタンから呼び出される
+	/**
+	 * index.jspから呼び出される
+	 * doPostメソッド
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -57,6 +65,7 @@ public class LoginServlet extends HttpServlet {
 				//index.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("index.jsp");
 				dispatcher.forward(request, response);
+
 			} else {
 				//ログイン認証を行い、ユーザー情報を取得
 				DBManager dbm = new DBManager();
@@ -73,6 +82,7 @@ public class LoginServlet extends HttpServlet {
 
 					//処理の転送先をtop.jspに指定
 					dispatcher = request.getRequestDispatcher("top.jsp");
+
 				} else {
 					//ユーザー情報が取得できない場合
 					//エラーメッセージをリクエストオブジェクトの保存

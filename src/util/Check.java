@@ -3,9 +3,27 @@ package util;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-//import dto.UserDTO;
+
+/**
+ * 入力チェッククラス
+ *
+ * checkLogic
+ * checkIcons
+ *
+ * @author y.sato
+ *
+ */
 
 public class Check {
+	/**
+	 * 引数の文字列が半角英数字のみであるか
+	 * 判定するメソッド
+	 * 半角英数字以外があれば偽を返す
+	 *
+	 * @param target 入力された文字列
+	 * @return result 真偽値
+	 *
+	 */
 	public static boolean checkLogic(String target) {
 	    boolean result = false;
 	    String eisu = "^[A-Za-z0-9]+$";
@@ -21,6 +39,15 @@ public class Check {
 	    return result;
 	  }
 
+	/**
+	 * アイコン項目と選択したアイコンを比較して
+	 * 選択状態を返すメソッド
+	 *
+	 * @param icontype htmlで設定してあるアイコンの種類
+	 * @param icons 選択したアイコンが格納された配列
+	 * @return 一致で"checked" 不一致で""
+	 *
+	 */
 	public static String checkIcons(String icontype, String[] icons) {
 
 		if(icons==null) {				//初回

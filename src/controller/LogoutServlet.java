@@ -11,6 +11,12 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
+/**
+ * ログアウトサーブレット
+ * doGet
+ * doPost
+ * @author y.sato
+ */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -18,7 +24,6 @@ public class LogoutServlet extends HttpServlet {
 
     public LogoutServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     //直接アクセスがあった場合はindex.jspに処理を転送
@@ -26,8 +31,10 @@ public class LogoutServlet extends HttpServlet {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
-
-	//top.jspのログアウトボタンから呼び出される
+	/**
+	 * top.jspから呼び出される
+	 * doPostメソッド
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//セッションを破棄
 		HttpSession session = request.getSession();

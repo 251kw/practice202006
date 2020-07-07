@@ -12,7 +12,28 @@ import java.util.Calendar;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+
+/**
+ * データベース管理クラス
+ * SnsDAO継承
+ *
+ * getLogin
+ * SingUp
+ * SameCheckId
+ * getShoutList
+ * setWriting
+ *
+ * @author y.sato
+ *
+ */
 public class DBManager extends SnsDAO {
+	/**
+	 *ログインIdとパスワードを元に
+	 *ログインユーザー情報を検索、取得
+	 * @param loginId ログインId
+	 * @param password パスワード
+	 * @return user ログインユーザー情報（bean）
+	 */
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL管理情報
@@ -54,13 +75,19 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+	/**
+	 * 新規登録情報（bean）を元に
+	 * データベースにデータを追加するメソッド
+	 * @param newuser 新規登録情報
+	 * @return なし
+	 */
 	public void SignUp(UserDTO newuser) {
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL管理情報
 		ResultSet rset = null; //検索結果
 
 		String sql = "INSERT INTO users(loginId, password, userName, icon, profile) VALUES(?, ?, ?, ?, ?)";
-		//UserDTO user = null; //登録ユーザ情報
+
 		try {
 			//データベース接続情報取得
 			conn = getConnection();
@@ -85,6 +112,15 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	/**
+	 * ログインIdに重複がないか
+	 * 確認するメソッド
+	 * 重複があれば偽を返す
+	 *
+	 * @param loginId ログインId
+	 * @return result 真偽値
+	 *
+	 */
 	public boolean SameCheckId(String loginId) {
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL管理情報
@@ -124,6 +160,15 @@ public class DBManager extends SnsDAO {
 
 	}
 
+	/**
+	 * 掲示板書き込みデータ
+	 * 新規書き込みが上になるようにlistに追加する
+	 * メソッド
+	 *
+	 * @param 無し
+	 * @return list 書き込みデータ
+	 *
+	 */
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null;
 		Statement pstmt = null;
@@ -167,7 +212,16 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
-	//ログインユーザー情報と書き込み内容を受け取り、リストに追加する
+	/**
+	 * ログインユーザー情報と書き込み内容を受け取り
+	 * リストに追加するメソッド
+	 * 登録が完了したら真を返す
+	 *
+	 * @param user ユーザー情報
+	 * @param writing 書き込んだ内容
+	 * @return result 真偽値
+	 *
+	 */
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

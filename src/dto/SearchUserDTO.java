@@ -1,15 +1,33 @@
 package dto;
 
+/**
+ * 検索時に使用するbeanのクラス
+ * データ保持
+ *
+ * SeachUserDTO
+ *
+ * @author y.sato
+ *
+ */
+
 public class SearchUserDTO {
 	private String loginId;
-	private String userName;;
-	private String[] icon;
+	private String userName;
+	private String[] icon; //アイコンは配列で
 	private String profile;
 
 	public SearchUserDTO() {
-		// TODO 自動生成されたコンストラクター・スタブ
 	}
 
+	/**
+	 * private変数に代入
+	 *
+	 * @param loginId ログインId
+	 * @param userName ユーザー名
+	 * @param icon[] アイコン（複数）
+	 * @param profile プロフィール
+	 *
+	 */
 	public SearchUserDTO(String loginId, String userName, String[] icon, String profile) {
 		this.loginId = loginId;
 		this.userName = userName;
@@ -17,6 +35,10 @@ public class SearchUserDTO {
 		this.profile = profile;
 	}
 
+	/**
+	 * 以下getterとsetter
+	 *
+	 */
 	public String getLoginId() {
 		return loginId;
 	}

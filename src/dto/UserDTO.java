@@ -1,6 +1,12 @@
 package dto;
 
-//ユーザ情報を保持するクラス
+/**
+ * ユーザ情報を保持するクラス(bean)
+ *
+ * @author y.sato
+ *
+ */
+
 public class UserDTO {
 	private String loginId="";	//ログインid
 	private String password="";	//パスワード
@@ -12,6 +18,16 @@ public class UserDTO {
 		//
 	}
 
+	/**
+	 * private変数に代入
+	 *
+	 * @param loginId ログインId
+	 * @param password パスワード
+	 * @param userName ユーザー名
+	 * @param icon アイコン
+	 * @param profile プロフィール
+	 *
+	 */
 	public UserDTO(String loginId, String password, String userName, String icon, String profile) {
 		this.loginId = loginId;
 		this.password = password;
@@ -20,6 +36,10 @@ public class UserDTO {
 		this.profile = profile;
 	}
 
+	/**
+	 * 以下getterとsetter
+	 *
+	 */
 	public String getLoginId() {
 		return loginId;
 	}
