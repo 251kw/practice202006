@@ -12,7 +12,6 @@ import java.util.Calendar;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
-
 /**
  * データベース管理クラス
  * SnsDAO継承
@@ -139,11 +138,11 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(1, loginId);
 
 			rset = pstmt.executeQuery();
-			while(rset.next()) {
+			while (rset.next()) {
 				cnt = rset.getInt("cnt");
 			}
 
-			if(cnt==0) {
+			if (cnt == 0) {
 				result = true;
 			}
 

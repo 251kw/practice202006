@@ -17,7 +17,7 @@ import dto.UserDTO;
 /**
  * 削除機能サーブレット
  * doGet
- * doPost
+ *
  * @author y.sato
  */
 
@@ -31,25 +31,12 @@ public class DeleteConfirmServlet extends HttpServlet {
     }
 
     /**
-	 * 直接アクセスがないように、index.jspに飛ぶ
+	 * 削除ボタンで呼び出されるdoGetメソッド
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-
-
-		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
-		dispatcher.forward(request, response);
-	}
-
-	/**
-	 * search_result.jspの「削除」ボタンで呼び出されるdoPostメソッド
-	 *
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-//		String botton = request.getParameter("btn");
-		String[] loginIds = request.getParameterValues("loginIds");
+		String dloginId = request.getParameter("loginId");
 		ArrayList<UserDTO> list;
 		RequestDispatcher dispatcher = null;
 		String message = null;
@@ -57,27 +44,27 @@ public class DeleteConfirmServlet extends HttpServlet {
 		DBUserSearch dbs = new DBUserSearch();
 
 		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO)session.getAttribute("user");
+		UserDTO user = (UserDTO)session.getAttribute("user");	//ログインユーザーを削除するのか判断するために引き出す
 
+		list = dbs.userIdSearch(dloginId);		//loginIdで検索、情報引き出す
+		request.setAttribute("users", list);	//リクエストスコープへ
 
+		if(user.getLoginId().equals(dloginId)) {
+			//今ログインしているユーザーなら
+			message = "現在、ログインしているユーザーを削除するとログアウトされます。";
 
-		list = dbs.userIdSearch(loginIds);
-		request.setAttribute("users", list);
+			//メッセージをリクエストオブジェクトに保存
+			request.setAttribute("alert", message);
+		}
 
-			for(String id: loginIds) {
-				if(user.getLoginId().equals(id)) {
-					//今ログインしているユーザーなら
-					message = "現在、ログインしているユーザーを削除するとログアウトされます。";
-
-					//メッセージをリクエストオブジェクトに保存
-					request.setAttribute("alert", message);
-				}
-
-			//処理の転送先をdelete_confirm.jspに指定
-			dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
-			}
+		//処理の転送先をdelete_confirm.jspに指定
+		dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
 
 		dispatcher.forward(request, response);
+
 	}
 
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//TODO 複数削除の際に使う？？
+	}
 }

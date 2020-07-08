@@ -28,12 +28,12 @@
 		<jsp:useBean id="users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-<form action="./dcs" method="post">
+<%--form action="./dcs" method="post"--%>
 				<table class="table table-striped table-bordered table-hover">
 
 					<thead>
 						<tr>
-							<th><input type="checkbox" name="checkbox" value="" /></th>
+							<th><button class="btn btn-sm btn-light" type="submit" name="checkbox">全選択/解除</button></th>
 							<th>ログインID</th>
 							<th>ユーザー名</th>
 							<th>アイコン</th>
@@ -51,18 +51,15 @@
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
 							<td>${users.profile}</td>
 							<td>
-								<%-- これから --%>
-									<input class="btn btn-sm btn-warning" type="submit" name="${loop.count}" value="編集" />
-
+								<button class="btn btn-sm btn-warning" onClick="location.href='udis?loginId=${users.loginId}'">編集</button>
 							</td>
 							<td>
-									<%--input type="hidden" name="loginIds" value="${users.loginId}"--%>
-									<button class="btn btn-sm btn-error" type="submit" name="loginIds" value="${users.loginId}">削除</button>
+								<button class="btn btn-sm btn-error" onClick="location.href='dcs?loginId=${users.loginId}'">削除</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
-</form>
+
 				<form action="./srs" method="post">
 				<table class="container padding-y-5">
 

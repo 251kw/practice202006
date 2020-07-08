@@ -6,7 +6,7 @@
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>shouter-検索結果一覧-</title>
+		<title>shouter-検索結果-</title>
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 		<link rel="stylesheet" href="./css/helper.css">

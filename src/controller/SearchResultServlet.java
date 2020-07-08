@@ -56,14 +56,8 @@ public class SearchResultServlet extends HttpServlet {
 
 
 		if(botton.equals("戻る")) {
-			//response.setContentType("text/html;charset=UTF-8");
-
 			//処理の転送先をsearch_input.jspに指定
 			dispatcher = request.getRequestDispatcher("search_input.jsp");
-		} else {
-			String dloginId = request.getParameter("loginIds");
-			request.setAttribute("loginId", dloginId);
-
 		}
 		dispatcher.forward(request, response);
 	}

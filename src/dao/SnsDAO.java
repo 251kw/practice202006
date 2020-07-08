@@ -26,7 +26,7 @@ public class SnsDAO {
 
 	/**
 	 * データベースの接続情報を返す
-	 * @return conn 接続情報
+	 * @param conn 接続情報
 	 */
 	public Connection getConnection() {
 		Connection conn = null;

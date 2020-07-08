@@ -26,7 +26,6 @@ public class SignUpInputServlet extends HttpServlet {
 
 	public SignUpInputServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**

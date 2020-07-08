@@ -55,7 +55,7 @@
 						<tr>
 							<td>${loop.count}</td>
 							<td>${users.loginId}
-								<input type="hidden" name="loginIds" value="${users.loginId}"></td>
+								<input type="hidden" name="loginId" value="${users.loginId}"></td>
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
 							<td>${users.profile}</td>

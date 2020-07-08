@@ -128,7 +128,14 @@ public class DBUserSearch extends SnsDAO {
 		return list;
 	}
 
-	public  ArrayList<UserDTO> userIdSearch(String[] loginIds){
+	/**
+	 * loginIdでユーザー情報を
+	 * 取得するメソッド
+	 *
+	 * @param loginId
+	 * @return
+	 */
+	public  ArrayList<UserDTO> userIdSearch(String loginId){
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL管理情報
 		ResultSet rset = null; //検索結果
@@ -140,27 +147,23 @@ public class DBUserSearch extends SnsDAO {
 			conn = getConnection();
 
 			//SELECT文の作成と実行
+			String sql = "SELECT * FROM users WHERE loginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, loginId);
 
-			for(int i=0; i<loginIds.length; i++) {
-				String sql = "SELECT * FROM users WHERE loginId=?";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, loginIds[i]);
+			rset = pstmt.executeQuery();
 
-				rset = pstmt.executeQuery();
+			//全件検索
+			while (rset.next()) {
+				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
-				//全件検索
-				while (rset.next()) {
-					//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setLoginId(rset.getString(2));
-					user.setPassword(rset.getString(3));
-					user.setUserName(rset.getString(4));
-					user.setIcon(rset.getString(5));
-					user.setProfile(rset.getString(6));
-
-					list.add(user);		//ユーザー情報をリストに追加
-
-				}
+				list.add(user);		//ユーザー情報をリストに追加
 			}
 
 		} catch (SQLException e) {

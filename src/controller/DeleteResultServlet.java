@@ -41,16 +41,16 @@ public class DeleteResultServlet extends HttpServlet {
 
 
 	/**
-	 * delete_confirm.jsp, delete_result.jspから
+	 * delete_confirm.jsp, delete_result.jsp
+	 * （更新の時、検索結果画面に戻るときも）から
 	 * 呼ばれるdoPostメソッド
 	 *
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
-		String[] loginIds = request.getParameterValues("loginIds");
+		String loginId = request.getParameter("loginId");
 		ArrayList<UserDTO> list;
 		DBUserSearch dbs = new DBUserSearch();
 
@@ -59,43 +59,39 @@ public class DeleteResultServlet extends HttpServlet {
 
 		//delete_confirm.jspの削除ボタン
 		if(botton.equals("削除")) {
-			list = dbs.userIdSearch(loginIds);
+			list = dbs.userIdSearch(loginId);
 			request.setAttribute("users", list);
 
 			DBUserDelete dbd = new DBUserDelete();
-			dbd.shoutsDelete(loginIds);
-			dbd.usersDelete(loginIds);
+			dbd.shoutsDelete(loginId);
+			dbd.usersDelete(loginId);
 
-			for(String id: loginIds) {
+			if(user.getLoginId().equals(loginId)) {
+				//今ログインしているユーザーを削除したら
+				//ログイン画面へ戻る削除結果jspへ
+				dispatcher = request.getRequestDispatcher("delete_result_index.jsp");
 
-				if(user.getLoginId().equals(id)) {
-					//今ログインしているユーザーを削除したら
-					//ログイン画面へ戻る削除結果jspへ
-					dispatcher = request.getRequestDispatcher("delete_result_index.jsp");
-					break;
-
-				} else {
-					//検索画面へ戻る削除結果画面へ
-					dispatcher = request.getRequestDispatcher("delete_result.jsp");
-				}
+			} else {
+				//検索画面へ戻る削除結果画面へ
+				dispatcher = request.getRequestDispatcher("delete_result.jsp");
 			}
 
 		} else if(botton.equals("キャンセル")) {
 			//削除キャンセルなら、検索結果画面へ
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
-		} else if(botton.equals("検索結果画面へ")) {		//delete_result.jspで検索結果画面に戻る時
-			//削除後、検索しなおして結果表示
+		} else if(botton.equals("検索結果画面へ")) {		//検索結果画面に戻る時
+			//削除後、検索しなおして結果表示するために
 			SearchUserDTO search = (SearchUserDTO)session.getAttribute("search");
-			String loginId = search.getLoginId();
+			String Id = search.getLoginId();
 			String userName = search.getuserName();
 			String profile = search.getProfile();
 			String[] icon = search.getIcon();
 
-			ArrayList<UserDTO> users = dbs.userSearch(loginId, userName, profile, icon);
+			ArrayList<UserDTO> users = dbs.userSearch(Id, userName, profile, icon);
 
 			if(users.size()==0) {	//arraylistサイズ測る
-				 //検索結果無し、一件削除
+				 //検索結果無し、一件削除のとき
 				 dispatcher = request.getRequestDispatcher("search_no_result.jsp");
 			} else {
 				//複数あれば
