@@ -50,8 +50,8 @@ public class DeleteResultServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
-		String loginId = request.getParameter("loginId");
-		ArrayList<UserDTO> list;
+		String[] loginId = request.getParameterValues("loginId");
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
 
 		HttpSession session = request.getSession();
@@ -59,21 +59,26 @@ public class DeleteResultServlet extends HttpServlet {
 
 		//delete_confirm.jspの削除ボタン
 		if(botton.equals("削除")) {
-			list = dbs.userIdSearch(loginId);
-			request.setAttribute("users", list);
+			for(String id: loginId) {
+				list.add(dbs.userIdSearch(id));
+				request.setAttribute("users", list);
 
-			DBUserDelete dbd = new DBUserDelete();
-			dbd.shoutsDelete(loginId);
-			dbd.usersDelete(loginId);
+				DBUserDelete dbd = new DBUserDelete();
+				dbd.shoutsDelete(id);
+				dbd.usersDelete(id);
+			}
 
-			if(user.getLoginId().equals(loginId)) {
-				//今ログインしているユーザーを削除したら
-				//ログイン画面へ戻る削除結果jspへ
-				dispatcher = request.getRequestDispatcher("delete_result_index.jsp");
+			for(String id: loginId) {
+				if(user.getLoginId().equals(id)) {
+					//今ログインしているユーザーを削除したら
+					//ログイン画面へ戻る削除結果jspへ
+					dispatcher = request.getRequestDispatcher("delete_result_index.jsp");
+					break;
 
-			} else {
-				//検索画面へ戻る削除結果画面へ
-				dispatcher = request.getRequestDispatcher("delete_result.jsp");
+				} else {
+					//検索画面へ戻る削除結果画面へ
+					dispatcher = request.getRequestDispatcher("delete_result.jsp");
+				}
 			}
 
 		} else if(botton.equals("キャンセル")) {

@@ -2,7 +2,7 @@
 <%@ page import="java.util.ArrayList,java.util.Date"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,7 +28,7 @@
 		<jsp:useBean id="users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-<%--form action="./dcs" method="post"--%>
+<form action="./dcs" method="post">
 				<table class="table table-striped table-bordered table-hover">
 
 					<thead>
@@ -45,33 +45,33 @@
 					<c:forEach var="users" items="${users}" varStatus="loop">
 					<tbody>
 						<tr>
-							<td><input type="checkbox" name="checkbox" value="" />${loop.count}</td>
+							<td><input type="checkbox" name="checkbox" value="${users.loginId}" />${loop.count}</td>
 							<td>${users.loginId}</td>
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
 							<td>${users.profile}</td>
 							<td>
-								<button class="btn btn-sm btn-warning" onClick="location.href='udis?loginId=${users.loginId}'">編集</button>
+								<button class="btn btn-sm btn-warning" formaction="./udis" formmethod="get" name="loginId" value="${users.loginId}">編集</button>
 							</td>
 							<td>
-								<button class="btn btn-sm btn-error" onClick="location.href='dcs?loginId=${users.loginId}'">削除</button>
+								<button class="btn btn-sm btn-error" formmethod="get" name="loginId" value="${users.loginId}">削除</button>
 							</td>
 						</tr>
 					</c:forEach>
 				</table>
 
-				<form action="./srs" method="post">
+				<%-- form action="./srs" method="post" id="srs"></form>--%>
 				<table class="container padding-y-5">
 
 					<tr>
 						<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="選択項目を削除" name="btn"/>
-						<input class="btn" type="submit" value="戻る" name="btn">
+						<button class="btn" type="submit" name="btn">選択項目を削除</button>
+						<button formaction="./srs" class="btn" type="submit" value="戻る" name="btn">戻る</button>
 						</td>
 					</tr>
 
 				</table>
-				</form>
+</form>
 			</div>
 		</div>
 	</body>

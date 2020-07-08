@@ -37,7 +37,7 @@ public class DeleteConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String dloginId = request.getParameter("loginId");
-		ArrayList<UserDTO> list;
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		RequestDispatcher dispatcher = null;
 		String message = null;
 
@@ -46,7 +46,8 @@ public class DeleteConfirmServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserDTO user = (UserDTO)session.getAttribute("user");	//ログインユーザーを削除するのか判断するために引き出す
 
-		list = dbs.userIdSearch(dloginId);		//loginIdで検索、情報引き出す
+		//list = dbs.userIdSearch(dloginId);		loginIdで検索、情報引き出す
+		list.add(dbs.userIdSearch(dloginId));
 		request.setAttribute("users", list);	//リクエストスコープへ
 
 		if(user.getLoginId().equals(dloginId)) {
@@ -63,8 +64,36 @@ public class DeleteConfirmServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	}
-
+	/**
+	 * 複数削除の時に起動する
+	 *
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO 複数削除の際に使う？？
+		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher dispatcher = null;
+		String[] loginIds = request.getParameterValues("checkbox");
+		String message = null;
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+		DBUserSearch dbs = new DBUserSearch();
+
+
+		HttpSession session = request.getSession();
+		UserDTO user = (UserDTO)session.getAttribute("user");
+
+		for(String id : loginIds) {
+			if(id.equals(user.getLoginId())){
+				//今ログインしているユーザーなら
+				message = "現在、ログインしているユーザーを削除するとログアウトされます。";
+
+				//メッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+			}
+			list.add(dbs.userIdSearch(id));
+		}
+		request.setAttribute("users", list);
+
+		//処理の転送先をdelete_confirm.jspに指定
+		dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
+		dispatcher.forward(request, response);
 	}
 }

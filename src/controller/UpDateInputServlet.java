@@ -1,7 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -42,13 +41,13 @@ public class UpDateInputServlet extends HttpServlet {
 		DBUserSearch dbs = new DBUserSearch();
 
 		//loginIdで検索して、情報を取り出し
-		ArrayList<UserDTO> upuser = dbs.userIdSearch(uloginId);
+		UserDTO upuser = dbs.userIdSearch(uloginId);
 
-		String loginId = upuser.get(0).getLoginId();
-		String pass = upuser.get(0).getPassword();
-		String userName = upuser.get(0).getUserName();
-		String icon = upuser.get(0).getIcon();
-		String profile = upuser.get(0).getProfile();
+		String loginId = upuser.getLoginId();
+		String pass = upuser.getPassword();
+		String userName = upuser.getUserName();
+		String icon = upuser.getIcon();
+		String profile = upuser.getProfile();
 
 		//beanに入れて
 		UserDTO user = new UserDTO(loginId, pass, userName, icon, profile);

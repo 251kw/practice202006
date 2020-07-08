@@ -135,13 +135,13 @@ public class DBUserSearch extends SnsDAO {
 	 * @param loginId
 	 * @return
 	 */
-	public  ArrayList<UserDTO> userIdSearch(String loginId){
+	public  UserDTO userIdSearch(String loginId){
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL管理情報
 		ResultSet rset = null; //検索結果
 
-		ArrayList<UserDTO> list = new ArrayList<UserDTO>();		//検索結果格納list
-
+		//ArrayList<UserDTO> list = new ArrayList<UserDTO>();		//検索結果格納list
+		UserDTO user = new UserDTO();
 		try {
 			//データベース接続情報取得
 			conn = getConnection();
@@ -156,14 +156,14 @@ public class DBUserSearch extends SnsDAO {
 			//全件検索
 			while (rset.next()) {
 				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
-				UserDTO user = new UserDTO();
+			//	UserDTO user = new UserDTO();
 				user.setLoginId(rset.getString(2));
 				user.setPassword(rset.getString(3));
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 
-				list.add(user);		//ユーザー情報をリストに追加
+				//list.add(user);		//ユーザー情報をリストに追加
 			}
 
 		} catch (SQLException e) {
@@ -175,7 +175,7 @@ public class DBUserSearch extends SnsDAO {
 			close(conn);
 		}
 
-		return list;
+		return user;
 	}
 
 
