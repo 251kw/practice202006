@@ -35,8 +35,7 @@ function Click_Sub1(check) {
 	<div style="width: 75%" class="container padding-y-5">
 	<form action="./multiDeleteUSerComfirmServlet" id="checks" method="post"></form>
 	<form action="./updateUser" id="update" method="post"></form>
-	<form action="./deleteUser" id="delete" method="post"></form>
-	<table class ="table table-striped table-bordered table-hover">
+	<table class ="table table-bordered table-hover">
 		<tr>
 			<td>
 				<input type="button" onclick="Click_Sub1(true)" value="全選択">
@@ -47,20 +46,21 @@ function Click_Sub1(check) {
 			<td class="color-main text-left">プロフィール</td>
 			<td class="color-main text-left">アイコン</td>
 			<td class="color-main text-left">更新</td>
-			<td class="color-main text-left">削除</td>
 		</tr>
 		<c:forEach var="search" items="${searchUser}">
-				<tr>
-					<td><input type="checkbox" name="checked" form="checks" value="${search.loginId}" /></td>
+				<tr <c:if test="${search.d_flg == 1}">bgcolor="#E74C3C"</c:if>>
+					<td>
+						<c:choose>
+ 							 <c:when test="${search.d_flg == 1}">削除されたユーザー</c:when>
+ 							 <c:otherwise><input type="checkbox" name="checked" form="checks" value="${search.loginId}"  /></c:otherwise>
+						</c:choose>
+					</td>
 					<td>${search.loginId}</td>
 					<td>${search.userName}</td>
 					<td>${search.profile}</td>
 					<td><span class="${search.icon} pe-2x pe-va"></span></td>
 					<td>
-						<button class="btn btn-sm" type="submit" form="update" name="loginId" value="${search.loginId}">更 新</button>
-					</td>
-					<td>
-						<button class="btn btn-sm" type="submit" form="delete" name="loginId" value="${search.loginId}">削 除</button>
+						<button class="btn btn-sm <c:if test="${search.d_flg == 1}">btn-light</c:if>" type="submit" form="update" name="loginId" value="${search.loginId}" <c:if test="${search.d_flg == 1}">disabled</c:if>>更 新</button>
 					</td>
 				</tr>
 		 </c:forEach>
