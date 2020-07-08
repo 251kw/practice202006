@@ -39,17 +39,19 @@ public class UserDelBack extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 削除完了画面からどこに戻るかの管理
+	 * 検索結果の整合性をとる
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		// セッションに接続
 		HttpSession session2 = request.getSession();
 		String userName = (String) session2.getAttribute("userName");
 		String loginId = (String) session2.getAttribute("loginId");
 		String[] sicon = (String[]) session2.getAttribute("sicon");
 		String profile = (String) session2.getAttribute("profile");
 
+		//ログインユーザーと削除するユーザーのloginIdを取得
 		String loginUserId = (String) session2.getAttribute("loginUserId");
 		String sloginId = (String) request.getParameter("sloginId");
 
@@ -58,9 +60,12 @@ public class UserDelBack extends HttpServlet {
 		UserSearch us = new UserSearch();
 
 		ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId, userName, profile, sicon);
+
+		//削除するユーザーがログインユーザーか判別
 		if (loginUserId.equals(sloginId)) {
 			dispatcher = request.getRequestDispatcher("index.jsp");
 		}else {
+			//検索結果が空になるかどうかを判別
 			if (list == null || list.size() == 0) {
 				dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
 			} else {

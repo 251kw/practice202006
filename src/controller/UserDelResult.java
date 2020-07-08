@@ -36,15 +36,10 @@ public class UserDelResult extends HttpServlet {
 
 	}
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * ユーザーの削除を行う
+	 * userDelconfirmから遷移
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//HttpSession session = request.getSession();
-		//ArrayList<String> list = new ArrayList<>();
-		//list = (ArrayList<String>) session.getAttribute("list");
-		// int length = list.size();
-		 //session.setAttribute("list", list);
-		// loginId取得
 		String sloginId = request.getParameter("sloginId");
 		request.setAttribute("sloginId", sloginId);
 		RequestDispatcher dispatcher = null;
