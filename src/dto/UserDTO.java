@@ -2,14 +2,13 @@ package dto;
 
 //ユーザ情報を保持するクラス
 public class UserDTO {
-	private String loginId;
-	private String password;
-	private String userName;
-	private String icon;
-	private String profile;
+	private String loginId;		//ログインID
+	private String password;	//パスワード
+	private String userName;	//氏名
+	private String icon;		//アイコン
+	private String profile;		//プロフィール
 
 	public UserDTO() {
-
 	}
 
 	public UserDTO(String loginId, String password, String userName, String icon, String profile) {
@@ -18,7 +17,6 @@ public class UserDTO {
 		this.userName = userName;
 		this.icon = icon;
 		this.profile = profile;
-
 	}
 
 	//ゲッターセッター

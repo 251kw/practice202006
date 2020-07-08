@@ -19,8 +19,12 @@ import dto.UserDTO;
  */
 public class DBManager extends SnsDAO{
 
-	//ログインIDとパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
-	//SnsDAOでJDBCドライバの読み込みは終わってる。継承してるからしなくていい。
+	/**
+	 * ログインIDとパスワードを受け取り、登録ユーザ一覧に一致したものがあるか検索
+	 * @param loginId	//ログイン時に入力されたログインID
+	 * @param password	//ログイン時に入力されたパスワード
+	 * @return	user	//戻り値はユーザ情報
+	 */
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null;	//データベース接続情報
 		PreparedStatement pstmt = null;	//SQL管理情報
@@ -62,7 +66,11 @@ public class DBManager extends SnsDAO{
 		return user;
 	}
 
-	//ユーザID重複チェック
+	/**
+	 * ユーザID重複チェック
+	 * @param loginId	//新規登録時、入力されたユーザID
+	 * @return	user	//戻り値は該当するログインIDが入った変数user
+	 */
 	public UserDTO getCheckUser(String loginId) {
 		Connection conn = null;	//データベース接続情報
 		PreparedStatement pstmt = null;	//SQL管理情報
@@ -99,8 +107,10 @@ public class DBManager extends SnsDAO{
 		return user;
 	}
 
-
-	//書き込み内容リストのゲッター
+	/**
+	 * 書き込み内容リストのゲッター
+	 * @return	list	//戻り値は該当情報をshoutDTOでとってきたリスト
+	 */
 	public ArrayList<ShoutDTO> getShoutList(){
 		Connection conn = null;	//データベース接続情報
 		Statement pstmt = null;	//SQL管理情報
@@ -109,7 +119,6 @@ public class DBManager extends SnsDAO{
 		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
 
 		try {
-
 			//データベース接続処理
 			conn = getConnection();
 			//.createStatement()はパラメータなしのSQL実行に使用する
@@ -142,8 +151,12 @@ public class DBManager extends SnsDAO{
 		return list;
 	}
 
-	//ログインユーザ情報と書き込み内容リストを受け取り、リストにする
-	//booleanメソッドは、戻り値が固定の数字か否かを調べるのに最適
+	/**
+	 * ログインユーザ情報と書き込み内容リストを受け取り、shoutsテーブルへの追加する
+	 * @param user		//UserDTOにセットしたユーザ情報
+	 * @param writing	//叫ぶテキストに入力された内容
+	 * @return	result	//戻り値はshoutsテーブルへのINSERT文が成功したかどうかのboolean型
+	 */
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -179,13 +192,22 @@ public class DBManager extends SnsDAO{
 		return result;
 	}
 
-
-	//TODO 登録ユーザ情報のアップデート　↓なにこれ
+	/**
+	 * 登録ユーザ情報のDB更新
+	 * @param loginId	//更新時、新しく入力されたログインID
+	 * @param password	//更新時、新しく入力されたパスワード
+	 * @param userName	//更新時、新しく入力されたユーザネーム
+	 * @param icon		//更新時、新しく入力されたアイコン
+	 * @param profile	//更新時、新しく入力されたプロフィール
+	 * @param logId		//更新前のログインID
+	 * @return	result	//戻り値はUPDATE文が成功したかどうかのboolean型
+	 */
 	@SuppressWarnings("resource")
 	public boolean updateUser(String loginId, String password, String userName, String icon, String profile, String logId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
+		//送信情報の取得
 		String getLogId = loginId;
 		String getPass = password;
 		String getUName = userName;
@@ -218,8 +240,6 @@ public class DBManager extends SnsDAO{
 				getLog = user.getLoginId();
 			}
 
-			System.out.println(getLog);
-
 			//UPDATE文の登録と実行
 			String sql = "UPDATE users SET loginId=?, password=?, userName=?, icon=?, profile=? WHERE LoginId=?";
 			pstmt = conn.prepareStatement(sql);
@@ -229,8 +249,6 @@ public class DBManager extends SnsDAO{
 			pstmt.setString(4, getIcon);
 			pstmt.setString(5, getProf);
 			pstmt.setString(6, getLog);	//変更前のログインID
-
-			System.out.println(pstmt);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
@@ -247,6 +265,53 @@ public class DBManager extends SnsDAO{
 		return result;
 	}
 
+	//TODO
+	/**
+	 * 登録ユーザのDB削除
+	 * @param loginId	//削除するログインID
+	 * @return	result	//戻り値はDELETE文が成功したかどうかのboolean型
+	 */
+	public boolean deleteUser(String loginId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		//送信情報の取得
+		String getLogId = loginId;
+		boolean result = false; //削除結果
+
+		try {
+			//データベースに接続
+			conn = getConnection();
+
+			//DELETE文の登録と実行
+			String sql = "DELETE FROM users WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, getLogId);
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				//INSERT文の実行結果が1なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	/**
+	 * ユーザの新規登録情報をDBへ追加する
+	 * @param loginId	//新規登録するログインID
+	 * @param password	//新規登録するパスワード
+	 * @param userName	//新規登録する名前
+	 * @param icon		//新規登録するアイコン
+	 * @param profile	//新規登録するプロフィール
+	 * @return	result	//userテーブルのINSERT文が成功したかどうかをboolean型で返す
+	 */
 	public boolean getEndUser(String loginId, String password, String userName, String icon, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -286,7 +351,14 @@ public class DBManager extends SnsDAO{
 		return result;
 	}
 
-	//ログイン後、検索画面でのユーザ検索
+	/**
+	 * ログイン後、検索画面でのユーザ検索
+	 * @param loginId	//検索画面で入力されたログインID
+	 * @param userName	//検索画面で入力された名前
+	 * @param icon		//検索画面で入力されたアイコン
+	 * @param profile	//検索画面で入力されたプロフィール
+	 * @return	list	//検索したユーザをいれたリスト
+	 */
 	public ArrayList<UserDTO> getSearchList(String loginId, String userName, String icon, String profile){
 		Connection conn = null;	//データベース接続情報
 		Statement pstmt = null;	//SQL管理情報
@@ -315,29 +387,34 @@ public class DBManager extends SnsDAO{
 
 		//StringBuilder型からString型に変換
 		String sql = sb.toString();
+		System.out.println(sql);
 
 		try {
 
-			//データベース接続処理
-			conn = getConnection();
-			//.createStatement()はパラメータなしのSQL実行に使用する
-			pstmt = conn.createStatement();
-			//SQL文の実行
-			rset = pstmt.executeQuery(sql);
+			if(sql.length() == 25) {
+				list.isEmpty();
+			}else {
+				//データベース接続処理
+				conn = getConnection();
+				//.createStatement()はパラメータなしのSQL実行に使用する
+				pstmt = conn.createStatement();
+				//SQL文の実行
+				rset = pstmt.executeQuery(sql);
 
-			//検索結果の数だけ繰り返す
-			while (rset.next()) {
-				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				UserDTO user = new UserDTO();
-				user.setLoginId(rset.getString(2));
-				//ユーザ情報変更時にpasswordも必要なため取得する
-				user.setPassword(rset.getString(3));
-				user.setUserName(rset.getString(4));
-				user.setIcon(rset.getString(5));
-				user.setProfile(rset.getString(6));
+				//検索結果の数だけ繰り返す
+				while (rset.next()) {
+					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					UserDTO user = new UserDTO();
+					user.setLoginId(rset.getString(2));
+					//ユーザ情報変更時にpasswordも必要なため取得する
+					user.setPassword(rset.getString(3));
+					user.setUserName(rset.getString(4));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
 
-				//書き込み内容をリストに追加
-				list.add(user);
+					//書き込み内容をリストに追加
+					list.add(user);
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

@@ -30,7 +30,9 @@ public class LoginServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-    //index.jspの「ログイン」ボタンから呼び出される
+	/*
+	 * index.jspの「ログイン」ボタンから呼び出される
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");

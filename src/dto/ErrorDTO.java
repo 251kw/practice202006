@@ -1,18 +1,19 @@
 package dto;
 
-//エラー情報を保持するクラス
+/**
+ * エラー情報を保持するクラス
+ */
 public class ErrorDTO {
-	public String errMsId;
-	public String errMsPass;
-	public String errMsUname;
-	public String errMsIcon;
-	public String errMsProf;
-	public String errDepMs;
-	public String errId;
-	public String errPass;
+	public String errMsId;		//ログインID未入力エラー
+	public String errMsPass;	//パスワード未入力エラー
+	public String errMsUname;	//氏名未入力エラー
+	public String errMsIcon;	//アイコン未入力エラー
+	public String errMsProf;	//プロフィール未入力エラー
+	public String errDepMs;		//ログインID重複エラー
+	public String errId;		//ログインID入力制限エラー
+	public String errPass;		//パスワード入力制限エラー
 
 	public ErrorDTO() {
-
 	}
 
 	public ErrorDTO(String errMsId, String errMsPass, String errMsUname, String errMsIcon, String errMsProf, String errDepMs, String errId, String errPass) {
@@ -27,7 +28,7 @@ public class ErrorDTO {
 
 	}
 
-	//ゲッター
+	//セッターとゲッター
 		public String getErrMsId() {
 			return errMsId;
 		}

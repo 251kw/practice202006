@@ -27,8 +27,9 @@ public class InsertCheckServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-    //insert.jspの「OK」ボタンから呼び出される。
-//	@SuppressWarnings("static-access")
+	/*
+	 * insert.jspの「OK」ボタンから呼び出される。
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");

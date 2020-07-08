@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 		<link rel="stylesheet" href="./css/helper.css">
-		<title>ユーザ情報更新完了画面</title>
+		<title>ユーザ情報削除完了画面</title>
 	</head>
 	<body>
 		<div class="bg-accyell padding-y-5">
@@ -20,7 +20,7 @@
 			<form action="./searchSrv"   method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
-						<td class="none" nowrap><span class="color-main text-left"><font size="4">ユーザ情報変更完了</font></span></td>
+						<td class="none" nowrap><span class="color-main text-left"><font size="4">ユーザ情報削除完了</font></span></td>
 					</tr>
 					<tr>
 						<%-- ログインID入力欄の名前はLoginId --%>
@@ -52,7 +52,7 @@
 					<c:if
 						test="${result == true}">
 							<tr>
-							<td nowrap><span class="color-error text-left"><font size="3">上記の内容で更新しました！</font></span></td>
+							<td nowrap><span class="color-error text-left"><font size="3">上記のユーザを削除しました！</font></span></td>
 							<td></td>
 							</tr>
 					</c:if>

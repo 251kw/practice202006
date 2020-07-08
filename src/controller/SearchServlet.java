@@ -51,12 +51,13 @@ public class SearchServlet extends HttpServlet {
 
 		//sessionスコープの保存領域を確保
 		HttpSession session = request.getSession();
-		//sessionスコープ内にある前回のユーザ検索条件を取得
-		if(session.getAttribute("loginId") != null) {
-			loginId = (String)session.getAttribute("loginId");
-			userName = (String)session.getAttribute("userName");
-			icon = (String)session.getAttribute("icon");
-			profile = (String)session.getAttribute("profile");
+
+		//更新、削除から来た場合は下記を通り、ユーザ検索条件を取得。検索画面から来た場合はここを通らない。
+		if(request.getParameter("searchBtn") == null) {
+				loginId = (String)session.getAttribute("loginId");
+				userName = (String)session.getAttribute("userName");
+				icon = (String)session.getAttribute("icon");
+				profile = (String)session.getAttribute("profile");
 		}
 
 //ログインIDの入力制限のエラーチェック------------------------------------
@@ -77,17 +78,13 @@ public class SearchServlet extends HttpServlet {
 				//requestスコープにsearchlistをセット
 				request.setAttribute("searchList", searchList);
 
-				//sessionスコープに今回の検索条件をセット(変更・削除が完了したときに使用)
+				//sessionスコープに今回の検索条件をセット
 				session.setAttribute("loginId", loginId);
 				session.setAttribute("userName", userName);
 				session.setAttribute("icon", icon);
 				session.setAttribute("profile", profile);
 
 				//searchComp.jspに処理を転送
-				dispatcher = request.getRequestDispatcher("searchComp.jsp");
-				dispatcher.forward(request, response);
-			}else {
-				//検索結果なしのページへ遷移（あとで）
 				dispatcher = request.getRequestDispatcher("searchComp.jsp");
 				dispatcher.forward(request, response);
 			}

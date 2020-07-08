@@ -12,14 +12,14 @@ import javax.servlet.http.HttpServletResponse;
 import dao.DBManager;
 
 /**
- * 新規登録時、DBにユーザ情報を登録するサーブレット
+ * ユーザ情報のDB削除を行うサーブレット
  */
-@WebServlet("/registraction")
-public class RegistrationServlet extends HttpServlet {
+@WebServlet("/deleteSrv")
+public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
-    public RegistrationServlet() {
+    public DeleteServlet() {
         super();
     }
 
@@ -28,32 +28,27 @@ public class RegistrationServlet extends HttpServlet {
 	}
 
 	/*
-	 * insertConfの「OK」ボタンから呼び出される
+	 *delete.jspの「削除する」ボタンから呼び出される
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//DBManagerのgetEndUserメソッドを実行、DBに登録
 
 		//文字化け防止
 		request.setCharacterEncoding("UTF-8");
 
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");
-		String password = request.getParameter("password");
-		String userName = request.getParameter("userName");
-		String icon = request.getParameter("icon");
-		String profile = request.getParameter("profile");
 
-		//登録結果を代入する用の変数
+		//削除結果を代入する用の変数
 		boolean result;
 
 		//dbmでDBmanagerをインスタンス化
 		dbm = new DBManager();
-		//入力された情報をDBに登録
-		result = dbm.getEndUser(loginId,password,userName,icon,profile);
+		//入力された情報でDBを削除
+		result = dbm.deleteUser(loginId);
 		request.setAttribute("result", result);
 
-		//insertCompに処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("insertComp.jsp");
+		//deleteComp.jspに処理を転送
+		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteComp.jsp");
 		dispatcher.forward(request, response);
 	}
 }

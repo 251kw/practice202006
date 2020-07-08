@@ -24,14 +24,18 @@ public class BbsServlet extends HttpServlet {
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 	String message = null;
 
-	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	/*
+	 * 直接アクセスがあった場合は index.jspに処理を転送
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	// top.jsp の「叫ぶ」ボタンから呼ばれる
+	/*
+	 * top.jsp の「叫ぶ」ボタンから呼ばれる
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

@@ -27,7 +27,9 @@ public class UpdateServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-    //update.jspの「更新する」ボタンから呼び出される
+	/*
+	 *update.jspの「更新する」ボタンから呼び出される
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		//文字化け防止
@@ -47,11 +49,9 @@ public class UpdateServlet extends HttpServlet {
 
 		//dbmでDBmanagerをインスタンス化
 		dbm = new DBManager();
-		//入力された情報をDBに登録
+		//入力された情報でDBを更新
 		result = dbm.updateUser(loginId,password,userName,icon,profile,logId);
 		request.setAttribute("result", result);
-
-		System.out.println(result);
 
 		//updateComp.jspに処理を転送
 		RequestDispatcher dispatcher = request.getRequestDispatcher("updateComp.jsp");

@@ -77,7 +77,7 @@
 					</tr>
 					<tr>
 						<%-- searchSerletへ送信 --%>
-						<td colspan="2" class="text-right"><input class="btn" type="submit" value="検索する" /></td>
+						<td colspan="2" class="text-right"><input class="btn" type="submit" name="searchBtn" value="検索する" /></td>
 					</tr>
 				</table>
 			</form>

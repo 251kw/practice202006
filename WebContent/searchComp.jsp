@@ -36,7 +36,8 @@
 					<td class="color-main container padding-y-5"><font size="3">氏名</font>
 					<td class="color-main container padding-y-5"><font size="3">アイコン</font>
 					<td class="color-main container padding-y-5"><font size="3">プロフィール</font>
-					<td>ユーザメニュー</td>
+					<td class="color-main container padding-y-5"><font size="3">変更</font>
+					<td class="color-main container padding-y-5"><font size="3">削除</font>
 				</tr>
 					<c:forEach var="search" items="${searchList}">
 						<tr>
@@ -53,11 +54,21 @@
 										<c:param name="userName" value="${search.userName}" />
 										<c:param name="icon" value="${search.icon}" />
 										<c:param name="profile" value="${search.profile}" />
-									</c:url>
-									">変更
+									</c:url>">変更
 								</a>
 							</td>
-							<td>削除</td>
+							<td>
+								<%-- ユーザ情報削除ボタン searchListに入っているパスワード情報も渡す --%>
+								<a href="
+									<c:url value="http://localhost:8080/c11/delete.jsp" >
+										<c:param name="loginId" value="${search.loginId}" />
+										<c:param name="password" value="${search.password}" />
+										<c:param name="userName" value="${search.userName}" />
+										<c:param name="icon" value="${search.icon}" />
+										<c:param name="profile" value="${search.profile}" />
+									</c:url>">削除
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 				</table>
