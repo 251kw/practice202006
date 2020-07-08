@@ -23,10 +23,10 @@ public class LogoutTopResultServlet extends HttpServlet {
     }
 
 	/**
-	 * 直接アクセスがあった場合はindexInput.jspに処理を転送
+	 * 直接アクセスがあった場合はindex.jspに処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -38,7 +38,7 @@ public class LogoutTopResultServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 		session.invalidate();
 
-		//doGetメソッドを呼び出し、indexInput.jspに処理転送
+		//doGetメソッドを呼び出し、index.jspに処理転送
 		doGet(request, response);
 	}
 

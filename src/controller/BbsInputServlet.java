@@ -25,11 +25,11 @@ public class BbsInputServlet extends HttpServlet {
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
 	/**
-	 * 直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 * 直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 

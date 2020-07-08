@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.SearchUserBean;
 import dao.DBManager;
 import dto.UserDTO;
 import util.MakeSelectSQL;
@@ -19,7 +20,7 @@ import util.MakeSelectSQL;
  * searchInput.jspの検索ボタンからの呼び出され
  * 送られてきた情報をもとに
  * SELECTのSQL文を作成して
- * SearchResult.jspに処理を転送する
+ * searchResult.jspに処理を転送する
  */
 @WebServlet("/search")
 public class SerachInputServlet extends HttpServlet {
@@ -30,10 +31,10 @@ public class SerachInputServlet extends HttpServlet {
     }
 
 	/**
-	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -64,6 +65,8 @@ public class SerachInputServlet extends HttpServlet {
 			radio = "";
 		}
 
+		SearchUserBean sUser = new SearchUserBean(loginId, userName, profile, car, clip, radio);
+
 		//SQL文の作成メソッド
 		String sql = MakeSelectSQL.makeSelect(loginId, userName, profile, car, clip, radio);
 		//作成したSQLを渡しserchUserで受け取る
@@ -71,18 +74,12 @@ public class SerachInputServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		if(searchUser.isEmpty()) {
-			dispatcher = request.getRequestDispatcher("SearchEmptyResult.jsp");
+			dispatcher = request.getRequestDispatcher("searchEmptyResult.jsp");
 		}else {
-			dispatcher = request.getRequestDispatcher("SearchResult.jsp");
+			dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		}
 
-		session.setAttribute("select_loginId", loginId);
-		session.setAttribute("userName", userName);
-		session.setAttribute("profile",profile);
-		session.setAttribute("icon_car",car);
-		session.setAttribute("icon_paperclip",clip);
-		session.setAttribute("icon_radio",radio);
-		session.setAttribute("sql", sql);
+		session.setAttribute("sUser", sUser);
 
 		request.setAttribute("searchUser",searchUser );
 

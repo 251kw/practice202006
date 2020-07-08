@@ -2,11 +2,17 @@ package util;
 
 public class MakeSelectSQL {
 
-
 	/**
 	 * 引数にloginID,userName,profile,icon-car,icon-clip,icon-radioを渡すと
 	 * 渡されたものが空文字の場合無視し、引数に値があるものだけを条件に加えた
 	 * SQL文を生成するメソッド
+	 * @param loginID ログインID
+	 * @param userName ユーザー名
+	 * @param profile プロフィール
+	 * @param icon_car 車のアイコンの変数名
+	 * @param icon_clip クリップのアイコンの変数名
+	 * @param icon_radio ラジオのアイコンの変数名
+	 * @return
 	 */
 	public static String makeSelect(String loginID, String userName, String profile, String icon_car,String icon_clip,String icon_radio) {
 		String select = "SELECT * FROM users ORDER BY loginId;";
@@ -138,17 +144,21 @@ public class MakeSelectSQL {
 		return select;
 	}
 
+	/**
+	 * @param loginIds 取得したいユーザー情報群のログインIDの配列
+	 * @return sql String型のSELECTのSQL文
+	 */
 	public static String makeSelects(String[] loginIds) {
 		String sql ="";
 
 		if(loginIds.length == 1) {
-			sql = ("SELECT * FROM users WHERE loginId='" + loginIds[0] + "';");
+			sql = ("SELECT * FROM users WHERE loginId='" + loginIds[0] + "' AND d_flg=0;");
 		}else {
 			sql = ("SELECT * FROM users WHERE loginId='"+loginIds[0]+"'");
 			for(int i =1 ;loginIds.length > i ; i++) {
 				sql = (sql + " OR loginId='" +loginIds[i] + "'");
 			}
-			sql = (sql +";");
+			sql = (sql +"AND d_flg=0;");
 		}
 
 		return sql;
@@ -156,19 +166,19 @@ public class MakeSelectSQL {
 
 	/**
 	 * @param loginIds 削除したいユーザーのログインIDの配列
-	 * @return String型のSQL文(user削除)
+	 * @return sql String型のUPDETEのSQL文(user論理削除)
 	 */
 	public static String makeDeletes(String[] loginIds) {
 		String sql ="";
 
 		if(loginIds.length == 1) {
-			sql = ("DELETE FROM users WHERE loginId='" + loginIds[0] + "';");
+			sql = ("UPDATE users SET d_flg=1 WHERE loginId='" + loginIds[0] + "' AND d_flg=0;");
 		}else {
-			sql = ("DELETE FROM users WHERE loginId='"+loginIds[0]+"'");
+			sql = ("UPDATE users SET d_flg=1 WHERE loginId='"+loginIds[0]+"'");
 			for(int i =1 ;loginIds.length > i ; i++) {
 				sql = (sql + " OR loginId='" +loginIds[i] + "'");
 			}
-			sql = (sql +";");
+			sql = (sql +" AND d_flg=0;");
 		}
 
 		return sql;
@@ -176,19 +186,19 @@ public class MakeSelectSQL {
 
 	/**
 	 * @param loginIds 削除したいユーザーのログインIDの配列
-	 * @return sql String型のSQL文(shouts削除)
+	 * @return sql String型のUPDETEのSQL文(user論理削除)
 	 */
 	public static String makeDeletesShouts(String[] loginIds) {
 		String sql ="";
 
 		if(loginIds.length == 1) {
-			sql = ("DELETE FROM shouts WHERE loginId='" + loginIds[0] + "';");
+			sql = ("UPDATE shouts SET d_flg=1 WHERE loginId='" + loginIds[0] + "' AND d_flg=0;");
 		}else {
-			sql = ("DELETE FROM shouts WHERE loginId='"+loginIds[0]+"'");
+			sql = ("UPDATE shouts SET d_flg=1 WHERE loginId='"+loginIds[0]+"'");
 			for(int i =1 ;loginIds.length > i ; i++) {
 				sql = (sql + " OR loginId='" +loginIds[i] + "'");
 			}
-			sql = (sql +";");
+			sql = (sql +" AND d_flg=0;");
 		}
 
 		return sql;

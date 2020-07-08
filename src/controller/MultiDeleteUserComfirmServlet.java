@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.SearchUserBean;
 import dao.DBManager;
 import dto.UserDTO;
 import util.MakeSelectSQL;
@@ -19,18 +20,18 @@ import util.MakeSelectSQL;
  * Servlet implementation class MultiDeleteUSerComfirmServlet
  */
 @WebServlet("/multiDeleteUSerComfirmServlet")
-public class MultiDeleteUSerComfirmServlet extends HttpServlet {
+public class MultiDeleteUserComfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public MultiDeleteUSerComfirmServlet() {
+    public MultiDeleteUserComfirmServlet() {
         super();
     }
 
 	/**
-	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -59,7 +60,11 @@ public class MultiDeleteUSerComfirmServlet extends HttpServlet {
 			}
 			dispatcher = request.getRequestDispatcher("multiDeleteUserConfirm.jsp");
 		}else {
-			dispatcher = request.getRequestDispatcher("/returnSearchResult");
+			SearchUserBean sUser = (SearchUserBean)session.getAttribute("sUser");
+			String sql = MakeSelectSQL.makeSelect(sUser.getLoginId(), sUser.getUserName(), sUser.getProfile(), sUser.getCar(), sUser.getClip(), sUser.getRadio());
+			ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
+			request.setAttribute("searchUser", searchUser);
+			dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		}
 
 		dispatcher.forward(request, response);

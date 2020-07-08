@@ -29,7 +29,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = "SELECT * FROM users WHERE loginId=? AND password=?";
+		String sql = "SELECT * FROM users WHERE loginId=? AND password=? AND d_flg=0";
 
 		UserDTO user = null;
 
@@ -75,7 +75,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = "SELECT * FROM users WHERE loginId=?";
+		String sql = "SELECT * FROM users WHERE loginId=? AND d_flg=0";
 
 		UserDTO user = null;
 
@@ -112,7 +112,7 @@ public class DBManager extends SnsDAO {
 
 	/**
 	 * @param udto
-	 * @return 成否
+	 * @return tf
 	 */
 	public boolean setUser(UserDTO udto) {
 		boolean result = false;
@@ -124,13 +124,14 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO users(loginId,password,userName,icon,profile,d_flg) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, udto.getLoginId());
 			pstmt.setString(2, udto.getPassword());
 			pstmt.setString(3, udto.getUserName());
 			pstmt.setString(4, udto.getIcon());
 			pstmt.setString(5, udto.getProfile());
+			pstmt.setInt(6, 0);
 
 			int cnt = pstmt.executeUpdate(); //実行
 			if (cnt == 1) {
@@ -189,7 +190,7 @@ public class DBManager extends SnsDAO {
 
 	/**
 	 * @param udto
-	 * @return 成否
+	 * @return tf
 	 */
 	public boolean uppdateShouts(UserDTO udto) {
 		boolean result = false;
@@ -239,7 +240,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement(); //SQL実行準備(JAVAのメソッド)
 
 			//SELECT文の実行(日付順にshoutsを取得)
-			String sql = "SELECT * FROM shouts ORDER BY date DESC";
+			String sql = "SELECT * FROM shouts WHERE d_flg=0 ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果(shouts)の数だけ繰り返す
@@ -270,7 +271,7 @@ public class DBManager extends SnsDAO {
 	/**
 	 * @param user ユーザー情報
 	 * @param writing 叫び内容
-	 * @return 成否
+	 * @return tf
 	 * ログインユーザ情報と書き込み内容を受け取り、リストに追加する
 	 */
 	public boolean setWriting(UserDTO user, String writing) {
@@ -282,7 +283,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(userName,icon,date,writing,loginId) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO shouts(userName,icon,date,writing,loginId,d_flg) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getUserName());
 			pstmt.setString(2, user.getIcon());
@@ -292,6 +293,7 @@ public class DBManager extends SnsDAO {
 			pstmt.setString(3, sdf.format(calendar.getTime()));
 			pstmt.setString(4, writing);
 			pstmt.setString(5, user.getLoginId());
+			pstmt.setInt(6, 0);
 
 			int cnt = pstmt.executeUpdate(); //実行
 			if (cnt == 1) {
@@ -370,7 +372,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.prepareStatement(sql);
 			rset = pstmt.executeQuery();
 
-				//検索結果(users)の数だけ繰り返す
+				//検索結果(users)の数だけ繰り返す6
 				while (rset.next()) {
 					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
 					UserDTO searchUser = new UserDTO();
@@ -379,6 +381,7 @@ public class DBManager extends SnsDAO {
 					searchUser.setUserName(rset.getString(4));
 					searchUser.setIcon(rset.getString(5));
 					searchUser.setProfile(rset.getString(6));
+					searchUser.setD_flg(rset.getInt(7));
 
 					//書き込み内容をリストに追加
 					list.add(searchUser);
@@ -407,7 +410,7 @@ public class DBManager extends SnsDAO {
 				conn = getConnection();
 
 				//DELETE文の登録と実行
-				String sql = "DELETE FROM users WHERE loginId=?";
+				String sql = "DELETE FROM users WHERE loginId=? AND d_flg=0";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, loginId);
 
@@ -442,7 +445,7 @@ public class DBManager extends SnsDAO {
 				conn = getConnection();
 
 				//DELETE文の登録と実行
-				String sql = "DELETE FROM shouts WHERE loginId=?";
+				String sql = "DELETE FROM shouts WHERE loginId=? ";
 				pstmt = conn.prepareStatement(sql);
 				pstmt.setString(1, loginId);
 
@@ -464,8 +467,8 @@ public class DBManager extends SnsDAO {
 		}
 
 		/**
-		 * @param sql 作成したDELETEのSQL
-		 * @return 成否
+		 * @param sql 作成したSQLの実行
+		 * @return tf
 		 */
 		public boolean deleteSQL(String sql) {
 			boolean result = false;

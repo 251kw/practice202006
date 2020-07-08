@@ -86,7 +86,7 @@
 				<input class="btn" type="submit" value="登録" />
 			</div>
 		</form>
-		<form action="./indexInput.jsp" method="get">
+		<form action="./index.jsp" method="get">
 			<div align="center">
 				<input class="btn btn-grey btn-sm" type="submit" value="INDEXに戻る" />
 			</div>

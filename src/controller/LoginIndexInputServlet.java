@@ -31,10 +31,10 @@ public class LoginIndexInputServlet extends HttpServlet {
     }
 
 	/**
-	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -56,8 +56,8 @@ public class LoginIndexInputServlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 
-			//indexInput.jspに処理を転送
-			dispatcher = request.getRequestDispatcher("indexInput.jsp");
+			//index.jspに処理を転送
+			dispatcher = request.getRequestDispatcher("index.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			//ログイン認証を行い、ユーザー情報を取得
@@ -81,8 +81,8 @@ public class LoginIndexInputServlet extends HttpServlet {
 				message = "ログインIDまたはパスワードが違います";
 				request.setAttribute("alert", message);
 
-				//処理の転送先をindexInput.jspに指定
-				dispatcher = request.getRequestDispatcher("indexInput.jsp");
+				//処理の転送先をindex.jspに指定
+				dispatcher = request.getRequestDispatcher("index.jsp");
 			}
 			//処理を転送
 			dispatcher.forward(request, response);

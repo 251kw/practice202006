@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- *	indexInput.jspに処理を転送するためのサーブレット
+ *	index.jspに処理を転送するためのサーブレット
  */
 @WebServlet("/result")
 public class AddUserResultServlet extends HttpServlet {
@@ -21,10 +21,10 @@ public class AddUserResultServlet extends HttpServlet {
     }
 
 	/**
-	 * 直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 * 直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -34,7 +34,7 @@ public class AddUserResultServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		//indexに転送
-		dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 

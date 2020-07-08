@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import bean.SearchUserBean;
 import dao.DBManager;
 import dto.UserDTO;
+import util.MakeSelectSQL;
 
 /**
  * 検索結果に戻るときに呼び出される
@@ -28,10 +30,10 @@ public class ReturnSearchResultServlet extends HttpServlet {
     }
 
 	/**
-	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -43,15 +45,16 @@ public class ReturnSearchResultServlet extends HttpServlet {
 		HttpSession session = request.getSession();
 
 		//検索時に作成したＳＱＬ文を再利用し、現在のデータを取得
-		String sql = (String)session.getAttribute("sql");
+		SearchUserBean sUser = (SearchUserBean)session.getAttribute("sUser");
+		String sql = MakeSelectSQL.makeSelect(sUser.getLoginId(), sUser.getUserName(), sUser.getProfile(), sUser.getCar(), sUser.getClip(), sUser.getRadio());
 		DBManager dbm = new DBManager();
 		ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
 
-		//検索結果が0件なら処理をSearchEmptyResult.jspに転送
+		//検索結果が0件なら処理をsearchEmptyResult.jspに転送
 		if(searchUser.isEmpty()) {
-			dispatcher = request.getRequestDispatcher("SearchEmptyResult.jsp");
+			dispatcher = request.getRequestDispatcher("searchEmptyResult.jsp");
 		}else {
-			dispatcher = request.getRequestDispatcher("SearchResult.jsp");
+			dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		}
 
 		request.setAttribute("searchUser", searchUser);

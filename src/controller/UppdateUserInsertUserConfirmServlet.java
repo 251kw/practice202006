@@ -26,11 +26,11 @@ public class UppdateUserInsertUserConfirmServlet extends HttpServlet {
     }
 
 	/**
-	 *  直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 *  s
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -51,7 +51,7 @@ public class UppdateUserInsertUserConfirmServlet extends HttpServlet {
 
 		//UserDTOにset
 		UserDTO udto;
-		udto = new UserDTO(loginID, password, userName,  icon,  profile);
+		udto = new UserDTO(loginID, password, userName,  icon,  profile,0);
 
 		//DBに接続しuserテーブルを更新
 		DBManager dbm = new DBManager();

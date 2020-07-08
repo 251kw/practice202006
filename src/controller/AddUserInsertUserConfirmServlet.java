@@ -27,10 +27,10 @@ public class AddUserInsertUserConfirmServlet extends HttpServlet {
     }
 
 	/**
-	 * 直接アクセスがあった場合は indexInput.jsp  に処理を転送
+	 * 直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("indexInput.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -50,7 +50,7 @@ public class AddUserInsertUserConfirmServlet extends HttpServlet {
 
 		//UserDTOにset
 		UserDTO udto;
-		udto = new UserDTO(loginID, password, userName,  icon,  profile);
+		udto = new UserDTO(loginID, password, userName,  icon,  profile,0);
 
 		//udtoをリクエストスコープに入れる
 		request.setAttribute("user", udto);

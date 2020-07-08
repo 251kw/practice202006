@@ -29,7 +29,7 @@ public class AddUserInputServlet extends HttpServlet {
     }
 
 	/**
-	 * indexInput.jspの新規登録ボタンからの呼び出し
+	 * index.jspの新規登録ボタンからの呼び出し
 	 * 初期値をセットする
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -60,7 +60,7 @@ public class AddUserInputServlet extends HttpServlet {
 
 		//UserDTOに取得した情報をset
 		UserDTO udto;
-		udto = new UserDTO(loginID, password1, userName,  icon,  profile);
+		udto = new UserDTO(loginID, password1, userName,  icon,  profile,0);
 		request.setAttribute("user", udto);//リクエストスコープへ入れる
 
 		//入力に誤りがないか調べ、なければnull,あればString型でエラー文（エラー内容にあわせた）を返す

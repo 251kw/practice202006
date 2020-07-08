@@ -4,15 +4,19 @@ import java.util.regex.Pattern;
 
 public class CheckAddUserInfo {
 
-	/*
+	/**
 	 * 登録情報にエラーがないか調べるメソッド
 	 * エラーがなければnullを返す
 	 * エラーがあれば内容に応じたString型のメッセージを返す
 	 * エラー文は
 	 *  未記入 > IDの誤り = PASSの誤り > passの不一致
 	 * の順番で優先される(IDとPASSは両方が間違っている場合はs同時に警告する)
+	 * @param loginID ログインID
+	 * @param password1 登録パスワード
+	 * @param password2 確認パスワード
+	 * @param userName ユーザー名
+	 * @return String型のエラーメッセージ（エラーがなければnullを返す）
 	 */
-
 	public static String checkinfo(String loginID, String password1, String password2, String userName) {
 		String massage = null;
 		String log ="";
