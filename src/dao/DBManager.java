@@ -76,11 +76,12 @@ public class DBManager extends SnsDAO {
 			while(rset.next()) {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
-				shout.setUserName(rset.getString(2));
-				shout.setIcon(rset.getString(3));
-  				String str = rset.getString(4);
+				shout.setloginId(rset.getString(2));
+				shout.setUserName(rset.getString(3));
+				shout.setIcon(rset.getString(4));
+  				String str = rset.getString(5);
 				shout.setDate(str.substring(0, str.indexOf('.')));
-				shout.setWriting(rset.getString(5));
+				shout.setWriting(rset.getString(6));
 
 
 
@@ -111,15 +112,16 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			// INSERT文
-			String sql = "INSERT INTO shouts(userName,icon,date, writing) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO shouts(loginId,userName,icon,date, writing) VALUES(?,?,?,?,?)";
 			pstmt = conn.clientPrepareStatement(sql);
-			pstmt.setString(1, user.getUserName());
-			pstmt.setString(2, user.getIcon());
+			pstmt.setString(1,user.getLoginId());
+			pstmt.setString(2, user.getUserName());
+			pstmt.setString(3, user.getIcon());
 			// 日時取得
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(3, sdf.format(calendar.getTime()));
-			pstmt.setString(4, writing);
+			pstmt.setString(4, sdf.format(calendar.getTime()));
+			pstmt.setString(5, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {

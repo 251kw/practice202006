@@ -1,6 +1,7 @@
 package dto;
 
 public class ShoutDTO {
+	private String loginId;
 	private String userName;
 	private String icon;
 	private String date;
@@ -9,11 +10,18 @@ public class ShoutDTO {
 	public ShoutDTO() {
 
 	}
-	public ShoutDTO(String userName, String icon, String date, String writing) {
+	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
+		this.loginId = loginId;
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
 		this.writing = writing;
+	}
+	public String getloginId() {
+		return loginId;
+	}
+	public void setloginId(String userId) {
+		this.loginId = userId;
 	}
 	public String getUserName() {
 		return userName;
@@ -39,6 +47,7 @@ public class ShoutDTO {
 	public void setWriting(String writing) {
 		this.writing = writing;
 	}
+
 
 
 }

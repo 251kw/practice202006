@@ -8,6 +8,12 @@ import com.mysql.jdbc.Connection;
 
 public class DBUserAddInput extends SnsDAO {
 
+	/**
+	 *
+	 * @param loginId
+	 * @return
+	 * ログインIdの重複チェックを行うメソッド
+	 */
 	public boolean UserCheck(String loginId)  {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -34,6 +40,16 @@ public class DBUserAddInput extends SnsDAO {
 		return result;
 
 	}
+	/**
+	 *
+	 * @param loginId
+	 * @param password
+	 * @param userName
+	 * @param icon
+	 * @param profile
+	 * @return
+	 * 新規ユーザーのインサートを行うメソッド
+	 */
 	public boolean setNewUser(String loginId, String password, String userName, String icon ,String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

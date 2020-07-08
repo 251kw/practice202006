@@ -37,7 +37,8 @@ public class UserAddconfirn extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 *userAddInput.jspから”登録”ボタンで呼出し
+	 *登録情報のチェックを行う
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -51,7 +52,6 @@ public class UserAddconfirn extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 
-		//String loginId = request.getParameter("loginId");
 		request.setAttribute("userName", userName);
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("password", password);

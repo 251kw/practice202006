@@ -4,6 +4,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 //半角英数字を判定する
+/**
+ * @author d.ito
+ *
+ */
 public class ErrorCheck {
 	public boolean halfCheck(String str) {
 		boolean result = false;

@@ -12,32 +12,38 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-	<jsp:useBean id="users" scope="request"
-		type="java.util.ArrayList<dto.SearchDTO>" />
-	<div class="padding-y-5">
-		<div style="width: 60%" class="container padding-y-5">
-			<table  width="500" class="table table-striped table-bordered">
-			<tr>
-					<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
-					<td width="130" height="10">名前</td>
-					<td width="120" height="10">ログインID</td>
-					<td width="180" height="10">プロフィール</td>
-			</tr>
-			</table>
-			<%-- リストにある要素の数だけ繰り返し --%>
-			<c:forEach var="users" items="${users}">
-				<table  width="500" class="table table-striped table-bordered">
-					<tr>
-						<td width="50" height="10"><span
-							class="${users.icon} pe-2x pe-va"></span></td>
-						<td width="130" height="10">${users.userName}</td>
-						<td width="120" height="10">${users.loginId}</td>
-						<td width="180" height="10">${users.profile}</td>
-					</tr>
-				</table>
-			</c:forEach>
+
+		<jsp:useBean id="users" scope="request"
+			type="java.util.ArrayList<dto.SearchDTO>" />
+		<div class="padding-y-5">
+			<div style="width: 80%" class="container padding-y-5">
+				<%-- リストにある要素の数だけ繰り返し --%>
+					<table  width="500" class="table table-striped table-bordered">
+						<tr>
+							<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
+							<td width="113" height="10">名前</td>
+							<td width="120" height="10">ログインID</td>
+							<td width="170" height="10">プロフィール</td>
+							<td width="120" height="10">更新</td>
+							<td width="120" height="10">削除</td>
+							<c:forEach var="users" items="${users}">
+								<tr>
+									<td width="50" height="10"><span
+										class="${users.icon} pe-2x pe-va"></span></td>
+									<td width="130" height="10">${users.userName}</td>
+									<td width="120" height="10">${users.loginId}</td>
+									<td width="170" height="10">${users.profile}</td>
+									<td><input type="button" onclick="location.href='./uui?loginId=${users.loginId}'"
+									value="更新" class="btn"></td>
+									<td><input type="button" onclick="location.href='./udi?loginId=${users.loginId}'"
+									value="削除" class="btn"></td>
+								</tr>
+							</c:forEach>
+						</tr>
+					</table>
+
+			</div>
 		</div>
-	</div>
 	<form action="./userSearchInput.jsp" method="post">
 		<%
 			//文字化け対策
@@ -47,10 +53,6 @@
 			String loginId = (String) request.getAttribute("loginId");
 			String userName = (String) request.getAttribute("userName");
 			String profile = (String) request.getAttribute("profile");
-
-
-
-			//request.setAttribute("length", lengths);
 
 			request.setAttribute("icons", icon);
 

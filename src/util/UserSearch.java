@@ -10,6 +10,11 @@ import com.mysql.jdbc.Connection;
 import dao.SnsDAO;
 import dto.SearchDTO;
 
+
+/**
+ * @author d.ito
+ *
+ */
 public class UserSearch extends SnsDAO {
 	//文字化け対策
 	Connection conn = null;
@@ -20,6 +25,9 @@ public class UserSearch extends SnsDAO {
 	ArrayList<SearchDTO> list = new ArrayList<SearchDTO>();
 
 	//全件検索
+	/**
+	 * @return
+	 */
 	public ArrayList<SearchDTO> SearchAllUser() {
 		try {
 			conn = getConnection();
@@ -52,7 +60,15 @@ public class UserSearch extends SnsDAO {
 		return list;
 	}
 
-	//loginIdのみ一致
+
+	/**
+	 * @param loginId
+	 * @param userName
+	 * @param profile
+	 * @param icon
+	 * @return
+	 * 検索するsql文の生成と実行を行う
+	 */
 	public ArrayList<SearchDTO> SearchloginIDlUser(String loginId, String userName,String profile, String[] icon) {
 		try {
 			int counter = 0;
@@ -143,6 +159,61 @@ public class UserSearch extends SnsDAO {
 		}
 		return list;
 		}
+
+	public boolean deleteUser(String loginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文全件検索
+			String sql = "DELETE FROM sns.users WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, loginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	public ArrayList<SearchDTO> SearchloginId(String loginId) {
+		try {
+			conn = getConnection();
+			// sql文全件検索
+			String sql = "SELECT * FROM sns.users WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, loginId);
+			//sql文の実行
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば
+			while (rset.next()) {
+				//必要な値を取り出し
+				user = new SearchDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+				//リストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return list;
+	}
 }
 
 

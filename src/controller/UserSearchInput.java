@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.SearchDTO;
 import util.UserSearch;
@@ -38,17 +39,27 @@ public class UserSearchInput extends HttpServlet {
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 ユーザーを検索してリストに追加
+	 userSearchInput.jspから検索で呼出し
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
+
+		HttpSession session2 = request.getSession();
 
 		// 送信データの取得
 		String userName = request.getParameter("userName");
 		String loginId = request.getParameter("loginId");
 		String[] sicon = request.getParameterValues("sicon");
 		String profile = request.getParameter("profile");
+
+		//sessionにセット
+		session2.setAttribute("userName", userName);
+		session2.setAttribute("loginId", loginId);
+		session2.setAttribute("sicon", sicon);
+		session2.setAttribute("profile", profile);
+
 
 		//データ保持
 		request.setAttribute("userName", userName);

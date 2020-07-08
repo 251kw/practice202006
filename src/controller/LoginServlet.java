@@ -70,6 +70,8 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user", user);
 				session.setAttribute("shouts", list);
 
+				session.setAttribute("loginUserId",loginId );
+
 				//処理転送先をtop.jspに指定
 				dispatcher = request.getRequestDispatcher("top.jsp");
 			}else {
