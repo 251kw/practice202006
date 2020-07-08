@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,40 +9,34 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import Util.CheckDB;
+import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class UserDeleteServlet
+ * ログインIDを参照してユーザーを削除する
  */
 @WebServlet("/UserDelete")
 public class UserDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public UserDeleteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
+
+		HttpSession session = request.getSession();
 
 		RequestDispatcher dispatcher = null;
 
@@ -59,12 +54,18 @@ public class UserDeleteServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		UserDTO user = new UserDTO();
-		user = CheckDB.SearchUser(dloginId);
-		CheckDB.DeleteUser(dloginId);
+		// 削除するユーザー情報を一旦保持
+		UserDTO duser = new UserDTO();
+		duser = CheckDB.SearchUser(dloginId);
+		request.setAttribute("duser", duser);
 
-		request.setAttribute("user", user);
+		// 指定のユーザーを削除して新しい書き込みリストを取得
+		ArrayList<ShoutDTO> list = CheckDB.DeleteUser(dloginId);
 
+		// リストをセッションに保存
+		session.setAttribute("shouts", list);
+
+		// ログイン中のアカウントを削除する場合
 		if(logoutalert!=null) {
 			request.setAttribute("logoutalert",logoutalert);
 		}

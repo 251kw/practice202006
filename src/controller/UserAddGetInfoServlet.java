@@ -17,35 +17,27 @@ import javax.servlet.http.HttpServletResponse;
 import Util.CheckInput;
 
 /**
- * Servlet implementation class RegisterServlet
+ * 新規登録画面で入力された値をチェックする
+ * 値が正常なら登録確認画面へ
+ * 値が異常ならエラーメッセージと共に新規登録画面へ
  */
 @WebServlet("/getinfo")
 public class UserAddGetInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public UserAddGetInfoServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -54,7 +46,6 @@ public class UserAddGetInfoServlet extends HttpServlet {
 		final String PASSWORD = "root";
 
 		Connection conn = null;
-		// ID被りチェック用
 		PreparedStatement pstmt2 = null;
 		ResultSet rset2 = null;
 
@@ -97,8 +88,8 @@ public class UserAddGetInfoServlet extends HttpServlet {
 			request.setAttribute("alertpass", checkpass);
 			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 			dispatcher.forward(request, response);
-		} else { // 文字が正常な場合
-
+		} else {
+			// 文字が正常な場合
 			// 文字数チェック
 			if (newloginId.length() <= 4 && newpassword.length() <= 7) {
 				checkid = "IDは５文字以上で入力してください";
@@ -120,37 +111,40 @@ public class UserAddGetInfoServlet extends HttpServlet {
 
 				dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 				dispatcher.forward(request, response);
-			} else { // 文字が正常かつID・パスワードの両方が正常な時
+			} else {
+				// 文字が正常かつID・パスワードの両方の文字数が正常な時
 
 				if (false == CheckInput.excludeBlank(newloginId, newpassword, newuserName, newicon, newprofile)) {
-
-					checkblank = "全ての入力欄を埋めてください";
+					// 入力欄が全て埋まっていないとき
 
 					// エラーメッセージをリクエストオブジェクトに保存
+					checkblank = "全ての入力欄を埋めてください";
 					request.setAttribute("alertblank", checkblank);
 
-					// register.jsp に処理を転送
+					// 入力画面に処理を転送
 					dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 					dispatcher.forward(request, response);
 				} else {
 					// 全入力欄が埋まっている場合
-
+					// 入力されたIDが既に使われていないかどうかチェック
 					try {
 						Class.forName("com.mysql.jdbc.Driver");
 						conn = DriverManager.getConnection(DSN, USER, PASSWORD);
 
-						// ID被りをチェック
 						String sql2 = "SELECT * FROM users WHERE LOGINID=?";
 						pstmt2 = conn.prepareStatement(sql2);
 						pstmt2.setString(1, newloginId);
 						rset2 = pstmt2.executeQuery();
 
 						if (rset2.next()) {
+							// 入力されたログインIDが既に使われている場合
+							// エラーメッセージを送ってログイン画面に移動
 							String checksame = "入力されたログインIDは既に使用されています";
-							// エラーメッセージをリクエストオブジェクトに保存
 							request.setAttribute("alertsame", checksame);
 							dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 						} else {
+							// 入力されたログインIDが使われていない場合
+							// 登録確認画面に移動
 							dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");
 						}
 					} catch (ClassNotFoundException e) {

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,67 +12,58 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Util.CheckDB;
-import dto.UserDTO;
+import dto.ShoutDTO;
 
 /**
- * Servlet implementation class EditUserServlet
+ * ユーザーの複数件削除を実行する
  */
-@WebServlet("/EditUser")
-public class EditUserServlet extends HttpServlet {
+@WebServlet("/UserMultiDelete")
+public class UserMultiDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public EditUserServlet() {
+    public UserMultiDeleteServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
+
+		RequestDispatcher dispatcher = null;
 
 		HttpSession session = request.getSession();
 
 		// 送信情報の取得
-		String eloginId = request.getParameter("eloginId");
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
+		String logoutmessage = request.getParameter("logoutalert");
+		String[] select = (String[]) session.getAttribute("select");
 
-		// 検索画面入力値の保持用
-		request.setAttribute("eloginId", eloginId);
+
+		// 値の保持用
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
+		request.setAttribute("logoutalert", logoutmessage);
 
-		RequestDispatcher dispatcher = null;
+		// 削除対象のユーザーを全て削除
+		for(String selectId:select) {
 
-		UserDTO originaluser = new UserDTO();
-		UserDTO euser = new UserDTO();
+			ArrayList<ShoutDTO> list = CheckDB.DeleteUser(selectId);
+			session.setAttribute("shouts", list);
+		}
 
-		originaluser = CheckDB.SearchUser(eloginId);
-		euser = CheckDB.SearchUser(eloginId);
-
-		session.setAttribute("originaluser", originaluser);
-		session.setAttribute("euser", euser);
-
-		dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
-		dispatcher.forward(request, response);
+		dispatcher = request.getRequestDispatcher("MultiDeleteResult.jsp");
+		dispatcher.forward(request,response);
 	}
+
 }

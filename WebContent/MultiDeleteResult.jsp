@@ -5,7 +5,7 @@
 <html lang="ja">
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-		<title>削除完了</title>
+		<title>削除結果</title>
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 		<link rel="stylesheet" href="./css/helper.css">
@@ -20,27 +20,22 @@
 		<h4 class="text-center">以下のユーザーを削除しました</h4>
 		<br>
 		<form action="./UserSearchSqueeze" method="post">
-			<table style="width: 400px" class="table table-borderd container padding-y-5">
-				<tr>
-					<th class="color-main text-center">ログインID:</th>
-					<td class="text-center">${requestScope.duser.loginId}</td>
+			<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
+			<jsp:useBean id="deleteList" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+			<%-- リストにある要素の数だけ繰り返し --%>
+			<table style="width: 600px" class="table table-borderd container padding-y-5">
+				<tr class="bg-light">
+					<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
+					<th class="text-center">アイコン</th><th class="text-center">プロフィール</th>
 				</tr>
-				<tr>
-					<th class="color-main text-center">パスワード:</th>
-					<td class="text-center">${requestScope.duser.password}</td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">ユーザー名:</th>
-					<td class="text-center">${requestScope.duser.userName}</td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">アイコン:</th>
-					<td class="text-center"><span class="${requestScope.duser.icon} pe-2x pe-va"></span></td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">プロフィール:</th>
-					<td class="text-center">${requestScope.duser.profile}</td>
-				</tr>
+				<c:forEach var="deleteList" items="${deleteList}">
+					<tr>
+						<td class="text-center">${deleteList.loginId}</td>
+						<td class="text-center">${deleteList.userName}</td>
+						<td class="text-center"><span class="${deleteList.icon} pe-2x pe-va"></span></td>
+						<td class="text-center">${deleteList.profile}</td>
+					</tr>
+				</c:forEach>
 				<c:if test="${empty requestScope.logoutalert}">
 					<tr>
 						<td colspan="4" class="text-right">
@@ -56,7 +51,7 @@
 		</form>
 		<c:if test="${!empty requestScope.logoutalert}">
 			<form action="./logout" method="post">
-				<table style="width: 400px" class="table table-borderd container padding-y-5">
+				<table style="width: 600px" class="table table-borderd container padding-y-5">
 					<tr>
 						<td colspan="2" class="text-right">
 							<input class="btn" type="submit" value="ログアウトする" />

@@ -15,6 +15,10 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+
+/**
+ * 掲示板の叫ぶ欄に書き込まれた内容をデータベースに登録し、その内容をセッションに保持して、掲示板に移動
+ */
 @WebServlet("/bbs")
 public class ShoutsRegistDBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -23,6 +27,7 @@ public class ShoutsRegistDBServlet extends HttpServlet {
 	// 直接アクセスがあった場合は LoginTop.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
 		dispatcher.forward(request, response);
 	}

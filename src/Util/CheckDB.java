@@ -7,9 +7,17 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import dao.DBManager;
+import dto.ShoutDTO;
 import dto.UserDTO;
 
 public class CheckDB {
+
+	/**
+	 * 検索入力欄に入力された情報を元にsql文を作成
+	 * @param 検索入力欄に入力された文字列
+	 * @return 条件に沿ったユーザーを格納したリスト
+	 */
 
 	public static ArrayList<UserDTO> joinsql(String sloginId, String suserName, String sicon, String sprofile) {
 
@@ -87,7 +95,6 @@ public class CheckDB {
 					resultList.add(user);
 				}
 			} catch (SQLException e) {
-				// TODO 自動生成された catch ブロック
 				e.printStackTrace();
 			}
 
@@ -105,23 +112,35 @@ public class CheckDB {
 
 
 
-	public static void DeleteUser(String dloginId) {
+	/**
+	 * ログインIDを参照し、特定のユーザーとそのユーザーの書き込みを削除する
+	 * @param ログインID
+	 * @return 削除したユーザーの書き込みを削除したShoutsリスト
+	 */
+	public static ArrayList<ShoutDTO> DeleteUser(String dloginId) {
 
 		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
 		final String USER = "root";
 		final String PASSWORD = "root";
 
 		Connection conn = null;
-		PreparedStatement pstmt = null;
+		PreparedStatement pstmt1 = null;
+		PreparedStatement pstmt2 = null;
+
+		DBManager dbm = new DBManager();
 
 		try {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
-			String sql = "delete from users where loginId = ?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, dloginId);
-			pstmt.executeUpdate();
+			String sql1 = "delete from shouts where loginId = ?";
+			String sql2 = "delete from users where loginId = ?";
+			pstmt1 = conn.prepareStatement(sql1);
+			pstmt2 = conn.prepareStatement(sql2);
+			pstmt1.setString(1, dloginId);
+			pstmt2.setString(1, dloginId);
+			pstmt1.executeUpdate();
+			pstmt2.executeUpdate();
 
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
@@ -129,13 +148,23 @@ public class CheckDB {
 			e.printStackTrace();
 		}finally {
 			try {
-				pstmt.close();
+				pstmt1.close();
+				pstmt2.close();
 			}catch(SQLException e) {}
 		}
-		return;
+
+		// 書き込み内容削除後のリストを取得
+		ArrayList<ShoutDTO> list = dbm.getShoutList();
+
+		return list;
 	}
 
 
+	/**
+	 * ログインIDを参照し、特定のユーザーを検索する
+	 * @param ログインID
+	 * @return ユーザー情報を持ったUserDTO型のオブジェクト
+	 */
 	public static UserDTO SearchUser(String loginId) {
 
 		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
@@ -179,8 +208,12 @@ public class CheckDB {
 
 
 
+	/**
+	 * 元々のユーザー情報と入力された変更内容を比較し、変更されている箇所のみをsqlで更新する
+	 * @param originaluser 特定のユーザーが持つ元々の情報
+	 * @param euser 変更入力欄に入力された値
+	 */
 	public static void EditUser(UserDTO originaluser, UserDTO euser) {
-
 
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
@@ -265,5 +298,53 @@ public class CheckDB {
 
 		}
 
+	}
+
+
+	public static ArrayList<UserDTO> MakedeleteList(String[] select) {
+
+		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+		final String USER = "root";
+		final String PASSWORD = "root";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		UserDTO user = null;
+
+		ArrayList<UserDTO> deleteList = new ArrayList<UserDTO>();
+
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
+			String sql = "select * from users where loginId = ?";
+			pstmt = conn.prepareStatement(sql);
+
+			for (String selectId: select){
+				pstmt.setString(1, selectId);
+				rset = pstmt.executeQuery();
+
+				if(rset.next()) {
+					user = new UserDTO();
+					user.setLoginId(rset.getString(2));
+					user.setPassword(rset.getString(3));
+					user.setUserName(rset.getString(4));
+					user.setIcon(rset.getString(5));
+					user.setProfile(rset.getString(6));
+				}
+				deleteList.add(user);
+			}
+
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {}
+		}
+		return deleteList;
 	}
 }

@@ -19,35 +19,25 @@ import Util.CheckInput;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class EditUserRegistServlet
+ * 文字判定用のサーブレット
  */
 @WebServlet("/EditUserCheckChar")
 public class EditUserCheckCharServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public EditUserCheckCharServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
 
@@ -174,7 +164,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 							String checksame = "入力されたログインIDは既に使用されています";
 							// エラーメッセージをリクエストオブジェクトに保存
 							request.setAttribute("alertsame", checksame);
-							dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
+							dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
 						} else {
 							dispatcher = request.getRequestDispatcher("EditUserConfirm.jsp");
 						}

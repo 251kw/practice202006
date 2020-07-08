@@ -29,7 +29,6 @@
 		<%-- ログインフォーム入力欄 --%>
 		<form action="./getinfo" method="post">
 			<table style="width: 400px" class="table container padding-y-5">
-
 				<%-- 全入力チェック --%>
 				<c:if test="${requestScope.alertblank != null && requestScope.alertblank != ''}">
 					<tr>

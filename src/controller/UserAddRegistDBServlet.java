@@ -14,35 +14,27 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class Register2Servlet
+ * 登録情報入力画面で入力された情報をデータベース上に登録
+ * 登録後は登録結果画面へ移動
  */
 @WebServlet("/registDB")
 public class UserAddRegistDBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public UserAddRegistDBServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
+
 		request.setCharacterEncoding("UTF-8");
 
 		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
@@ -55,7 +47,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 		Connection conn = null;
 		PreparedStatement pstmt1 = null;
 
-		// 送信情報の取得
+		// 値を保持するための処理
 		String newloginId = request.getParameter("newloginId");
 		String newpassword = request.getParameter("newpassword");
 		String newuserName = request.getParameter("newuserName");
@@ -68,6 +60,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 		request.setAttribute("newicon", newicon);
 		request.setAttribute("newprofile", newprofile);
 
+		// 入力された情報をデータベース上に登録
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
@@ -84,6 +77,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 
 			pstmt1.executeUpdate();
 
+			// 登録後は登録結果画面に移動
 			dispatcher = request.getRequestDispatcher("UserAddResult.jsp");
 			dispatcher.forward(request, response);
 

@@ -19,39 +19,32 @@
 		<br>
 		<h4 class="text-center">以下のユーザーを削除しますか？</h4>
 		<br>
-		<form action="./UserDelete" method="post">
-			<table style="width: 400px" class="table table-borderd container padding-y-5">
+		<form action="./UserMultiDelete" method="post">
+			<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
+			<jsp:useBean id="deleteList" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+			<%-- リストにある要素の数だけ繰り返し --%>
+			<table style="width: 600px" class="table table-borderd container padding-y-5">
 				<%-- ログアウト警告 --%>
 				<c:if test="${requestScope.logoutalert != null && requestScope.logoutalert != ''}">
 					<tr>
-						<td colspan="2" class="color-error text-center"><c:out value="${requestScope.logoutalert}" /></td>
+						<td colspan="4" class="color-error text-center"><c:out value="${requestScope.logoutalert}" /></td>
 					</tr>
 				</c:if>
-				<tr>
-				<tr>
-					<th class="color-main text-center">ログインID:</th>
-					<td class="text-center">${requestScope.duser.loginId}</td>
+				<tr class="bg-light">
+					<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
+					<th class="text-center">アイコン</th><th class="text-center">プロフィール</th>
 				</tr>
+				<c:forEach var="deleteList" items="${deleteList}">
+					<tr>
+						<td class="text-center">${deleteList.loginId}</td>
+						<td class="text-center">${deleteList.userName}</td>
+						<td class="text-center"><span class="${deleteList.icon} pe-2x pe-va"></span></td>
+						<td class="text-center">${deleteList.profile}</td>
+					</tr>
+				</c:forEach>
 				<tr>
-					<th class="color-main text-center">パスワード:</th>
-					<td class="text-center">${requestScope.duser.password}</td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">ユーザー名:</th>
-					<td class="text-center">${requestScope.duser.userName}</td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">アイコン:</th>
-					<td class="text-center"><span class="${requestScope.duser.icon} pe-2x pe-va"></span></td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">プロフィール:</th>
-					<td class="text-center">${requestScope.duser.profile}</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-right">
+					<td colspan="4" class="text-right">
 						<input class="btn" type="submit" value="削除" />
-						<input type="hidden" name="dloginId" value="${requestScope.duser.loginId}">
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
@@ -62,18 +55,14 @@
 			</table>
 		</form>
 		<form action="./UserSearchSqueeze" method="post">
-			<table style="width: 400px" class="table table-borderd container padding-y-5">
+			<table style="width: 600px" class="table table-borderd container padding-y-5">
 				<tr>
-					<td>
+					<td colspan="4" class="text-right">
+						<input class="btn" type="submit" value="検索結果に戻る" />
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
 						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="検索結果に戻る" />
 					</td>
 				</tr>
 			</table>

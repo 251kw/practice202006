@@ -14,33 +14,23 @@ import Util.CheckDB;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class EditUserRegistServlet
+ * 変更された情報をデータベースに登録するアカウント
  */
 @WebServlet("/EditUserRegist")
 public class EditUserRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public EditUserRegistServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		HttpSession session = request.getSession();
 

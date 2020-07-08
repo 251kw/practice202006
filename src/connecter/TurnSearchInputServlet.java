@@ -10,41 +10,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TurnSearchInputServlet
+ * 検索入力画面に移動するために経由するサーブレット
  */
 @WebServlet("/TurnSearchInput")
 public class TurnSearchInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public TurnSearchInputServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
 
+		// 検索入力画面の値を格納する変数
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
 
+		// 最初はnullなので空文字に変換
 		if(sloginId==null ) {
 			sloginId = "";
 			suserName = "";
@@ -57,6 +49,7 @@ public class TurnSearchInputServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
+		// 検索入力画面に移動
 		RequestDispatcher dispatcher = null;
 		dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
 		dispatcher.forward(request,response);

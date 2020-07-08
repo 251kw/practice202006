@@ -10,48 +10,42 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class TurnUserAddInputServlet
+ * 新規登録画面用のJSPに移行するためのサーブレット
  */
 @WebServlet("/TurnUserAddInput")
 public class TurnUserAddInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public TurnUserAddInputServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
+
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 
 		request.setCharacterEncoding("UTF-8");
 
+		// 新規登録画面に出力する変数
 		String newloginId = "";
 		String newpassword = "";
 		String newuserName = "";
 		String newicon = "";
 		String newprofile = "";
 
+		// リクエストスコープに保存
 		request.setAttribute("newloginId", newloginId);
 		request.setAttribute("newpassword", newpassword);
 		request.setAttribute("newuserName", newuserName);
 		request.setAttribute("newicon", newicon);
 		request.setAttribute("newprofile", newprofile);
 
+		// 新規登録画面に移動
 		RequestDispatcher dispatcher = null;
 		dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
 		dispatcher.forward(request,response);
