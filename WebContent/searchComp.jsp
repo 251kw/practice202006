@@ -46,18 +46,16 @@
 							<td>${search.profile}</td>
 							<td>
 								<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
-								<a href="http://localhost:8080/c11/update.jsp
-									?loginId=${search.loginId}&password=${search.password}
-									&userName=${search.userName}&icon=${search.icon}
-									profile=<%
-									String profile = null;
-									profile = URLEncoder.encode(request.getParameter(profile), "UTF-8");%>">変更
-								</a>">変更
-							</td>
-							<td>
-								<button type="submit">
-
-								</button>
+								<a href="
+									<c:url value="http://localhost:8080/c11/update.jsp" >
+										<c:param name="loginId" value="${search.loginId}" />
+										<c:param name="password" value="${search.password}" />
+										<c:param name="userName" value="${search.userName}" />
+										<c:param name="icon" value="${search.icon}" />
+										<c:param name="profile" value="${search.profile}" />
+									</c:url>
+									">変更
+								</a>
 							</td>
 							<td>削除</td>
 						</tr>

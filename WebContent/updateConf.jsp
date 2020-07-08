@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 		<link rel="stylesheet" href="./css/helper.css">
-		<title>ユーザ登録確認画面</title>
+		<title>ユーザ情報変更確認画面</title>
 	</head>
 	<body>
 		<div class="bg-accyell padding-y-5">
@@ -17,13 +17,13 @@
 					class="icon-diamond pe-2x pe-va"></span></font>
 			</div>
 		</div>
-		<%-- action属性にサーブレットを指定 --%>
+		<%-- ./updateSrvに飛ばす --%>
 		<div class="padding-y-5">
-			<form action="./registraction" method="post">
+			<form action="./updateSrv" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none" nowrap><span class="color-main text-left"><font
-								size="4">新規会員登録【確認画面】</font></span></td>
+								size="4">ユーザ情報変更【確認画面】</font></span></td>
 					</tr>
 					<%//文字化け防止
 					request.setCharacterEncoding("UTF-8");
@@ -31,28 +31,28 @@
 					<tr>
 						<%-- ログインID入力欄の名前はLoginId --%>
 						<td class="color-main text-left">ログインID</td>
-						<td class="text-left">${loginId}</td>
+						<td class="text-left">${param.loginId}</td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前はpassword --%>
 						<td class="color-main text-left">パスワード</td>
-						<td class="text-left">${password}</td>
+						<td class="text-left">${param.password}</td>
 					</tr>
 					<tr>
 						<%-- 名前入力欄の名前はuserName --%>
 						<td class="color-main text-left">氏名</td>
-						<td class="text-left">${userName}</td>
+						<td class="text-left">${param.userName}</td>
 					</tr>
 					<tr>
 						<%-- icon入力欄の名前はicon --%>
 						<td class="color-main text-left">アイコン</td>
 						<td class="text-left">
-						<span class="${icon} pe-2x pe-va"></span></td>
+						<span class="${param.icon} pe-2x pe-va"></span></td>
 					</tr>
 					<tr>
 						<%-- プロフィール入力欄の名前はprofile --%>
 						<td class="color-main text-left">プロフィール</td>
-						<td class="text-left">${profile}</td>
+						<td class="text-left">${param.profile}</td>
 					</tr>
 					<tr>
 						<%-- <td class="none" nowrap><span class="color-main text-left"><font
@@ -61,7 +61,7 @@
 						<td></td>
 					</tr>
 					<tr>
-						<%-- ./registractionへ処理を転送 --%>
+						<%-- ./updateSrvへ処理を転送 --%>
 						<td class="none text-right" colspan="2"><input class="btn" type="submit" value="OK" /></td>
 					</tr>
 				</table>
@@ -70,10 +70,10 @@
 				<input type="hidden" name="userName" value="${param.userName}">
 				<input type="hidden" name="icon" value="${param.icon}">
 				<input type="hidden" name="profile" value="${param.profile}">
-				<%-- パラメータから取得した元のloginIdを/updateSrvに送る --%>
+				<%-- update.jspからhiddenで送られてきた変更前のログインID --%>
 				<input type="hidden" name="logId" value="${param.logId}">
 			</form>
-			<%-- 修正の場合は入力情報保持したままinsert.jspに戻る --%>
+			<%-- 修正の場合は入力情報保持したままupdate.jspに戻る --%>
 			<form action="update.jsp" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>

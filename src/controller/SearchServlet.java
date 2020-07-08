@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
@@ -46,16 +47,28 @@ public class SearchServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String errId = null;	//ログインIDの入力制限
 
-//ログインIDの入力制限のエラーチェック(あとで)(それかcssで入力制限つける)------------------------------------
+//一度更新完了したあと、再度前回のユーザ検索条件で検索結果を表示する場合の処理--------------------------------
+
+		//sessionスコープの保存領域を確保
+		HttpSession session = request.getSession();
+		//sessionスコープ内にある前回のユーザ検索条件を取得
+		if(session.getAttribute("loginId") != null) {
+			loginId = (String)session.getAttribute("loginId");
+			userName = (String)session.getAttribute("userName");
+			icon = (String)session.getAttribute("icon");
+			profile = (String)session.getAttribute("profile");
+		}
+
+//ログインIDの入力制限のエラーチェック------------------------------------
 
 		if(loginId != "") {
 			errId = CheckUtil.charCheck(loginId,"ログインID");
 		}
 
-//エラーがなければユーザ検索してsearchComp.jspへ、あれば入力情報を保持したまま再度search.jsp画面へ遷移---------------------
+//エラーがなければユーザ検索してsearchComp.jspへ、あれば入力情報を保持したまま再度search.jsp画面へ遷移-----------
 
 		if(errId == "" || errId == null) {
-			//listで検索結果を取得
+			//searchListで検索結果を取得
 			DBManager dbm = new DBManager();
 			ArrayList<UserDTO> searchList = dbm.getSearchList(loginId, userName, icon, profile);
 
@@ -63,6 +76,13 @@ public class SearchServlet extends HttpServlet {
 			if(searchList != null) {
 				//requestスコープにsearchlistをセット
 				request.setAttribute("searchList", searchList);
+
+				//sessionスコープに今回の検索条件をセット(変更・削除が完了したときに使用)
+				session.setAttribute("loginId", loginId);
+				session.setAttribute("userName", userName);
+				session.setAttribute("icon", icon);
+				session.setAttribute("profile", profile);
+
 				//searchComp.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("searchComp.jsp");
 				dispatcher.forward(request, response);

@@ -180,7 +180,73 @@ public class DBManager extends SnsDAO{
 	}
 
 
-	//入力チェッククリアしてユーザから再確認もOKだったらDBに登録する
+	//TODO 登録ユーザ情報のアップデート　↓なにこれ
+	@SuppressWarnings("resource")
+	public boolean updateUser(String loginId, String password, String userName, String icon, String profile, String logId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		String getLogId = loginId;
+		String getPass = password;
+		String getUName = userName;
+		String getIcon = icon;
+		String getProf = profile;
+		//変更前の該当ユーザのログインID
+		String getLog = null;
+
+		ResultSet rset = null;	//該当ユーザ検索結果
+		boolean result = false; //更新結果
+
+		String sqlSel = "SELECT * FROM users WHERE loginId=?";
+		UserDTO user = null;	//登録ユーザ情報
+
+		try {
+			//データベースに接続
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sqlSel);	//SELECT構成登録
+			//プレースホルダーへの値のセット （変更前のログインIDをセット）
+			pstmt.setString(1, logId);
+			//SQL文の実行
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
+				user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				getLog = user.getLoginId();
+			}
+
+			System.out.println(getLog);
+
+			//UPDATE文の登録と実行
+			String sql = "UPDATE users SET loginId=?, password=?, userName=?, icon=?, profile=? WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, getLogId);
+			pstmt.setString(2, getPass);
+			pstmt.setString(3, getUName);
+			pstmt.setString(4, getIcon);
+			pstmt.setString(5, getProf);
+			pstmt.setString(6, getLog);	//変更前のログインID
+
+			System.out.println(pstmt);
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				//INSERT文の実行結果が1なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
 	public boolean getEndUser(String loginId, String password, String userName, String icon, String profile) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

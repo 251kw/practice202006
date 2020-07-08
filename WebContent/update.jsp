@@ -18,9 +18,9 @@
 					class="icon-diamond pe-2x pe-va"></span></font>
 			</div>
 		</div>
-		<%-- 入力情報をUpdateServletに飛ばす --%>
+		<%-- 入力情報をupdateConf.jspに飛ばす --%>
 		<div class="padding-y-5">
-			<form action="./UpdateSrv" method="post">
+			<form action="updateConf.jsp" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none" nowrap><span class="color-main text-left"><font size="4">更新内容を入力してください</font></span></td>
@@ -86,13 +86,15 @@
 						</td>
 					</tr>
 					<tr>
-						<%-- searchSerletへ送信 --%>
-						<td colspan="2" class="text-right"><input class="btn" type="submit" value="更新する" /></td>
+						<%-- updateConf.jspへ送信 --%>
+						<td colspan="2" class="text-right"><input class="btn" type="submit" value="更新内容確認" /></td>
 					</tr>
 				</table>
+				<%-- パラメータから取得した元のloginIdを/updateSrv送る --%>
+				<input type="hidden" name="logId" value="${param.loginId}">
 			</form>
-			<%-- searchComp.jspへ戻る --%>
-			<form action="searchComp.jsp" method="post">
+			<%-- ./searchSrvを経由してsearchComp.jspへ戻る --%>
+			<form action="./searchSrv" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none text-right"><input class="btn" type="submit" value="前のページへ戻る" /></td>
