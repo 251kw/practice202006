@@ -33,7 +33,9 @@ public class BbsInputServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	// topInput.jsp の「叫ぶ」ボタンから呼ばれる
+	/**
+	 * topInput.jsp の「叫ぶ」ボタンから呼ばれる
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

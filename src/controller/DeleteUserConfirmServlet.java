@@ -56,6 +56,7 @@ public class DeleteUserConfirmServlet extends HttpServlet {
 			request.setAttribute("alert", message);
 		}
 
+		//削除予定のユーザー情報をリクエストスコープに入れる
 		request.setAttribute("deleteUser", deleteUser);
 
 			//処理の転送先をdeleteUserConfirm.jspに指定

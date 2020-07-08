@@ -111,8 +111,8 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * @param udto
-	 * @return tf
+	 * @param udto 追加したいユーザー情報
+	 * @return INSERT文の実行結果が1ならTRUE
 	 */
 	public boolean setUser(UserDTO udto) {
 		boolean result = false;
@@ -150,8 +150,10 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * UPDATE文を実行するメソッド
-	 * 引数には更新内容を持つUserDTOと更新前のloginIdを渡す
+	 * UPDATE文の実行結果が1なら登録成功
+	 * @param udto 更新されたユーザー情報
+	 * @param loginId 更新前のログインID
+	 * @return UPDATE文の実行結果が1ならTRUE
 	 */
 	public boolean uppdateUser(UserDTO udto,String loginId) {
 		boolean result = false;
@@ -189,8 +191,8 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * @param udto
-	 * @return tf
+	 * @param udto 更新されたユーザー情報
+	 * @return UPDATE文の実行結果が1ならTRUE
 	 */
 	public boolean uppdateShouts(UserDTO udto) {
 		boolean result = false;
@@ -225,8 +227,8 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * @return
 	 * 書き込み内容リストの getter
+	 * @return ShoutDTOのリスト
 	 */
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null; //データベースへ接続して、接続情報を返す
@@ -271,7 +273,7 @@ public class DBManager extends SnsDAO {
 	/**
 	 * @param user ユーザー情報
 	 * @param writing 叫び内容
-	 * @return tf
+	 * @return tf INSERT文の実行結果が1ならTRUE
 	 * ログインユーザ情報と書き込み内容を受け取り、リストに追加する
 	 */
 	public boolean setWriting(UserDTO user, String writing) {
@@ -311,11 +313,9 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	/*
-	 * ログインIDの重複チェックメソッド
-	 * 引数に調査したいloginIDを渡すと、
-	 * 重複を検知するとBoolean型でfalseを返す
-	 * 重複がなければtrueを返す
+	/**
+	 * @param loginId 重複を確かめたい新規ログインID
+	 * @return tf 重複がなければTRUE
 	 */
 	public boolean checkID(String loginId) {
 		boolean result = true;
@@ -352,10 +352,9 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
-	/*
-	 * ユーザー検索用のメソッド
-	 * あらかじめ作成されたSELECTのSQL文を引数に渡すと、
-	 * UserDTOのリスト型で取得した情報を返す
+	/**
+	 * @param sql 検索条件を設定したSQL
+	 * @return UserDTOのリスト
 	 */
 	public ArrayList<UserDTO> getSearchUserList(String sql) {
 		Connection conn = null;
@@ -400,6 +399,10 @@ public class DBManager extends SnsDAO {
 	}
 
 	//ログインIDを受け取りユーザー情報を返す
+		/**
+		 * @param loginId 削除したいユーザーのログインID
+		 * @return tf DELETE文の実行結果が1ならTRUE
+		 */
 		public boolean deleteUser(String loginId) {
 			boolean result = false;
 
@@ -433,7 +436,7 @@ public class DBManager extends SnsDAO {
 
 		/**
 		 * @param loginId 削除するshoutsのログインID
-		 * @return tf
+		 * @return tf DELETE文の実行結果が1ならTRUE
 		 */
 		public boolean deleteUserShout(String loginId) {
 			boolean result = false;
@@ -468,7 +471,7 @@ public class DBManager extends SnsDAO {
 
 		/**
 		 * @param sql 作成したSQLの実行
-		 * @return tf
+		 * @return tf INSERT文の実行結果が1ならTRUE
 		 */
 		public boolean deleteSQL(String sql) {
 			boolean result = false;

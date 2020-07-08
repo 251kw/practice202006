@@ -31,7 +31,7 @@ public class AddUserFailureConfirmServlet extends HttpServlet {
 	}
 
 	/**
-	 * addUSerConfirm/jspの戻るボタンからの呼び出し
+	 * addUserConfirm.jspの戻るボタンからの呼び出し
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
@@ -49,6 +49,7 @@ public class AddUserFailureConfirmServlet extends HttpServlet {
 		request.setAttribute("userName", userName);
 		request.setAttribute("profile", profile);
 
+		//addUserInput.jspに処理を転送
 		dispatcher = request.getRequestDispatcher("addUserInput.jsp");
 		dispatcher.forward(request, response);
 	}
