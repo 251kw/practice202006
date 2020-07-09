@@ -34,8 +34,7 @@ public class TopInputServlet extends HttpServlet {
 	 * index.jsp  に処理を転送
 	 * doGetメソッド
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -44,8 +43,7 @@ public class TopInputServlet extends HttpServlet {
 	 * top.jsp の「叫ぶ」ボタンから呼ばれる
 	 * doPostメソッド
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String writing = request.getParameter("shout");
 		RequestDispatcher dispatcher;

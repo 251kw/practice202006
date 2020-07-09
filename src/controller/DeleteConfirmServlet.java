@@ -17,7 +17,7 @@ import dto.UserDTO;
 /**
  * 削除機能サーブレット
  * doGet
- *
+ * doPost
  * @author y.sato
  */
 

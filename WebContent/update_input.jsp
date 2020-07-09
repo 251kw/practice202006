@@ -43,7 +43,7 @@
 						<tr>
 							<th><label for="loginId"><font color="#00CCFF"><span class="icon-id pe-2x pe-va"></span></font>&nbsp;ログインID
 							</label></th>
-							<td><div><h6>半角英数字で入力してください</h6></div><input type="text" name="loginId" id="loginId" value="${user.loginId}" class="form-control"></td>
+							<td>${user.loginId}<input type="hidden" name="loginId" id="loginId" value="${user.loginId}" class="form-control"></td>
 						</tr>
 						<tr>
 

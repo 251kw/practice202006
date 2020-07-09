@@ -37,6 +37,7 @@ public class SearchInputServlet extends HttpServlet {
     /**
      * 直接アクセスがあった場合に起動する
      * doGetメソッド
+     *
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
@@ -61,48 +62,48 @@ public class SearchInputServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("top.jsp");
 
 		} else if(botton.equals("検索")) {
-				SearchUserDTO search = new SearchUserDTO("", "", null, "");
-				session.setAttribute("search", search);
-				dispatcher = request.getRequestDispatcher("search_input.jsp");
+			SearchUserDTO search = new SearchUserDTO("", "", null, "");
+			session.setAttribute("search", search);
+			dispatcher = request.getRequestDispatcher("search_input.jsp");
 
 		} else if(botton.equals("検索する")) {
-				request.setCharacterEncoding("UTF-8");
-				response.setContentType("text/html;charset=UTF-8");
-				DBUserSearch dbu = new DBUserSearch();
-				String message = null;
+			request.setCharacterEncoding("UTF-8");
+			response.setContentType("text/html;charset=UTF-8");
+			DBUserSearch dbu = new DBUserSearch();
+			String message = null;
 
-				//送信情報の取得
-				String loginId = request.getParameter("loginId");
-				String userName = request.getParameter("userName");
-				String icon[] = request.getParameterValues("icon");		//アイコンは配列で
-				String profile = request.getParameter("profile");
+			//送信情報の取得
+			String loginId = request.getParameter("loginId");
+			String userName = request.getParameter("userName");
+			String icon[] = request.getParameterValues("icon");		//アイコンは配列で
+			String profile = request.getParameter("profile");
 
-				SearchUserDTO search = new SearchUserDTO(loginId, userName, icon, profile);	//データ保持
-				session.setAttribute("search", search);
+			SearchUserDTO search = new SearchUserDTO(loginId, userName, icon, profile);	//データ保持
+			session.setAttribute("search", search);
 
-				 if(Check.checkLogic(loginId)==false) {		//入力チェック
-					message = "ログインIDに使用できるのは半角英数字のみです。";
+			if(Check.checkLogic(loginId)==false) {		//入力チェック
+				message = "ログインIDに使用できるのは半角英数字のみです。";
 
-					//エラーメッセージをリクエストオブジェクトに保存
-					request.setAttribute("alert", message);
-					message = "";
-					dispatcher = request.getRequestDispatcher("search_input.jsp");
+				//エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+				message = "";
+				dispatcher = request.getRequestDispatcher("search_input.jsp");
 
-				 }	else {
+			} else {
 
-					 ArrayList<UserDTO> users = dbu.userSearch(loginId, userName, profile, icon);	//検索メソッド
+				 ArrayList<UserDTO> users = dbu.userSearch(loginId, userName, profile, icon);	//検索メソッド
 
-					 if(users.size()==0) {	//arraylistサイズ測る
-						 //検索結果無し
-						 message = "検索結果がありませんでした。";
-						 request.setAttribute("alert", message);
-						 dispatcher = request.getRequestDispatcher("search_input.jsp");
-					 } else {
-						 //検索結果表示へ
-						 session.setAttribute("users", users);
-						 dispatcher = request.getRequestDispatcher("search_result.jsp");
-					 }
+				 if(users.size()==0) {	//arraylistサイズ測る
+					 //検索結果無し
+					 message = "検索結果がありませんでした。";
+					 request.setAttribute("alert", message);
+					 dispatcher = request.getRequestDispatcher("search_input.jsp");
+				 } else {
+					 //検索結果表示へ
+					 session.setAttribute("users", users);
+					 dispatcher = request.getRequestDispatcher("search_result.jsp");
 				 }
+			 }
 
 		}
 		dispatcher.forward(request, response);

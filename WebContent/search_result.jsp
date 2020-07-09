@@ -51,12 +51,12 @@
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
 							<td>${users.profile}</td>
-							<td>
-								<button class="btn btn-sm btn-warning" formaction="./udis" formmethod="get" name="loginId" value="${users.loginId}">編集</button>
-							</td>
-							<td>
-								<button class="btn btn-sm btn-error" formmethod="get" name="loginId" value="${users.loginId}">削除</button>
-							</td>
+							<td><a href="./udis?loginId=${users.loginId}">
+								<input type="button" class="btn btn-sm btn-warning" value="編集">
+							</a></td>
+							<td><a href="./dcs?loginId=${users.loginId}">
+								<input type="button" class="btn btn-sm btn-error" value="削除">
+							</a></td>
 						</tr>
 					</c:forEach>
 				</table>

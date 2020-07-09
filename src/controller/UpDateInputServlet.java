@@ -10,11 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DBManager;
 import dao.DBUserSearch;
 import dao.DBUserUpdate;
 import dto.UserDTO;
-import util.Check;
 
 /**
  * ユーザー情報
@@ -30,7 +28,7 @@ public class UpDateInputServlet extends HttpServlet {
     }
 
 	/**
-	 *検索結果の編集ボタンから呼ばれる
+	 * 検索結果の編集ボタンから呼ばれる
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -68,7 +66,6 @@ public class UpDateInputServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		RequestDispatcher dispatcher = null;
-		DBManager dbm = new DBManager();
 		DBUserUpdate dbu = new DBUserUpdate();
 		String botton = request.getParameter("btn");
 		String oldId = request.getParameter("oldId");
@@ -88,9 +85,9 @@ public class UpDateInputServlet extends HttpServlet {
 		if (botton.equals("確認画面へ")) {
 			request.setAttribute("user", user);
 
-			if (loginId.equals("") || pass.equals("")) {
-				//ログインIDとパスワードどちらか、もしくは双方未入力なら
-				message = "ログインIDとパスワードは必須入力です";
+			if (pass.equals("")) {
+				//パスワードどちらか、もしくは双方未入力なら
+				message = "パスワードは必須入力です";
 
 				//エラーメッセージをリクエストオブジェクトに保存
 				request.setAttribute("alert", message);
@@ -98,34 +95,9 @@ public class UpDateInputServlet extends HttpServlet {
 
 				//update_input.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("update_input.jsp");
-
-			} else if(Check.checkLogic(loginId)==false) {
-				message = "ログインIDに使用できるのは半角英数字のみです。";
-
-				//エラーメッセージをリクエストオブジェクトに保存
-				request.setAttribute("alert", message);
-				message = "";
-
-				//update_input.jspに処理を転送
-				dispatcher = request.getRequestDispatcher("update_input.jsp");
-
-			} else if (dbm.SameCheckId(loginId)) {
-				//update_confirm.jspに処理を転送
-				dispatcher = request.getRequestDispatcher("update_confirm.jsp");
 
 			} else {
-				if(loginId.equals(oldId)) {			//ログインユーザーの変更の時
-					//update_confirm.jspに処理を転送
-
-					dispatcher = request.getRequestDispatcher("update_confirm.jsp");
-				} else {
-					message = "このログインIDは既に使われています。";
-					request.setAttribute("alert", message);
-					message = "";
-
-					//update_input.jspに処理を転送
-					dispatcher = request.getRequestDispatcher("update_input.jsp");
-				}
+				dispatcher = request.getRequestDispatcher("update_confirm.jsp");
 			}
 
 		} else if (botton.equals("変更する")) {

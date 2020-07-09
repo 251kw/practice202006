@@ -54,7 +54,6 @@ public class SearchResultServlet extends HttpServlet {
 		SearchUserDTO searchuser = new SearchUserDTO(loginId, userName, icon, profile);	//データ保持
 		request.setAttribute("user", searchuser);
 
-
 		if(botton.equals("戻る")) {
 			//処理の転送先をsearch_input.jspに指定
 			dispatcher = request.getRequestDispatcher("search_input.jsp");

@@ -64,7 +64,7 @@ public class Check {
 	}
 
 	public static String AllcheckBox(String loginId, String[] loginIds) {
-
+		//TODO 全選択
 		return "";
 	}
 }
