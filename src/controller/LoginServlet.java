@@ -17,6 +17,7 @@ import dto.UserDTO;
 
 /**
  * Servlet implementation class LoginServlet
+ * ログイン管理
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
@@ -27,16 +28,10 @@ public class LoginServlet extends HttpServlet {
      */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * ログイン情報とエラーメッセージの制御を行う
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//送信情報の取得

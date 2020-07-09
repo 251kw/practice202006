@@ -15,6 +15,7 @@ import util.UserSearch;
 
 /**
  * Servlet implementation class UserDellResult
+ * 削除結果画面への処理
  */
 @WebServlet("/udr")
 public class UserDelResult extends HttpServlet {
@@ -25,26 +26,21 @@ public class UserDelResult extends HttpServlet {
      */
     public UserDelResult() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-
-	}
 	/**
 	 * ユーザーの削除を行う
 	 * userDelconfirmから遷移
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//ログインユーザーのログインID
 		String sloginId = request.getParameter("sloginId");
 		request.setAttribute("sloginId", sloginId);
+
 		RequestDispatcher dispatcher = null;
+
 		UserSearch us = new UserSearch();
 
+		//削除するユーザーを探してリストに追加
 		if(sloginId != null) {
 			ArrayList<SearchDTO> list = us.SearchloginId(sloginId);
 			request.setAttribute("delcon", list);

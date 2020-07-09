@@ -13,6 +13,7 @@ import dao.DBUserAddInput;
 
 /**
  * Servlet implementation class UserAdd
+ * 結果画面への処理
  */
 @WebServlet("/uar")
 public class UserAddResult extends HttpServlet {
@@ -23,16 +24,7 @@ public class UserAddResult extends HttpServlet {
      */
     public UserAddResult() {
         super();
-        // TODO Auto-generated constructor stub
     }
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
 	/**
 	 * userAddConfirm.jspから"はい"で呼出し
@@ -40,7 +32,7 @@ public class UserAddResult extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
-				request.setCharacterEncoding("UTF-8");
+		request.setCharacterEncoding("UTF-8");
 		//送信データの取得
 		DBUserAddInput dnu = new DBUserAddInput();
 		String icon = (String) request.getParameter("icon");

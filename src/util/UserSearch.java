@@ -214,6 +214,223 @@ public class UserSearch extends SnsDAO {
 		}
 		return list;
 	}
+
+	//ユーザー名を更新するメソッド
+	/**
+	 * @param userName 新しいユーザー名
+	 * @param sloginId	更新するユーザーのログインID
+	 * @return
+	 */
+	public boolean updateUserName(String userName, String sloginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文
+			String sql = "UPDATE sns.users SET userName=? WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, sloginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	/**
+	 * @param loginId 新しいログインID
+	 * @param sloginId	更新するユーザーのログインID
+	 * @return
+	 * ログインIDを更新するメソッド
+	 */
+	public boolean updateloginId(String loginId, String sloginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文
+			String sql = "UPDATE sns.users SET loginid=? WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, sloginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	/**
+	 * @param password 新しいパスワード
+	 * @param sloginId　更新するユーザーのログインID
+	 * @return
+	 * パスワードの更新
+	 */
+	public boolean updatepassword(String password, String sloginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文
+			String sql = "UPDATE sns.users SET password=? WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, password);
+			pstmt.setString(2, sloginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	/**
+	 * @param profile 新しいプロフィール
+	 * @param sloginId	更新するユーザーのログインID
+	 * @return
+	 * プロフィールを更新するメソッド
+	 */
+	public boolean updateprofile(String profile, String sloginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文
+			String sql = "UPDATE sns.users SET profile=? WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, profile);
+			pstmt.setString(2, sloginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	public boolean updateicon(String icon, String sloginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文
+			String sql = "UPDATE sns.users SET icon=? WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, icon);
+			pstmt.setString(2, sloginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+	/**
+	 *
+	 * @param loginId
+	 * @return
+	 * ログインIdの重複チェックを行うメソッド
+	 */
+	public boolean UserCheck(String loginId)  {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		int count = 0;
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文countで重複チェック
+			String sql = "SELECT COUNT(*) FROM sns.users WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, loginId);
+
+			ResultSet rset = pstmt.executeQuery();
+			if(rset.next()) {
+				count = rset.getInt(1);
+			}
+			if(count == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return result;
+
+	}
+	/**
+	 *
+	 * @param loginId
+	 * @param password
+	 * @param userName
+	 * @param icon
+	 * @param profile
+	 * @return
+	 * 新規ユーザーのインサートを行うメソッド
+	 */
+	public boolean setNewUser(String loginId, String password, String userName, String icon ,String profile) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+		try {
+			conn = getConnection();
+
+			// INSERT文
+			String sql = "INSERT INTO sns.users(loginId,password,userName,icon ,profile) VALUES(?,?,?,?,?)";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, loginId);
+			pstmt.setString(2, password);
+			pstmt.setString(3, userName);
+			pstmt.setString(4, icon);
+			pstmt.setString(5, profile);
+
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
 }
 
 

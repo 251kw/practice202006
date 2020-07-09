@@ -30,28 +30,28 @@
 
 			if (suserName == null) {
 				suserName = request.getParameter("suserName");
-				if (suserName == null || suserName.equals("null")) {
+				if (suserName == null) {
 					suserName = "";
 				}
 			}
 
 			if (sloginId == null) {
 				sloginId = request.getParameter("sloginId");
-				if (sloginId == null || sloginId.equals("null")) {
+				if (sloginId == null) {
 					sloginId = "";
 				}
 			}
 
 			if (spassword == null ) {
 				spassword = request.getParameter("spassword");
-				if (spassword == null || spassword.equals("null")) {
+				if (spassword == null) {
 					spassword = "";
 				}
 			}
 
 			if (sprofile == null) {
 				sprofile = request.getParameter("sprofile");
-				if (sprofile == null || sprofile.equals("null")) {
+				if (sprofile == null) {
 					sprofile = "";
 				}
 			}

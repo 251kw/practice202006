@@ -12,7 +12,11 @@
 <link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
-
+		<div class="bg-success padding-y-5">
+			<div class="padding-y-5 text-center">
+				<strong>検索結果</strong>
+			</div>
+		</div>
 		<jsp:useBean id="users" scope="request"
 			type="java.util.ArrayList<dto.SearchDTO>" />
 		<div class="padding-y-5">
@@ -54,6 +58,15 @@
 			String userName = (String) request.getAttribute("userName");
 			String profile = (String) request.getAttribute("profile");
 
+			if(userName == null){
+				userName = "";
+			}
+			if(loginId == null){
+				loginId = "";
+			}
+			if(profile == null){
+				profile = "";
+			}
 			request.setAttribute("icons", icon);
 
 		%>

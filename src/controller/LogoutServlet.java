@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class LogoutServlet
+ * ログアウトの管理
  */
 @WebServlet("/logout")
 public class LogoutServlet extends HttpServlet {
@@ -20,7 +21,6 @@ public class LogoutServlet extends HttpServlet {
     //直接アクセスがあった場合
     public LogoutServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

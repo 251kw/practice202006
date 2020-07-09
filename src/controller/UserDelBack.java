@@ -16,6 +16,7 @@ import util.UserSearch;
 
 /**
  * Servlet implementation class UserDelBack
+ * データの更新後、検索結果がそれに準じたものになるように制御する
  */
 @WebServlet("/udb")
 public class UserDelBack extends HttpServlet {
@@ -26,16 +27,6 @@ public class UserDelBack extends HttpServlet {
 	 */
 	public UserDelBack() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
@@ -59,6 +50,7 @@ public class UserDelBack extends HttpServlet {
 
 		UserSearch us = new UserSearch();
 
+		//ログインユーザーの検索
 		ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId, userName, profile, sicon);
 
 		//削除するユーザーがログインユーザーか判別

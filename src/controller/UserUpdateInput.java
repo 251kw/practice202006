@@ -14,29 +14,29 @@ import dto.SearchDTO;
 import util.UserSearch;
 
 /**
- * Servlet implementation class UserDelInput
- * 削除機能
+ * Servlet implementation class UserUpdateInput
+ * 更新入力画面への処理
  */
-@WebServlet("/udi")
-public class UserDelInput extends HttpServlet {
+@WebServlet("/uui")
+public class UserUpdateInput extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UserDelInput() {
+    public UserUpdateInput() {
         super();
     }
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 * userSearchResultから遷移
-	 * 削除されるユーザーのログインIDを取得して検索
-	 * 確認画面にユーザー情報を表示させる
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//送信情報の取得
 		//ログインIdを取得
+		//文字化け対策
+		request.setCharacterEncoding("UTF-8");
+
 		String loginId = request.getParameter("loginId");
 		String sloginId = loginId;
 
@@ -47,11 +47,11 @@ public class UserDelInput extends HttpServlet {
 		//ユーザーを検索し、リストにセットする
 		if(loginId != null) {
 			ArrayList<SearchDTO> list = us.SearchloginId(loginId);
-			request.setAttribute("del", list);
+			request.setAttribute("update", list);
 			request.setAttribute("sloginId", sloginId);
 		}
-		//確認画面に遷移
-		dispatcher = request.getRequestDispatcher("userDelConfirm.jsp");
+		//更新入力画面へ
+		dispatcher = request.getRequestDispatcher("userUpdateInput.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -59,7 +59,7 @@ public class UserDelInput extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//送信データの取得
+		doGet(request, response);
 	}
 
 }

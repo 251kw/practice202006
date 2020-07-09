@@ -14,21 +14,23 @@ import util.ErrorCheck;
 
 /**
  * Servlet implementation class NewUser
+ * 新規ユーザー登録の情報管理
  */
 @WebServlet("/nu")
-public class UserAddconfirn extends HttpServlet {
+public class UserAddConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UserAddconfirn() {
+	public UserAddConfirm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * getで呼ばれた場合
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -52,13 +54,12 @@ public class UserAddconfirn extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 
+		//情報をセット
 		request.setAttribute("userName", userName);
 		request.setAttribute("loginId", loginId);
 		request.setAttribute("password", password);
 		request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
-
-
 
 		String message = null;
 
@@ -107,7 +108,7 @@ public class UserAddconfirn extends HttpServlet {
 				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddInput.jsp");
 				dispatcher.forward(request, response);
 			} else {
-
+				//確認画面へ
 				RequestDispatcher dispatcher = request.getRequestDispatcher("userAddConfirm.jsp");
 				dispatcher.forward(request, response);
 			}

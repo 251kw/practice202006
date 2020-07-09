@@ -15,18 +15,29 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+/**
+ * @author d.ito
+ *top.jspから遷移
+ *叫ぶボタンの制御を行う
+ */
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	/* (非 Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 	// top.jsp の「叫ぶ」ボタンから呼ばれる
+	/*
+	 * 掲示板画面の表示項目の制御
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");

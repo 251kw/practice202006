@@ -60,7 +60,7 @@
 			}
 
 			if(check != null){
-				sicon = request.getParameter("icon");
+				sicon = request.getParameter("sicon");
 			}
 		%>
 		<%-- action 属性にサーブレットを指定 --%>

@@ -17,6 +17,11 @@ import util.UserSearch;
 /**
  * Servlet implementation class UserSearchInput
  */
+/**
+ * @author d.ito
+ * ユーザー検索の制御
+ *
+ */
 @WebServlet("/usi")
 public class UserSearchInput extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,21 +31,14 @@ public class UserSearchInput extends HttpServlet {
 	 */
 	public UserSearchInput() {
 		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
 	/**
 	 ユーザーを検索してリストに追加
 	 userSearchInput.jspから検索で呼出し
+	 */
+	/* (非 Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doPost(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
@@ -54,7 +52,7 @@ public class UserSearchInput extends HttpServlet {
 		String[] sicon = request.getParameterValues("sicon");
 		String profile = request.getParameter("profile");
 
-		//sessionにセット
+		//検索条件をsessionにセット
 		session2.setAttribute("userName", userName);
 		session2.setAttribute("loginId", loginId);
 		session2.setAttribute("sicon", sicon);
