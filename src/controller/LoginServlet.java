@@ -29,7 +29,9 @@ public class LoginServlet extends HttpServlet {
 		super();
 	}
 
-	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	/**
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
@@ -39,9 +41,9 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * index.jspから呼び出される
 	 * doPostメソッド
+	 * 
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
