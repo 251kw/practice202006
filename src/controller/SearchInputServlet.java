@@ -35,12 +35,12 @@ public class SearchInputServlet extends HttpServlet {
     }
 
     /**
-     * 直接アクセスがあった場合に起動する
+     * 検索結果がないときに起動
      * doGetメソッド
      *
      */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
+		RequestDispatcher dispatcher= request.getRequestDispatcher("search_input.jsp");
 		dispatcher.forward(request, response);
 	}
 

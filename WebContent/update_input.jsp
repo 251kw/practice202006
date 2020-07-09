@@ -99,7 +99,7 @@
 							<td colspan="2" class="text-right">
 							<input type="hidden" value="${user.loginId}" name="oldId"/>
 							<input class="btn" type="submit" value="確認画面へ" name="btn"/>
-							<input type="button" value="キャンセル" onClick="location.href='search_result.jsp'" class="btn">
+							<input type="submit" value="キャンセル" name="btn" class="btn">
 							</td>
 						</tr>
 					</table>

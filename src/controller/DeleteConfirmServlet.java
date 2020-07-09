@@ -73,9 +73,11 @@ public class DeleteConfirmServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String[] loginIds = request.getParameterValues("checkbox");
+//		String flg = request.getParameter("flg");
 		String message = null;
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
+
 
 		if(loginIds==null) {
 			message = "☑チェックボックスが選択されていません。";

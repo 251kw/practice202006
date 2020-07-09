@@ -24,7 +24,7 @@
 		</div>
 		<%---------------------------------------------------------------------------------%>
 
-		<form action="search_input.jsp">
+		<form action="./sis" method="get">
 			<table style="width: 55%" class="padding-y-5 text-center">
 				<tr>
 					<td colspan="2" class="text-right text-center">

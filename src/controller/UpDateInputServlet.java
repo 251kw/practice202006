@@ -118,6 +118,11 @@ public class UpDateInputServlet extends HttpServlet {
 			//変更画面へ
 			request.setAttribute("user", user);
 			dispatcher = request.getRequestDispatcher("update_input.jsp");
+
+		} else if(botton.equals("キャンセル")) {
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
+			dispatcher.forward(request, response);
+			return;
 		}
 		//jspに送る
 		request.setAttribute("loginId",loginId);

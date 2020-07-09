@@ -98,7 +98,7 @@
 						<tr>
 							<td colspan="2" class="text-right">
 							<input class="btn" type="submit" value="確認画面へ" name="btn"/>
-							<input type="button" value="戻る" onClick="location.href='index.jsp'" class="btn">
+							<input type="button" value="戻る" onClick="location.href='./sur'" class="btn">
 							</td>
 						</tr>
 					</table>
