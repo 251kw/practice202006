@@ -63,4 +63,23 @@ public class Check {
 		return "";						//入っていなかったので何も書かない
 	}
 
+	public static String checkBox(String loginId, String[] loginIds) {
+
+		if(loginIds==null) {				//初回
+			return "";
+		}
+
+		for(String i: loginIds) {			//配列に入っていたらチェック
+			if(i.equals(loginId)) {
+				return "checked";
+			}
+		}
+
+		return "";						//入っていなかったので何も書かない
+	}
+
+	public static String AllcheckBox(String loginId, String[] loginIds) {
+
+		return "";
+	}
 }

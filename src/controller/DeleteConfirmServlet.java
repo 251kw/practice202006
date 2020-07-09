@@ -76,24 +76,28 @@ public class DeleteConfirmServlet extends HttpServlet {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
 
+		if(loginIds==null) {
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
-		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO)session.getAttribute("user");
+		} else {
+			HttpSession session = request.getSession();
+			UserDTO user = (UserDTO)session.getAttribute("user");
 
-		for(String id : loginIds) {
-			if(id.equals(user.getLoginId())){
-				//今ログインしているユーザーなら
-				message = "現在、ログインしているユーザーを削除するとログアウトされます。";
+			for(String id : loginIds) {
+				if(id.equals(user.getLoginId())){
+					//今ログインしているユーザーなら
+					message = "現在、ログインしているユーザーを削除するとログアウトされます。";
 
-				//メッセージをリクエストオブジェクトに保存
-				request.setAttribute("alert", message);
+					//メッセージをリクエストオブジェクトに保存
+					request.setAttribute("alert", message);
+				}
+				list.add(dbs.userIdSearch(id));
 			}
-			list.add(dbs.userIdSearch(id));
-		}
-		request.setAttribute("users", list);
+			request.setAttribute("users", list);
 
-		//処理の転送先をdelete_confirm.jspに指定
-		dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
+			//処理の転送先をdelete_confirm.jspに指定
+			dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
+		}
 		dispatcher.forward(request, response);
 	}
 }

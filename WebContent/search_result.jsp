@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList,java.util.Date"%>
+<%@ page import="util.Check" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -45,7 +46,7 @@
 					<c:forEach var="users" items="${users}" varStatus="loop">
 					<tbody>
 						<tr>
-							<td><input type="checkbox" name="checkbox" value="${users.loginId}" />${loop.count}</td>
+							<td><input type="checkbox" name="checkbox" value="${users.loginId}" ${Check.checkBox(users.loginId, loginIds)}/>${loop.count}</td>
 							<td>${users.loginId}</td>
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
