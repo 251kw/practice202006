@@ -51,7 +51,7 @@
 				</tr>
 			</table>
 		</form>
-		<form action='UserAddInput.jsp' method='post'>
+		<form action='add_input.jsp' method='post'>
 			<table border='1' class='table'>
 				<tr>
 					<td colspan='2' style='text-align: right'>

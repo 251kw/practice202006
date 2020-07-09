@@ -9,21 +9,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.UserDTO;
 import util.CheckStr;
 
 /**
- * Servlet implementation class UserSearchInput
+ * 検索情報入力画面からの情報をsqlにして実行する
+ * serch_inputjspから送られてくる
+ * serch_result.jspに返す
  */
 @WebServlet("/usi")
 public class UserSearchInput extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public UserSearchInput() {
 		super();
 	}
@@ -31,16 +31,7 @@ public class UserSearchInput extends HttpServlet {
 			throws ServletException, IOException {
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	/**
-	 * 検索画面から送られてきた情報を取得し、結果画面に情報を送るためのクラス
-	 * リクエストスコープに情報を送り、情報の保持も行う
-	 * @param loginId ログインID
-	 * @param userName ユーザー名
-	 * @param icon アイコン
-	 * @param profile プロフィール
-	 * @param cmd 検索か全件表示か判断
-	 * @param str sql文
-	 */
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
@@ -49,7 +40,8 @@ public class UserSearchInput extends HttpServlet {
 
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
-		String icon = null;	//iconをStringで返すための変数
+		//iconをStringで返すための変数
+		String icon = null;
 		String[] iconList =request.getParameterValues("icon");
 		String profile = request.getParameter("profile");
 		String cmd = request.getParameter("cmd");
@@ -81,7 +73,7 @@ public class UserSearchInput extends HttpServlet {
 				str = "no";
 				msg = "何かキーワードをいれてね";
 				request.setAttribute("alert", msg);
-				dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+				dispatcher = request.getRequestDispatcher("search_input.jsp");
 				dispatcher.forward(request, response);
 
 			}else {
@@ -124,10 +116,12 @@ public class UserSearchInput extends HttpServlet {
 
 		//全件表示はここから
 		if(!str.equals("no")){
+			HttpSession session = request.getSession();
+			session.setAttribute("str", str);
 			ArrayList<UserDTO> list = db.searchUser(str);
 			request.setAttribute("users", list);
 
-			dispatcher = request.getRequestDispatcher("UserSearchResult.jsp");
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
 			dispatcher.forward(request, response);
 		}
 

@@ -1,6 +1,7 @@
 package dto;
 
 public class ShoutDTO {
+	private String loginId;	//ログインID
 	private String userName;	//ユーザー名
 	private String icon;		//ユーザーアイコン
 	private String date; 		//書き込み日時
@@ -10,7 +11,8 @@ public class ShoutDTO {
 
 	}
 
-	public ShoutDTO(String userName, String icon, String date, String writing) {
+	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
+		this.loginId = loginId;
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
@@ -18,6 +20,13 @@ public class ShoutDTO {
 	}
 
 	//各メンバ変数の getter および setter
+		public String getLoginId() {
+			return loginId;
+		}
+
+		public void setLoginId(String loginId) {
+			this.loginId = loginId;
+		}
 		public String getUserName() {
 			return userName;
 		}

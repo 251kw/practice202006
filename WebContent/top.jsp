@@ -24,7 +24,7 @@
 				<h4>ログインユーザー情報</h4>
 			</div>
 			<div class="box">
-				<form action="UserSearchInput.jsp" method="post">
+				<form action="search_input.jsp" method="post">
 					<input class="btn btn-sm btn-warning" type="submit" value="検索">
 				</form>
 			</div>

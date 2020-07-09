@@ -13,41 +13,28 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class Register
+ * 入力された情報を確認画面に持っていく
+ * IDかぶりや、未記入などもはじく
+ * top.jspから送られる
+ * add_confirm.jspに返す
  */
 @WebServlet("/rst")
 public class UserAddInput extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
 	public UserAddInput() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#dopost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-
-		/**
-		 * 入力された情報を確認画面に持っていく
-		 * IDかぶりや、未記入などもはじく
-		 */
 
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");
@@ -76,7 +63,7 @@ public class UserAddInput extends HttpServlet {
 			request.setAttribute("alert", message);
 
 			//jspに処理を転送
-			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher = request.getRequestDispatcher("add_input.jsp");
 			dispatcher.forward(request, response);
 		} else if (check != null) {
 			//Idかぶり
@@ -86,7 +73,7 @@ public class UserAddInput extends HttpServlet {
 			request.setAttribute("alert", message);
 
 			//jspに処理を転送
-			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher = request.getRequestDispatcher("add_input.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			UserDTO user = null;
@@ -100,7 +87,7 @@ public class UserAddInput extends HttpServlet {
 			request.setAttribute("user", user);
 
 			//jspに処理を転送
-			dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");
+			dispatcher = request.getRequestDispatcher("add_confirm.jsp");
 			dispatcher.forward(request, response);
 		}
 

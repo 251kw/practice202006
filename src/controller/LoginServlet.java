@@ -16,33 +16,22 @@ import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
- * Servlet implementation class LoginServlet
+ * index.jspの「ログイン」ボタンから呼び出される
+ * top.jspに返す、エラー時にはindex.jspに返しエラーメッセージ表示
  */
 @WebServlet("/login")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public LoginServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//index.jspの「ログイン」ボタンから呼び出される
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");

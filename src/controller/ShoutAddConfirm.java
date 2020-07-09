@@ -15,12 +15,21 @@ import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
 
+/**
+ * @author t.kurihara
+ * top.jspの叫ぶボタンから
+ * topに返す
+ *
+ */
 @WebServlet("/bbs")
 public class ShoutAddConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
+	/* (非 Javadoc)
+	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");

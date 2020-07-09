@@ -36,7 +36,7 @@
 					name="password" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-left"><a href="UserAddInput.jsp">
+				<td colspan="2" class="text-left"><a href="add_input.jsp">
 				<button	type="button" class="btn">新規登録</button></a>
 				<input class="btn" type="submit" value="ログイン"></td>
 

@@ -5182,5 +5182,9 @@ img {
   font-size: 10;
 }
 
-
+.table_space{
+	 border-collapse:separate;
+    border-spacing:15px 5px;
+    border: 1px solid #000;
+}
     }
