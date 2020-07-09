@@ -49,6 +49,7 @@ public class DeleteConfirmServlet extends HttpServlet {
 		//list = dbs.userIdSearch(dloginId);		loginIdで検索、情報引き出す
 		list.add(dbs.userIdSearch(dloginId));
 		request.setAttribute("users", list);	//リクエストスコープへ
+		request.setAttribute("only", "only");	//単独削除ボタンの時
 
 		if(user.getLoginId().equals(dloginId)) {
 			//今ログインしているユーザーなら
@@ -77,6 +78,8 @@ public class DeleteConfirmServlet extends HttpServlet {
 		DBUserSearch dbs = new DBUserSearch();
 
 		if(loginIds==null) {
+			message = "☑チェックボックスが選択されていません。";
+			request.setAttribute("alert", message);
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
 		} else {

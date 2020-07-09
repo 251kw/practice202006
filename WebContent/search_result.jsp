@@ -29,7 +29,7 @@
 		<jsp:useBean id="users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-<form action="./dcs" method="post">
+			<form action="./dcs" method="post">
 				<table class="table table-striped table-bordered table-hover">
 
 					<thead>
@@ -60,8 +60,18 @@
 						</tr>
 					</c:forEach>
 				</table>
-
 				<table class="container padding-y-5">
+					<%-- リクエストスコープにalertがあれば --%>
+					<c:if
+						test="${requestScope.alert != null && requestScorpe.alert !=''}">
+						<tr>
+							<%--リクエストスコープのalertの値を出力 --%>
+							<td colspan="2" class="color-error text-left">
+							<c:out value="${requestScope.alert}" /></td>
+						</tr>
+					</c:if>
+
+
 					<tr>
 						<td colspan="2" class="text-right">
 						<button class="btn" type="submit" name="btn">選択項目を削除</button>
@@ -69,7 +79,7 @@
 						</td>
 					</tr>
 				</table>
-</form>
+			</form>
 			</div>
 		</div>
 	</body>

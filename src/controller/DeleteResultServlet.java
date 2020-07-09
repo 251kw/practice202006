@@ -83,7 +83,9 @@ public class DeleteResultServlet extends HttpServlet {
 
 		} else if(botton.equals("キャンセル")) {
 			//削除キャンセルなら、検索結果画面へ
-			request.setAttribute("loginIds", loginId);
+			if(request.getParameter("only").equals("")) {	//右の削除ボタンの時はチェックつけない
+				request.setAttribute("loginIds", loginId);	//チェックボックス保持
+			}
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
 		} else if(botton.equals("検索結果画面へ")) {		//検索結果画面に戻る時

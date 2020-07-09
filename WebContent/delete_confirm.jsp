@@ -62,6 +62,7 @@
 						</tr>
 					</c:forEach>
 				</table>
+					<input type="hidden" name="only" value="${only}">
 					<input type="submit" value="キャンセル" name="btn" class="btn">
 					<input type="submit" value="削除" name="btn" class="btn">
 				</form>
