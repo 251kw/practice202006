@@ -40,37 +40,22 @@ public class Check {
 	  }
 
 	/**
-	 * アイコン項目と選択したアイコンを比較して
+	 * check項目と選択した項目を比較して
 	 * 選択状態を返すメソッド
 	 *
-	 * @param icontype htmlで設定してあるアイコンの種類
-	 * @param icons 選択したアイコンが格納された配列
+	 * @param item htmlで設定してある項目の種類
+	 * @param select 選択した項目が格納された配列
 	 * @return 一致で"checked" 不一致で""
 	 *
 	 */
-	public static String checkIcons(String icontype, String[] icons) {
+	public static String checkBox(String item, String[] select) {
 
-		if(icons==null) {				//初回
+		if(select==null) {				//初回
 			return "";
 		}
 
-		for(String i: icons) {			//配列に入っていたらチェック
-			if(i.equals(icontype)) {
-				return "checked";
-			}
-		}
-
-		return "";						//入っていなかったので何も書かない
-	}
-
-	public static String checkBox(String loginId, String[] loginIds) {
-
-		if(loginIds==null) {				//初回
-			return "";
-		}
-
-		for(String i: loginIds) {			//配列に入っていたらチェック
-			if(i.equals(loginId)) {
+		for(String i: select) {			//配列に入っていたらチェック
+			if(i.equals(item)) {
 				return "checked";
 			}
 		}

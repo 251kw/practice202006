@@ -61,16 +61,13 @@
 					</c:forEach>
 				</table>
 
-				<%-- form action="./srs" method="post" id="srs"></form>--%>
 				<table class="container padding-y-5">
-
 					<tr>
 						<td colspan="2" class="text-right">
 						<button class="btn" type="submit" name="btn">選択項目を削除</button>
 						<button formaction="./srs" class="btn" type="submit" value="戻る" name="btn">戻る</button>
 						</td>
 					</tr>
-
 				</table>
 </form>
 			</div>

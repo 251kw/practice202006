@@ -60,12 +60,12 @@
 						<tr>
 							<th><font color="#FFCC33"><span class="icon-smile pe-2x pe-va"></span></font>&nbsp;アイコン</th>
 							<td>
-							<input type="checkbox" name="icon" value="icon-user" ${Check.checkIcons("icon-user", search.icon)} /><span class="icon-user pe-va"></span><%-- 男性 --%>
-							<input type="checkbox" name="icon" value="icon-user-female" ${Check.checkIcons("icon-user-female", search.icon)}/><span class="icon-user-female pe-va"></span><%-- 女性 --%>
-							<input type="checkbox" name="icon" value="icon-bell" ${Check.checkIcons("icon-bell", search.icon)}/><span class="icon-bell pe-va"></span><%-- ベル --%>
-							<input type="checkbox" name="icon" value="icon-star" ${Check.checkIcons("icon-star", search.icon)}/><span class="icon-star pe-va"></span><%-- 星 --%>
-							<input type="checkbox" name="icon" value="icon-moon" ${Check.checkIcons("icon-moon", search.icon)}/><span class="icon-moon pe-va"></span><%-- 月 --%>
-							<input type="checkbox" name="icon" value="icon-rocket" ${Check.checkIcons("icon-rocket", search.icon)}/><span class="icon-rocket pe-va"></span><%-- ロケット --%>
+							<input type="checkbox" name="icon" value="icon-user" ${Check.checkBox("icon-user", search.icon)} /><span class="icon-user pe-va"></span><%-- 男性 --%>
+							<input type="checkbox" name="icon" value="icon-user-female" ${Check.checkBox("icon-user-female", search.icon)}/><span class="icon-user-female pe-va"></span><%-- 女性 --%>
+							<input type="checkbox" name="icon" value="icon-bell" ${Check.checkBox("icon-bell", search.icon)}/><span class="icon-bell pe-va"></span><%-- ベル --%>
+							<input type="checkbox" name="icon" value="icon-star" ${Check.checkBox("icon-star", search.icon)}/><span class="icon-star pe-va"></span><%-- 星 --%>
+							<input type="checkbox" name="icon" value="icon-moon" ${Check.checkBox("icon-moon", search.icon)}/><span class="icon-moon pe-va"></span><%-- 月 --%>
+							<input type="checkbox" name="icon" value="icon-rocket" ${Check.checkBox("icon-rocket", search.icon)}/><span class="icon-rocket pe-va"></span><%-- ロケット --%>
 							</td>
 						</tr>
 
