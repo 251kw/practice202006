@@ -70,6 +70,14 @@ public class CheckDB {
 			sqlList.add(profstr);
 		}
 
+		// flagが1の時は論理削除
+		if(sqlList.isEmpty()) {
+			profstr = "where del_flag=0";
+		}else {
+			profstr = "&& del_flag=0";
+		}
+		sqlList.add(profstr);
+
 		try {
 
 			// 条件に沿ったsql文を繋ぐ
@@ -134,11 +142,12 @@ public class CheckDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
 			String sql1 = "delete from shouts where loginId = ?";
-			String sql2 = "delete from users where loginId = ?";
+			String sql2 = "update users set del_flag=? where loginId=?";
 			pstmt1 = conn.prepareStatement(sql1);
 			pstmt2 = conn.prepareStatement(sql2);
 			pstmt1.setString(1, dloginId);
-			pstmt2.setString(1, dloginId);
+			pstmt2.setInt(1, 1);
+			pstmt2.setString(2, dloginId);
 			pstmt1.executeUpdate();
 			pstmt2.executeUpdate();
 

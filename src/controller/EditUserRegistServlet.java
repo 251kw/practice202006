@@ -47,15 +47,18 @@ public class EditUserRegistServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
+		// 元々のユーザー情報と変更内容を持ったオブジェクト
 		UserDTO originaluser = new UserDTO();
 		UserDTO euser = new UserDTO();
 
 		originaluser = (UserDTO)session.getAttribute("originaluser");
 		euser = (UserDTO)session.getAttribute("euser");
 
+		// updateを実行
 		CheckDB.EditUser(originaluser, euser);
 
-		dispatcher = request.getRequestDispatcher("edituserresult.jsp");
+		// 変更結果に移動
+		dispatcher = request.getRequestDispatcher("editUserResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

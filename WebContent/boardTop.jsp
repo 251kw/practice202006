@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -49,22 +49,22 @@
 	</div>
 	<%-- action 属性にサーブレットを指定 --%>
 	<h4 class="color-main text-center">みんなの叫び</h4>
-		<form action="./bbs" method="post">
+		<form action="./ShoutsRegistDB" method="post">
 			<table style="width: 40%" class="table container padding-y-5 text-right">
 				<tr>
 					<%-- 今の気持ち入力欄の名前は shout --%>
 					<td><input class="form-control" type="text" name="shout" value="" size="40"/></td>
 					<td><input class="btn" type="submit" value="叫ぶ" /></td>
 				</tr>
+				<%--入力エラーメッセージ --%>
+				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+					<tr>
+						<%-- リクエストスコープの alert の値を出力 --%>
+						<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alert}" /></td>
+					</tr>
+				</c:if>
 			</table>
 		</form>
-		<%--入力エラーメッセージ --%>
-		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
-			<tr>
-				<%-- リクエストスコープの alert の値を出力 --%>
-				<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alert}" /></td>
-			</tr>
-		</c:if>
 		<%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
 		<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 		<div class="padding-y-5">

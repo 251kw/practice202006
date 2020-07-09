@@ -46,7 +46,7 @@ public class TurnInputServlet extends HttpServlet {
 
 		// 入力画面へ移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("useraddinput.jsp");
+		dispatcher = request.getRequestDispatcher("userAddInput.jsp");
 		dispatcher.forward(request,response);
 	}
 

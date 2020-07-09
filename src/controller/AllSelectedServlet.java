@@ -59,7 +59,7 @@ public class AllSelectedServlet extends HttpServlet {
 			request.setAttribute("checkall", checkall);
 			request.setAttribute("resultList", resultList);
 
-			dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
+			dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 			dispatcher.forward(request,response);
 		}else if(checkall.equals("")){
 			// 全選択されていない場合
@@ -69,7 +69,7 @@ public class AllSelectedServlet extends HttpServlet {
 			request.setAttribute("checkall", checkall);
 			request.setAttribute("resultList", resultList);
 
-			dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
+			dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 			dispatcher.forward(request,response);
 		}
 

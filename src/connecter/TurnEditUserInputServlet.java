@@ -41,7 +41,7 @@ public class TurnEditUserInputServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		dispatcher = request.getRequestDispatcher("edituserinput.jsp");
+		dispatcher = request.getRequestDispatcher("editUserInput.jsp");
 		dispatcher.forward(request, response);
 	}
 

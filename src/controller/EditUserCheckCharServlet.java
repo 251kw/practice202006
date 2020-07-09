@@ -84,7 +84,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 				checkpass = "パスワードは８文字以上で入力してください";
 				request.setAttribute("alertpass", checkpass);
 
-				dispatcher = request.getRequestDispatcher("edituserinput.jsp");
+				dispatcher = request.getRequestDispatcher("editUserInput.jsp");
 				dispatcher.forward(request, response);
 			}else {
 				// パスワードが正常な時
@@ -96,13 +96,13 @@ public class EditUserCheckCharServlet extends HttpServlet {
 					// エラーメッセージをリクエストオブジェクトに保存
 					request.setAttribute("alertblank", checkblank);
 
-					// edituserinput.jsp に処理を転送
-					dispatcher = request.getRequestDispatcher("edituserinput.jsp");
+					// editUserInput.jsp に処理を転送
+					dispatcher = request.getRequestDispatcher("editUserInput.jsp");
 					dispatcher.forward(request, response);
 				}else {
 					// 未入力項目がないとき
-					// edituserconfirm.jsp に処理を転送
-					dispatcher = request.getRequestDispatcher("edituserconfirm.jsp");
+					// editUserConfirm.jsp に処理を転送
+					dispatcher = request.getRequestDispatcher("editUserConfirm.jsp");
 					dispatcher.forward(request, response);
 				}
 			}

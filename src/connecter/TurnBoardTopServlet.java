@@ -32,7 +32,7 @@ public class TurnBoardTopServlet extends HttpServlet {
 
 		// 掲示板に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("boardtop.jsp");
+		dispatcher = request.getRequestDispatcher("boardTop.jsp");
 		dispatcher.forward(request,response);
 	}
 

@@ -23,7 +23,7 @@
 			<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
 			<jsp:useBean id="resultList" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 			<%-- リストにある要素の数だけ繰り返し --%>
-			<table style="width: 700px" class="table table-borderd container padding-y-5">
+			<table style="width: 800px" class="table table-borderd container padding-y-5">
 				<c:if test="${requestScope.notselectedalert != null && requestScope.notselectedalert != ''}">
 					<tr>
 						<td colspan="7" class="color-error text-center"><c:out value="${requestScope.notselectedalert}" /></td>
@@ -64,7 +64,7 @@
 					</tr>
 				</c:forEach>
 			</table>
-			<table style="width: 700px" class="table container padding-y-5">
+			<table style="width: 800px" class="table container padding-y-5">
 				<tr>
 					<td colspan="4" class="text-right">
 						<button type="submit" class="btn">選択したユーザーを削除</button>
@@ -78,7 +78,7 @@
 			</table>
 		</form>
 		<form action="./TurnSearchInput" method="post">
-			<table style="width: 700px" class="table container padding-y-5">
+			<table style="width: 800px" class="table container padding-y-5">
 				<tr>
 					<td colspan="4" class="text-right">
 						<input class="btn" type="submit" value="入力画面に戻る" />

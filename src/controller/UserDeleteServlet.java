@@ -70,7 +70,8 @@ public class UserDeleteServlet extends HttpServlet {
 			request.setAttribute("logoutalert",logoutalert);
 		}
 
-		dispatcher = request.getRequestDispatcher("deleteresult.jsp");
+		// 削除結果画面に移動
+		dispatcher = request.getRequestDispatcher("deleteResult.jsp");
 		dispatcher.forward(request,response);
 	}
 

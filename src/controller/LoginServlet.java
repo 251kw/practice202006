@@ -67,8 +67,8 @@ public class LoginServlet extends HttpServlet {
 				session.setAttribute("user", user);
 				session.setAttribute("shouts", list);
 
-				// 処理の転送先をboardtop.jspに指定
-				dispatcher = request.getRequestDispatcher("boardtop.jsp");
+				// 処理の転送先をboardTop.jspに指定
+				dispatcher = request.getRequestDispatcher("boardTop.jsp");
 			}else {
 				// ユーザー情報が取得できない場合
 				// エラーメッセージをリクエストオブジェクトに保存

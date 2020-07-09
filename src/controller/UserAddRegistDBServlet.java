@@ -65,7 +65,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
 
-			String sql = "INSERT INTO users(loginId,password,userName,icon,profile) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO users(loginId,password,userName,icon,profile,del_flag) VALUES(?,?,?,?,?,?)";
 
 			pstmt1 = conn.prepareStatement(sql);
 
@@ -74,11 +74,12 @@ public class UserAddRegistDBServlet extends HttpServlet {
 			pstmt1.setString(3, newuserName);
 			pstmt1.setString(4, newicon);
 			pstmt1.setString(5, newprofile);
+			pstmt1.setInt(6, 0);
 
 			pstmt1.executeUpdate();
 
 			// 登録後は登録結果画面に移動
-			dispatcher = request.getRequestDispatcher("useraddresult.jsp");
+			dispatcher = request.getRequestDispatcher("userAddResult.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (ClassNotFoundException e) {

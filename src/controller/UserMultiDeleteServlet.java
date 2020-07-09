@@ -57,15 +57,16 @@ public class UserMultiDeleteServlet extends HttpServlet {
 
 		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
 
-		// 削除対象のユーザーを全て削除
+		// 削除対象のユーザーを全て削除し更新された書き込みリストを取得
 		for(String selectId:select) {
 
 			list = CheckDB.DeleteUser(selectId);
 		}
-
+		// 書き込みリストをセット
 		session.setAttribute("shouts", list);
 
-		dispatcher = request.getRequestDispatcher("multideleteresult.jsp");
+		// 削除結果画面に移動
+		dispatcher = request.getRequestDispatcher("multiDeleteResult.jsp");
 		dispatcher.forward(request,response);
 	}
 

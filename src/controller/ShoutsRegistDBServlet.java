@@ -19,7 +19,7 @@ import dto.UserDTO;
 /**
  * 掲示板の叫ぶ欄に書き込まれた内容をデータベースに登録し、その内容をセッションに保持して、掲示板に移動
  */
-@WebServlet("/bbs")
+@WebServlet("/ShoutsRegistDB")
 public class ShoutsRegistDBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
@@ -32,7 +32,7 @@ public class ShoutsRegistDBServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	// boardtop.jsp の「叫ぶ」ボタンから呼ばれる
+	// boardTop.jsp の「叫ぶ」ボタンから呼ばれる
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -59,12 +59,12 @@ public class ShoutsRegistDBServlet extends HttpServlet {
 			// リストをセッションに保存
 			session.setAttribute("shouts", list);
 		}else {
-			String bmessage = "入力エラー";
+			String bmessage = "叫ぶ欄に何も入力されていません";
 			request.setAttribute("alert", bmessage);
 		}
 
-		// boardtop.jsp に処理を転送
-		dispatcher = request.getRequestDispatcher("boardtop.jsp");
+		// boardTop.jsp に処理を転送
+		dispatcher = request.getRequestDispatcher("boardTop.jsp");
 		dispatcher.forward(request, response);
 	}
 }

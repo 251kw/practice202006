@@ -28,7 +28,7 @@ public class LogoutServlet extends HttpServlet {
 		dispatcher.forward(request, response);
 	}
 
-	// boardtop.jspの「ログアウト」ボタンから呼び出される
+	// boardTop.jspの「ログアウト」ボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// セッションを破棄

@@ -73,12 +73,15 @@ public class RelayFunctionServlet extends HttpServlet {
 
 			notselectedmessage = "ユーザーが選択されていません";
 
+			// 条件に合ったユーザーを取得
 			resultList = CheckDB.joinsql(sloginId, suserName, sicon, sprofile);
 
+			// アラートメッセージと検索結果をセット
 			request.setAttribute("notselectedalert", notselectedmessage);
 			request.setAttribute("resultList", resultList);
 
-			dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
+			// 検索結果画面へ戻る
+			dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 			dispatcher.forward(request,response);
 
 		}else {
@@ -96,7 +99,7 @@ public class RelayFunctionServlet extends HttpServlet {
 				session.setAttribute("originaluser", originaluser);
 				session.setAttribute("euser", euser);
 
-				dispatcher = request.getRequestDispatcher("edituserinput.jsp");
+				dispatcher = request.getRequestDispatcher("editUserInput.jsp");
 				dispatcher.forward(request, response);
 			}
 
@@ -116,7 +119,7 @@ public class RelayFunctionServlet extends HttpServlet {
 					request.setAttribute("logoutalert", logoutmessage);
 				}
 
-				dispatcher = request.getRequestDispatcher("deleteconfirm.jsp");
+				dispatcher = request.getRequestDispatcher("deleteConfirm.jsp");
 				dispatcher.forward(request,response);
 			}
 
@@ -141,7 +144,7 @@ public class RelayFunctionServlet extends HttpServlet {
 					}
 				}
 
-				dispatcher = request.getRequestDispatcher("multideleteconfirm.jsp");
+				dispatcher = request.getRequestDispatcher("multiDeleteConfirm.jsp");
 				dispatcher.forward(request,response);
 			}
 		}

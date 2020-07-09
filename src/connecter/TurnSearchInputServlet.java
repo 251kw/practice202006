@@ -51,7 +51,7 @@ public class TurnSearchInputServlet extends HttpServlet {
 
 		// 検索入力画面に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("usersearchinput.jsp");
+		dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
 		dispatcher.forward(request,response);
 	}
 

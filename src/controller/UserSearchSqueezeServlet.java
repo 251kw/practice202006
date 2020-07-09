@@ -71,7 +71,7 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 			String checkid = "ログインIDは半角英数字で記入してください";
 			request.setAttribute("alertid", checkid);
 
-			dispatcher = request.getRequestDispatcher("usersearchinput.jsp");
+			dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			// 文字が正常な場合
@@ -82,12 +82,12 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 				notfoundmessage = "該当するユーザーが見つかりませんでした";
 				request.setAttribute("notfound", notfoundmessage);
 
-				dispatcher = request.getRequestDispatcher("usersearchinput.jsp");
+				dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
 				dispatcher.forward(request,response);
 			} else {
 				request.setAttribute("resultList", resultList);
 
-				dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
+				dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 				dispatcher.forward(request,response);
 			}
 		}
