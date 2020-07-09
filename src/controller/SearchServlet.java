@@ -73,7 +73,7 @@ public class SearchServlet extends HttpServlet {
 			DBManager dbm = new DBManager();
 			ArrayList<UserDTO> searchList = dbm.getSearchList(loginId, userName, icon, profile);
 
-			//検索結果があれば完了画面に遷移、なければ検索結果なしのページに遷移
+			//検索結果を取得し、完了画面に遷移
 			if(searchList != null) {
 				//requestスコープにsearchlistをセット
 				request.setAttribute("searchList", searchList);

@@ -29,9 +29,11 @@
 		</div>
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-				<%-- リストにある要素の数だけ繰り返し --%>
 				<table class="table table-striped table-bordered">
 				<tr>
+					<td class="color-main container padding-y-5"><font size="3">チェック<br>
+						<input type="checkbox" name="" value=""></font>
+					</td>
 					<td class="color-main container padding-y-5"><font size="3">ログインID</font>
 					<td class="color-main container padding-y-5"><font size="3">氏名</font>
 					<td class="color-main container padding-y-5"><font size="3">アイコン</font>
@@ -39,8 +41,11 @@
 					<td class="color-main container padding-y-5"><font size="3">変更</font>
 					<td class="color-main container padding-y-5"><font size="3">削除</font>
 				</tr>
+					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="search" items="${searchList}">
 						<tr>
+							<%-- チェックボックスのname=valueを配列として取得 --%>
+							<td><input type="checkbox" name="checkedLogId" value="${search.loginId}"></td>
 							<td>${search.loginId}</td>
 							<td>${search.userName}</td>
 							<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
@@ -48,7 +53,7 @@
 							<td>
 								<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
 								<a href="
-									<c:url value="http://localhost:8080/c11/update.jsp" >
+									<c:url value="/update.jsp" >
 										<c:param name="loginId" value="${search.loginId}" />
 										<c:param name="password" value="${search.password}" />
 										<c:param name="userName" value="${search.userName}" />
@@ -60,7 +65,7 @@
 							<td>
 								<%-- ユーザ情報削除ボタン searchListに入っているパスワード情報も渡す --%>
 								<a href="
-									<c:url value="http://localhost:8080/c11/delete.jsp" >
+									<c:url value="/delete.jsp" >
 										<c:param name="loginId" value="${search.loginId}" />
 										<c:param name="password" value="${search.password}" />
 										<c:param name="userName" value="${search.userName}" />
@@ -73,14 +78,7 @@
 					</c:forEach>
 				</table>
 				<%-- 検索結果が0件の場合はエラーメッセージを表示する --%>
-				<c:choose>
-					<c:when test="${searchList.isEmpty()}">
-						<div class="color-error text-left"><font size="3">検索結果は0件です</font></div>
-					</c:when>
-					<c:otherwise>
-						<div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div>
-					</c:otherwise>
-				</c:choose>
+				<div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div>
 			</div>
 		</div>
 		<%-- 入力情報保持したままsearch.jspに戻る --%>

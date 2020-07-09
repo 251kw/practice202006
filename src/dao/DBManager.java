@@ -265,7 +265,6 @@ public class DBManager extends SnsDAO{
 		return result;
 	}
 
-	//TODO
 	/**
 	 * 登録ユーザのDB削除
 	 * @param loginId	//削除するログインID
@@ -382,39 +381,45 @@ public class DBManager extends SnsDAO{
 		//文末の" AND"を消す
 		if(m.find()) {
 			int len = sb.length(); // sqlのlength(長さ)をint型変数のsizeに格納
-			sb.delete(len - 4, len);	//文末から4文字(=" AND")を削除
+			int i = 4;	//(" AND")は4文字
+			sb.delete(len - i, len);	//文末から4文字(=" AND")を削除
+		}
+
+		// sqlのlength(長さ)をint型変数のsizeに格納
+		int len = sb.length();
+		int i = 25;	//(SELECT * FROM users WHERE)は25文字
+
+		//検索条件が何もなかった場合は全件検索のSQL(SELECT * FROM users)にする
+		if(len == i) {
+			//文末の" WHERE"を消す
+			int a = 6;	//(" WHERE")は6文字
+			sb.delete(len - a, len);	//文末から6文字(=" WHERE")を削除
 		}
 
 		//StringBuilder型からString型に変換
 		String sql = sb.toString();
-		System.out.println(sql);
 
 		try {
+			//データベース接続処理
+			conn = getConnection();
+			//.createStatement()はパラメータなしのSQL実行に使用する
+			pstmt = conn.createStatement();
+			//SQL文の実行
+			rset = pstmt.executeQuery(sql);
 
-			if(sql.length() == 25) {
-				list.isEmpty();
-			}else {
-				//データベース接続処理
-				conn = getConnection();
-				//.createStatement()はパラメータなしのSQL実行に使用する
-				pstmt = conn.createStatement();
-				//SQL文の実行
-				rset = pstmt.executeQuery(sql);
+			//検索結果の数だけ繰り返す
+			while (rset.next()) {
+				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				//ユーザ情報変更時にpasswordも必要なため取得する
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 
-				//検索結果の数だけ繰り返す
-				while (rset.next()) {
-					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					UserDTO user = new UserDTO();
-					user.setLoginId(rset.getString(2));
-					//ユーザ情報変更時にpasswordも必要なため取得する
-					user.setPassword(rset.getString(3));
-					user.setUserName(rset.getString(4));
-					user.setIcon(rset.getString(5));
-					user.setProfile(rset.getString(6));
-
-					//書き込み内容をリストに追加
-					list.add(user);
-				}
+				//書き込み内容をリストに追加
+				list.add(user);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
