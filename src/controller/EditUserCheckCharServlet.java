@@ -1,11 +1,6 @@
 package controller;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -19,7 +14,7 @@ import Util.CheckInput;
 import dto.UserDTO;
 
 /**
- * 文字判定用のサーブレット
+ * 変更内容に入力された文字を判定する
  */
 @WebServlet("/EditUserCheckChar")
 public class EditUserCheckCharServlet extends HttpServlet {
@@ -32,7 +27,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -43,31 +38,19 @@ public class EditUserCheckCharServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
-		final String USER = "root";
-		final String PASSWORD = "root";
-
-		Connection conn = null;
-		// ID被りチェック用
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
 		RequestDispatcher dispatcher = null;
 
-		String checkid = null;
 		String checkpass = null;
 		String checkblank = null;
 		String regex_AlphaNum = "^[A-Za-z0-9]+$";
 
 		// 送信情報の取得
-		String eloginId = request.getParameter("eloginId");
 		String epassword = request.getParameter("epassword");
 		String euserName = request.getParameter("euserName");
 		String eicon = request.getParameter("eicon");
 		String eprofile = request.getParameter("eprofile");
 
 		UserDTO euser = new UserDTO();
-		euser.setLoginId(eloginId);
 		euser.setPassword(epassword);
 		euser.setUserName(euserName);
 		euser.setIcon(eicon);
@@ -87,97 +70,39 @@ public class EditUserCheckCharServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		// 文字判定
-		if (CheckInput.checkLogic(regex_AlphaNum, eloginId) == false
-				&& CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {
-			checkid = "ログインIDは半角英数字で記入してください";
-			checkpass = "パスワードは半角英数字で記入してください";
-			request.setAttribute("alertid", checkid);
-			request.setAttribute("alertpass", checkpass);
 
-			dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
-			dispatcher.forward(request, response);
-		} else if (CheckInput.checkLogic(regex_AlphaNum, eloginId) == false) {
-			checkid = "ログインIDは半角英数字で記入してください";
-			request.setAttribute("alertid", checkid);
-			dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
-			dispatcher.forward(request, response);
-		} else if (CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {
+		if (CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {
+			// 文字チェック
 			checkpass = "パスワードは半角英数字で記入してください";
 			request.setAttribute("alertpass", checkpass);
-			dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
+			dispatcher = request.getRequestDispatcher("edituserinput.jsp");
 			dispatcher.forward(request, response);
-		} else { // 文字が正常な場合
-
+		} else {
+			// 文字が正常な場合
 			// 文字数チェック
-			if (eloginId.length() <= 4 && epassword.length() <= 7) {
-				checkid = "IDは５文字以上で入力してください";
-				checkpass = "パスワードは８文字以上で入力してください";
-				request.setAttribute("alertid", checkid);
-				request.setAttribute("alertpass", checkpass);
-
-				dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
-				dispatcher.forward(request, response);
-			} else if (eloginId.length() <= 4) {
-				checkid = "IDは５文字以上で入力してください";
-				request.setAttribute("alertid", checkid);
-
-				dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
-				dispatcher.forward(request, response);
-			} else if (epassword.length() <= 7) {
+			if (epassword.length() <= 7) {
 				checkpass = "パスワードは８文字以上で入力してください";
 				request.setAttribute("alertpass", checkpass);
 
-				dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
+				dispatcher = request.getRequestDispatcher("edituserinput.jsp");
 				dispatcher.forward(request, response);
-			} else { // 文字が正常かつID・パスワードの両方が正常な時
-
-				if (false == CheckInput.excludeBlank(eloginId, epassword, euserName,
-						eicon, eprofile)) {
-
+			}else {
+				// パスワードが正常な時
+				// その他の入力欄が入力されているか確認
+				if (false == CheckInput.excludeBlank3(epassword, euserName, eicon, eprofile)) {
+					// 未入力項目があるとき
 					checkblank = "全ての入力欄を埋めてください";
 
 					// エラーメッセージをリクエストオブジェクトに保存
 					request.setAttribute("alertblank", checkblank);
 
-					// register.jsp に処理を転送
-					dispatcher = request.getRequestDispatcher("./TurnEditUserInput");
+					// edituserinput.jsp に処理を転送
+					dispatcher = request.getRequestDispatcher("edituserinput.jsp");
 					dispatcher.forward(request, response);
-				} else {
-					// 	全入力欄が埋まっている場合
-
-					try {
-						Class.forName("com.mysql.jdbc.Driver");
-						conn = DriverManager.getConnection(DSN, USER, PASSWORD);
-
-						// ID被りをチェック
-						String sql = "SELECT * FROM users WHERE LOGINID=?";
-						pstmt = conn.prepareStatement(sql);
-						pstmt.setString(1, eloginId);
-						rset = pstmt.executeQuery();
-
-						UserDTO originaluser = new UserDTO();
-						originaluser = (UserDTO)session.getAttribute("originaluser");
-
-						// 入力されたログインIDが元のIDと一致している場合はエラーを出さなくていい
-						if (rset.next() && !(eloginId.equals(originaluser.getLoginId()))){
-							String checksame = "入力されたログインIDは既に使用されています";
-							// エラーメッセージをリクエストオブジェクトに保存
-							request.setAttribute("alertsame", checksame);
-							dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
-						} else {
-							dispatcher = request.getRequestDispatcher("EditUserConfirm.jsp");
-						}
-					} catch (ClassNotFoundException e) {
-						e.printStackTrace();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					} finally {
-						try {
-							pstmt.close();
-						} catch (SQLException e) {
-						}
-					}
+				}else {
+					// 未入力項目がないとき
+					// edituserconfirm.jsp に処理を転送
+					dispatcher = request.getRequestDispatcher("edituserconfirm.jsp");
 					dispatcher.forward(request, response);
 				}
 			}

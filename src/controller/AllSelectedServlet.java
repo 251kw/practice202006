@@ -9,20 +9,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import Util.CheckDB;
-import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
- * ログインIDを参照してユーザーを削除する
+ * Servlet implementation class AllSelectedServlet
  */
-@WebServlet("/UserDelete")
-public class UserDeleteServlet extends HttpServlet {
+@WebServlet("/AllSelected")
+public class AllSelectedServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public UserDeleteServlet() {
+    public AllSelectedServlet() {
         super();
     }
 
@@ -36,42 +34,45 @@ public class UserDeleteServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		HttpSession session = request.getSession();
-
 		RequestDispatcher dispatcher = null;
 
-		// 送信情報の取得
-		String dloginId = request.getParameter("dloginId");
+		// 値を保持するための処理
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
-		String logoutalert = request.getParameter("logoutalert");
+		String checkall = request.getParameter("checkall");
 
-		// 検索画面入力値の保持用
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		// 削除するユーザー情報を一旦保持
-		UserDTO duser = new UserDTO();
-		duser = CheckDB.SearchUser(dloginId);
-		request.setAttribute("duser", duser);
+		ArrayList<UserDTO> resultList = new ArrayList<UserDTO>();
 
-		// 指定のユーザーを削除して新しい書き込みリストを取得
-		ArrayList<ShoutDTO> list = CheckDB.DeleteUser(dloginId);
+		// 全選択
+		if(checkall.equals("checkall")) {
+			// 既に全選択されている場合
+			resultList = CheckDB.joinsql(sloginId, suserName, sicon, sprofile);
 
-		// リストをセッションに保存
-		session.setAttribute("shouts", list);
+			checkall = "";
+			request.setAttribute("checkall", checkall);
+			request.setAttribute("resultList", resultList);
 
-		// ログイン中のアカウントを削除する場合
-		if(logoutalert!=null) {
-			request.setAttribute("logoutalert",logoutalert);
+			dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
+			dispatcher.forward(request,response);
+		}else if(checkall.equals("")){
+			// 全選択されていない場合
+			resultList = CheckDB.joinsql(sloginId, suserName, sicon, sprofile);
+
+			checkall = "checkall";
+			request.setAttribute("checkall", checkall);
+			request.setAttribute("resultList", resultList);
+
+			dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
+			dispatcher.forward(request,response);
 		}
 
-		dispatcher = request.getRequestDispatcher("deleteresult.jsp");
-		dispatcher.forward(request,response);
 	}
 
 }

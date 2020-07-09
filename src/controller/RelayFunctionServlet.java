@@ -27,7 +27,7 @@ public class RelayFunctionServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -65,15 +65,22 @@ public class RelayFunctionServlet extends HttpServlet {
 		String logoutmessage = null;
 		String notselectedmessage = null;
 
-		// TODO 後で変更
+		ArrayList<UserDTO> resultList = new ArrayList<UserDTO>();
+
+
 		if(eloginId==null && dloginId==null && select==null) {
 			// ユーザーが未チェックの状態で複数削除ボタンを押下したとき
 
 			notselectedmessage = "ユーザーが選択されていません";
-			request.setAttribute("notselectedalert", notselectedmessage);
 
-			dispatcher = request.getRequestDispatcher("./UserSearchSqueeze");
+			resultList = CheckDB.joinsql(sloginId, suserName, sicon, sprofile);
+
+			request.setAttribute("notselectedalert", notselectedmessage);
+			request.setAttribute("resultList", resultList);
+
+			dispatcher = request.getRequestDispatcher("usersearchresult.jsp");
 			dispatcher.forward(request,response);
+
 		}else {
 			// 変更機能
 			if(eloginId!=null ) {
@@ -89,7 +96,7 @@ public class RelayFunctionServlet extends HttpServlet {
 				session.setAttribute("originaluser", originaluser);
 				session.setAttribute("euser", euser);
 
-				dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
+				dispatcher = request.getRequestDispatcher("edituserinput.jsp");
 				dispatcher.forward(request, response);
 			}
 
@@ -109,7 +116,7 @@ public class RelayFunctionServlet extends HttpServlet {
 					request.setAttribute("logoutalert", logoutmessage);
 				}
 
-				dispatcher = request.getRequestDispatcher("DeleteConfirm.jsp");
+				dispatcher = request.getRequestDispatcher("deleteconfirm.jsp");
 				dispatcher.forward(request,response);
 			}
 
@@ -134,7 +141,7 @@ public class RelayFunctionServlet extends HttpServlet {
 					}
 				}
 
-				dispatcher = request.getRequestDispatcher("MultiDeleteConfirm.jsp");
+				dispatcher = request.getRequestDispatcher("multideleteconfirm.jsp");
 				dispatcher.forward(request,response);
 			}
 		}

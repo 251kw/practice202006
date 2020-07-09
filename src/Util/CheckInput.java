@@ -63,6 +63,25 @@ public class CheckInput{
 		    return result;
 		}
 	}
+
+	/**
+	 * ログインID以外が入力されているかどうかをチェック
+	 * @param pass
+	 * @param name
+	 * @param icon
+	 * @param profile
+	 * @return 上と同じ
+	 */
+	// パスワード以外入力チェック
+	public static boolean excludeBlank3(String pass, String name, String icon, String profile){
+		if(pass.equals("") && name.equals("") && icon.equals("") && profile.equals("")){
+		    boolean result = false;
+		    return result;
+		}else {
+		    boolean result = true;
+		    return result;
+		}
+	}
 }
 
 

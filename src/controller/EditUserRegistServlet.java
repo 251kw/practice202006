@@ -26,7 +26,7 @@ public class EditUserRegistServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -55,7 +55,7 @@ public class EditUserRegistServlet extends HttpServlet {
 
 		CheckDB.EditUser(originaluser, euser);
 
-		dispatcher = request.getRequestDispatcher("EditUserResult.jsp");
+		dispatcher = request.getRequestDispatcher("edituserresult.jsp");
 		dispatcher.forward(request, response);
 	}
 

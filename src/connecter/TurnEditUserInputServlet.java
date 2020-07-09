@@ -22,7 +22,7 @@ public class TurnEditUserInputServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -41,7 +41,7 @@ public class TurnEditUserInputServlet extends HttpServlet {
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
 
-		dispatcher = request.getRequestDispatcher("EditUserInput.jsp");
+		dispatcher = request.getRequestDispatcher("edituserinput.jsp");
 		dispatcher.forward(request, response);
 	}
 

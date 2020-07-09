@@ -21,21 +21,21 @@ public class LogoutServlet extends HttpServlet {
         super();
     }
 
-    // 直接アクセスがあった場合はLoginTop.jspに処理を転送
+    // 直接アクセスがあった場合はindex.jspに処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
-			dispatcher.forward(request, response);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
 	}
 
-	// BoardTop.jspの「ログアウト」ボタンから呼び出される
+	// boardtop.jspの「ログアウト」ボタンから呼び出される
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 		// セッションを破棄
 		HttpSession session = request.getSession();
 		session.invalidate();
 
-		// doGetメソッドを呼び出し、LoginTop.jspに処理を転送
+		// doGetメソッドを呼び出し、index.jspに処理を転送
 		doGet(request,response);
 	}
 

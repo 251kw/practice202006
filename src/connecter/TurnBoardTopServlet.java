@@ -22,7 +22,7 @@ public class TurnBoardTopServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -32,7 +32,7 @@ public class TurnBoardTopServlet extends HttpServlet {
 
 		// 掲示板に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("BoardTop.jsp");
+		dispatcher = request.getRequestDispatcher("boardtop.jsp");
 		dispatcher.forward(request,response);
 	}
 

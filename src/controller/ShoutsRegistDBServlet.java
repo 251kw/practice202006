@@ -24,15 +24,15 @@ public class ShoutsRegistDBServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private DBManager dbm;	// ログインユーザ情報、書き込み内容管理クラス
 
-	// 直接アクセスがあった場合は LoginTop.jsp  に処理を転送
+	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	// BoardTop.jsp の「叫ぶ」ボタンから呼ばれる
+	// boardtop.jsp の「叫ぶ」ボタンから呼ばれる
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -63,8 +63,8 @@ public class ShoutsRegistDBServlet extends HttpServlet {
 			request.setAttribute("alert", bmessage);
 		}
 
-		// BoardTop.jsp に処理を転送
-		dispatcher = request.getRequestDispatcher("BoardTop.jsp");
+		// boardtop.jsp に処理を転送
+		dispatcher = request.getRequestDispatcher("boardtop.jsp");
 		dispatcher.forward(request, response);
 	}
 }

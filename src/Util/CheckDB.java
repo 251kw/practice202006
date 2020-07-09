@@ -227,75 +227,41 @@ public class CheckDB {
 
 			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
 
-			String sqleId = "update users set loginId=? where loginId=?";
 			String sqlepass = "update users set password=? where loginId=?";
 			String sqlename = "update users set userName=? where loginId=?";
 			String sqleicon = "update users set icon=? where loginId=?";
 			String sqleprofile = "update users set profile=? where loginId=?";
 
-			// ログインIDが変更される場合
-			if(!(euser.getLoginId().equals(originaluser.getLoginId()))) {
-				pstmt1 = conn.prepareStatement(sqleId);
-				pstmt1.setString(1, euser.getLoginId());
+			// ログインIDが変更されない場合
+			if(!(euser.getPassword().equals(originaluser.getPassword()))) {
+				pstmt1 = conn.prepareStatement(sqlepass);
+				pstmt1.setString(1, euser.getPassword());
 				pstmt1.setString(2, originaluser.getLoginId());
 				pstmt1.executeUpdate();
-				if(!(euser.getPassword().equals(originaluser.getPassword()))) {
-					pstmt1 = conn.prepareStatement(sqlepass);
-					pstmt1.setString(1, euser.getPassword());
-					pstmt1.setString(2, euser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-				if(!(euser.getUserName().equals(originaluser.getUserName()))) {
-					pstmt1 = conn.prepareStatement(sqlename);
-					pstmt1.setString(1, euser.getUserName());
-					pstmt1.setString(2, euser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-				if(!(euser.getIcon().equals(originaluser.getIcon()))) {
-					pstmt1 = conn.prepareStatement(sqleicon);
-					pstmt1.setString(1, euser.getIcon());
-					pstmt1.setString(2, euser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-				if(!(euser.getProfile().equals(originaluser.getProfile()))) {
-					pstmt1 = conn.prepareStatement(sqleprofile);
-					pstmt1.setString(1, euser.getProfile());
-					pstmt1.setString(2, euser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-			// ログインIDが変更されない場合
-			}else {
-				if(!(euser.getPassword().equals(originaluser.getPassword()))) {
-					pstmt1 = conn.prepareStatement(sqlepass);
-					pstmt1.setString(1, euser.getPassword());
-					pstmt1.setString(2, originaluser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-				if(!(euser.getUserName().equals(originaluser.getUserName()))) {
-					pstmt1 = conn.prepareStatement(sqlename);
-					pstmt1.setString(1, euser.getUserName());
-					pstmt1.setString(2, originaluser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-				if(!(euser.getIcon().equals(originaluser.getIcon()))) {
-					pstmt1 = conn.prepareStatement(sqleicon);
-					pstmt1.setString(1, euser.getIcon());
-					pstmt1.setString(2, originaluser.getLoginId());
-					pstmt1.executeUpdate();
-				}
-				if(!(euser.getProfile().equals(originaluser.getProfile()))) {
-					pstmt1 = conn.prepareStatement(sqleprofile);
-					pstmt1.setString(1, euser.getProfile());
-					pstmt1.setString(2, originaluser.getLoginId());
-					pstmt1.executeUpdate();
-				}
+			}
+			if(!(euser.getUserName().equals(originaluser.getUserName()))) {
+				pstmt1 = conn.prepareStatement(sqlename);
+				pstmt1.setString(1, euser.getUserName());
+				pstmt1.setString(2, originaluser.getLoginId());
+				pstmt1.executeUpdate();
+			}
+			if(!(euser.getIcon().equals(originaluser.getIcon()))) {
+				pstmt1 = conn.prepareStatement(sqleicon);
+				pstmt1.setString(1, euser.getIcon());
+				pstmt1.setString(2, originaluser.getLoginId());
+				pstmt1.executeUpdate();
+			}
+			if(!(euser.getProfile().equals(originaluser.getProfile()))) {
+				pstmt1 = conn.prepareStatement(sqleprofile);
+				pstmt1.setString(1, euser.getProfile());
+				pstmt1.setString(2, originaluser.getLoginId());
+				pstmt1.executeUpdate();
 			}
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-
 		}
 
 	}

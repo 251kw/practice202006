@@ -28,7 +28,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -42,7 +42,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 		final String PASSWORD = "root";
 
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher = request.getRequestDispatcher("index.jsp");
 
 		Connection conn = null;
 		PreparedStatement pstmt1 = null;
@@ -78,7 +78,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 			pstmt1.executeUpdate();
 
 			// 登録後は登録結果画面に移動
-			dispatcher = request.getRequestDispatcher("UserAddResult.jsp");
+			dispatcher = request.getRequestDispatcher("useraddresult.jsp");
 			dispatcher.forward(request, response);
 
 		} catch (ClassNotFoundException e) {

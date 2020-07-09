@@ -22,11 +22,6 @@
 		<form action="./EditUserRegist" method="post">
 			<table style="width: 400px" class="table table-borderd container padding-y-5">
 				<tr>
-				<tr>
-					<th class="color-main text-center">ログインID:</th>
-					<td class="text-center">${sessionScope.euser.loginId}</td>
-				</tr>
-				<tr>
 					<th class="color-main text-center">パスワード:</th>
 					<td class="text-center">${sessionScope.euser.password}</td>
 				</tr>

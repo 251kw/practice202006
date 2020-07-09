@@ -22,7 +22,7 @@ public class TurnSearchInputServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -51,7 +51,7 @@ public class TurnSearchInputServlet extends HttpServlet {
 
 		// 検索入力画面に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("UserSearchInput.jsp");
+		dispatcher = request.getRequestDispatcher("usersearchinput.jsp");
 		dispatcher.forward(request,response);
 	}
 

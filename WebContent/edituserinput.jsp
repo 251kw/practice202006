@@ -29,20 +29,8 @@
 			</c:if>
 			<tr>
 				<td class="color-main text-center">ログインID</td>
-				<td class="text-center"><input class="form-control" type="text" name="eloginId" value="${sessionScope.euser.loginId}" size="20" /></td>
+				<td class="text-center">${sessionScope.euser.loginId}</td>
 			</tr>
-			<%-- ID被りチェック --%>
-			<c:if test="${requestScope.alertsame != null && requestScope.alertsame != ''}">
-				<tr>
-					<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alertsame}" /></td>
-				</tr>
-			</c:if>
-			<%-- ID文字数or半角英数チェック --%>
-			<c:if test="${requestScope.alertid != null && requestScope.alertid != ''}">
-				<tr>
-					<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alertid}" /></td>
-				</tr>
-			</c:if>
 			<tr>
 				<td class="color-main text-center">パスワード</td>
 				<td class="text-center"><input class="form-control" type="password" name="epassword" value="${sessionScope.euser.password}" size="20" /></td>

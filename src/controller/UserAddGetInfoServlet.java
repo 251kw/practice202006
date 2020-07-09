@@ -32,7 +32,7 @@ public class UserAddGetInfoServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -76,17 +76,17 @@ public class UserAddGetInfoServlet extends HttpServlet {
 			request.setAttribute("alertid", checkid);
 			request.setAttribute("alertpass", checkpass);
 
-			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 			dispatcher.forward(request, response);
 		} else if (CheckInput.checkLogic(regex_AlphaNum, newloginId) == false) {
 			checkid = "ログインIDは半角英数字で記入してください";
 			request.setAttribute("alertid", checkid);
-			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 			dispatcher.forward(request, response);
 		} else if (CheckInput.checkLogic(regex_AlphaNum, newpassword) == false) {
 			checkpass = "パスワードは半角英数字で記入してください";
 			request.setAttribute("alertpass", checkpass);
-			dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+			dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 			dispatcher.forward(request, response);
 		} else {
 			// 文字が正常な場合
@@ -97,19 +97,19 @@ public class UserAddGetInfoServlet extends HttpServlet {
 				request.setAttribute("alertid", checkid);
 				request.setAttribute("alertpass", checkpass);
 
-				dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+				dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 				dispatcher.forward(request, response);
 			} else if (newloginId.length() <= 4) {
 				checkid = "IDは５文字以上で入力してください";
 				request.setAttribute("alertid", checkid);
 
-				dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+				dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 				dispatcher.forward(request, response);
 			} else if (newpassword.length() <= 7) {
 				checkpass = "パスワードは８文字以上で入力してください";
 				request.setAttribute("alertpass", checkpass);
 
-				dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+				dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 				dispatcher.forward(request, response);
 			} else {
 				// 文字が正常かつID・パスワードの両方の文字数が正常な時
@@ -122,7 +122,7 @@ public class UserAddGetInfoServlet extends HttpServlet {
 					request.setAttribute("alertblank", checkblank);
 
 					// 入力画面に処理を転送
-					dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+					dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 					dispatcher.forward(request, response);
 				} else {
 					// 全入力欄が埋まっている場合
@@ -141,11 +141,11 @@ public class UserAddGetInfoServlet extends HttpServlet {
 							// エラーメッセージを送ってログイン画面に移動
 							String checksame = "入力されたログインIDは既に使用されています";
 							request.setAttribute("alertsame", checksame);
-							dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+							dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 						} else {
 							// 入力されたログインIDが使われていない場合
 							// 登録確認画面に移動
-							dispatcher = request.getRequestDispatcher("UserAddConfirm.jsp");
+							dispatcher = request.getRequestDispatcher("useraddconfirm.jsp");
 						}
 					} catch (ClassNotFoundException e) {
 						e.printStackTrace();

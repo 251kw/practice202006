@@ -27,7 +27,7 @@ public class UserMultiDeleteServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -55,14 +55,17 @@ public class UserMultiDeleteServlet extends HttpServlet {
 		request.setAttribute("sprofile", sprofile);
 		request.setAttribute("logoutalert", logoutmessage);
 
+		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
+
 		// 削除対象のユーザーを全て削除
 		for(String selectId:select) {
 
-			ArrayList<ShoutDTO> list = CheckDB.DeleteUser(selectId);
-			session.setAttribute("shouts", list);
+			list = CheckDB.DeleteUser(selectId);
 		}
 
-		dispatcher = request.getRequestDispatcher("MultiDeleteResult.jsp");
+		session.setAttribute("shouts", list);
+
+		dispatcher = request.getRequestDispatcher("multideleteresult.jsp");
 		dispatcher.forward(request,response);
 	}
 

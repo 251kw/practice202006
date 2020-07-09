@@ -23,7 +23,7 @@ public class TurnUserAddInputServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -47,7 +47,7 @@ public class TurnUserAddInputServlet extends HttpServlet {
 
 		// 新規登録画面に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("UserAddInput.jsp");
+		dispatcher = request.getRequestDispatcher("useraddinput.jsp");
 		dispatcher.forward(request,response);
 	}
 

@@ -22,7 +22,7 @@ public class TurnLoginTopServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -32,7 +32,7 @@ public class TurnLoginTopServlet extends HttpServlet {
 
 		// ログイン画面に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("LoginTop.jsp");
+		dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request,response);
 	}
 

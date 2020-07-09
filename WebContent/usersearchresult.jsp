@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -30,7 +30,9 @@
 					</tr>
 				</c:if>
 				<tr class="bg-light">
-					<th class="text-center"><input type="checkbox" name="checkall" value="checkall"></th>
+					<th>
+						<button type="submit" formaction="./AllSelected" name="checkall" value="${requestScope.checkall}">全選択</button>
+					</th>
 					<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
 					<th class="text-center">アイコン</th><th class="text-center">プロフィール</th>
 					<th class="text-center">更新</th>
@@ -39,26 +41,25 @@
 				<c:forEach var="resultList" items="${resultList}">
 					<tr>
 						<%--チェックボックス --%>
-						<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}"></td>
+						<c:choose>
+							<c:when test="${!empty requestScope.checkall}">
+								<td class="text-center"><input type="checkbox" checked name="select" value="${resultList.loginId}"></td>
+							</c:when>
+							<c:otherwise>
+								<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}"></td>
+							</c:otherwise>
+						</c:choose>
 						<td class="text-center">${resultList.loginId}</td>
 						<td class="text-center">${resultList.userName}</td>
 						<td class="text-center"><span class="${resultList.icon} pe-2x pe-va"></span></td>
 						<td class="text-center">${resultList.profile}</td>
 						<td class="text-center">
-							<%-- 該当するログインIDと入力情報を送る --%>
+							<%-- 該当するログインIDを送る --%>
 							<button type="submit" name="eloginId" value="${resultList.loginId}">更新</button>
-							<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
-							<input type="hidden" name="suserName" value="${requestScope.suserName}">
-							<input type="hidden" name="sicon" value="${requestScope.sicon}">
-							<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
 						</td>
 						<td class="text-center">
-							<%-- 該当するログインIDと入力情報を送る --%>
+							<%-- 該当するログインIDを送る --%>
 							<button type="submit" name="dloginId" value="${resultList.loginId}">削除</button>
-							<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
-							<input type="hidden" name="suserName" value="${requestScope.suserName}">
-							<input type="hidden" name="sicon" value="${requestScope.sicon}">
-							<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
 						</td>
 					</tr>
 				</c:forEach>
@@ -66,7 +67,7 @@
 			<table style="width: 700px" class="table container padding-y-5">
 				<tr>
 					<td colspan="4" class="text-right">
-						<button type="submit" class="btn" name="edloginId" value="select">選択したユーザーを削除</button>
+						<button type="submit" class="btn">選択したユーザーを削除</button>
 						<%-- 入力情報を送る --%>
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
@@ -79,14 +80,12 @@
 		<form action="./TurnSearchInput" method="post">
 			<table style="width: 700px" class="table container padding-y-5">
 				<tr>
-					<td><input type="hidden" name="sloginId" value="${requestScope.sloginId}"></td>
-					<td><input type="hidden" name="suserName" value="${requestScope.suserName}"></td>
-					<td><input type="hidden" name="sicon" value="${requestScope.sicon}"></td>
-					<td><input type="hidden" name="sprofile" value="${requestScope.sprofile}"></td>
-				</tr>
-				<tr>
 					<td colspan="4" class="text-right">
 						<input class="btn" type="submit" value="入力画面に戻る" />
+						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
+						<input type="hidden" name="suserName" value="${requestScope.suserName}">
+						<input type="hidden" name="sicon" value="${requestScope.sicon}">
+						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
 					</td>
 				</tr>
 			</table>
