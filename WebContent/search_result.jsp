@@ -45,7 +45,8 @@
 					<c:forEach var="user" items="${users}">
 
 						<tr>
-							<td><input type="checkbox" name="select" value="${user.loginId}"></td>
+							<td><input type="checkbox" name="select"
+							value="${user.loginId},${user.password},${user.userName},${user.icon},${user.profile}"></td>
 							<td  class="text-center">
 							<span class="${user.icon} pe-3x pe-va"></span></td>
 							<td class="text-center">${user.userName}</td>
@@ -65,6 +66,11 @@
 						</tr>
 
 					</c:forEach>
+					<tr>
+						<td colspan="8" class="text-left">
+							<button class="btn" type="submit" name="all" value="複数削除">複数削除</button>
+						</td>
+					</tr>
 				</table>
 			</form>
 		</div>

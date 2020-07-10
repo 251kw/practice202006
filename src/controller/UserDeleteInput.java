@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -37,35 +38,49 @@ public class UserDeleteInput extends HttpServlet {
 
 		//情報受け取る
 		String user = request.getParameter("user");
-		//情報が一つのString文で送られてくるため、配列に変換
-		String[] duser = user.split(",", 0);
+		String all = request.getParameter("all");
 		//複数削除用
 		String[] deleteList =request.getParameterValues("select");
-
+		RequestDispatcher dispatcher = null;
 		//ログインしているユーザーの情報をとってくる
 		HttpSession session = request.getSession();
 		UserDTO loginuser =  (UserDTO)session.getAttribute("user");
 
-		request.setAttribute("duser", duser);
+		if(all!=null && all.equals("複数削除")) {
+			ArrayList<String[]> deleteuser = new ArrayList<String[]>();
+			for(int i=0; i<deleteList.length; i++) {
+				String[] list =deleteList[i].split(",",0);
+				if(list[0].equals(loginuser.getLoginId())){
+					String msg = null;
+					msg = "＊現在ログインしているユーザーを含むため消すとログアウトします。";
+					request.setAttribute("alert", msg);
+				}
+				deleteuser.add(list);
+			}
+			request.setAttribute("deleteList",deleteList);
+			dispatcher = request.getRequestDispatcher("multDelete.jsp");
+		}else {
+			//情報が一つのString文で送られてくるため、配列に変換
+			String[] duser = user.split(",", 0);
+			request.setAttribute("duser", duser);
 
-		//ログインしているユーザーかチェック
-		if(duser[0].equals(loginuser.getLoginId()) && duser[5].equals("削除")){
-			String msg = null;
-			msg = "＊現在ログインしているユーザーのため消すとログアウトします。";
-			request.setAttribute("alert", msg);
+			//ログインしているユーザーかチェック
+			if(duser[0].equals(loginuser.getLoginId()) && duser[5].equals("削除")){
+				String msg = null;
+				msg = "＊現在ログインしているユーザーのため消すとログアウトします。";
+				request.setAttribute("alert", msg);
+			}
+
+
+			//配列の[5]に削除か更新と入っているため、それで送る先を決める
+			if(duser[5].equals("削除")) {
+				dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
+			}else if(duser[5].equals("更新")) {
+				//更新にはsessionを使うため
+				session.setAttribute("duser", duser);
+				dispatcher = request.getRequestDispatcher("update_input.jsp");
+			}
 		}
-
-		RequestDispatcher dispatcher = null;
-
-		//配列の[5]に削除か更新と入っているため、それで送る先を決める
-		if(duser[5].equals("削除")) {
-			dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
-		}else if(duser[5].equals("更新")) {
-			//更新にはsessionを使うため
-			session.setAttribute("duser", duser);
-			dispatcher = request.getRequestDispatcher("update_input.jsp");
-		}
-
 		dispatcher.forward(request, response);
 	}
 
