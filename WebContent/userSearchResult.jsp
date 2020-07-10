@@ -22,8 +22,10 @@
 		<div class="padding-y-5">
 			<div style="width: 80%" class="container padding-y-5">
 				<%-- リストにある要素の数だけ繰り返し --%>
+				<form action="./umdi" method="post">
 					<table  width="500" class="table table-striped table-bordered">
 						<tr>
+							<td width="50" height="10"></td>
 							<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
 							<td width="113" height="10">名前</td>
 							<td width="120" height="10">ログインID</td>
@@ -32,6 +34,7 @@
 							<td width="120" height="10">削除</td>
 							<c:forEach var="users" items="${users}">
 								<tr>
+									<td width="50" height="10"><input type="checkbox" name="delloginId" value="${users.loginId}"></td>
 									<td width="50" height="10"><span
 										class="${users.icon} pe-2x pe-va"></span></td>
 									<td width="130" height="10">${users.userName}</td>
@@ -45,6 +48,13 @@
 							</c:forEach>
 						</tr>
 					</table>
+					<table>
+					<tr>
+						<td colspan="4" class="text-left"><input type="submit"
+						value="複数削除" class="btn"></td>
+					</tr>
+			</table>
+				</form>
 
 			</div>
 		</div>

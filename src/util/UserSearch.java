@@ -160,6 +160,11 @@ public class UserSearch extends SnsDAO {
 		return list;
 		}
 
+	/**
+	 * @param loginId
+	 * @return
+	 * ユーザー削除のメソッド
+	 */
 	public boolean deleteUser(String loginId){
 		boolean result = false;
 		try {
@@ -182,13 +187,177 @@ public class UserSearch extends SnsDAO {
 		return result;
 	}
 
+	/**
+	 * @param loginId
+	 * @return
+	 * ユーザーの複数削除
+	 */
+	public boolean multideleteUser(String[] loginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			//配列の数を数えるカウンター
+			int counter = 0;
+			// sql文全件検索
+			String sql = "DELETE FROM sns.users WHERE ";
+
+			//ioginidが空でなければWHERE句追加
+			if(loginId.length == 1) {
+				sql += "loginId=? " ;
+			}
+
+			if(loginId.length >= 2) {
+				sql += "loginId=? " ;
+				for (int i = 0; i < loginId.length - 1; i++) {
+					sql += "OR loginId=?" ;
+				}
+			}
+
+			pstmt = conn.clientPrepareStatement(sql);
+
+			//プレースホルダにセット
+			if(loginId != null) {
+				for (int i = 0; i <= loginId.length - 1; i++) {
+					pstmt.setString(++counter,loginId[i]);
+				}
+			}
+
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt != 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+	/**
+	 * @param loginId
+	 * @return
+	 * 叫びの削除を行うメソッド
+	 */
+	public boolean multideleteshouts(String[] loginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			//配列の数を数えるカウンター
+			int counter = 0;
+			// sql文全件検索
+			String sql = "DELETE FROM sns.shouts WHERE ";
+
+			//ioginidが空でなければWHERE句追加
+			if(loginId.length == 1) {
+				sql += "loginId=? " ;
+			}
+
+			if(loginId.length >= 2) {
+				sql += "loginId=? " ;
+				for (int i = 0; i < loginId.length - 1; i++) {
+					sql += "OR loginId=?" ;
+				}
+			}
+
+			pstmt = conn.clientPrepareStatement(sql);
+
+			//プレースホルダにセット
+			if(loginId != null) {
+				for (int i = 0; i <= loginId.length - 1; i++) {
+					pstmt.setString(++counter,loginId[i]);
+				}
+			}
+
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt != 0) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+
+	/**
+	 * @param loginId ログインID
+	 * @return
+	 * ログインIDから検索するメソッド
+	 */
 	public ArrayList<SearchDTO> SearchloginId(String loginId) {
 		try {
 			conn = getConnection();
-			// sql文全件検索
+			// sql文
 			String sql = "SELECT * FROM sns.users WHERE loginId=?";
 			pstmt = conn.clientPrepareStatement(sql);
 			pstmt.setString(1, loginId);
+			//sql文の実行
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば
+			while (rset.next()) {
+				//必要な値を取り出し
+				user = new SearchDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+				//リストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+		return list;
+	}
+
+	/**
+	 * @param loginId ログインID
+	 * @return
+	 * ログインIDから複数検索するメソッド
+	 */
+	public ArrayList<SearchDTO> searchMultiloginId(String[] loginId) {
+		try {
+			conn = getConnection();
+			//配列の数を数えるカウンター
+			int counter = 0;
+
+			// sql文
+			String sql = "SELECT * FROM sns.users WHERE ";
+
+			//ioginidが空でなければWHERE句追加
+			if(loginId.length == 1) {
+				sql += "loginId=? " ;
+			}
+
+			if(loginId.length >= 2) {
+				sql += "loginId=? " ;
+				for (int i = 0; i < loginId.length - 1; i++) {
+					sql += "OR loginId=?" ;
+				}
+			}
+
+			pstmt = conn.clientPrepareStatement(sql);
+
+			//プレースホルダにセット
+			if(loginId != null) {
+				for (int i = 0; i <= loginId.length - 1; i++) {
+					pstmt.setString(++counter,loginId[i]);
+				}
+			}
+
 			//sql文の実行
 			rset = pstmt.executeQuery();
 

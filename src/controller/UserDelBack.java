@@ -46,6 +46,9 @@ public class UserDelBack extends HttpServlet {
 		String loginUserId = (String) session2.getAttribute("loginUserId");
 		String sloginId = (String) request.getParameter("sloginId");
 
+		//複数削除のユーザー情報の配列
+		String[] dloginId = request.getParameterValues("dloginId");
+
 		RequestDispatcher dispatcher = null;
 
 		UserSearch us = new UserSearch();
@@ -53,18 +56,44 @@ public class UserDelBack extends HttpServlet {
 		//ログインユーザーの検索
 		ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId, userName, profile, sicon);
 
-		//削除するユーザーがログインユーザーか判別
-		if (loginUserId.equals(sloginId)) {
-			dispatcher = request.getRequestDispatcher("index.jsp");
-		}else {
+		int flag = 0;
+		//削除情報が配列で送られてきたら
+		if(dloginId != null) {
+			//配列の要素数だけ繰り返す
+			for (int i = 0; i < dloginId.length; i++) {
+				//ログイン中のログインIDと同じものがないか判定
+				if(dloginId[i].equals(loginUserId)) {
+					//ログイン中のユーザーならログアウト
+					dispatcher = request.getRequestDispatcher("index.jsp");
+					flag = 1;
+				}
+			}
+		}
+
+		if(flag == 0) {
 			//検索結果が空になるかどうかを判別
 			if (list == null || list.size() == 0) {
 				dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
 			} else {
 				//検索したユーザー情報を、ユーザリストとしてリクエストスコープに追加
 				request.setAttribute("users", list);
-				//session2.invalidate();
 				dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
+			}
+		}
+
+		//削除するユーザーがログインユーザーか判別
+		if(sloginId != null) {
+			if (loginUserId.equals(sloginId)) {
+				dispatcher = request.getRequestDispatcher("index.jsp");
+			}else {
+				//検索結果が空になるかどうかを判別
+				if (list == null || list.size() == 0) {
+					dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
+				} else {
+					//検索したユーザー情報を、ユーザリストとしてリクエストスコープに追加
+					request.setAttribute("users", list);
+					dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
+				}
 			}
 		}
 		dispatcher.forward(request, response);
