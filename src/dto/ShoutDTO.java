@@ -8,9 +8,8 @@ public class ShoutDTO {
 	private String date;	// 書き込み日時
 	private String writing;	// 書き込み内容
 
+
 	// getter and setter
-
-
 	public ShoutDTO() {
 
 	}
@@ -55,9 +54,7 @@ public class ShoutDTO {
 		this.writing = writing;
 	}
 
-
-
-
+	// 書き込み１件分の情報を保持するクラス
 	public ShoutDTO(String userName, String icon, String date, String writing) {
 		this.userName = userName;
 		this.icon = icon;

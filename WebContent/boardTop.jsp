@@ -65,28 +65,33 @@
 				</c:if>
 			</table>
 		</form>
-		<%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
-		<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
-		<div class="padding-y-5">
-			<div style="width: 40%" class="container padding-y-5">
-				<%-- リストにある要素の数だけ繰り返し --%>
-				<c:forEach var="shout" items="${shouts}">
-					<table class="table table-striped table-borderd">
-						<tr>
-							<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
-							<td>${shout.userName}</td>
-						</tr>
-						<tr>
-							<td>${shout.date}</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-								<textarea rows="5" class="form-control">${shout.writing}</textarea>
-							</td>
-						</tr>
-					</table>
-				</c:forEach>
+		<form action="" method="Get">
+			<%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
+			<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
+			<div class="padding-y-5">
+				<div style="width: 40%" class="container padding-y-5">
+					<%-- リストにある要素の数だけ繰り返し --%>
+					<c:forEach var="shout" items="${shouts}">
+						<table class="table table-striped table-borderd">
+							<tr>
+								<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
+								<td class="text-center">${shout.userName}</td>
+							</tr>
+							<tr>
+								<td class="text-center">${shout.date}</td>
+							</tr>
+							<tr>
+								<td colspan="2">
+									<textarea rows="5" class="form-control">${shout.writing}</textarea>
+								</td>
+							<tr>
+								<td colspan="2" class="text-right"><button type="submit" name="ewriting" value="${shout.writing}">編集</button>
+								<button type="submit" name="dwriting" value="${shout.writing}">削除</button></td>
+							</tr>
+						</table>
+					</c:forEach>
+				</div>
 			</div>
-		</div>
+		</form>
 	</body>
 </html>

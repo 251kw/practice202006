@@ -10,8 +10,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Util.CheckInput;
 import dto.UserDTO;
+import util.CheckInput;
+import util.Constant;
 
 /**
  * 変更内容に入力された文字を判定する
@@ -42,7 +43,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 
 		String checkpass = null;
 		String checkblank = null;
-		String regex_AlphaNum = "^[A-Za-z0-9]+$";
+		String regex_AlphaNum = Constant.AlphaNum;
 
 		// 送信情報の取得
 		String epassword = request.getParameter("epassword");

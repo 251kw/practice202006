@@ -1,4 +1,4 @@
-package Util;
+package util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -276,6 +276,11 @@ public class CheckDB {
 	}
 
 
+	/**
+	 * チェックボックスにチェックを入れたユーザーを元に削除リストを作成する
+	 * @param select チェックを入れたユーザーを格納した配列
+	 * @return 削除するユーザーの情報を格納したリスト
+	 */
 	public static ArrayList<UserDTO> MakedeleteList(String[] select) {
 
 		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";

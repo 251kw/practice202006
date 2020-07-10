@@ -11,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Util.CheckDB;
 import dto.ShoutDTO;
 import dto.UserDTO;
+import util.CheckDB;
 
 /**
  * ログインIDを参照してユーザーを削除する

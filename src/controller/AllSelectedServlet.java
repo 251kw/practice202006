@@ -9,9 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Util.CheckDB;
 import dto.UserDTO;
+import util.CheckDB;
 
 /**
  * Servlet implementation class AllSelectedServlet
@@ -32,6 +33,8 @@ public class AllSelectedServlet extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
+
 		request.setCharacterEncoding("UTF-8");
 
 		RequestDispatcher dispatcher = null;
@@ -49,6 +52,10 @@ public class AllSelectedServlet extends HttpServlet {
 		request.setAttribute("sprofile", sprofile);
 
 		ArrayList<UserDTO> resultList = new ArrayList<UserDTO>();
+
+		// 全選択ボタンが押された時はチェックボックスの保持を初期化
+		String[] select = null;
+		session.setAttribute("select", select);
 
 		// 全選択
 		if(checkall.equals("checkall")) {

@@ -14,7 +14,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import Util.CheckInput;
+import util.CheckInput;
+import util.Constant;
 
 /**
  * 新規登録画面で入力された値をチェックする
@@ -53,7 +54,7 @@ public class UserAddGetInfoServlet extends HttpServlet {
 		String checkid = null;
 		String checkpass = null;
 		String checkblank = null;
-		String regex_AlphaNum = "^[A-Za-z0-9]+$";
+		String regex_AlphaNum = Constant.AlphaNum;
 
 		// 送信情報の取得
 		String newloginId = request.getParameter("newloginId");

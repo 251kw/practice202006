@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Util.CheckDB;
 import dto.UserDTO;
+import util.CheckDB;
 
 /**
  * 変更された情報をデータベースに登録するアカウント

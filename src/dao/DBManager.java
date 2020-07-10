@@ -14,7 +14,13 @@ import dto.UserDTO;
 
 public class DBManager extends SnsDAO{
 
-	// ログインIDとパスワードを受け取り、登録ユーザー一覧に一致したものがあるか検索
+	/**
+	 * ログインIDとパスワードを受け取り、登録ユーザー一覧に一致したものがあるか検索
+	 * @param loginId ログイン画面で入力されたログインID
+	 * @param password ログイン画面で入力されたパスワード
+	 * @return 条件に一致したユーザーの情報を格納したオブジェクト
+	 */
+
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null;	// データベース接続情報
 		PreparedStatement pstmt = null;	// SQL 管理情報
@@ -55,7 +61,11 @@ public class DBManager extends SnsDAO{
 		return user;
 	}
 
-	// 書き込み内容リストの getter
+
+	/**
+	 * 書き込み内容リストの getter
+	 * @return 全書き込み内容を格納したShoutDTO型のリスト
+	 */
 	public ArrayList<ShoutDTO> getShoutList(){
 		Connection conn = null;
 		Statement pstmt = null;
@@ -98,7 +108,13 @@ public class DBManager extends SnsDAO{
 		return list;
 	}
 
-	// ログインユーザー情報と書き込み内容を受け取り、リストに追加する
+
+	/**
+	 * ログインユーザー情報と書き込み内容を受け取り、リストに追加する
+	 * @param user 現在ログイン中のアカウントの情報
+	 * @param writing 叫ぶ欄に入力された内容
+	 * @return
+	 */
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;

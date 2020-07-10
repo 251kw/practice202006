@@ -53,8 +53,7 @@ public class UserDTO {
 		this.profile = profile;
 	}
 
-
-
+	// ユーザー情報１人分の情報を保持するクラス
 	public UserDTO(String loginId, String password, String userName, String icon, String profile) {
 		this.loginId = loginId;
 		this.password = password;

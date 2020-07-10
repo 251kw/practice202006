@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Util.CheckDB;
 import dto.ShoutDTO;
+import util.CheckDB;
 
 /**
  * ユーザーの複数件削除を実行する

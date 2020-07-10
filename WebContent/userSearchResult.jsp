@@ -41,14 +41,36 @@
 				<c:forEach var="resultList" items="${resultList}">
 					<tr>
 						<%--チェックボックス --%>
-						<c:choose>
-							<c:when test="${!empty requestScope.checkall}">
-								<td class="text-center"><input type="checkbox" checked name="select" value="${resultList.loginId}"></td>
-							</c:when>
-							<c:otherwise>
+						<%-- ↓チェックボックスにチェックがあるとき↓ --%>
+						<c:if test="${!empty sessionScope.select}"><%-- この時は必ずcheckallは空 --%>
+							<%-- チェックがあるユーザーに該当する場合 --%>
+							<c:forEach var="sessionselect" items="${sessionScope.select}">
+								<c:set var="flag" value="0" />
+								<c:if test="${sessionselect == resultList.loginId}">
+									<td class="text-center">
+										<input checked type="checkbox" name="select" value="${resultList.loginId}">aaaaaaaa
+										<c:set var="flag" value="1" />
+									</td>
+								</c:if>
+								<%-- チェックがあるユーザーに該当しない場合 --%>
+								<c:if test="${flag != '1'}">
+									<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}">bbbbb</td>
+								</c:if>
+							</c:forEach>
+						</c:if>
+						<%-- ↑チェックボックスにチェックがあるとき↑ --%>
+						<%-- ↓チェックボックスにチェックがないとき↓ --%><%-- checkallが空じゃない可能性あり --%>
+						<c:if test="${empty sessionScope.select}">
+							<%-- 全選択が選択されている場合 --%>
+							<c:if test="${!empty checkall}">
+								<td class="text-center"><input checked type="checkbox" name="select" value="${resultList.loginId}"></td>
+							</c:if>
+							<%-- 全解除が選択されている場合 or 最初の検索時 --%>
+							<c:if test="${empty checkall}">
 								<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}"></td>
-							</c:otherwise>
-						</c:choose>
+							</c:if>
+						</c:if>
+						<%-- ↑チェックボックスにチェックがないとき↑ --%>
 						<td class="text-center">${resultList.loginId}</td>
 						<td class="text-center">${resultList.userName}</td>
 						<td class="text-center"><span class="${resultList.icon} pe-2x pe-va"></span></td>

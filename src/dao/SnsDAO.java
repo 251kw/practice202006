@@ -11,7 +11,10 @@ public class SnsDAO {
 	private final String USER = "root";
 	private final String PASSWORD = "root";
 
-	// データベースの接続情報を返す
+	/**
+	 * データベースの接続情報を返す
+	 * @return データベースへの接続情報
+	 */
 	public Connection getConnection() {
 		Connection conn = null;
 
@@ -30,7 +33,10 @@ public class SnsDAO {
 		return conn;
 	}
 
-	// Connection型変数が持つデータべースとJDBCリソースの解放
+	/**
+	 * Connection型変数が持つデータべースとJDBCリソースの解放
+	 * @param データベースへの接続情報
+	 */
 	public void close(Connection conn) {
 		if(conn != null) {
 			try {
@@ -41,7 +47,10 @@ public class SnsDAO {
 		}
 	}
 
-	// Statement型変数が持つデータベースとJDBCリソースの解放
+	/**
+	 * Statement型変数が持つデータベースとJDBCリソースの解放
+	 * @param Statement型の変数
+	 */
 	public void close(Statement stmt) {
 		if(stmt != null) {
 			try {
@@ -52,7 +61,10 @@ public class SnsDAO {
 		}
 	}
 
-	// ResultSet型変数が持つデータベースとJDBCリソースの解放
+	/**
+	 * ResultSet型変数が持つデータベースとJDBCリソースの解放
+	 * @param ResultSet型の変数
+	 */
 	public void close(ResultSet rset) {
 		if(rset != null) {
 			try {

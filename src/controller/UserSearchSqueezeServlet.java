@@ -9,10 +9,12 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import Util.CheckDB;
-import Util.CheckInput;
 import dto.UserDTO;
+import util.CheckDB;
+import util.CheckInput;
+import util.Constant;
 
 /**
  * 検索入力欄の値を元に条件に該当するユーザーを絞り込む
@@ -35,6 +37,8 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		HttpSession session = request.getSession();
+
 		// 値を保持するための処理
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
@@ -48,6 +52,10 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 
 		String checkall = "";
 
+		// チェックボックスの値保持用8
+		String[] select = (String[]) session.getAttribute("select");
+		session.setAttribute("select", select);
+
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
@@ -60,7 +68,7 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
-		String regex_AlphaNum = "^[A-Za-z0-9]+$";
+		String regex_AlphaNum = Constant.AlphaNum;
 
 		ArrayList<UserDTO> resultList = new ArrayList<UserDTO>();
 

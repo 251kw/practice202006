@@ -11,8 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Util.CheckDB;
 import dto.UserDTO;
+import util.CheckDB;
 
 /**
  * 削除機能、編集機能、複数件削除機能の中継地点となるサーブレット
