@@ -73,7 +73,12 @@ public class LoginIndexInputServlet extends HttpServlet {
 				session.setAttribute("user", user); //ログインユーザー
 				session.setAttribute("shouts", list); //叫びのリスト
 
-				//処理の転送先をtopInput.jspに指定
+				//処理の転送先をtopInput.jspに指定(必要なリクエストの初期値を渡す)
+				String ck = "on";
+				request.setAttribute("ck", ck);
+				ArrayList<String> checkShouts = new ArrayList<String>();
+				checkShouts.add("");
+				request.setAttribute("checkShouts", checkShouts);
 				dispatcher = request.getRequestDispatcher("topInput.jsp");
 			}else {
 				//ユーザー情報を取得できない場合

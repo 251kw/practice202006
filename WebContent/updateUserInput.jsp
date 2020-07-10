@@ -21,6 +21,7 @@
 		<h5 class="padding-y-5 text-center">更新情報を入力してください</h5>
 
 		<form action="./updateUserComfirm" method="post">
+		<input type="hidden" name="loginID" value="${loginID}">
 			<input type="hidden" name="originalLoginId" value="${originalloginId}">
 			<table style="width: 70%" class="table container">
 				<tr>
@@ -30,10 +31,7 @@
 				</tr>
 				<tr>
 					<td class="color-main text-left">ログインID</td>
-					<td class="text-left">
-						<p align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</p>
-						<input class="form-control" type="text" name="loginID" value="${loginID}" size="20" maxlength="20" />
-					</td>
+					<td class="color-main text-left"><span>${loginID}</span></td>
 				</tr>
 				<tr>
 					<td class="color-main text-left">パスワード</td>

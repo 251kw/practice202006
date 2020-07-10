@@ -67,22 +67,37 @@
 		</form>
 
 		<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
-		<div style="width: 50%" class="container padding-y-5">
-			<c:forEach var="shout" items="${shouts}">
-				<table class="table table-striped table-bordered">
-					<tr>
-						<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
-						<td>${shout.userName}</td>
-					</tr>
-					<tr>
-						<td>${shout.date}</td>
-					</tr>
-					<tr>
-						<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea></td>
-					</tr>
-				</table>
-			 </c:forEach>
-		</div>
+		<form action="./deleteOrUpdateShoutsConfirmServlet" method="get">}
+
+		<c:if test="${ck == 'on' }"><div class="text-center"><button class="btn" type="submit" name="shoutsId" value="allchkon" >すべて選択</button></div></c:if>
+		<c:if test="${ck == 'off' }"><div class="text-center"><button class="btn" type="submit" name="shoutsId" value="allchkoff" >すべて解除</button></div></c:if>
+
+			<div style="width: 50%" class="container padding-y-5">
+				<c:forEach var="shout" items="${shouts}">
+					<table class="table table-bordered">
+						<tr>
+							<td>
+								<label class="fancy-checkbox"><input type="checkbox" name="checked" value="${shout.shoutsId}" <c:forEach var="checks" items="${checkShouts}"><c:if test="${shout.shoutsId == checks}">checked</c:if></c:forEach> /><span></span></label>
+							</td>
+							<td>
+								<button class="btn btn-sm" type="submit" name="shoutsId" value="${shout.shoutsId}" >更 新</button>
+							</td>
+						</tr>
+						<tr>
+							<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
+							<td>${shout.userName}</td>
+						</tr>
+						<tr>
+							<td>${shout.date}</td>
+						</tr>
+						<tr>
+							<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea></td>
+						</tr>
+					</table>
+				 </c:forEach>
+				 <button class="btn" type="submit" name="shoutsId" value="alldel" >選択した叫びを削除する</button>
+			</div>
+		</form>
 
 	</body>
 </html>

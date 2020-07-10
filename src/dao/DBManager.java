@@ -110,6 +110,47 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
+
+	public ShoutDTO getShout(String sql) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ShoutDTO shout = null;
+
+		try {
+
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SERECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				shout = new ShoutDTO();
+				shout.setShoutsId(String.valueOf(rset.getInt(1)));
+				shout.setUserName(rset.getString(2));
+				shout.setIcon(rset.getString(3));
+				String str = rset.getString(4);
+				shout.setDate(str.substring(0, str.indexOf('.')));
+				shout.setWriting(rset.getString(5));
+				shout.setLoginId(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return shout;
+	}
+
 	/**
 	 * @param udto 追加したいユーザー情報
 	 * @return INSERT文の実行結果が1ならTRUE
@@ -165,14 +206,13 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//UPDATE文の登録と実行
-			String sql = "UPDATE users SET loginId=? ,password=? ,userName=? ,icon=?,profile=? WHERE loginId =?";
+			String sql = "UPDATE users SET password=? ,userName=? ,icon=?,profile=? WHERE loginId =?";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, udto.getLoginId());
-			pstmt.setString(2, udto.getPassword());
-			pstmt.setString(3, udto.getUserName());
-			pstmt.setString(4, udto.getIcon());
-			pstmt.setString(5, udto.getProfile());
-			pstmt.setString(6, loginId);
+			pstmt.setString(1, udto.getPassword());
+			pstmt.setString(2, udto.getUserName());
+			pstmt.setString(3, udto.getIcon());
+			pstmt.setString(4, udto.getProfile());
+			pstmt.setString(5, loginId);
 
 			int cnt = pstmt.executeUpdate(); //実行
 			if (cnt == 1) {
@@ -249,11 +289,13 @@ public class DBManager extends SnsDAO {
 			while (rset.next()) {
 				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
+				shout.setShoutsId(String.valueOf(rset.getInt(1)));
 				shout.setUserName(rset.getString(2));
 				shout.setIcon(rset.getString(3));
 				String str = rset.getString(4);
 				shout.setDate(str.substring(0, str.indexOf('.')));
 				shout.setWriting(rset.getString(5));
+				shout.setLoginId(rset.getString(6));
 
 				//書き込み内容をリストに追加
 				list.add(shout);
@@ -300,6 +342,40 @@ public class DBManager extends SnsDAO {
 			int cnt = pstmt.executeUpdate(); //実行
 			if (cnt == 1) {
 				//INSERT文の実行結果が1なら登録成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	public boolean updateWriting(String writing,String shoutsId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		boolean result = false;
+		try {
+			conn = getConnection();
+
+			//UPDATE文の登録と実行
+			String sql = "UPDATE shouts SET writing=? ,date=? WHERE loginId =?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writing);
+			//現在日時の取得と日付の書式設定
+			Calendar calendar = Calendar.getInstance();
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			pstmt.setString(2, sdf.format(calendar.getTime()));
+			pstmt.setString(3, shoutsId);
+
+			int cnt = pstmt.executeUpdate(); //実行
+			if (cnt == 1) {
+				//UPDATE文の実行結果が1なら登録成功
 				result = true;
 			}
 		} catch (SQLException e) {
@@ -398,11 +474,55 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
+	public ArrayList<ShoutDTO> getSearchShoutsList(String sql) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>(); //UserDTOをインスタンス化してリスト化
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SERECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+				//検索結果(users)の数だけ繰り返す6
+				while (rset.next()) {
+					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					ShoutDTO shout = new ShoutDTO();
+					shout.setShoutsId(String.valueOf(rset.getInt(1)));
+					shout.setUserName(rset.getString(2));
+					shout.setIcon(rset.getString(3));
+					String str = rset.getString(4);
+					shout.setDate(str.substring(0, str.indexOf('.')));
+					shout.setWriting(rset.getString(5));
+					shout.setLoginId(rset.getString(6));
+
+					//書き込み内容をリストに追加
+					list.add(shout);
+				}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
 	//ログインIDを受け取りユーザー情報を返す
 		/**
 		 * @param loginId 削除したいユーザーのログインID
 		 * @return tf DELETE文の実行結果が1ならTRUE
 		 */
+		@Deprecated
 		public boolean deleteUser(String loginId) {
 			boolean result = false;
 
@@ -438,6 +558,7 @@ public class DBManager extends SnsDAO {
 		 * @param loginId 削除するshoutsのログインID
 		 * @return tf DELETE文の実行結果が1ならTRUE
 		 */
+		@Deprecated
 		public boolean deleteUserShout(String loginId) {
 			boolean result = false;
 

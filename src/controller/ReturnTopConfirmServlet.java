@@ -56,7 +56,12 @@ public class ReturnTopConfirmServlet extends HttpServlet {
 		ArrayList<ShoutDTO> list = dbm.getShoutList();  //DBM内にあるメソッド
 		session.setAttribute("shouts", list); //叫びのリスト
 
-		// input.jsp に処理を転送
+		// input.jsp に処理を転送(必要な情報をリクエストスコープへ)
+		String ck = "on";
+		request.setAttribute("ck", ck);
+		ArrayList<String> checkShouts = new ArrayList<String>();
+		checkShouts.add("");
+		request.setAttribute("checkShouts", checkShouts);
 		dispatcher = request.getRequestDispatcher("topInput.jsp");
 		dispatcher.forward(request, response);
 	}

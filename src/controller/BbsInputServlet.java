@@ -53,7 +53,7 @@ public class BbsInputServlet extends HttpServlet {
 				dbm = new DBManager();
 			}
 
-// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
+			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
 			dbm.setWriting(user, writing);
 
 			// 書き込み内容追加後のリストを取得
@@ -70,7 +70,12 @@ public class BbsInputServlet extends HttpServlet {
 
 		}
 
-		// topInput.jsp に処理を転送
+		// topInput.jsp に処理を転送(必要な情報をリクエストスコープへ)
+		String ck = "on";
+		request.setAttribute("ck", ck);
+		ArrayList<String> checkShouts = new ArrayList<String>();
+		checkShouts.add("");
+		request.setAttribute("checkShouts", checkShouts);
 		dispatcher = request.getRequestDispatcher("topInput.jsp");
 		dispatcher.forward(request, response);
 	}

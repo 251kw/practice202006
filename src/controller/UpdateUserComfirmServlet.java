@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.DBManager;
 import dto.UserDTO;
 import util.CheckAddUserInfo;
 
@@ -44,8 +43,6 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher;
 
-		DBManager dbm = new DBManager();
-
 		//入力情報の取得
 		String originalLoginId = request.getParameter("originalLoginId");
 		String loginID = request.getParameter("loginID");
@@ -63,21 +60,7 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 		//エラーがなければ入賞
 		String checker = CheckAddUserInfo.checkinfo(loginID,password1,password2,userName);
 		if (checker == null) {
-
-			//ログインＩＤの使用の可否を確かめる
-			if(dbm.checkID(loginID) || originalLoginId.equals(loginID)) {
-				//使用可能ならaddUserConfirmに転送先を指定
-				dispatcher = request.getRequestDispatcher("updateUserComfirm.jsp");
-			}else {
-
-				String message = null;
-				message = "そのログインＩＤは既に使用されています";
-
-				// エラーメッセージをリクエストオブジェクトに保存
-				request.setAttribute("alert", message);
-				// addUserInput.jsp に転送先を指定
-				dispatcher = request.getRequestDispatcher("updateUserInput.jsp");
-			}
+			dispatcher = request.getRequestDispatcher("updateUserComfirm.jsp");
 		}else {
 			//エラーが見つかった場合
 			String message = null;

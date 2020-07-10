@@ -44,6 +44,7 @@ public class MultiDeleteUserResultServlet extends HttpServlet {
 		UserDTO loginUser = (UserDTO)session.getAttribute("user"); //ログインユーザー
 		request.setAttribute("alert", "");
 
+		//ログインしているユーザーが含まれていればリクエストスコープにalertをセット
 		for (String log : loginIds) {
 			if(log.equals(loginUser.getLoginId())) {
 				request.setAttribute("alert", loginUser.getLoginId());
@@ -51,7 +52,7 @@ public class MultiDeleteUserResultServlet extends HttpServlet {
 		}
 
 		//Shoutsの削除
-		String sql = MakeSelectSQL.makeDeletesShouts(loginIds);
+		String sql = MakeSelectSQL.makeDeletesShoutslogIds(loginIds);
 		dbm.deleteSQL(sql);
 
 		//削除結果に表示するデータをリクエストスコープにいれる

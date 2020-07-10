@@ -10,20 +10,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import dao.DBManager;
-import dto.UserDTO;
+import dto.ShoutDTO;
+import util.MakeSelectSQL;
 
 /**
- * multiDELETEUserConfirm.jspの削除確定ボタンからの呼び出され
- * 送られてきたloginIdをもとにuserテーブルから
- * ユーザーを1件削除する
+ * Servlet implementation class UpdateShoutConfirmServlet
  */
-@WebServlet("/deleteUserResult")
-public class DeleteUserResultServlet extends HttpServlet {
+@WebServlet("/updateShoutConfirmServlet")
+public class UpdateShoutConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public DeleteUserResultServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public UpdateShoutConfirmServlet() {
         super();
-
     }
 
 	/**
@@ -35,23 +36,23 @@ public class DeleteUserResultServlet extends HttpServlet {
 	}
 
 	/**
-	 * multiDELETEUserConfirm.jspの削除確定ボタンからの呼び出し
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String loginId = request.getParameter("loginId"); //indexで送った値
-
-		//DELETE文の実行メソッド
-		DBManager dbm = new DBManager();
-		//削除結果に表示するデータをリクエストスコープにいれる
-		UserDTO deleteUser = dbm.getUser(loginId);
-		request.setAttribute("deleteUser", deleteUser);
-		dbm.deleteUserShout(loginId);
-		dbm.deleteUser(loginId);
-
-		//処理の転送先を.jspに指定deleteUserResult
 		RequestDispatcher dispatcher;
-		dispatcher = request.getRequestDispatcher("deleteUserResult.jsp");
+		request.setCharacterEncoding("UTF-8");
+
+		String shoutsId = request.getParameter("shoutsId");
+		String shout = request.getParameter("shout");
+
+		DBManager dbm = new DBManager();
+		String sql = MakeSelectSQL.makeSelectsShouts(shoutsId);
+		ShoutDTO searchShout = dbm.getShout(sql);
+		request.setAttribute("searchShout", searchShout);
+
+		dispatcher = request.getRequestDispatcher("");
 		dispatcher.forward(request, response);
+
 	}
 
 }

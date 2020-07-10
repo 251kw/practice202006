@@ -144,6 +144,7 @@ public class MakeSelectSQL {
 		return select;
 	}
 
+
 	/**
 	 * @param loginIds 取得したいユーザー情報群のログインIDの配列
 	 * @return sql String型のSELECTのSQL文
@@ -185,10 +186,37 @@ public class MakeSelectSQL {
 	}
 
 	/**
+	 * @param shoutsId 取得したいシャウトのシャウトID
+	 * @return SELECTのSQL文
+	 */
+	public static String makeSelectsShouts(String shoutsId) {
+		String sql ="";
+		sql = ("SELECT * FROM shouts WHERE shoutsId='" + shoutsId + "' AND d_flg=0;");
+
+		return sql;
+	}
+
+	public static String makeSelectsShouts(String[] shoutsId) {
+		String sql ="";
+
+		if(shoutsId.length == 1) {
+			sql = ("SELECT * FROM shouts WHERE shoutsId='" + shoutsId[0] + "' AND d_flg=0;");
+		}else {
+			sql = ("SELECT * FROM shouts WHERE shoutsId='"+shoutsId[0]+"'");
+			for(int i =1 ;shoutsId.length > i ; i++) {
+				sql = (sql + " OR shoutsId='" +shoutsId[i] + "'");
+			}
+			sql = (sql +"AND d_flg=0;");
+		}
+
+		return sql;
+	}
+
+	/**
 	 * @param loginIds 削除したいユーザーのログインIDの配列
 	 * @return sql String型のUPDETEのSQL文(user論理削除)
 	 */
-	public static String makeDeletesShouts(String[] loginIds) {
+	public static String makeDeletesShoutslogIds(String[] loginIds) {
 		String sql ="";
 
 		if(loginIds.length == 1) {
@@ -197,6 +225,22 @@ public class MakeSelectSQL {
 			sql = ("UPDATE shouts SET d_flg=1 WHERE loginId='"+loginIds[0]+"'");
 			for(int i =1 ;loginIds.length > i ; i++) {
 				sql = (sql + " OR loginId='" +loginIds[i] + "'");
+			}
+			sql = (sql +" AND d_flg=0;");
+		}
+
+		return sql;
+	}
+
+	public static String makeDeletesShoutsIds(String[] shoutsId) {
+		String sql ="";
+
+		if(shoutsId.length == 1) {
+			sql = ("UPDATE shouts SET d_flg=1 WHERE shoutsId='" + shoutsId[0] + "' AND d_flg=0;");
+		}else {
+			sql = ("UPDATE shouts SET d_flg=1 WHERE shoutsId='"+shoutsId[0]+"'");
+			for(int i =1 ;shoutsId.length > i ; i++) {
+				sql = (sql + " OR shoutsId='" +shoutsId[i] + "'");
 			}
 			sql = (sql +" AND d_flg=0;");
 		}
