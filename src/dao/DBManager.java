@@ -276,6 +276,119 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
+	 * @param loginId
+	 * @return
+	 */
+	public boolean checkShout(String loginId) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL 管理情報
+		ResultSet rset = null; //検索結果
+		boolean result = false;
+
+		String sql = "SELECT * FROM shouts WHERE loginId=?";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); //SELeCT 構文登録
+			pstmt.setString(1, loginId);
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば
+			if (rset.next()) {
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	/**
+	 * delete文を作り、削除する機能
+	 * @param str sql文の条件部分
+	 * @return 削除に成功したかどうか
+	 */
+	public boolean deleteShouts(String str) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL 管理情報
+		boolean result = false;
+
+
+		String sql = "DELETE FROM shouts WHERE loginId="+str;
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//delete 文の登録と実行
+			pstmt = conn.prepareStatement(sql); //delete 構文登録
+
+
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				//delete文の実行結果が１なら削除成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	/**
+	 * update文を作り、更新する機能
+	 * @param str1 sql文の条件部分
+	 * @param str2 ログインID
+	 * @return 更新に成功したかどうか
+	 */
+	public boolean updateShouts(String str1, String str2) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL 管理情報
+		boolean result = false;
+		int cnt = 0;
+
+
+		String sql = "UPDATE shouts SET "+str1+" WHERE loginId='"+str2+"'";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//update 文の登録と実行
+			pstmt = conn.prepareStatement(sql); //update 構文登録
+
+
+			cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				//update文の実行結果が１なら更新成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	/**
 	 * ログインユーザー情報と書き込み内容を受け取り、リストに追加する
 	 * @param user ログインユーザー情報
 	 * @param writing 叫びの内容

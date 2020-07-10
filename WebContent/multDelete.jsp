@@ -5,12 +5,13 @@
 <html>
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>結果</title>
+	<title>複数削除</title>
 	<link rel="stylesheet" href="./css/skyblue.css">
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
 </head>
 <body>
+<jsp:useBean id="users" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 	<div class="bg-success padding-y-10">
 		<div class="text-center ">
 			<h1>
@@ -19,56 +20,40 @@
 		</div>
 	</div>
 	<br>
-	<%-- requestスコープにあるArrayLisst型のオブジェクトを参照 --%>
-	<jsp:useBean id="users" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
 	<div class="padding-y-5">
 		<div style="width: 70%" class="container padding-y-5">
-			<form action="./udi" method="post">
+			<div class="text-center"><h3>本当に削除しますか？</h3></div>
+			<form action="./umc" method="post">
 				<table class="table table-striped table-bordered">
 					<tr>
-						<th scope="col" class="text-center"></th>
 						<th scope="col" class="text-center">アイコン</th>
 						<th scope="col" class="text-center">名前</th>
 						<th scope="col" class="text-center">ログインID</th>
 						<th scope="col" class="text-center">パスワード</th>
 						<th scope="col" class="text-center">プロフィール</th>
-						<th scope="col" class="text-center">削除</th>
-						<th scope="col" class="text-center">更新</th>
 					</tr>
 					<%-- リストが空の時の処理 --%>
-					<c:if test="${users==null || users.size()==0}">
+					<c:if test="${requestScope.alert != null && requestScope.alert != ' '}">
 						<tr>
-							<td colspan="8" class="color-error text-center">検索結果がありませんでした</td>
+							<td colspan="8" class="color-error text-center"><c:out value="${requestScope.alert}" /></td>
 						</tr>
 					</c:if>
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="user" items="${users}">
-
 						<tr>
-							<td><input type="checkbox" name="select"
-							value="${user.loginId}"></td>
 							<td  class="text-center">
 							<span class="${user.icon} pe-3x pe-va"></span></td>
 							<td class="text-center">${user.userName}</td>
-							<td  class="text-center">${user.loginId}</td>
+							<td  class="text-center">${user.loginId}
+								<input type="hidden" name="users" value="${user.loginId}" >
+							</td>
 							<td  class="text-center">${user.password}</td>
 							<td class="text-center">${user.profile}</td>
-
-							<td>
-								<button class="btn btn-sm" type="submit" name="user"
-								 value="${user.loginId},${user.password},${user.userName},${user.icon},${user.profile},削除">削除</button>
-							</td>
-
-							<td>
-								<button class="btn btn-sm" type="submit" name="user"
-								 value="${user.loginId},${user.password},${user.userName},${user.icon},${user.profile},更新">更新</button>
-							</td>
 						</tr>
-
 					</c:forEach>
 					<tr>
 						<td colspan="8" class="text-left">
-							<button class="btn" type="submit" name="all" value="複数削除">複数削除</button>
+							<button class="btn" type="submit">削除</button>
 						</td>
 					</tr>
 				</table>
@@ -76,12 +61,8 @@
 		</div>
 	</div>
 	<div style="width: 70%" class="container padding-y-5">
-		<form action="search_input.jsp" method="post">
+		<form action="./udr" method="post">
 			<input class="btn" type="submit" value="戻る">
-			<input type="hidden" name="loginId" value="${log}">
-			<input type="hidden" name="userName" value="${Name}">
-			<input type="hidden" name="icon" value="${Ic}">
-			<input type="hidden" name="profile" value="${Pr}">
 		</form>
 	</div>
 </body>

@@ -42,9 +42,20 @@ public class UserDeleteResult extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 
 		//現在ログインしているユーザーの処理に必要
-		String loginId = request.getParameter("d_loginId");
+		String loginId = request.getParameter("d_loginId");			//削除用
+		String[] loginIds = request.getParameterValues("d_loginIds");	//複数削除用
 		HttpSession session = request.getSession();
-		UserDTO user =  (UserDTO)session.getAttribute("user");
+		UserDTO user =  (UserDTO)session.getAttribute("user");			//ログインしているユーザー
+
+
+		//複数削除
+		if(loginIds != null) {
+			for(int i=0; i<loginIds.length; i++) {
+				if(loginIds[i].equals(user.getLoginId())){
+					loginId = loginIds[i];	//index.jspにとぶようにする
+				}
+			}
+		}
 
 		//削除かつ現在ログインしているユーザーの場合最初の画面に飛ぶ
 		if(loginId != null && loginId.equals(user.getLoginId())){

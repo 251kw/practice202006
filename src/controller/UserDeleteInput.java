@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DBManager;
 import dto.UserDTO;
 
 /**
@@ -46,20 +47,31 @@ public class UserDeleteInput extends HttpServlet {
 		HttpSession session = request.getSession();
 		UserDTO loginuser =  (UserDTO)session.getAttribute("user");
 
-		if(all!=null && all.equals("複数削除")) {
-			ArrayList<String[]> deleteuser = new ArrayList<String[]>();
+		if(all != null && deleteList != null) {
+			DBManager db = new DBManager();
+			String str = "WHERE loginId IN (";
 			for(int i=0; i<deleteList.length; i++) {
-				String[] list =deleteList[i].split(",",0);
-				if(list[0].equals(loginuser.getLoginId())){
+				str = str+"'"+deleteList[i]+"',";
+				if(deleteList[i].equals(loginuser.getLoginId())){
 					String msg = null;
 					msg = "＊現在ログインしているユーザーを含むため消すとログアウトします。";
 					request.setAttribute("alert", msg);
 				}
-				deleteuser.add(list);
 			}
-			request.setAttribute("deleteList",deleteList);
+			str = str.substring(0, (str.length() - 1));
+			str = str+")";
+			ArrayList<UserDTO> list = db.searchUser(str);
+			request.setAttribute("users", list);
 			dispatcher = request.getRequestDispatcher("multDelete.jsp");
-		}else {
+
+		}else if(all != null && deleteList==null) {
+			DBManager db = new DBManager();
+			String str = (String)session.getAttribute("str");
+			ArrayList<UserDTO> list = db.searchUser(str);
+			request.setAttribute("users", list);
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
+
+		}else{
 			//情報が一つのString文で送られてくるため、配列に変換
 			String[] duser = user.split(",", 0);
 			request.setAttribute("duser", duser);
@@ -70,8 +82,6 @@ public class UserDeleteInput extends HttpServlet {
 				msg = "＊現在ログインしているユーザーのため消すとログアウトします。";
 				request.setAttribute("alert", msg);
 			}
-
-
 			//配列の[5]に削除か更新と入っているため、それで送る先を決める
 			if(duser[5].equals("削除")) {
 				dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
@@ -81,6 +91,7 @@ public class UserDeleteInput extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("update_input.jsp");
 			}
 		}
+
 		dispatcher.forward(request, response);
 	}
 
