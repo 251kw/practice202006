@@ -51,19 +51,38 @@ public class SearchServlet extends HttpServlet {
 
 		//sessionスコープの保存領域を確保
 		HttpSession session = request.getSession();
+		//セッションに入っているuserの中にある自分のloginIdを取得
+		UserDTO user = (UserDTO)session.getAttribute("user");
+		String seUserLoginId = user.getLoginId();
 
-		//更新、削除から来た場合は下記を通り、ユーザ検索条件を取得。検索画面から来た場合はここを通らない。
+		//更新、削除から来た場合のみ、前回のユーザ検索条件を取得
 		if(request.getParameter("searchBtn") == null) {
+			//セッション内のログインIDと新しいパスワードでログイン認証を行い、変数reuserにユーザ情報を取得
+			UserDTO reuser = CheckUtil.nowLoginCheck(seUserLoginId);
+
+			//ログインユーザを削除した場合は、強制的にログアウト処理
+			if(reuser == null) {
+				//すべてのセッションを破棄
+				session.invalidate();
+				//index.jsp(ログイン画面)に移動
+				response.sendRedirect("index.jsp");
+		        return;
+
+			}else {
+				//ログインユーザがDBに残っている場合は、セッションに入れた前回の検索条件を取得
 				loginId = (String)session.getAttribute("loginId");
 				userName = (String)session.getAttribute("userName");
 				icon = (String)session.getAttribute("icon");
 				profile = (String)session.getAttribute("profile");
+			}
 		}
 
 //ログインIDの入力制限のエラーチェック------------------------------------
 
 		if(loginId != "") {
 			errId = CheckUtil.charCheck(loginId,"ログインID");
+		}else {
+
 		}
 
 //エラーがなければユーザ検索してsearchComp.jspへ、あれば入力情報を保持したまま再度search.jsp画面へ遷移-----------
@@ -84,6 +103,16 @@ public class SearchServlet extends HttpServlet {
 				session.setAttribute("icon", icon);
 				session.setAttribute("profile", profile);
 
+				//更新・削除から戻ってきた時に、top.jspに戻るまでセッション内の自分のログインIDと新しくしたパスワード情報を保持しておく
+				if(request.getParameter("searchBtn") == null) {
+					//現在ログインしている情報をDBから再取得
+					UserDTO reuser = CheckUtil.nowLoginCheck(seUserLoginId);
+					String reLoginId = reuser.getPassword();	//再取得した現在のログインID
+					String rePassword = reuser.getPassword();	//再取得した現在のパスワード
+					request.setAttribute("reLoginId", reLoginId);
+					request.setAttribute("rePassword", rePassword);
+				}
+
 				//searchComp.jspに処理を転送
 				dispatcher = request.getRequestDispatcher("searchComp.jsp");
 				dispatcher.forward(request, response);
@@ -99,7 +128,7 @@ public class SearchServlet extends HttpServlet {
 			request.setAttribute("icon", icon);
 			request.setAttribute("profile", profile);
 
-			//insert.jspに処理を転送
+			//search.jspに処理を転送
 			dispatcher = request.getRequestDispatcher("search.jsp");
 			dispatcher.forward(request, response);
 		}

@@ -81,13 +81,21 @@
 					</tr>
 				</table>
 			</form>
-			<%-- top.jspへ戻る --%>
-			<form action="top.jsp" method="post">
+			<%-- ./loginを経由してtop.jspへ戻る --%>
+			<form action="./login" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none text-right"><input class="btn" type="submit" value="TOPへ戻る" /></td>
 					</tr>
 				</table>
+				<%-- 現在のログイン情報を./loginへ返す --%>
+				<%-- セッションスコープにあるUserDTO型のオブジェクトを参照 --%>
+				<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
+				<input type="hidden" name="loginId" value="${user.loginId}">
+				<input type="hidden" name="password" value="${user.password}">
+				<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
+				<input type="hidden" name="reLoginId" value="${param.reLoginId}">
+				<input type="hidden" name="rePassword" value="${param.rePassword}">
 			</form>
 		</div>
 	</body>

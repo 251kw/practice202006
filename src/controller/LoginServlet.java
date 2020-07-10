@@ -41,6 +41,12 @@ public class LoginServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;	//dispatcherを定義
 		String message = null;
 
+		//更新、削除完了画面から戻って場合は下記を通り、再取得し保持していたユーザ情報を取得。index.jspから来た場合はここを通らない。
+		if(request.getParameter("reLoginId") != "" && request.getParameter("reLoginId") != null) {
+			loginId = (String)request.getParameter("reLoginId");
+			password = (String)request.getParameter("rePassword");
+		}
+
 		if(loginId.equals("") || password.equals("")) {
 		//もしログインIDかパスワードのいずれか、もしくはどちらも未入力なら
 			message = "ログインIDとパスワードは必須入力です";

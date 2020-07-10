@@ -18,9 +18,9 @@
 					class="icon-diamond pe-2x pe-va"></span></font>
 			</div>
 		</div>
-		<%-- 入力情報をupdateConf.jspに飛ばす --%>
+		<%-- 入力情報を./inErrCheckSrvに飛ばす --%>
 		<div class="padding-y-5">
-			<form action="updateConf.jsp" method="post">
+			<form action="./inErrCheckSrv" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none" nowrap><span class="color-main text-left"><font size="4">更新内容を入力してください</font></span></td>
@@ -31,20 +31,15 @@
 					%>
 					<tr>
 						<%-- ログインID入力欄の名前はLoginId --%>
-						<td class="color-main text-left">ログインID<br><font size="2" color="color-error">※半角英数字で入力してください</font></td>
-						<td class="text-left">
-							<input class="form-control" type="text" name="loginId" value="${param.loginId}" size="30" maxlength="15" />
-							<c:if test="${errorId != ''}">
-								<br><font size="2" color="color-error">${errId}</font>
-							</c:if>
-						</td>
+						<td class="color-main text-left">ログインID<br><font size="2" color="color-error">※ログインIDは変更不可です</font></td>
+						<td class="text-left">${param.loginId}</td>
 					</tr>
 					<tr>
 						<%-- パスワード欄の名前はpassword --%>
 						<td class="color-main text-left">パスワード<br><font size="2" color="color-error">※半角英数字で入力してください</font></td>
 						<td class="text-left"><input class="form-control" type="text" name="password" value="${param.password}" size="30" maxlength="100" />
 							<c:if test="${errorDTO != null && errorDTO != ''}">
-								<br><font size="2" color="color-error">${errorDTO.errMsPass}</font>
+								<br><font size="2" color="color-error">${errorDTO.errMsPass}<br>${errorDTO.errPass}</font>
 							</c:if>
 						</td>
 					</tr>
@@ -91,7 +86,7 @@
 					</tr>
 				</table>
 				<%-- パラメータから取得した元のloginIdを/updateSrv送る --%>
-				<input type="hidden" name="logId" value="${param.loginId}">
+				<input type="hidden" name="loginId" value="${param.loginId}">
 			</form>
 			<%-- ./searchSrvを経由してsearchComp.jspへ戻る --%>
 			<form action="./searchSrv" method="post">

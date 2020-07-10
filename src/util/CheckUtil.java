@@ -4,7 +4,7 @@ import dao.DBManager;
 import dto.UserDTO;
 
 /**
- * 繰り返し処理を集めたUtilクラス
+ * チェック系の処理を集めたUtilクラス
  */
 public class CheckUtil {
 
@@ -104,6 +104,14 @@ public class CheckUtil {
 		return boo;
 	}
 
+	//現在ログインしているユーザがDB内にいるか検索する
+	public static UserDTO nowLoginCheck(String loginId) {
+		//DB内にあるユーザ情報を取得する
+		DBManager dbm = new DBManager();
+		UserDTO user = dbm.getCheckUser(loginId);
+
+		return user;
+	}
+
+
 }
-
-

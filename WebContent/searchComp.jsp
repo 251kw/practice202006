@@ -29,54 +29,54 @@
 		</div>
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-				<table class="table table-striped table-bordered">
-				<tr>
-					<td class="color-main container padding-y-5"><font size="3">チェック<br>
-						<input type="checkbox" name="" value=""></font>
-					</td>
-					<td class="color-main container padding-y-5"><font size="3">ログインID</font>
-					<td class="color-main container padding-y-5"><font size="3">氏名</font>
-					<td class="color-main container padding-y-5"><font size="3">アイコン</font>
-					<td class="color-main container padding-y-5"><font size="3">プロフィール</font>
-					<td class="color-main container padding-y-5"><font size="3">変更</font>
-					<td class="color-main container padding-y-5"><font size="3">削除</font>
-				</tr>
-					<%-- リストにある要素の数だけ繰り返し --%>
-					<c:forEach var="search" items="${searchList}">
-						<tr>
-							<%-- チェックボックスのname=valueを配列として取得 --%>
-							<td><input type="checkbox" name="checkedLogId" value="${search.loginId}"></td>
-							<td>${search.loginId}</td>
-							<td>${search.userName}</td>
-							<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
-							<td>${search.profile}</td>
-							<td>
-								<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
-								<a href="
-									<c:url value="/update.jsp" >
-										<c:param name="loginId" value="${search.loginId}" />
-										<c:param name="password" value="${search.password}" />
-										<c:param name="userName" value="${search.userName}" />
-										<c:param name="icon" value="${search.icon}" />
-										<c:param name="profile" value="${search.profile}" />
-									</c:url>">変更
-								</a>
-							</td>
-							<td>
-								<%-- ユーザ情報削除ボタン searchListに入っているパスワード情報も渡す --%>
-								<a href="
-									<c:url value="/delete.jsp" >
-										<c:param name="loginId" value="${search.loginId}" />
-										<c:param name="password" value="${search.password}" />
-										<c:param name="userName" value="${search.userName}" />
-										<c:param name="icon" value="${search.icon}" />
-										<c:param name="profile" value="${search.profile}" />
-									</c:url>">削除
-								</a>
-							</td>
-						</tr>
-					</c:forEach>
-				</table>
+					<table class="table table-striped table-bordered">
+					<tr>
+						<td class="color-main container padding-y-5"><font size="3">チェック<br>
+							<input type="checkbox" name="" value=""></font>
+						</td>
+						<td class="color-main container padding-y-5"><font size="3">ログインID</font>
+						<td class="color-main container padding-y-5"><font size="3">氏名</font>
+						<td class="color-main container padding-y-5"><font size="3">アイコン</font>
+						<td class="color-main container padding-y-5"><font size="3">プロフィール</font>
+						<td class="color-main container padding-y-5"><font size="3">変更</font>
+						<td class="color-main container padding-y-5"><font size="3">削除</font>
+					</tr>
+						<%-- リストにある要素の数だけ繰り返し --%>
+						<c:forEach var="search" items="${searchList}">
+							<tr>
+								<%-- チェックボックスのname=valueを配列として取得 --%>
+								<td><input type="checkbox" name="checkedLogId" value="${search.loginId}"></td>
+								<td>${search.loginId}</td>
+								<td>${search.userName}</td>
+								<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
+								<td>${search.profile}</td>
+								<td>
+									<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
+									<a href="
+										<c:url value="/update.jsp" >
+											<c:param name="loginId" value="${search.loginId}" />
+											<c:param name="password" value="${search.password}" />
+											<c:param name="userName" value="${search.userName}" />
+											<c:param name="icon" value="${search.icon}" />
+											<c:param name="profile" value="${search.profile}" />
+										</c:url>">変更
+									</a>
+								</td>
+								<td>
+									<%-- ユーザ情報削除ボタン searchListに入っているパスワード情報も渡す --%>
+									<a href="
+										<c:url value="/delete.jsp" >
+											<c:param name="loginId" value="${search.loginId}" />
+											<c:param name="password" value="${search.password}" />
+											<c:param name="userName" value="${search.userName}" />
+											<c:param name="icon" value="${search.icon}" />
+											<c:param name="profile" value="${search.profile}" />
+										</c:url>">削除
+									</a>
+								</td>
+							</tr>
+						</c:forEach>
+					</table>
 				<%-- 検索結果が0件の場合はエラーメッセージを表示する --%>
 				<div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div>
 			</div>
@@ -88,6 +88,10 @@
 					<td class="none text-right" colspan="2"><input class="btn" type="submit" value="戻る" /></td>
 				</tr>
 			</table>
+			<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
+			<input type="hidden" name="reLoginId" value="${param.reLoginId}">
+			<input type="hidden" name="rePassword" value="${param.rePassword}">
+			<%-- search.jspに今回表示された情報を返す --%>
 			<input type="hidden" name="loginId" value="${param.loginId}">
 			<input type="hidden" name="userName" value="${param.userName}">
 			<input type="hidden" name="icon" value="${param.icon}">

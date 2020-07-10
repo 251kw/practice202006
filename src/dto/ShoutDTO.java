@@ -4,6 +4,7 @@ package dto;
  * Shoutユーザ情報を保持するクラス
  */
 public class ShoutDTO {
+	private String loginId;		//ログインID
 	private String userName;	//ユーザ名
 	private String icon;	//ユーザアイコン
 	private String date;	//書き込み日時
@@ -13,7 +14,8 @@ public class ShoutDTO {
 
 	}
 
-	public ShoutDTO(String userName, String icon, String date, String writing) {
+	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
+		this.loginId = loginId;
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
@@ -52,6 +54,14 @@ public class ShoutDTO {
 
 	public void setWriting(String writing) {
 		this.writing = writing;
+	}
+
+	public String getLoginId() {
+		return loginId;
+	}
+
+	public void setLoginId(String loginId) {
+		this.loginId = loginId;
 	}
 
 

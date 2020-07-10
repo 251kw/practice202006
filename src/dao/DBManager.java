@@ -95,6 +95,8 @@ public class DBManager extends SnsDAO{
 				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
 				user.setLoginId(rset.getString(2));
+				//TODO 7.10に追加
+				user.setPassword(rset.getString(3));
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -167,15 +169,16 @@ public class DBManager extends SnsDAO{
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(userName, icon, date, writing) VALUES(?,?,?,?)";
+			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getUserName());
-			pstmt.setString(2, user.getIcon());
+			pstmt.setString(1, user.getLoginId());
+			pstmt.setString(2, user.getUserName());
+			pstmt.setString(3, user.getIcon());
 			//現在日時の取得と日付の書式の指定
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(3, sdf.format(calendar.getTime()));
-			pstmt.setString(4, writing);
+			pstmt.setString(4, sdf.format(calendar.getTime()));
+			pstmt.setString(5, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
@@ -282,14 +285,20 @@ public class DBManager extends SnsDAO{
 			//データベースに接続
 			conn = getConnection();
 
-			//DELETE文の登録と実行
-			String sql = "DELETE FROM users WHERE LoginId=?";
-			pstmt = conn.prepareStatement(sql);
+			//shoutsテーブルのDELETE文の登録と実行
+			String sqlShouts = "DELETE FROM Shouts WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sqlShouts);
 			pstmt.setString(1, getLogId);
+			int cnt1 = pstmt.executeUpdate();
 
-			int cnt = pstmt.executeUpdate();
-			if(cnt == 1) {
-				//INSERT文の実行結果が1なら登録成功
+			//userテーブルのDELETE文の登録と実行
+			String sqlUser = "DELETE FROM users WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sqlUser);
+			pstmt.setString(1, getLogId);
+			int cnt2 = pstmt.executeUpdate();
+
+			if(cnt2 == 1) {
+				//DELETE文の実行結果が1なら登録成功
 				result = true;
 			}
 		} catch (SQLException e) {
