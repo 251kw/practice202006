@@ -37,6 +37,7 @@ public class DeleteConfirmServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String dloginId = request.getParameter("loginId");
+		String[] checkbox = request.getParameterValues("checkbox");
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		RequestDispatcher dispatcher = null;
 		String message = null;
@@ -50,6 +51,7 @@ public class DeleteConfirmServlet extends HttpServlet {
 		list.add(dbs.userIdSearch(dloginId));
 		request.setAttribute("users", list);	//リクエストスコープへ
 		request.setAttribute("only", "only");	//単独削除ボタンの時
+		request.setAttribute("checkbox", checkbox);
 
 		if(user.getLoginId().equals(dloginId)) {
 			//今ログインしているユーザーなら
@@ -73,35 +75,48 @@ public class DeleteConfirmServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String[] loginIds = request.getParameterValues("checkbox");
-//		String flg = request.getParameter("flg");
+		String button = request.getParameter("btn");
 		String message = null;
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
 
+		if(button.equals("選択項目")) {
+			if(loginIds==null) {
+				message = "☑チェックボックスが選択されていません。";
+				request.setAttribute("alert", message);
+				dispatcher = request.getRequestDispatcher("search_result.jsp");
 
-		if(loginIds==null) {
-			message = "☑チェックボックスが選択されていません。";
-			request.setAttribute("alert", message);
-			dispatcher = request.getRequestDispatcher("search_result.jsp");
+			} else {
+				HttpSession session = request.getSession();
+				UserDTO user = (UserDTO)session.getAttribute("user");
 
-		} else {
-			HttpSession session = request.getSession();
-			UserDTO user = (UserDTO)session.getAttribute("user");
+				for(String id : loginIds) {
+					if(id.equals(user.getLoginId())){
+						//今ログインしているユーザーなら
+						message = "現在、ログインしているユーザーを削除するとログアウトされます。";
 
-			for(String id : loginIds) {
-				if(id.equals(user.getLoginId())){
-					//今ログインしているユーザーなら
-					message = "現在、ログインしているユーザーを削除するとログアウトされます。";
-
-					//メッセージをリクエストオブジェクトに保存
-					request.setAttribute("alert", message);
+						//メッセージをリクエストオブジェクトに保存
+						request.setAttribute("alert", message);
+					}
+					list.add(dbs.userIdSearch(id));
 				}
-				list.add(dbs.userIdSearch(id));
-			}
-			request.setAttribute("users", list);
+				request.setAttribute("users", list);
 
-			//処理の転送先をdelete_confirm.jspに指定
-			dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
+				//処理の転送先をdelete_confirm.jspに指定
+				dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
+			}
+		} else {
+			//String flg = request.getParameter("flg");
+			if(button.equals("off")) {
+
+				request.setAttribute("flg", "on");
+			} else if(button.equals("on") || button.equals("")) {
+
+				request.setAttribute("flg", "off");
+				String[] allid = dbs.getAllId();
+				request.setAttribute("loginIds", allid);
+			}
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
 		}
 		dispatcher.forward(request, response);
 	}

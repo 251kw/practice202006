@@ -175,5 +175,41 @@ public class DBUserSearch extends SnsDAO {
 		return user;
 	}
 
+	public String[] getAllId() {
+		ArrayList<String> list = new ArrayList<>();
+		String[] all = null;
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL管理情報
+		ResultSet rset = null; //検索結果
+
+		String sql = "SELECT loginId FROM sns.users";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば
+			while(rset.next()) {
+				list.add(rset.getString(1));
+			}
+
+			all = list.toArray(new String[list.size()]);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return all;
+	}
+
 
 }

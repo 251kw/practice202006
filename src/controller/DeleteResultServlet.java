@@ -51,6 +51,7 @@ public class DeleteResultServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
 		String[] loginId = request.getParameterValues("loginId");
+		String[] checkbox = request.getParameterValues("checkbox");
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
 
@@ -83,8 +84,10 @@ public class DeleteResultServlet extends HttpServlet {
 
 		} else if(botton.equals("キャンセル")) {
 			//削除キャンセルなら、検索結果画面へ
-			if(request.getParameter("only").equals("")) {	//右の削除ボタンの時はチェックつけない
+			if(request.getParameter("only").equals("")) {	//単独削除ボタンの時はチェックつけない
 				request.setAttribute("loginIds", loginId);	//チェックボックス保持
+			} else {
+				request.setAttribute("loginIds", checkbox);	//複数☑で単独ボタンの時
 			}
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 

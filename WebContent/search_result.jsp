@@ -34,7 +34,7 @@
 
 					<thead>
 						<tr>
-							<th><button class="btn btn-sm btn-light" type="submit" name="flg" value="${flg}">全選択/解除</button></th>
+							<th><button class="btn btn-sm btn-light" type="submit" name="btn" value="${flg}">全選択/解除</button></th>
 							<th>ログインID</th>
 							<th>ユーザー名</th>
 							<th>アイコン</th>
@@ -54,7 +54,11 @@
 							<td><a href="./udis?loginId=${users.loginId}">
 								<input type="button" class="btn btn-sm btn-warning" value="編集">
 							</a></td>
-							<td><a href="./dcs?loginId=${users.loginId}">
+							<td><a href="./dcs?loginId=${users.loginId}
+							<c:forEach var="checkbox" items="${loginIds}">
+								&checkbox=${checkbox}
+							</c:forEach>
+							">
 								<input type="button" class="btn btn-sm btn-error" value="削除">
 							</a></td>
 						</tr>
@@ -74,7 +78,7 @@
 
 					<tr>
 						<td colspan="2" class="text-right">
-						<button class="btn" type="submit" name="btn">選択項目を削除</button>
+						<button class="btn" type="submit" name="btn" value="選択項目">選択項目を削除</button>
 						<button formaction="./srs" class="btn" type="submit" value="戻る" name="btn">戻る</button>
 						</td>
 					</tr>

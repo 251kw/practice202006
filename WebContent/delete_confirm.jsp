@@ -63,6 +63,9 @@
 					</c:forEach>
 				</table>
 					<input type="hidden" name="only" value="${only}">
+					<c:forEach var="checkbox" items="${checkbox}" varStatus="loop">
+						<input type="hidden" name="checkbox" value="${checkbox}">
+					</c:forEach>
 					<input type="submit" value="キャンセル" name="btn" class="btn">
 					<input type="submit" value="削除" name="btn" class="btn">
 				</form>
