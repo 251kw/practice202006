@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 検索入力画面に移動するために経由するサーブレット
@@ -30,6 +31,8 @@ public class TurnSearchInputServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		HttpSession session = request.getSession();
+
 		// 検索入力画面の値を格納する変数
 		String sloginId = request.getParameter("sloginId");
 		String suserName = request.getParameter("suserName");
@@ -43,6 +46,10 @@ public class TurnSearchInputServlet extends HttpServlet {
 			sicon = "";
 			sprofile = "";
 		}
+
+		// チェックボックスの保持を一旦リセット
+		String[] select = null;
+		session.setAttribute("select", select);
 
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);

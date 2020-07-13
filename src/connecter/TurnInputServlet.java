@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 登録確認画面から新規登録情報入力画面へ移動する
@@ -31,6 +32,8 @@ public class TurnInputServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
+		HttpSession session = request.getSession();
+
 		// 入力画面に値を保持するための処理
 		String newloginId = request.getParameter("newloginId");
 		String newpassword = request.getParameter("newpassword");
@@ -43,6 +46,10 @@ public class TurnInputServlet extends HttpServlet {
 		request.setAttribute("newuserName", newuserName);
 		request.setAttribute("newicon", newicon);
 		request.setAttribute("newprofile", newprofile);
+
+		// チェックボックスの保持を一旦リセット
+		String[] select = null;
+		session.setAttribute("select", select);
 
 		// 入力画面へ移動
 		RequestDispatcher dispatcher = null;

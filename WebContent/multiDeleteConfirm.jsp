@@ -63,6 +63,7 @@
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
 						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 			</table>

@@ -44,19 +44,25 @@
 						<%-- ↓チェックボックスにチェックがあるとき↓ --%>
 						<c:if test="${!empty sessionScope.select}"><%-- この時は必ずcheckallは空 --%>
 							<%-- チェックがあるユーザーに該当する場合 --%>
+							<c:set var="endflag" value="zero" />
 							<c:forEach var="sessionselect" items="${sessionScope.select}">
-								<c:set var="flag" value="0" />
+								<c:set var="hitflag" value="zero" />
 								<c:if test="${sessionselect == resultList.loginId}">
 									<td class="text-center">
-										<input checked type="checkbox" name="select" value="${resultList.loginId}">aaaaaaaa
-										<c:set var="flag" value="1" />
+										<input checked type="checkbox" name="select" value="${resultList.loginId}">
+										<c:set var="hitflag" value="one" />
+										<c:set var="endflag" value="one" />
 									</td>
 								</c:if>
-								<%-- チェックがあるユーザーに該当しない場合 --%>
-								<c:if test="${flag != '1'}">
-									<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}">bbbbb</td>
-								</c:if>
 							</c:forEach>
+
+							<%-- チェックがあるユーザーに該当しない場合 --%>
+							<c:if test="${hitflag == 'zero' && endflag != 'one'}">
+								<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}"></td>
+							</c:if>
+							<c:if test="${endflag == 'one'}">
+								<c:set var="endflag" value="zero" />
+							</c:if>
 						</c:if>
 						<%-- ↑チェックボックスにチェックがあるとき↑ --%>
 						<%-- ↓チェックボックスにチェックがないとき↓ --%><%-- checkallが空じゃない可能性あり --%>
@@ -65,7 +71,7 @@
 							<c:if test="${!empty checkall}">
 								<td class="text-center"><input checked type="checkbox" name="select" value="${resultList.loginId}"></td>
 							</c:if>
-							<%-- 全解除が選択されている場合 or 最初の検索時 --%>
+							<%-- 全解除が選択されている場合 or 最初の検索時 or チェックを全て外した場合--%>
 							<c:if test="${empty checkall}">
 								<td class="text-center"><input type="checkbox" name="select" value="${resultList.loginId}"></td>
 							</c:if>
@@ -95,6 +101,7 @@
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
 						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 			</table>

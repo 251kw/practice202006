@@ -50,11 +50,16 @@ public class UserSearchSqueezeServlet extends HttpServlet {
 			sicon = "";
 		}
 
-		String checkall = "";
-
-		// チェックボックスの値保持用8
+		// チェックボックスの値保持用
 		String[] select = (String[]) session.getAttribute("select");
 		session.setAttribute("select", select);
+
+		// 全選択切り替え保持
+		String checkall = request.getParameter("checkall");
+		// 初期処理
+		if(checkall == null) {
+			checkall = "";
+		}
 
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);

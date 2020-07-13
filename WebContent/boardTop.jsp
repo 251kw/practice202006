@@ -85,8 +85,8 @@
 									<textarea rows="5" class="form-control">${shout.writing}</textarea>
 								</td>
 							<tr>
-								<td colspan="2" class="text-right"><button type="submit" name="ewriting" value="${shout.writing}">編集</button>
-								<button type="submit" name="dwriting" value="${shout.writing}">削除</button></td>
+								<td colspan="2" class="text-right"><button type="submit" name="sheloginId" value="${shout.loginId}">編集</button>
+								<button type="submit" name="shdloginId" value="${shout.loginId}">削除</button></td>
 							</tr>
 						</table>
 					</c:forEach>

@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DBManager;
+import dto.ShoutDTO;
 import dto.UserDTO;
 import util.CheckDB;
 
@@ -31,6 +34,8 @@ public class EditUserRegistServlet extends HttpServlet {
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.setCharacterEncoding("UTF-8");
 
 		HttpSession session = request.getSession();
 
@@ -56,6 +61,11 @@ public class EditUserRegistServlet extends HttpServlet {
 
 		// updateを実行
 		CheckDB.EditUser(originaluser, euser);
+
+		// 情報が更新された書き込みリストをセッションに保持
+		DBManager dbm = new DBManager();
+		ArrayList<ShoutDTO> list = dbm.getShoutList();
+		session.setAttribute("shouts", list);
 
 		// 変更結果に移動
 		dispatcher = request.getRequestDispatcher("editUserResult.jsp");

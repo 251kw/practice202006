@@ -219,6 +219,7 @@ public class CheckDB {
 
 	/**
 	 * 元々のユーザー情報と入力された変更内容を比較し、変更されている箇所のみをsqlで更新する
+	 * 変更されたデータがshoutsテーブルにも関係がある場合はshoutsデーブル上のデータも更新する
 	 * @param originaluser 特定のユーザーが持つ元々の情報
 	 * @param euser 変更入力欄に入力された値
 	 */
@@ -233,15 +234,20 @@ public class CheckDB {
 
 			Connection conn = null;
 			PreparedStatement pstmt1 = null;
+			PreparedStatement pstmt2 = null;
 
 			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
 
+			// userstable
 			String sqlepass = "update users set password=? where loginId=?";
 			String sqlename = "update users set userName=? where loginId=?";
 			String sqleicon = "update users set icon=? where loginId=?";
 			String sqleprofile = "update users set profile=? where loginId=?";
 
-			// ログインIDが変更されない場合
+			// shoutstable
+			String sqlesname = "update shouts set username=? where loginId=?";
+			String sqlesicon = "update shouts set icon=? where loginId=?";
+
 			if(!(euser.getPassword().equals(originaluser.getPassword()))) {
 				pstmt1 = conn.prepareStatement(sqlepass);
 				pstmt1.setString(1, euser.getPassword());
@@ -253,12 +259,22 @@ public class CheckDB {
 				pstmt1.setString(1, euser.getUserName());
 				pstmt1.setString(2, originaluser.getLoginId());
 				pstmt1.executeUpdate();
+
+				pstmt2 = conn.prepareStatement(sqlesname);
+				pstmt2.setString(1, euser.getUserName());
+				pstmt2.setString(2, originaluser.getLoginId());
+				pstmt2.executeUpdate();
 			}
 			if(!(euser.getIcon().equals(originaluser.getIcon()))) {
 				pstmt1 = conn.prepareStatement(sqleicon);
 				pstmt1.setString(1, euser.getIcon());
 				pstmt1.setString(2, originaluser.getLoginId());
 				pstmt1.executeUpdate();
+
+				pstmt2 = conn.prepareStatement(sqlesicon);
+				pstmt2.setString(1, euser.getIcon());
+				pstmt2.setString(2, originaluser.getLoginId());
+				pstmt2.executeUpdate();
 			}
 			if(!(euser.getProfile().equals(originaluser.getProfile()))) {
 				pstmt1 = conn.prepareStatement(sqleprofile);

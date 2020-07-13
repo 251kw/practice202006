@@ -8,16 +8,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
- * 検索入力画面から掲示板に移動するために経由するサーブレット
+ * 叫び内容編集入力画面に移行するために経由するサーブレット
  */
-@WebServlet("/TurnBoardTop")
-public class TurnBoardTopServlet extends HttpServlet {
+@WebServlet("/TurnEditShoutsInput")
+public class TurnEditShoutsInputServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public TurnBoardTopServlet() {
+    public TurnEditShoutsInputServlet() {
         super();
     }
 
@@ -31,15 +30,16 @@ public class TurnBoardTopServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		HttpSession session = request.getSession();
-
-		// チェックボックスの保持を一旦リセット
-		String[] select = null;
-		session.setAttribute("select", select);
-
-		// 掲示板に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("boardTop.jsp");
+
+		// 該当する叫びを特定するための情報を保持
+		String sheloginId = request.getParameter("sheloginId");
+		request.setAttribute("sheloginId", sheloginId);
+		String shdloginId = request.getParameter("shdloginId");
+		request.setAttribute("shdloginId", shdloginId);
+
+		// 編集入力画面に移動
+		dispatcher = request.getRequestDispatcher("editShoutsInput.jsp");
 		dispatcher.forward(request,response);
 	}
 

@@ -49,15 +49,17 @@ public class RelayFunctionServlet extends HttpServlet {
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
+		String checkall = request.getParameter("checkall");
 
 		// 値の保持用
 		request.setAttribute("eloginId", eloginId);
 		request.setAttribute("dloginId", dloginId);
-		request.setAttribute("select", select);
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
+		request.setAttribute("checkall", checkall);
+		session.setAttribute("select", select);
 
 		UserDTO user1 = new UserDTO();
 		UserDTO user2 = new UserDTO();
