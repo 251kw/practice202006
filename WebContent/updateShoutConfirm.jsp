@@ -22,7 +22,7 @@
 			</div>
 		</div>
 
-		<div class="padding-y-5 text-center" >変更シャウト結果</div>
+		<div class="padding-y-5 text-center" >変更シャウト確認</div>
 
 		<jsp:useBean id="searchShout" scope="request" type="dto.ShoutDTO" />
 			<div style="width: 50%" class="container padding-y-5">
@@ -32,7 +32,7 @@
 							<td>${searchShout.userName}</td>
 						</tr>
 						<tr>
-							<td>${searchShout.date}</td>
+							<td>シャウト確定を押した時間に更新されます</td>
 						</tr>
 						<tr>
 							<td colspan="2"><textarea rows="5" class="form-control">${searchShout.writing}</textarea></td>
@@ -49,7 +49,9 @@
 		</div>
 
 		<div align="center">
-			<form action="./returnTop" method="post">
+			<form action="./updateShoutFailureConfirm" method="post">
+				<input type="hidden" name="shoutsId" value="${searchShout.shoutsId}">
+				<input type="hidden" name="shout" value="${searchShout.writing}">
 				<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
 			</form>
 		</div>

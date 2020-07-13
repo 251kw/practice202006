@@ -23,6 +23,12 @@
 		</div>
 
 		<div class="padding-y-5 text-center" >ログインユーザ情報</div>
+		<c:if test="${requestScope.alertshout != null && requestScope.alertshout != ''}">
+			<div class="color-error text-center">${requestScope.alertshout}</div>
+		</c:if>
+		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+			<div class="color-error text-center">${requestScope.alert}</div>
+		</c:if>
 
 		<jsp:useBean id="user" scope="session" type="dto.UserDTO" />
 		<div class="padding-y-5">
@@ -56,18 +62,11 @@
 					<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
 					<td><input class="btn" type="submit" value="叫ぶ" /></td>
 				</tr>
-				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
-					<tr>
-						<td colspan="2" class="color-error text-left">
-							<c:out value="${requestScope.alert}" />
-						</td>
-					</tr>
-				</c:if>
 			</table>
 		</form>
 
 		<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
-		<form action="./deleteOrUpdateShoutsConfirmServlet" method="get">}
+		<form action="./deleteOrUpdateShoutsConfirmServlet" method="post">
 
 		<c:if test="${ck == 'on' }"><div class="text-center"><button class="btn" type="submit" name="shoutsId" value="allchkon" >すべて選択</button></div></c:if>
 		<c:if test="${ck == 'off' }"><div class="text-center"><button class="btn" type="submit" name="shoutsId" value="allchkoff" >すべて解除</button></div></c:if>

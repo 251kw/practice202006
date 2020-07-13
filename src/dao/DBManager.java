@@ -364,7 +364,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//UPDATE文の登録と実行
-			String sql = "UPDATE shouts SET writing=? ,date=? WHERE loginId =?";
+			String sql = "UPDATE shouts SET writing=? ,date=? WHERE shoutsId =?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, writing);
 			//現在日時の取得と日付の書式設定

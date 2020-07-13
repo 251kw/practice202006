@@ -9,11 +9,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
 import dto.ShoutDTO;
-import dto.UserDTO;
 import util.MakeSelectSQL;
 
 /**
@@ -31,12 +29,18 @@ public class DeleteOrUpdateShoutsConfirmServlet extends HttpServlet {
     }
 
 	/**
-	 * top.jspの更新または削除で呼び出し
+	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
+		dispatcher.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
-		HttpSession session = request.getSession();
-		UserDTO loginUser = (UserDTO)session.getAttribute("user"); //ログインユーザー
 		request.setCharacterEncoding("UTF-8");
 		DBManager dbm = new DBManager();
 
@@ -44,21 +48,25 @@ public class DeleteOrUpdateShoutsConfirmServlet extends HttpServlet {
 
 		String shoutsId = request.getParameter("shoutsId");
 
-		//更新ボタンが押されたか、削除が押されたかを判別する(直接アクセスされた場合はindexへ)
-		if(loginUser == null) {  //index処理
-			dispatcher = request.getRequestDispatcher("index.jsp");
-
-		}else if(shoutsId == null){ //選択削除を押されたが何も選択していない場合
-			String[] checkShouts = {""};
-			request.setAttribute("checkShouts", checkShouts);
-			dispatcher = request.getRequestDispatcher("topInput.jsp");
-
-		}else if(shoutsId.equals("alldel")) {  //選択削除処理
-			String sql = MakeSelectSQL.makeSelectsShouts(shoutsIds);
-			ArrayList<ShoutDTO> searchShouts = dbm.getSearchShoutsList(sql);
-			request.setAttribute("searchShouts", searchShouts);
-			dispatcher = request.getRequestDispatcher("multiDeleteShoutsConfirm.jsp");
-
+		//更新ボタンが押されたか、削除が押されたかを判別する
+		if(shoutsId.equals("alldel")) {  //選択削除処理
+			//未選択で削除ボタンを押した場合
+			if(shoutsIds == null) {
+				String alert = "シャウトが選択されていません";
+				request.setAttribute("alertshout", alert);
+				String ck = "on";
+				request.setAttribute("ck", ck);
+				ArrayList<String> checkShouts = new ArrayList<String>();
+				checkShouts.add("");
+				request.setAttribute("checkShouts", checkShouts);
+				dispatcher = request.getRequestDispatcher("topInput.jsp");
+			}else {
+				String sql = MakeSelectSQL.makeSelectsShouts(shoutsIds);
+				ArrayList<ShoutDTO> searchShouts = dbm.getSearchShoutsList(sql);
+				request.setAttribute("shoutsIds", shoutsIds);
+				request.setAttribute("searchShouts", searchShouts);
+				dispatcher = request.getRequestDispatcher("multiDeleteShoutsConfirm.jsp");
+			}
 		}else if(shoutsId.equals("allchkon")) {  //全選択処理
 			ArrayList<ShoutDTO> searchShouts = dbm.getShoutList();
 			ArrayList<String> checkShouts = new ArrayList<String>();
@@ -81,23 +89,17 @@ public class DeleteOrUpdateShoutsConfirmServlet extends HttpServlet {
 			request.setAttribute("ck", ck);
 
 			dispatcher = request.getRequestDispatcher("topInput.jsp");
+			dispatcher = request.getRequestDispatcher("topInput.jsp");
 		}else {  //更新処理
 			String sql = MakeSelectSQL.makeSelectsShouts(shoutsId);
 			ShoutDTO searchShout = dbm.getShout(sql);
+			request.setAttribute("shoutsIds", shoutsIds);
 			request.setAttribute("searchShout", searchShout);
 			dispatcher = request.getRequestDispatcher("updateShoutInput.jsp");
 
 		}
 
 		dispatcher.forward(request, response);
-
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
 	}
 
 }

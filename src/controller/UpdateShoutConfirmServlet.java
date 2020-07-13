@@ -41,16 +41,18 @@ public class UpdateShoutConfirmServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		request.setCharacterEncoding("UTF-8");
+		DBManager dbm = new DBManager();
 
 		String shoutsId = request.getParameter("shoutsId");
 		String shout = request.getParameter("shout");
 
-		DBManager dbm = new DBManager();
 		String sql = MakeSelectSQL.makeSelectsShouts(shoutsId);
 		ShoutDTO searchShout = dbm.getShout(sql);
+		searchShout.setWriting(shout);
+
 		request.setAttribute("searchShout", searchShout);
 
-		dispatcher = request.getRequestDispatcher("");
+		dispatcher = request.getRequestDispatcher("updateShoutConfirm.jsp");
 		dispatcher.forward(request, response);
 
 	}

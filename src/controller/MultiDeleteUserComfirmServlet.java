@@ -72,6 +72,10 @@ public class MultiDeleteUserComfirmServlet extends HttpServlet {
 			String sql = MakeSelectSQL.makeSelect(sUser.getLoginId(), sUser.getUserName(), sUser.getProfile(), sUser.getCar(), sUser.getClip(), sUser.getRadio());
 			ArrayList<UserDTO> searchUser = dbm.getSearchUserList(sql);
 			request.setAttribute("searchUser", searchUser);
+
+			String alert = "ユーザーが選択されていません";
+			request.setAttribute("alert", alert);
+
 			dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		}
 

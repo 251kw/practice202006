@@ -48,17 +48,17 @@
 					<td class="color-main text-left">更新</td>
 				</tr>
 				<c:forEach var="search" items="${searchUser}">
-						<tr <c:if test="${search.d_flg == 1}">bgcolor="#E74C3C"</c:if>>
+						<tr>
 							<td>
 								<c:choose>
 		 							 <c:when test="${search.d_flg == 1}">削除されたユーザー</c:when>
 		 							 <c:otherwise><input type="checkbox" name="checked" form="checks" value="${search.loginId}"  /></c:otherwise>
 								</c:choose>
 							</td>
-							<td>${search.loginId}</td>
-							<td>${search.userName}</td>
-							<td>${search.profile}</td>
-							<td><span class="${search.icon} pe-2x pe-va"></span></td>
+							<td  <c:if test="${search.d_flg == 0}">class="color-main text-left"</c:if>>${search.loginId}</td>
+							<td <c:if test="${search.d_flg == 0}">class="color-main text-left"</c:if>>${search.userName}</td>
+							<td <c:if test="${search.d_flg == 0}">class="color-main text-left"</c:if>>${search.profile}</td>
+							<td ><span class="${search.icon} pe-2x pe-va"></span></td>
 							<td>
 								<button class="btn btn-sm <c:if test="${search.d_flg == 1}">btn-light</c:if>" type="submit" form="update" name="loginId" value="${search.loginId}" <c:if test="${search.d_flg == 1}">disabled</c:if>>更 新</button>
 							</td>
@@ -69,6 +69,9 @@
 	</div>
 
 	<div align="center">
+		<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+			<div class="color-error text-center">${requestScope.alert}</div>
+		</c:if>
 		<input class="btn " type="submit" form="checks" value="選択したユーザーを削除" />
 	</div>
 

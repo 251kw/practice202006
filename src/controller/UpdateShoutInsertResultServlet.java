@@ -17,13 +17,13 @@ import util.MakeSelectSQL;
  * Servlet implementation class UpdateShoutResultServlet
  */
 @WebServlet("/updateShoutResultServlet")
-public class UpdateShoutResultServlet extends HttpServlet {
+public class UpdateShoutInsertResultServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UpdateShoutResultServlet() {
+    public UpdateShoutInsertResultServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -46,14 +46,16 @@ public class UpdateShoutResultServlet extends HttpServlet {
 		String shoutsId = request.getParameter("shoutsId");
 		String shout = request.getParameter("shout");
 
+		//DBのデータを更新
 		DBManager dbm = new DBManager();
 		dbm.updateWriting(shout, shoutsId);
 
+		//更新されたデータを再取得
 		String sql = MakeSelectSQL.makeSelectsShouts(shoutsId);
 		ShoutDTO searchShout = dbm.getShout(sql);
 		request.setAttribute("searchShout", searchShout);
 
-		dispatcher = request.getRequestDispatcher("");
+		dispatcher = request.getRequestDispatcher("updateShoutResult.jsp");
 		dispatcher.forward(request, response);
 	}
 

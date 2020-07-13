@@ -22,32 +22,25 @@
 			</div>
 		</div>
 
-		<div class="padding-y-5 text-center" >変更シャウト情報</div>
+		<div class="padding-y-5 text-center" >叫び直す</div>
 
 		<jsp:useBean id="searchShout" scope="request" type="dto.ShoutDTO" />
-			<div style="width: 50%" class="container padding-y-5">
-					<table class="table table-bordered">
-						<tr>
-							<td rowspan="2" class="text-center"><span class="${searchShout.icon} pe-3x pe-va"></span></td>
-							<td>${searchShout.userName}</td>
-						</tr>
-						<tr>
-							<td>${searchShout.date}</td>
-						</tr>
-						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${searchShout.writing}</textarea></td>
-						</tr>
-					</table>
-			</div>
-
-		<h5 class="padding-y-5 text-center">今の気持ちを叫びなおそう</h5>
-
 		<form action="./updateShoutConfirmServlet" method="post">
-		<input type="hidden" name="shoutsId" value="${searchShout.shoutsId}">
-			<table style="width: 40%" class="container padding-y-5">
+			<input type="hidden" name="shoutsId" value="${searchShout.shoutsId}">
+			<table style="width: 40%" class="table container">
 				<tr>
-					<td><input class="form-control" type="text" name="shout" value="${searchShout.writing}" size="60" /></td>
-					<td><input class="btn" type="submit" value="叫びなおす" /></td>
+					<td class="color-main text-left">アイコン</td>
+					<td><span class="${searchShout.icon} pe-2 pe-va"></span></td>
+				</tr>
+				<tr>
+					<td class="color-main text-left">ユーザー名</td>
+					<td class="color-main text-left">${searchShout.userName}</td>
+				</tr>
+				<tr>
+					<td class="color-main text-left" height="100%">叫び直そう</td>
+					<td>
+						<textarea name="shout" rows="4" cols="40">${searchShout.writing}</textarea>
+					</td>
 				</tr>
 				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
 					<tr>
@@ -57,10 +50,18 @@
 					</tr>
 				</c:if>
 			</table>
+
+			<div align="center">
+				<input class="btn" type="submit" value="更新" />
+			</div>
+
 		</form>
 
 		<div align="center">
 			<form action="./returnTop" method="post">
+				<c:forEach var="shoutsIds" items="${shoutsIds}">
+					<input type="hidden" name="shoutsId" value="${shoutsIds}">
+				</c:forEach>
 				<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
 			</form>
 		</div>

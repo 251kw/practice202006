@@ -51,17 +51,23 @@ public class ReturnTopConfirmServlet extends HttpServlet {
 		session.setAttribute("userName","");
 		session.setAttribute("profile","");
 
-		session.setAttribute("sql", "");
-
 		ArrayList<ShoutDTO> list = dbm.getShoutList();  //DBM内にあるメソッド
 		session.setAttribute("shouts", list); //叫びのリスト
 
-		// input.jsp に処理を転送(必要な情報をリクエストスコープへ)
+		// topinput.jsp に処理を転送(必要な情報をリクエストスコープへ)
 		String ck = "on";
 		request.setAttribute("ck", ck);
-		ArrayList<String> checkShouts = new ArrayList<String>();
-		checkShouts.add("");
-		request.setAttribute("checkShouts", checkShouts);
+		//チェックボックスの保持の有無を確認
+		String[] ckbox =  request.getParameterValues("shoutsId");
+
+		if(ckbox == null) {
+			ArrayList<String> checkShouts = new ArrayList<String>();
+			checkShouts.add("");
+			request.setAttribute("checkShouts", checkShouts);
+		}else {
+			request.setAttribute("checkShouts", ckbox);
+		}
+
 		dispatcher = request.getRequestDispatcher("topInput.jsp");
 		dispatcher.forward(request, response);
 	}

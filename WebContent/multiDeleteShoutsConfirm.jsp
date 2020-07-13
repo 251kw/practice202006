@@ -45,7 +45,7 @@
 		<div align="center">
 			<form action="./multiDeleteShoutsResultServlet" method="post">
 				<c:forEach var="shout" items="${searchShouts}">
-					<input type="hidden" name="shoutsId" value="${shout.shoutsId}">
+					<input type="hidden" name="shoutsId" value="shout">
 				</c:forEach>
 				<input class="btn" type="submit" style="height:50px" value="削除確定" />
 			</form>
@@ -53,6 +53,9 @@
 
 		<div align="center">
 			<form action="./returnTop" method="post">
+				<c:forEach var="shoutsIds" items="${shoutsIds}">
+					<input type="hidden" name="shoutsId" value="${shoutsIds}">
+				</c:forEach>
 				<input class="btn btn-grey btn-sm" type="submit" style="height:50px" value="戻る" />
 			</form>
 		</div>
