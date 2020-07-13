@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
@@ -46,6 +48,7 @@ public class UserUpdateConfirm extends HttpServlet {
 		String check = request.getParameter("check");
 
 		RequestDispatcher dispatcher = null;
+		DBManager db = new DBManager();
 
 		//戻るボタン押された
 		if (check.equals("戻る")) {
@@ -73,9 +76,11 @@ public class UserUpdateConfirm extends HttpServlet {
 			}
 			if (!userName.equals(olduser[2])) {
 				str = str + "userName='" + userName + "',";
+				db.updateShouts("userName='"+userName+"'",olduser[0]);
 			}
 			if (!icon.equals(olduser[3])) {
 				str = str + "icon='" + icon + "',";
+				db.updateShouts("icon='"+icon+"'",olduser[0]);
 			}
 			if (!profile.equals(olduser[4])) {
 				str = str + "profile='" + profile + "',";
@@ -84,7 +89,6 @@ public class UserUpdateConfirm extends HttpServlet {
 			//変更がないときはスキップ
 			if(str.length()!=0) {
 				str = str.substring(0, (str.length() - 1));
-				DBManager db = new DBManager();
 				result = db.updateUser(str, olduser[0]);
 				if (result == true) {
 					//現在ログインしているユーザーの処理
@@ -109,6 +113,9 @@ public class UserUpdateConfirm extends HttpServlet {
 
 			//更新できたかチェック
 			if (result == true || str.length()==0) {
+				//叫びの更新反映
+				ArrayList<ShoutDTO> list = db.getShoutList();
+				session.setAttribute("shouts", list);
 				dispatcher = request.getRequestDispatcher("update_result.jsp");
 			} else {
 				dispatcher = request.getRequestDispatcher("update_confirm.jsp");

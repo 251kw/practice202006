@@ -276,8 +276,9 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * @param loginId
-	 * @return
+	 * ログインIDを受け取り、shoutsテーブルに一致したものがあるか検索
+	 * @param loginId 探したいユーザーのID
+	 * @return shoutsテーブルに合致したユーザー情報があるかどうか
 	 */
 	public boolean checkShout(String loginId) {
 		Connection conn = null; //データベース接続情報
@@ -285,7 +286,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null; //検索結果
 		boolean result = false;
 
-		String sql = "SELECT * FROM shouts WHERE loginId=?";
+		String sql = "SELECT * FROM shouts WHERE loginId="+loginId;
 
 		try {
 			//データベース接続情報取得
@@ -293,7 +294,7 @@ public class DBManager extends SnsDAO {
 
 			//SELECT 文の登録と実行
 			pstmt = conn.prepareStatement(sql); //SELeCT 構文登録
-			pstmt.setString(1, loginId);
+			//pstmt.setString(1, loginId);
 			rset = pstmt.executeQuery();
 
 			//検索結果があれば
@@ -313,7 +314,7 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * delete文を作り、削除する機能
+	 * delete文を作り、shoutsテーブルを削除する機能
 	 * @param str sql文の条件部分
 	 * @return 削除に成功したかどうか
 	 */
@@ -350,7 +351,7 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * update文を作り、更新する機能
+	 * update文を作り、shoutsテーブルを更新する機能
 	 * @param str1 sql文の条件部分
 	 * @param str2 ログインID
 	 * @return 更新に成功したかどうか

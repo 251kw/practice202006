@@ -46,14 +46,20 @@ public class UserDeleteConfirm extends HttpServlet {
 		request.setAttribute("userName", userName);
 		request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
+		boolean result = false;
 
 		DBManager db = new DBManager();
 		RequestDispatcher dispatcher = null;
 
-
-		//デリート文実行
 		String str = "'"+loginId+"'";
-		boolean result =db.deleteUser(str);
+
+		//shoutsテーブルで一致したものを消す
+		result = db.checkShout(str);
+		if(result == true) {
+			db.deleteShouts(str);
+		}
+		//デリート文実行
+		result =db.deleteUser(str);
 
 		//成功したかどうか
 		if(result==true) {

@@ -32,15 +32,26 @@ public class UserMultdeleteConfirm extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
+		//消したいユーザーのID受け取る
 		String[] user =  request.getParameterValues("users");
 
 		DBManager db = new DBManager();
 		RequestDispatcher dispatcher = null;
 		boolean result = false;
+		int i;
 
+		//shoutsテーブルで一致したものを消す
+		for(i=0; i<user.length; i++) {
+			result = db.checkShout("'"+user[i]+"'");
+			if(result == true) {
+				db.deleteShouts("'"+user[i]+"'");
+				result = false;
+			}
+		}
 
+		//delete文作成ループ
 		String str = "WHERE loginId IN (";
-		for(int i=0; i<user.length; i++) {
+		for(i=0; i<user.length; i++) {
 			str = str+"'"+user[i]+"',";
 		}
 		str = str.substring(0, (str.length() - 1));
@@ -49,8 +60,8 @@ public class UserMultdeleteConfirm extends HttpServlet {
 		request.setAttribute("users", list);
 
 
+		//デリート文実行
 		for(String us : user) {
-			//デリート文実行
 			String str_d = "'"+us+"'";
 			result =db.deleteUser(str_d);
 			if(result==false) {
