@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -12,6 +13,7 @@ import javax.servlet.http.HttpSession;
 
 import dao.DBUserSearch;
 import dao.DBUserUpdate;
+import dto.SearchUserDTO;
 import dto.UserDTO;
 
 /**
@@ -20,40 +22,20 @@ import dto.UserDTO;
  *
  */
 @WebServlet("/udis")
-public class UpDateInputServlet extends HttpServlet {
+public class UpDateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public UpDateInputServlet() {
+    public UpDateServlet() {
         super();
     }
 
+
 	/**
-	 * 検索結果の編集ボタンから呼ばれる
+	 * 直接アクセスがないように、index.jspに飛ぶ
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String uloginId = request.getParameter("loginId");
-		RequestDispatcher dispatcher = null;
-
-		DBUserSearch dbs = new DBUserSearch();
-
-		//loginIdで検索して、情報を取り出し
-		UserDTO upuser = dbs.userIdSearch(uloginId);
-
-		String loginId = upuser.getLoginId();
-		String pass = upuser.getPassword();
-		String userName = upuser.getUserName();
-		String icon = upuser.getIcon();
-		String profile = upuser.getProfile();
-
-		//beanに入れて
-		UserDTO user = new UserDTO(loginId, pass, userName, icon, profile);
-
-		//リクエストスコープに置く
-		request.setAttribute("user", user);
-		//編集画面へ
-		dispatcher = request.getRequestDispatcher("update_input.jsp");
+		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
@@ -66,13 +48,14 @@ public class UpDateInputServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 		RequestDispatcher dispatcher = null;
-		DBUserUpdate dbu = new DBUserUpdate();
 		String botton = request.getParameter("btn");
-		String oldId = request.getParameter("oldId");
-		HttpSession session = request.getSession();
-		UserDTO loginUser = (UserDTO)session.getAttribute("user");
+		DBUserSearch dbs = new DBUserSearch();
 		String message = null;
 
+		HttpSession session = request.getSession();
+		UserDTO loginUser = (UserDTO)session.getAttribute("user");
+		DBUserUpdate dbu = new DBUserUpdate();
+		String oldId = request.getParameter("oldId");
 		//送信情報の取得
 		String loginId = request.getParameter("loginId");
 		String pass = request.getParameter("pass");
@@ -120,9 +103,32 @@ public class UpDateInputServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("update_input.jsp");
 
 		} else if(botton.equals("キャンセル")) {
+			String[] loginIds = {oldId};
+			request.setAttribute("loginIds", loginIds);
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 			dispatcher.forward(request, response);
 			return;
+		} else if(botton.equals("検索結果画面へ")) {		//検索結果画面に戻る時
+			//削除後、検索しなおして結果表示するために
+			SearchUserDTO search = (SearchUserDTO)session.getAttribute("search");
+			String Id = search.getLoginId();
+			String uName = search.getuserName();
+			String pfile = search.getProfile();
+			String[] icons = search.getIcon();
+
+			ArrayList<UserDTO> users = dbs.userSearch(Id, uName, pfile, icons);
+
+			if(users.size()==0) {	//arraylistサイズ測る
+				 //検索結果無し、一件削除のとき
+				 dispatcher = request.getRequestDispatcher("search_no_result.jsp");
+			} else {
+				//複数あれば
+				session.setAttribute("users", users);
+				String[] loginIds = {request.getParameter("loginId")};
+				request.setAttribute("loginIds", loginIds);
+				dispatcher = request.getRequestDispatcher("search_result.jsp");
+			}
+
 		}
 		//jspに送る
 		request.setAttribute("loginId",loginId);

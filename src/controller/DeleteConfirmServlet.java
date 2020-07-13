@@ -21,7 +21,7 @@ import dto.UserDTO;
  * @author y.sato
  */
 
-@WebServlet("/dcs")
+@WebServlet("")
 public class DeleteConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,43 +30,16 @@ public class DeleteConfirmServlet extends HttpServlet {
         super();
     }
 
-    /**
-	 * 削除ボタンで呼び出されるdoGetメソッド
+
+	/**
+	 * 直接アクセスがないように、index.jspに飛ぶ
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		String dloginId = request.getParameter("loginId");
-		String[] checkbox = request.getParameterValues("checkbox");
-		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
-		RequestDispatcher dispatcher = null;
-		String message = null;
-
-		DBUserSearch dbs = new DBUserSearch();
-
-		HttpSession session = request.getSession();
-		UserDTO user = (UserDTO)session.getAttribute("user");	//ログインユーザーを削除するのか判断するために引き出す
-
-		//list = dbs.userIdSearch(dloginId);		loginIdで検索、情報引き出す
-		list.add(dbs.userIdSearch(dloginId));
-		request.setAttribute("users", list);	//リクエストスコープへ
-		request.setAttribute("only", "only");	//単独削除ボタンの時
-		request.setAttribute("checkbox", checkbox);
-
-		if(user.getLoginId().equals(dloginId)) {
-			//今ログインしているユーザーなら
-			message = "現在、ログインしているユーザーを削除するとログアウトされます。";
-
-			//メッセージをリクエストオブジェクトに保存
-			request.setAttribute("alert", message);
-		}
-
-		//処理の転送先をdelete_confirm.jspに指定
-		dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
-
+		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
-
 	}
+
 	/**
 	 * 複数削除の時に起動する
 	 *
@@ -80,7 +53,7 @@ public class DeleteConfirmServlet extends HttpServlet {
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
 
-		if(button.equals("選択項目")) {
+		if(button.equals("選択項目を削除")) {
 			if(loginIds==null) {
 				message = "☑チェックボックスが選択されていません。";
 				request.setAttribute("alert", message);
@@ -106,7 +79,6 @@ public class DeleteConfirmServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("delete_confirm.jsp");
 			}
 		} else {
-			//String flg = request.getParameter("flg");
 			if(button.equals("off")) {
 
 				request.setAttribute("flg", "on");

@@ -107,6 +107,7 @@ public class DeleteResultServlet extends HttpServlet {
 			} else {
 				//複数あれば
 				session.setAttribute("users", users);
+
 				dispatcher = request.getRequestDispatcher("search_result.jsp");
 			}
 		}

@@ -63,22 +63,4 @@ public class Check {
 		return "";						//入っていなかったので何も書かない
 	}
 
-//	public static String AllcheckBox(boolean flg, String loginId, String[] loginIds) {
-//
-//		if(flg==false) {
-//			for(String i: loginIds) {
-//				if(i.equals(loginId)) {
-//					return "";
-//				}
-//			}
-//
-//		} else if(flg==true) {
-//			for(String i: loginIds) {
-//				if(i.equals(loginId)) {
-//					return "checked";
-//				}
-//			}
-//		}
-//
-//	}
 }

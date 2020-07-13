@@ -29,7 +29,7 @@
 		<jsp:useBean id="users" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-			<form action="./dcs" method="post">
+			<form action="./srs" method="post">
 				<table class="table table-striped table-bordered table-hover">
 
 					<thead>
@@ -39,7 +39,6 @@
 							<th>ユーザー名</th>
 							<th>アイコン</th>
 							<th>プロフィール</th>
-							<th>操作</th>
 						</tr>
 					</thead>
 					<%--検索結果回す --%>
@@ -51,16 +50,6 @@
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>
 							<td>${users.profile}</td>
-							<td><a href="./udis?loginId=${users.loginId}">
-								<input type="button" class="btn btn-sm btn-warning" value="編集">
-							</a></td>
-							<td><a href="./dcs?loginId=${users.loginId}
-							<c:forEach var="checkbox" items="${loginIds}">
-								&checkbox=${checkbox}
-							</c:forEach>
-							">
-								<input type="button" class="btn btn-sm btn-error" value="削除">
-							</a></td>
 						</tr>
 					</c:forEach>
 				</table>
@@ -75,11 +64,11 @@
 						</tr>
 					</c:if>
 
-
 					<tr>
 						<td colspan="2" class="text-right">
-						<button class="btn" type="submit" name="btn" value="選択項目">選択項目を削除</button>
-						<button formaction="./srs" class="btn" type="submit" value="戻る" name="btn">戻る</button>
+						<input class="btn  btn-error" type="submit" name="btn" value="選択項目を削除">
+						<input class="btn  btn-warning" type="submit" name="btn" value="選択項目を編集">
+						<input class="btn" type="submit" value="戻る" name="btn">
 						</td>
 					</tr>
 				</table>

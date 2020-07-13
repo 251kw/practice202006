@@ -27,7 +27,7 @@
 		<jsp:useBean id="user" scope="request" type="dto.UserDTO"/>
 		<div class="padding-y-5">
 			<div style="width: 40%" class="container padding-y-5">
-				<form action="./drs" method="post">
+				<form action="./udis" method="post">
 					<table border="1" class="table">
 						<tr>
 							<th><label for="loginId"><font color="#00CCFF"><span class="icon-id pe-2x pe-va"></span></font>&nbsp;ログインID</label></th>
@@ -51,6 +51,7 @@
 						</tr>
 						<tr>
 							<td colspan="2" class="text-right">
+							<input type="hidden" value="${user.loginId}" name="loginId"/>
 							<input type="submit" value="検索結果画面へ" name="btn" class="btn">
 							</td>
 						</tr>
