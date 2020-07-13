@@ -28,7 +28,7 @@ public class InputErroCheckServlet extends HttpServlet {
 	}
 
 	/*
-	 *update.jspの「更新する」ボタンから呼び出される
+	 *userUpdate.jspの「更新する」ボタンから呼び出される
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -69,7 +69,7 @@ public class InputErroCheckServlet extends HttpServlet {
 		//入力項目にエラーがないかチェック
 		boo = CheckUtil.inCheck(errMsId,errMsPass,errMsUname,errMsIcon,errMsProf,errDepMs,errId,errPass);
 
-		//エラーがなければupdateConf.jspに送信
+		//エラーがなければuserUpdateConf.jspに送信
 		if(boo == true) {
 			//requestスコープに情報をセット
 			request.setAttribute("loginId", loginId);
@@ -78,16 +78,16 @@ public class InputErroCheckServlet extends HttpServlet {
 			request.setAttribute("icon", icon);
 			request.setAttribute("profile", profile);
 
-			//updateConf.jspに処理を転送
-			RequestDispatcher dispatcher = request.getRequestDispatcher("updateConf.jsp");
+			//userUpdateConf.jspに処理を転送
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userUpdateConf.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			//エラーがあれば元のページに戻り、エラー文を表示させる
 			ErrorDTO errorDTO = new ErrorDTO(errMsId,errMsPass,errMsUname,errMsIcon,errMsProf,errDepMs,errId,errPass);
 			request.setAttribute("errorDTO", errorDTO);
 
-			//update.jspに処理を転送
-			RequestDispatcher dispatcher = request.getRequestDispatcher("update.jsp");
+			//userUpdate.jspに処理を転送
+			RequestDispatcher dispatcher = request.getRequestDispatcher("userUpdate.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

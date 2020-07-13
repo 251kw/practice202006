@@ -28,7 +28,7 @@ public class UpdateServlet extends HttpServlet {
 	}
 
 	/*
-	 *update.jspの「更新する」ボタンから呼び出される
+	 *userUpdate.jspの「更新する」ボタンから呼び出される
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -53,8 +53,8 @@ public class UpdateServlet extends HttpServlet {
 		result = dbm.updateUser(loginId,password,userName,icon,profile,logId);
 		request.setAttribute("result", result);
 
-		//updateComp.jspに処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("updateComp.jsp");
+		//userUpdateComp.jspに処理を転送
+		RequestDispatcher dispatcher = request.getRequestDispatcher("userUpdateComp.jsp");
 		dispatcher.forward(request, response);
 	}
 }

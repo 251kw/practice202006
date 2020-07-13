@@ -46,9 +46,9 @@
 				</table>
 			</form>
 		</div>
-		<%-- 新規会員登録へ移動(./insert.jspへ遷移) --%>
+		<%-- 新規会員登録へ移動(./userInsert.jspへ遷移) --%>
 		<div class="container padding-y-5" style="width: 15%">
-			<form action="./insert.jsp" method="post">
+			<form action="./userInsert.jsp" method="post">
 				<span class="text-right"><input class="btn" type="submit" value="新規会員登録はこちら"></span>
 			</form>
 		</div>

@@ -73,8 +73,8 @@
 				<%-- パラメータから取得した元のloginIdを/updateSrvに送る --%>
 				<input type="hidden" name="logId" value="${param.logId}">
 			</form>
-			<%-- 修正の場合は入力情報保持したままinsert.jspに戻る --%>
-			<form action="update.jsp" method="post">
+			<%-- 修正の場合は入力情報保持したままuserInsert.jspに戻る --%>
+			<form action="userInsert.jsp" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none text-right" colspan="2"><input class="btn" type="submit" value="修正する" /></td>

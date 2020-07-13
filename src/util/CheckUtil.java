@@ -78,14 +78,20 @@ public class CheckUtil {
 
 		String message = null;
 
-		//すでに登録されているIDの時はuserはnullではないのでエラーを返す。
-		if(user != null && user.getLoginId() != null) {
-			message = "そのログインIDはすでに使用されています";
-		}else {
+		if(loginId.matches("^[0-9a-zA-Z]+$") == false) {
+			//入力制限に沿ってないものははじく
 			message = "";
+			}else if(user == null){
+				//重複IDのチェックなので検索結果なし/入力欄からの場合ははじく
+				message = "";
+			}else if(user.getLoginId().equals(loginId)){
+				//すでに登録されているIDの時はuserはnullではないのでエラーを返す。
+				message = "そのログインIDはすでに使用されています";
+			}else {
+				message = "";
+			}
+			return message;
 		}
-		return message;
-	}
 
 	/**
 	 * エラーがひとつもないかを確認する

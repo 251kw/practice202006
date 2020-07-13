@@ -31,7 +31,7 @@ public class SearchServlet extends HttpServlet {
 	}
 
 	/*
-	 *search.jspの「検索」ボタンから呼び出される。ユーザ検索操作を行うサーブレット
+	 *userSearch.jspの「検索」ボタンから呼び出される。ユーザ検索操作を行うサーブレット
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
@@ -85,7 +85,7 @@ public class SearchServlet extends HttpServlet {
 
 		}
 
-//エラーがなければユーザ検索してsearchComp.jspへ、あれば入力情報を保持したまま再度search.jsp画面へ遷移-----------
+//エラーがなければユーザ検索してuserSearchComp.jspへ、あれば入力情報を保持したまま再度userSearch.jsp画面へ遷移-----------
 
 		if(errId == "" || errId == null) {
 			//searchListで検索結果を取得
@@ -113,8 +113,8 @@ public class SearchServlet extends HttpServlet {
 					request.setAttribute("rePassword", rePassword);
 				}
 
-				//searchComp.jspに処理を転送
-				dispatcher = request.getRequestDispatcher("searchComp.jsp");
+				//userSearchComp.jspに処理を転送
+				dispatcher = request.getRequestDispatcher("userSearchComp.jsp");
 				dispatcher.forward(request, response);
 			}
 		}else{
@@ -128,8 +128,8 @@ public class SearchServlet extends HttpServlet {
 			request.setAttribute("icon", icon);
 			request.setAttribute("profile", profile);
 
-			//search.jspに処理を転送
-			dispatcher = request.getRequestDispatcher("search.jsp");
+			//userSearch.jspに処理を転送
+			dispatcher = request.getRequestDispatcher("userSearch.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

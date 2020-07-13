@@ -33,7 +33,7 @@
 		    			<td rowspan="2" class="text-centr table-cell"><span class="${user.icon} pe-3x pe-va"></span></td>
 						<td class="middle" width="256">${user.userName}</td>
 						<td>
-							<form action="search.jsp" method="post" >
+							<form action="userSearch.jsp" method="post" >
 								<input class="btn" type="submit" value="ユーザ検索" />
 		            		</form>
 		            		<form action="./logout" method="post" >

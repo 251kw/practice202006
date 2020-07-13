@@ -97,7 +97,10 @@ public class DBManager extends SnsDAO{
 				user.setLoginId(rset.getString(2));
 				//TODO 7.10に追加
 				user.setPassword(rset.getString(3));
+			}else {
+				user = null;
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
@@ -243,20 +246,29 @@ public class DBManager extends SnsDAO{
 				getLog = user.getLoginId();
 			}
 
-			//UPDATE文の登録と実行
-			String sql = "UPDATE users SET loginId=?, password=?, userName=?, icon=?, profile=? WHERE LoginId=?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, getLogId);
-			pstmt.setString(2, getPass);
-			pstmt.setString(3, getUName);
-			pstmt.setString(4, getIcon);
-			pstmt.setString(5, getProf);
-			pstmt.setString(6, getLog);	//変更前のログインID
+			//shoutsテーブルのUPDATE文の登録と実行
+			String sql1 = "UPDATE shouts SET userName=? WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sql1);
+			pstmt.setString(1, getUName);
+			pstmt.setString(2, getLogId);
+			int cnt1 = pstmt.executeUpdate();
 
-			int cnt = pstmt.executeUpdate();
-			if(cnt == 1) {
-				//INSERT文の実行結果が1なら登録成功
-				result = true;
+			if(cnt1 >= 0) {
+				//userテーブルのUPDATE文の登録と実行
+				String sql2 = "UPDATE users SET loginId=?, password=?, userName=?, icon=?, profile=? WHERE LoginId=?";
+				pstmt = conn.prepareStatement(sql2);
+				pstmt.setString(1, getLogId);
+				pstmt.setString(2, getPass);
+				pstmt.setString(3, getUName);
+				pstmt.setString(4, getIcon);
+				pstmt.setString(5, getProf);
+				pstmt.setString(6, getLog);	//変更前のログインID
+
+				int cnt2 = pstmt.executeUpdate();
+				if(cnt2 == 1) {
+					//user,shoutsテーブルのINSERT文の実行結果が1なら登録成功
+					result = true;
+					}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -273,6 +285,7 @@ public class DBManager extends SnsDAO{
 	 * @param loginId	//削除するログインID
 	 * @return	result	//戻り値はDELETE文が成功したかどうかのboolean型
 	 */
+	@SuppressWarnings("resource")
 	public boolean deleteUser(String loginId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -291,15 +304,17 @@ public class DBManager extends SnsDAO{
 			pstmt.setString(1, getLogId);
 			int cnt1 = pstmt.executeUpdate();
 
-			//userテーブルのDELETE文の登録と実行
-			String sqlUser = "DELETE FROM users WHERE LoginId=?";
-			pstmt = conn.prepareStatement(sqlUser);
-			pstmt.setString(1, getLogId);
-			int cnt2 = pstmt.executeUpdate();
+			if(cnt1 >= 0) {
+				//userテーブルのDELETE文の登録と実行
+				String sqlUser = "DELETE FROM users WHERE LoginId=?";
+				pstmt = conn.prepareStatement(sqlUser);
+				pstmt.setString(1, getLogId);
+				int cnt2 = pstmt.executeUpdate();
 
-			if(cnt2 == 1) {
-				//DELETE文の実行結果が1なら登録成功
-				result = true;
+				if(cnt2 == 1) {
+					//DELETE文の実行結果が1なら登録成功
+					result = true;
+				}
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

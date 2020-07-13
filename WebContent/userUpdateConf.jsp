@@ -70,11 +70,11 @@
 				<input type="hidden" name="userName" value="${param.userName}">
 				<input type="hidden" name="icon" value="${param.icon}">
 				<input type="hidden" name="profile" value="${param.profile}">
-				<%-- update.jspからhiddenで送られてきた変更前のログインID --%>
+				<%-- userUpdate.jspからhiddenで送られてきた変更前のログインID --%>
 				<input type="hidden" name="logId" value="${param.logId}">
 			</form>
-			<%-- 修正の場合は入力情報保持したままupdate.jspに戻る --%>
-			<form action="update.jsp" method="post">
+			<%-- 修正の場合は入力情報保持したままuserUpdate.jspに戻る --%>
+			<form action="userUpdate.jsp" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
 						<td class="none text-right" colspan="2"><input class="btn" type="submit" value="修正する" /></td>

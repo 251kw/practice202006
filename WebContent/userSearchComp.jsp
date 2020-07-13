@@ -53,7 +53,7 @@
 								<td>
 									<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
 									<a href="
-										<c:url value="/update.jsp" >
+										<c:url value="/userUpdate.jsp" >
 											<c:param name="loginId" value="${search.loginId}" />
 											<c:param name="password" value="${search.password}" />
 											<c:param name="userName" value="${search.userName}" />
@@ -65,7 +65,7 @@
 								<td>
 									<%-- ユーザ情報削除ボタン searchListに入っているパスワード情報も渡す --%>
 									<a href="
-										<c:url value="/delete.jsp" >
+										<c:url value="/userDelete.jsp" >
 											<c:param name="loginId" value="${search.loginId}" />
 											<c:param name="password" value="${search.password}" />
 											<c:param name="userName" value="${search.userName}" />
@@ -78,11 +78,23 @@
 						</c:forEach>
 					</table>
 				<%-- 検索結果が0件の場合はエラーメッセージを表示する --%>
-				<div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div>
+				<c:if test="${not empty searchList}">
+					<tr>
+					<td nowrap><div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div></td>
+					<td></td>
+					</tr>
+				</c:if>
+				<c:if test="${empty searchList}">
+					<tr>
+					<td nowrap><div class="color-error text-left"><font size="3">検索結果は0件です</font></div></td>
+					<td></td>
+					</tr>
+				</c:if>
 			</div>
 		</div>
-		<%-- 入力情報保持したままsearch.jspに戻る --%>
-		<form action="search.jsp" method="post">
+		<%-- 入力情報保持したままuserSearch.jspに戻る --%>
+		<%-- 7/12 --%>
+		<form action="userSearch.jsp" method="post">
 			<table style="width: 60%" class="container padding-y-5 table">
 				<tr>
 					<td class="none text-right" colspan="2"><input class="btn" type="submit" value="戻る" /></td>
@@ -91,11 +103,11 @@
 			<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
 			<input type="hidden" name="reLoginId" value="${param.reLoginId}">
 			<input type="hidden" name="rePassword" value="${param.rePassword}">
-			<%-- search.jspに今回表示された情報を返す --%>
-			<input type="hidden" name="loginId" value="${param.loginId}">
-			<input type="hidden" name="userName" value="${param.userName}">
-			<input type="hidden" name="icon" value="${param.icon}">
-			<input type="hidden" name="profile" value="${param.profile}">
+			<%-- userSearch.jspに、sessionの中に入れた検索条件を取得して返す --%>
+			<input type="hidden" name="loginId" value="<%= (String)session.getAttribute("loginId") %>">
+			<input type="hidden" name="userName" value="<%= (String)session.getAttribute("userName") %>">
+			<input type="hidden" name="icon" value="<%= (String)session.getAttribute("icon") %>">
+			<input type="hidden" name="profile" value="<%= (String)session.getAttribute("profile") %>">
 		</form>
 	</body>
 </html>

@@ -28,7 +28,7 @@ public class DeleteServlet extends HttpServlet {
 	}
 
 	/*
-	 *delete.jspの「削除する」ボタンから呼び出される
+	 *userDelete.jspの「削除する」ボタンから呼び出される
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -47,8 +47,8 @@ public class DeleteServlet extends HttpServlet {
 		result = dbm.deleteUser(loginId);
 		request.setAttribute("result", result);
 
-		//deleteComp.jspに処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("deleteComp.jsp");
+		//userDeleteComp.jspに処理を転送
+		RequestDispatcher dispatcher = request.getRequestDispatcher("userDeleteComp.jsp");
 		dispatcher.forward(request, response);
 	}
 }

@@ -81,14 +81,15 @@
 						</td>
 					</tr>
 					<tr>
-						<%-- updateConf.jspへ送信 --%>
+						<%-- userUpdateConf.jspへ送信 --%>
 						<td colspan="2" class="text-right"><input class="btn" type="submit" value="更新内容確認" /></td>
 					</tr>
 				</table>
 				<%-- パラメータから取得した元のloginIdを/updateSrv送る --%>
+				<input type="hidden" name="logId" value="${param.loginId}">
 				<input type="hidden" name="loginId" value="${param.loginId}">
 			</form>
-			<%-- ./searchSrvを経由してsearchComp.jspへ戻る --%>
+			<%-- ./searchSrvを経由してuserSearchComp.jspへ戻る --%>
 			<form action="./searchSrv" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>

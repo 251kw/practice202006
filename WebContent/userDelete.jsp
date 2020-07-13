@@ -73,7 +73,7 @@
 				<input type="hidden" name="icon" value="${param.icon}">
 				<input type="hidden" name="profile" value="${param.profile}">
 			</form>
-			<%-- 取り消しの場合は./searchSrvを経由してsearchComp.jspに戻る --%>
+			<%-- 取り消しの場合は./searchSrvを経由してuserSearchComp.jspに戻る --%>
 			<form action="./searchSrv" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>

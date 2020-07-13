@@ -13,7 +13,7 @@ import dto.ErrorDTO;
 import util.CheckUtil;
 
 /**
- * insert.jspの「OK」ボタンから呼び出される。入力チェックのサーブレット
+ * userInsert.jspの「OK」ボタンから呼び出される。入力チェックのサーブレット
  */
 @WebServlet("/inCheck")
 public class InsertCheckServlet extends HttpServlet {
@@ -28,7 +28,7 @@ public class InsertCheckServlet extends HttpServlet {
 	}
 
 	/*
-	 * insert.jspの「OK」ボタンから呼び出される。
+	 * userInsert.jspの「OK」ボタンから呼び出される。
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
@@ -72,7 +72,7 @@ public class InsertCheckServlet extends HttpServlet {
 
 		errDepMs = CheckUtil.dbCheck(loginId);
 
-//エラーがなければinsertConf.jspへ、あればinsert.jspへ遷移---------------------
+//エラーがなければuserInsertConf.jspへ、あればuserInsert.jspへ遷移---------------------
 
 		//エラーがなければtrue、ひとつでもエラーがあればfalseで返ってくる
 		boo = CheckUtil.inCheck(errMsId,errMsPass,errMsUname,errMsIcon,errMsProf,errDepMs,errId,errPass);
@@ -85,8 +85,8 @@ public class InsertCheckServlet extends HttpServlet {
 			request.setAttribute("icon", icon);
 			request.setAttribute("profile", profile);
 
-			//insertConf.jspに処理を転送
-			dispatcher = request.getRequestDispatcher("insertConf.jsp");
+			//userInsertConf.jspに処理を転送
+			dispatcher = request.getRequestDispatcher("userInsertConf.jsp");
 			dispatcher.forward(request, response);
 
 		}else{
@@ -101,8 +101,8 @@ public class InsertCheckServlet extends HttpServlet {
 			request.setAttribute("icon", icon);
 			request.setAttribute("profile", profile);
 
-			//insert.jspに処理を転送
-			dispatcher = request.getRequestDispatcher("insert.jsp");
+			//userInsert.jspに処理を転送
+			dispatcher = request.getRequestDispatcher("userInsert.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

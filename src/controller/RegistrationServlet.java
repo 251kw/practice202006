@@ -53,7 +53,7 @@ public class RegistrationServlet extends HttpServlet {
 		request.setAttribute("result", result);
 
 		//insertCompに処理を転送
-		RequestDispatcher dispatcher = request.getRequestDispatcher("insertComp.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("userInsertComp.jsp");
 		dispatcher.forward(request, response);
 	}
 }
