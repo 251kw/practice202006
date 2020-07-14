@@ -7,6 +7,7 @@ package dto;
  */
 
 public class ShoutDTO {
+	private int shoutsId;	//一意のId
 	private String userName; //ユーザ名
 	private String icon; //ユーザアイコン
 	private String date; //書き込み日時
@@ -38,6 +39,15 @@ public class ShoutDTO {
 	 * 以下getterとsetter
 	 *
 	 */
+
+	public int getShoutsId() {
+		return shoutsId;
+	}
+
+	public void setShoutsId(int shoutsId) {
+		this.shoutsId = shoutsId;
+	}
+
 	public String getUserName() {
 		return userName;
 	}

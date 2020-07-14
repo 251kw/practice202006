@@ -95,5 +95,36 @@ public class DBUserDelete extends SnsDAO{
 		return result;
 	}
 
+	public  boolean shoutDelete(int shoutsId) {
+		boolean result = false;
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL管理情報
+		ResultSet rset = null; //検索結果
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			String sql = "UPDATE shouts SET d_flg=1 WHERE shoutsId=?";	//削除フラグ１で画面上からは消える
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, shoutsId);
+			pstmt.executeUpdate();
+
+			result = true;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
 
 }

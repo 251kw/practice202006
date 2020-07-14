@@ -1,6 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.ArrayList,java.util.Date"%>
+<%@ page import="util.Check" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <!DOCTYPE html>
@@ -63,7 +63,7 @@
 						<tr>
 							<%--今の気持ち入力欄の名前は shout--%>
 							<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
-							<td><input type="submit" class="btn-gradient-3d-simple" value="叫ぶ"></td>
+							<td><input type="submit" class="btn-gradient-3d-simple" name="btn" value="叫ぶ"></td>
 						</tr>
 					</table>
 				</form>
@@ -81,10 +81,10 @@
 			</div>
 		</div>
 		</c:if>
-
+		<form action="./drs" method="get">
 		<div class="padding-y-5 text-center">
 			<div style="width: 40%" class="container padding-y-5 text-left">
-				<strong class="color-main">みんなの叫び</strong>&nbsp;&nbsp;&nbsp;<a href="/" class="btn-flat-dashed-filled-red">☑選択項目を削除</a>
+				<strong class="color-main">みんなの叫び</strong>&nbsp;&nbsp;&nbsp;<input type="submit" class="btn-flat-dashed-filled-red" name="btn" value="☑選択項目を削除">
 			</div>
 		</div>
 		<%---------------------------------------------------------------------------------%>
@@ -95,13 +95,14 @@
 		<div class="padding-y-5">
 			<div style="width: 40%" class="container padding-y-5">
 				<c:forEach var="shout" items="${shouts}">
-					<table class="table table-striped table-bordered">
+					<table class="table table-bordered">
 						<tr>
 							<td rowspan="2" class="text-center">
 								<span class="${shout.icon} pe-3x pe-va"></span>
 							</td>
 							<td>${shout.userName}</td>
-							<td><label class="fancy-checkbox"><input type="checkbox"><span></span>
+							<td><label class="fancy-checkbox">
+								<input type="checkbox" name="shoutId" value="${shout.shoutsId}" ${Check.checkBox(String.valueOf(shout.shoutsId), shoutIds)}><span>${String.valueOf(shout.shoutsId)}</span>
 								</label></td>
 						</tr>
 						<tr>
@@ -111,12 +112,13 @@
 
 						<tr>
 							<td colspan="2" class="text-center">
-							<div class="balloon2-top">
+							<div class="balloon4">
   							<p>${shout.writing}</p>
 							</div></td></tr>
 					</table>
 				</c:forEach>
 			</div>
 		</div>
+		</form>
 	</body>
 </html>

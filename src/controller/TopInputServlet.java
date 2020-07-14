@@ -46,35 +46,48 @@ public class TopInputServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String writing = request.getParameter("shout");
+		String button = request.getParameter("btn");
 		RequestDispatcher dispatcher;
 		String message = null;
+		// １度だけ DataManager オブジェクトを生成
+		if(dbm == null){
+			dbm = new DBManager();
+		}
 
-		// 書き込み内容があれば、リストに追加
-		if (!writing.equals("")) {
-			HttpSession session = request.getSession();	//セッションオブジェクト取得
-			// セッションからログインユーザ情報を取得
-			UserDTO user = (UserDTO) session.getAttribute("user");
-
-			// １度だけ DataManager オブジェクトを生成
-			if(dbm == null){
-				dbm = new DBManager();
-			}
-
-			// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
-			dbm.setWriting(user, writing);
-
+		if(button.equals("掲示板に戻る")) {
 			// 書き込み内容追加後のリストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
-
 			// リストをセッションに保存
 			request.setAttribute("shouts", list);
-		} else {
-			//書き込み未入力なら
-			message = "コメントを入力してください";
 
-			//エラーメッセージをリクエストオブジェクトに保存
-			request.setAttribute("alert", message);
+		} else if(button.equals("叫ぶ")) {
 
+			if(!writing.equals("")) {// 書き込み内容があれば、リストに追加
+
+				HttpSession session = request.getSession();	//セッションオブジェクト取得
+				// セッションからログインユーザ情報を取得
+				UserDTO user = (UserDTO) session.getAttribute("user");
+
+				// ログインユーザ情報と書き込み内容を引数に、リストに追加するメソッドを呼び出し
+				dbm.setWriting(user, writing);
+
+				// 書き込み内容追加後のリストを取得
+				ArrayList<ShoutDTO> list = dbm.getShoutList();
+
+				// リストをセッションに保存
+				request.setAttribute("shouts", list);
+
+			} else {
+				//書き込み未入力なら
+				message = "コメントを入力してください";
+				//エラーメッセージをリクエストオブジェクトに保存
+				request.setAttribute("alert", message);
+
+				// 書き込み内容追加後のリストを取得
+				ArrayList<ShoutDTO> list = dbm.getShoutList();
+				// リストをセッションに保存
+				request.setAttribute("shouts", list);
+			}
 		}
 
 		// top.jsp に処理を転送

@@ -11,9 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DBManager;
 import dao.DBUserDelete;
 import dao.DBUserSearch;
 import dto.SearchUserDTO;
+import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
@@ -35,7 +37,56 @@ public class DeleteServlet extends HttpServlet {
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//TODO
+		request.setCharacterEncoding("UTF-8");
+		RequestDispatcher dispatcher = null;
+		String botton = request.getParameter("btn");
+		String[] shoutIds = request.getParameterValues("shoutId");
+		String message = null;
+		DBUserSearch dbs = new DBUserSearch();
+		DBUserDelete dbd = new DBUserDelete();
+		DBManager dbm = new DBManager();
+
+		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
+
+		if(botton.equals("☑選択項目を削除")) {
+			if(shoutIds==null) {
+				message = "☑チェックボックスが選択されていません。";
+				request.setAttribute("alert", message);
+
+				// 書き込み内容追加後のリストを取得
+				list = dbm.getShoutList();
+				// リストをセッションに保存
+				request.setAttribute("shouts", list);
+
+				dispatcher = request.getRequestDispatcher("top.jsp");
+				dispatcher.forward(request, response);
+				return;
+			}
+			for(String s: shoutIds) {
+				int shout = Integer.parseInt(s);
+				list.add(dbs.shoutIdSearch(shout));
+			}
+			request.setAttribute("shouts", list);
+			dispatcher = request.getRequestDispatcher("s_delete_confirm.jsp");
+
+		} else if(botton.equals("キャンセル")) {
+			request.setAttribute("shoutIds", shoutIds);
+			dispatcher = request.getRequestDispatcher("top.jsp");
+
+		} else if(botton.equals("削除")) {
+			for(String s: shoutIds) {
+				int shout = Integer.parseInt(s);
+				list.add(dbs.shoutIdSearch(shout));
+			}
+			request.setAttribute("shouts", list);
+
+			for(String s: shoutIds) {
+				int shout = Integer.parseInt(s);
+				dbd.shoutDelete(shout);
+			}
+			dispatcher = request.getRequestDispatcher("s_delete_result.jsp");
+		}
+		dispatcher.forward(request, response);
 	}
 
 
