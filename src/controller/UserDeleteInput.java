@@ -37,16 +37,26 @@ public class UserDeleteInput extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
-		//情報受け取る
+		//ボタンの情報受け取る
 		String user = request.getParameter("user");
 		String all = request.getParameter("all");
+		String full = request.getParameter("full");
 		//複数削除用
 		String[] deleteList =request.getParameterValues("select");
 		RequestDispatcher dispatcher = null;
 		//ログインしているユーザーの情報をとってくる
 		HttpSession session = request.getSession();
 		UserDTO loginuser =  (UserDTO)session.getAttribute("user");
+		//チェックの保持用
+		if(deleteList != null) {
+			String check = String.join(",", deleteList);
+			session.setAttribute("check", check);
+		}else {
+			String check = "";
+			session.setAttribute("check", check);
+		}
 
+		//複数削除
 		if(all != null && deleteList != null) {
 			DBManager db = new DBManager();
 			String str = "WHERE loginId IN (";
@@ -64,6 +74,7 @@ public class UserDeleteInput extends HttpServlet {
 			request.setAttribute("users", list);
 			dispatcher = request.getRequestDispatcher("multDelete.jsp");
 
+		//何もチェックせずに複数削除のボタン押したとき
 		}else if(all != null && deleteList==null) {
 			DBManager db = new DBManager();
 			String str = (String)session.getAttribute("str");
@@ -71,6 +82,26 @@ public class UserDeleteInput extends HttpServlet {
 			request.setAttribute("users", list);
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
+		//全選択
+		}else if(full != null) {
+			DBManager db = new DBManager();
+			ArrayList<String> idList = new ArrayList<String>();
+			String str = (String)session.getAttribute("str");
+			idList= db.allGetId(str);
+			 String check = String.join(",", idList);
+			 //全解除の処理
+			 if(deleteList != null) {
+				 String oldCheck =  String.join(",", deleteList);
+				 if(check.equals(oldCheck)) {
+					check = "";
+				 }
+			 }
+			session.setAttribute("check", check);
+			ArrayList<UserDTO> list = db.searchUser(str);
+			request.setAttribute("users", list);
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
+
+		//個別の削除、更新
 		}else{
 			//情報が一つのString文で送られてくるため、配列に変換
 			String[] duser = user.split(",", 0);

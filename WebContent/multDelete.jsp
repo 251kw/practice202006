@@ -63,6 +63,9 @@
 	<div style="width: 70%" class="container padding-y-5">
 		<form action="./udr" method="post">
 			<input class="btn" type="submit" value="戻る">
+			<c:forEach var="user" items="${users}">
+				<input type="hidden" name="users" value="${user.loginId}" >
+			</c:forEach>
 		</form>
 	</div>
 </body>

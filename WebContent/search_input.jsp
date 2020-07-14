@@ -12,6 +12,7 @@
 </head>
 <body>
 	<% request.setCharacterEncoding("UTF-8");%>
+	<c:if test="${sessionScope.check != null}">${sessionScope.check = ""}</c:if>
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">
 			<strong>検索フォーム</strong>

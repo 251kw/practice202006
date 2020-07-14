@@ -155,6 +155,45 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
+	 * 登録されているすべてのユーザーのログインIDを持ってくる
+	 * @param str 検索で使ったsql文
+	 * @return すべてのログインID
+	 */
+	public ArrayList<String> allGetId(String str) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL 管理情報
+		ResultSet rset = null; //検索結果
+
+		ArrayList<String> list = new ArrayList<String>();
+
+		String sql = "SELECT * FROM users "+str;
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); //SELeCT 構文登録
+			rset = pstmt.executeQuery();
+
+			//検索結果の数だけ繰り返す
+			while (rset.next()) {
+				//書き込み内容をリストに追加
+				list.add(rset.getString(2));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	/**
 	 * delete文を作り、削除する機能
 	 * @param str sql文の条件部分
 	 * @return 削除に成功したかどうか
