@@ -90,11 +90,11 @@
 							<td>${shout.date}</td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea></td>
+							<td colspan="2" height="150">${shout.writing}</td>
 						</tr>
 					</table>
 				 </c:forEach>
-				 <button class="btn" type="submit" name="shoutsId" value="alldel" >選択した叫びを削除する</button>
+				<c:if test="${not empty shouts}"><button class="btn" type="submit" name="shoutsId" value="alldel" >選択した叫びを削除する</button></c:if>
 			</div>
 		</form>
 

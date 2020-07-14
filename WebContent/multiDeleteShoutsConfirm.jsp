@@ -36,7 +36,7 @@
 							<td>${shout.date}</td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea></td>
+							<td colspan="2" height="150">${shout.writing}</td>
 						</tr>
 					</table>
 				 </c:forEach>
@@ -45,7 +45,7 @@
 		<div align="center">
 			<form action="./multiDeleteShoutsResultServlet" method="post">
 				<c:forEach var="shout" items="${searchShouts}">
-					<input type="hidden" name="shoutsId" value="shout">
+					<input type="hidden" name="shoutsId" value="${shout.shoutsId}">
 				</c:forEach>
 				<input class="btn" type="submit" style="height:50px" value="削除確定" />
 			</form>
