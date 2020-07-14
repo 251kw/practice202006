@@ -30,25 +30,24 @@ public class UserSearchInputBack extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		response.getWriter().append("Served at: ").append(request.getContextPath());
-	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * 検索画面へも同る際に経由
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		//チェックボックスの値保持
 		CheckBoxCheck cbc = new CheckBoxCheck();
 		request.setAttribute("cbc", cbc);
 
 		HttpSession session = request.getSession();
 
+		//チェックされたアイコン
 		String[] sicon = (String[])session.getAttribute("sicon");
 		if(sicon != null) {
 			request.setAttribute("sicon", sicon);
 		}
-
+		//検索入力画面へ
 		RequestDispatcher dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
 		dispatcher.forward(request, response);
 	}

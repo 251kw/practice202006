@@ -26,17 +26,21 @@ public class UserSearchBack extends HttpServlet {
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 検索入力画面から掲示板画面へ移動
+	 * セッションの値をリセット
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//文字化け対策
 		request.setCharacterEncoding("UTF-8");
 
+		//セッションに空白をいれる
 		HttpSession session2 = request.getSession();
 		session2.setAttribute("userName", "");
 		session2.setAttribute("seloginId", "");
 		session2.setAttribute("sicon", "");
 		session2.setAttribute("profile", "");
 
+		//掲示板画面へ
 		RequestDispatcher dispatcher = request.getRequestDispatcher("top.jsp");
 		dispatcher.forward(request, response);
 
