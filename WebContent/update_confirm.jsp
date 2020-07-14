@@ -91,7 +91,7 @@
 				</TR>
 				<TR>
 					<TD colspan='3' style='text-align: center'>
-						<button class="btn" type='submit' name="check" value='OK'>OK</button>
+						<button class="btn" type='submit' name="checks" value='OK'>OK</button>
 						<input type="hidden" name="loginId" value="${user.loginId}">
 						<input type="hidden" name="password" value="${user.password}">
 						<input type="hidden" name="userName" value="${user.userName}">
@@ -101,7 +101,7 @@
 				</TR>
 				<TR>
 					<TD>
-						<button  type='submit' name="check" value='戻る'>戻る</button>
+						<button  type='submit' name="checks" value='戻る'>戻る</button>
 					</TD>
 				</TR>
 			</TABLE>

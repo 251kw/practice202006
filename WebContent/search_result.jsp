@@ -48,7 +48,7 @@
 
 						<tr>
 							<td><input type="checkbox" name="select"
-							value="${user.loginId}" <c:if test="${sessionScope.check.contains(user.loginId)==true}">checked</c:if>></td>
+							value="${user.loginId}" <c:forEach var="check" items="${sessionScope.check}"><c:if test="${check.equals(user.loginId)==true}">checked</c:if></c:forEach>></td>
 							<td  class="text-center">
 							<span class="${user.icon} pe-3x pe-va"></span></td>
 							<td class="text-center">${user.userName}</td>
@@ -71,7 +71,13 @@
 					<tr>
 						<td colspan="8" class="text-left">
 							<button class="btn" type="submit" name="all" value="複数削除">複数削除</button>
+							<%-- リクエストスコープにalertがあれば --%>
+							<c:if test="${requestScope.alert != null && requestScope.alert != ' '}">
+								<%-- リクエストスコープのalertの値を出力 --%>
+								<div class="color-error"><c:out  value="${requestScope.alert}" /></div>
+							</c:if>
 						</td>
+
 					</tr>
 				</table>
 			</form>

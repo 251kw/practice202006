@@ -53,7 +53,7 @@ public class UserAddInput extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String message = null;
 		DBManager dbm = new DBManager();
-		UserDTO check = dbm.checkUser(loginId);
+		UserDTO check_u = dbm.checkUser(loginId);
 
 		if (loginId.equals("") || password.equals("")) {
 			//未入力
@@ -65,7 +65,7 @@ public class UserAddInput extends HttpServlet {
 			//jspに処理を転送
 			dispatcher = request.getRequestDispatcher("add_input.jsp");
 			dispatcher.forward(request, response);
-		} else if (check != null) {
+		} else if (check_u != null) {
 			//Idかぶり
 			message = "*このIDは使われています";
 

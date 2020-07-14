@@ -9,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
@@ -45,6 +47,9 @@ public class UserMultdeleteConfirm extends HttpServlet {
 			result = db.checkShout("'"+user[i]+"'");
 			if(result == true) {
 				db.deleteShouts("'"+user[i]+"'");
+				ArrayList<ShoutDTO> list = db.getShoutList();
+				HttpSession session = request.getSession();
+				session.setAttribute("shouts", list);
 				result = false;
 			}
 		}

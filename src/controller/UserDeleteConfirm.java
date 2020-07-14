@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,8 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dto.ShoutDTO;
 
 /**
  * @author t.kurihara
@@ -57,6 +60,10 @@ public class UserDeleteConfirm extends HttpServlet {
 		result = db.checkShout(str);
 		if(result == true) {
 			db.deleteShouts(str);
+			//shoutsリスト更新
+			ArrayList<ShoutDTO> list = db.getShoutList();
+			HttpSession session = request.getSession();
+			session.setAttribute("shouts", list);
 		}
 		//デリート文実行
 		result =db.deleteUser(str);

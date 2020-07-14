@@ -49,10 +49,9 @@ public class UserDeleteInput extends HttpServlet {
 		UserDTO loginuser =  (UserDTO)session.getAttribute("user");
 		//チェックの保持用
 		if(deleteList != null) {
-			String check = String.join(",", deleteList);
-			session.setAttribute("check", check);
+			session.setAttribute("check", deleteList);
 		}else {
-			String check = "";
+			String check = null;
 			session.setAttribute("check", check);
 		}
 
@@ -76,6 +75,9 @@ public class UserDeleteInput extends HttpServlet {
 
 		//何もチェックせずに複数削除のボタン押したとき
 		}else if(all != null && deleteList==null) {
+			String msg = null;
+			msg = "＊チェックがありません。";
+			request.setAttribute("alert", msg);
 			DBManager db = new DBManager();
 			String str = (String)session.getAttribute("str");
 			ArrayList<UserDTO> list = db.searchUser(str);
@@ -88,15 +90,15 @@ public class UserDeleteInput extends HttpServlet {
 			ArrayList<String> idList = new ArrayList<String>();
 			String str = (String)session.getAttribute("str");
 			idList= db.allGetId(str);
-			 String check = String.join(",", idList);
+			String check = String.join(",", idList);
 			 //全解除の処理
 			 if(deleteList != null) {
 				 String oldCheck =  String.join(",", deleteList);
 				 if(check.equals(oldCheck)) {
-					check = "";
+					idList = null;
 				 }
 			 }
-			session.setAttribute("check", check);
+			session.setAttribute("check", idList);
 			ArrayList<UserDTO> list = db.searchUser(str);
 			request.setAttribute("users", list);
 			dispatcher = request.getRequestDispatcher("search_result.jsp");

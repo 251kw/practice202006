@@ -45,18 +45,18 @@ public class UserUpdateConfirm extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 		//ボタンの確認
-		String check = request.getParameter("check");
+		String checks = request.getParameter("checks");
 
 		RequestDispatcher dispatcher = null;
 		DBManager db = new DBManager();
 
 		//戻るボタン押された
-		if (check.equals("戻る")) {
+		if (checks.equals("戻る")) {
 			String[] duser = { loginId, password, userName, icon, profile };
 			request.setAttribute("duser", duser);
 			dispatcher = request.getRequestDispatcher("update_input.jsp");
 		//OKボタン押された
-		} else if (check.equals("OK")) {
+		} else if (checks.equals("OK")) {
 			HttpSession session = request.getSession();
 			//変更前のユーザー情報取得
 			String[] olduser = (String[]) session.getAttribute("duser");
