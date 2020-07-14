@@ -37,7 +37,7 @@
 								<td width="120" height="10">ログインID</td>
 								<td width="170" height="10">プロフィール</td>
 								<td width="120" height="10">更新</td>
-								<td width="120" height="10">削除</td>
+								<!-- <td width="120" height="10">削除</td>  -->
 								<c:forEach var="users" items="${users}">
 									<tr>
 										<td width="50" height="10"><input type="checkbox" name="delloginId" value="${users.loginId}"  ${cbc.boxCheck(hId, users.loginId)}></td>
@@ -49,8 +49,8 @@
 										<td width="170" height="10">${users.profile}</td>
 										<td><input type="button" onclick="location.href='./uui?loginId=${users.loginId}'"
 										value="更新" class="btn"></td>
-										<td><input type="button" onclick="location.href='./udi?loginId=${users.loginId}'"
-										value="削除" class="btn"></td>
+										<!--  <td><input type="button" onclick="location.href='./udi?loginId=${users.loginId}'"
+										value="削除" class="btn"></td> -->
 									</tr>
 									<input type="hidden" name="hogeloginId" value="${users.loginId}">
 								</c:forEach>
@@ -70,7 +70,7 @@
 						<table>
 							<tr>
 								<td colspan="4" class="text-center"><input type="submit"
-								value="複数削除" class="btn"></td>
+								value="削除" class="btn"></td>
 							</tr>
 						</table>
 					</form>
