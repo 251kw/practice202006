@@ -22,11 +22,16 @@
 			//文字化け対策
 			request.setCharacterEncoding("UTF-8");
 			//一度入力してされた値を取得
-			//String[] sicon = (String[]) request.getAttribute("icon");
+			/* //String[] sicon = (String[]) request.getAttribute("icon");
 			String sloginId = (String) request.getAttribute("loginId");
 			String suserName = (String) request.getAttribute("userName");
 			String spassword = (String) request.getAttribute("password");
-			String sprofile = (String) request.getAttribute("profile");
+			String sprofile = (String) request.getAttribute("profile"); */
+			String spassword = (String) request.getAttribute("password");
+
+			String sloginId = (String)session.getAttribute("seloginId");
+			String suserName = (String)session.getAttribute("userName");
+			String sprofile= (String)session.getAttribute("profile");
 
 			if (suserName == null) {
 				suserName = request.getParameter("suserName");
@@ -55,9 +60,8 @@
 					sprofile = "";
 				}
 			}
-
-			String sicon = request.getParameter("sicon");
-			String sicon2 = request.getParameter("sicon2");
+			request.getAttribute("cbc");
+			request.getAttribute("sicon");
 		%>
 		<form action="./usi" method="post">
 			<table style="width: 450px" class="table">
@@ -87,146 +91,39 @@
 			</table>
 			<table style="width: 450px" class="table">
 				<tr>
-					<%-- パスワード入力欄の名前はpassword --%>
-					<td class="color-main text-left">アイコン</td>
-
-					<!-- 初回アクセス -->
-					<c:if test="${param.flag != 'on'}">
-					<c:if test="${length == null}">
-						<td><input type="checkbox"name="sicon" value="icon-rocket" >
-						<span class="icon-rocket pe-2x pe-va"></span>
-						</td>
-						<td><input type="checkbox"name="sicon" value="icon-plane" >
-						<span class="icon-plane pe-2x pe-va"></span>
-						</td>
-					</c:if>
-					<!-- 入力0時のエラー -->
-					<c:if test="${length == 0}">
-						<td><input type="checkbox"name="sicon" value="icon-rocket" >
-						<span class="icon-rocket pe-2x pe-va"></span>
-						</td>
-						<td><input type="checkbox"name="sicon" value="icon-plane" >
-						<span class="icon-plane pe-2x pe-va"></span>
-						</td>
-					</c:if>
 					<c:choose>
-						<c:when test="${length == 1}">
-							<!-- アイコンがロケットの場合　 -->
-							<c:choose>
-								<c:when test="${icon[0] == 'icon-rocket'}">
-									<td> <input type="checkbox"name="sicon" value="icon-rocket" checked="checked"><span
-										class="icon-rocket pe-2x pe-va"></span>
-									</td>
-								</c:when>
-								<c:otherwise>
-									<td><input type="checkbox"name="sicon" value="icon-rocket" ><span
-										class="icon-rocket pe-2x pe-va"></span>
-										</td>
-								</c:otherwise>
-							</c:choose>
-							<!-- アイコンが飛行機の場合　 -->
-							<c:choose>
-								<c:when test="${icon[0] == 'icon-plane'}">
-									<td> <input type="checkbox"name="sicon" value="icon-plane" checked="checked"><span
-										class="icon-plane pe-2x pe-va"></span>
-									</td>
-								</c:when>
-								<c:otherwise>
-									<td><input type="checkbox"name="sicon" value="icon-plane" ><span
-										class="icon-plane pe-2x pe-va"></span>
-									</td>
-								</c:otherwise>
-							</c:choose>
-						</c:when>
-					</c:choose>
-
-					<c:choose>
-						<c:when test="${length == 2}">
-							<td> <input type="checkbox"name="sicon" value="icon-rocket" checked="checked">
-							<span class="icon-rocket pe-2x pe-va"></span>
+						<c:when test="${sicon == null }">
+									<td><input type="checkbox"name="sicon" value="icon-rocket" >
+								<span class="icon-rocket pe-2x pe-va"></span>
 							</td>
-							<td> <input type="checkbox"name="sicon" value="icon-plane" checked="checked">
-							<span class="icon-plane pe-2x pe-va"></span>
-							</td>
-						</c:when>
-					</c:choose>
-					</c:if>
-
-					<!--  検索結果画面から戻ってきたときの値保持 -->
-					<c:if test="${param.flag == 'on'}">
-					<c:if test="${param.length == 1}">
-					<c:choose>
-						<c:when test="${param.sicon == 'icon-rocket'}">
-							<td> <input type="checkbox"name="sicon" value="icon-rocket" checked="checked">
-							<span class="icon-rocket pe-2x pe-va"></span>
+							<td><input type="checkbox"name="sicon" value="icon-plane" >
+								<span class="icon-plane pe-2x pe-va"></span>
 							</td>
 						</c:when>
 						<c:otherwise>
-							<td><input type="checkbox"name="sicon" value="icon-rokect" ><span
-										class="icon-rocket pe-2x pe-va"></span>
-									</td>
-						</c:otherwise>
-					</c:choose>
-
-						<c:choose>
-						<c:when test="${param.sicon == 'icon-plane'}">
-							<td> <input type="checkbox"name="sicon" value="icon-plane" checked="checked">
-							<span class="icon-plane pe-2x pe-va"></span>
+							<td>
+								<input type="checkbox"name="sicon" value="icon-rocket" ${cbc.boxCheck(sicon, "icon-rocket")} ><span class="icon-rocket pe-2x pe-va"></span>
 							</td>
-						</c:when>
-						<c:otherwise>
-							<td><input type="checkbox"name="sicon" value="icon-plane" ><span
-										class="icon-plane pe-2x pe-va"></span>
-									</td>
-						</c:otherwise>
-					</c:choose>
-					</c:if>
-
-					<c:if test="${param.length == 2}">
-					<c:choose>
-						<c:when test="${param.sicon == 'icon-rocket'}">
-							<td> <input type="checkbox"name="sicon" value="icon-rocket" checked="checked">
-							<span class="icon-rocket pe-2x pe-va"></span>
+							<td>
+								<input type="checkbox"name="sicon" value="icon-plane" ${cbc.boxCheck(sicon, "icon-plane")}><span class="icon-plane pe-2x pe-va"></span>
 							</td>
-						</c:when>
-						<c:otherwise>
-							<td><input type="checkbox"name="sicon" value="icon-rocket" ><span
-										class="icon-rocket pe-2x pe-va"></span>
-									</td>
 						</c:otherwise>
 					</c:choose>
-
-					<c:choose>
-						<c:when test="${param.sicon2 == 'icon-plane'}">
-							<td> <input type="checkbox"name="sicon" value="icon-plane" checked="checked">
-							<span class="icon-plane pe-2x pe-va"></span>
-							</td>
-						</c:when>
-						<c:otherwise>
-							<td><input type="checkbox"name="sicon" value="icon-plane" ><span
-										class="icon-plane pe-2x pe-va"></span>
-									</td>
-						</c:otherwise>
-					</c:choose>
-					</c:if>
-					</c:if>
 
 				</tr>
-				<%-- リクエストスコープにalertがあれば --%>
-				<c:if
-					test="${requestScope.alert != null && requestScope.alert != ''}">
-					<tr>
-						<%-- リクエストスコープのalertの値を出力 --%>
-						<td colspan="2" class="color-error text-center"><c:out
-								value="${requestScope.alert}" /></td>
-					</tr>
-				</c:if>
 				<tr>
-					<td><input type="button" onclick="location.href='./top.jsp'"
+					<td><input type="button" onclick="location.href='./usb'"
 						value="戻る" class="btn"></td>
 					<td colspan="2" class="text-right"><input type="submit"
 						value="検索" class="btn"></td>
 				</tr>
+				<%-- エラー検出 --%>
+				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
+					<tr>
+						<%-- リクエストスコープのalertの値を出力 --%>
+						<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alert}" /></td>
+					</tr>
+				</c:if>
 			</table>
 		</form>
 	</body>

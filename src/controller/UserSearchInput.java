@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dto.SearchDTO;
+import util.CheckBoxCheck;
 import util.UserSearch;
 
 /**
@@ -54,7 +55,7 @@ public class UserSearchInput extends HttpServlet {
 
 		//検索条件をsessionにセット
 		session2.setAttribute("userName", userName);
-		session2.setAttribute("loginId", loginId);
+		session2.setAttribute("seloginId", loginId);
 		session2.setAttribute("sicon", sicon);
 		session2.setAttribute("profile", profile);
 
@@ -79,6 +80,10 @@ public class UserSearchInput extends HttpServlet {
 
 		UserSearch us = new UserSearch();
 
+		//チェックボックスの値保持のメソッド
+	/*	CheckBoxCheck cbc = new CheckBoxCheck();
+		request.setAttribute("cbc", cbc);*/
+
 		//全件検索の場合
 		 if(loginId.equals("") &&  userName.equals("") && sicon == null && profile.equals("")){
 			 ArrayList<SearchDTO> list = us.SearchAllUser();
@@ -88,6 +93,9 @@ public class UserSearchInput extends HttpServlet {
 				if (list == null || list.size() == 0) {
 					//エラーメッセージをリクエストオブジェクトに保存
 					message = "検索結果がありません";
+					CheckBoxCheck cbc = new CheckBoxCheck();
+					request.setAttribute("cbc", cbc);
+					request.setAttribute("sicon", sicon);
 					request.setAttribute("alert", message);
 					//検索画面へ
 					dispatcher = request.getRequestDispatcher("userSearchInput.jsp");
@@ -103,7 +111,10 @@ public class UserSearchInput extends HttpServlet {
 
 				if (list == null || list.size() == 0) {
 					//エラーメッセージをリクエストオブジェクトに保存
+					CheckBoxCheck cbc = new CheckBoxCheck();
+					request.setAttribute("cbc", cbc);
 					message = "検索結果がありません";
+					request.setAttribute("sicon", sicon);
 					request.setAttribute("alert", message);
 					//検索画面へ
 					dispatcher = request.getRequestDispatcher("userSearchInput.jsp");

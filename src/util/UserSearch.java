@@ -323,6 +323,8 @@ public class UserSearch extends SnsDAO {
 		return list;
 	}
 
+
+
 	/**
 	 * @param loginId ログインID
 	 * @return
@@ -598,6 +600,30 @@ public class UserSearch extends SnsDAO {
 			close(conn);
 		}
 
+		return result;
+	}
+
+	public boolean updateShoutsName(String userName, String sloginId){
+		boolean result = false;
+		try {
+			conn = getConnection();
+			// sql文
+			String sql = "UPDATE sns.shouts SET userName=? WHERE loginId=?";
+			pstmt = conn.clientPrepareStatement(sql);
+			pstmt.setString(1, userName);
+			pstmt.setString(2, sloginId);
+			//sql文の実行
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				result = true;
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+			close(conn);
+		}
 		return result;
 	}
 }

@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DBManager;
 import dto.SearchDTO;
+import dto.ShoutDTO;
+import util.CheckBoxCheck;
 import util.UserSearch;
 
 /**
@@ -38,7 +41,7 @@ public class UserDelBack extends HttpServlet {
 		// セッションに接続
 		HttpSession session2 = request.getSession();
 		String userName = (String) session2.getAttribute("userName");
-		String loginId = (String) session2.getAttribute("loginId");
+		String loginId = (String) session2.getAttribute("seloginId");
 		String[] sicon = (String[]) session2.getAttribute("sicon");
 		String profile = (String) session2.getAttribute("profile");
 
@@ -49,12 +52,21 @@ public class UserDelBack extends HttpServlet {
 		//複数削除のユーザー情報の配列
 		String[] dloginId = request.getParameterValues("dloginId");
 
+		//選択されたユーザーのログインIDを配列で取得
+		String[] hId = request.getParameterValues("hId");
+
 		RequestDispatcher dispatcher = null;
 
 		UserSearch us = new UserSearch();
 
 		//ログインユーザーの検索
 		ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId, userName, profile, sicon);
+
+		if(hId != null) {
+			CheckBoxCheck cbc = new CheckBoxCheck();
+			request.setAttribute("hId", hId);
+			request.setAttribute("cbc", cbc);
+		}
 
 		int flag = 0;
 		//削除情報が配列で送られてきたら
@@ -69,6 +81,12 @@ public class UserDelBack extends HttpServlet {
 				}
 			}
 		}
+
+		DBManager dbm = new DBManager();
+
+		//更新・削除後の叫び情報取得
+		ArrayList<ShoutDTO> shoutslist = dbm.getShoutList();
+		session2.setAttribute("shouts", shoutslist);
 
 		if(flag == 0) {
 			//検索結果が空になるかどうかを判別

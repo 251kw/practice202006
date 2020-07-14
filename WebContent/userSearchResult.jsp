@@ -1,3 +1,4 @@
+<%@page import="org.apache.jasper.tagplugins.jstl.core.ForEach"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -11,99 +12,117 @@
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
 </head>
-<body>
-		<div class="bg-success padding-y-5">
-			<div class="padding-y-5 text-center">
-				<strong>検索結果</strong>
+	<body>
+			<div class="bg-success padding-y-5">
+				<div class="padding-y-5 text-center">
+					<strong>検索結果</strong>
+				</div>
 			</div>
-		</div>
-		<jsp:useBean id="users" scope="request"
-			type="java.util.ArrayList<dto.SearchDTO>" />
-		<div class="padding-y-5">
-			<div style="width: 80%" class="container padding-y-5">
-				<%-- リストにある要素の数だけ繰り返し --%>
-				<form action="./umdi" method="post">
-					<table  width="500" class="table table-striped table-bordered">
-						<tr>
-							<td width="50" height="10"></td>
-							<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
-							<td width="113" height="10">名前</td>
-							<td width="120" height="10">ログインID</td>
-							<td width="170" height="10">プロフィール</td>
-							<td width="120" height="10">更新</td>
-							<td width="120" height="10">削除</td>
-							<c:forEach var="users" items="${users}">
+			<jsp:useBean id="users" scope="request"
+				type="java.util.ArrayList<dto.SearchDTO>" />
+			<div class="padding-y-5">
+				<div style="width: 80%" class="container padding-y-5">
+					<%-- リストにある要素の数だけ繰り返し --%>
+					<form action="./umdi" method="post">
+						<%@ page import="javafx.scene.control.CheckBox"%>
+						<%
+							String[] hoge = (String[])request.getAttribute("hId");
+							request.getAttribute("cbc");
+						%>
+						<table  width="500" class="table table-striped table-bordered">
+							<tr>
+								<td width="50" height="10"></td>
+								<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
+								<td width="113" height="10">名前</td>
+								<td width="120" height="10">ログインID</td>
+								<td width="170" height="10">プロフィール</td>
+								<td width="120" height="10">更新</td>
+								<td width="120" height="10">削除</td>
+								<c:forEach var="users" items="${users}">
+									<tr>
+										<td width="50" height="10"><input type="checkbox" name="delloginId" value="${users.loginId}"  ${cbc.boxCheck(hId, users.loginId)}></td>
+
+										<td width="50" height="10"><span
+											class="${users.icon} pe-2x pe-va"></span></td>
+										<td width="130" height="10">${users.userName}</td>
+										<td width="120" height="10">${users.loginId}</td>
+										<td width="170" height="10">${users.profile}</td>
+										<td><input type="button" onclick="location.href='./uui?loginId=${users.loginId}'"
+										value="更新" class="btn"></td>
+										<td><input type="button" onclick="location.href='./udi?loginId=${users.loginId}'"
+										value="削除" class="btn"></td>
+									</tr>
+									<input type="hidden" name="hogeloginId" value="${users.loginId}">
+								</c:forEach>
+							</tr>
+						</table>
+						<table>
+							<%-- エラー検出 --%>
+							<c:if
+								test="${requestScope.alert != null && requestScope.alert != ''}">
 								<tr>
-									<td width="50" height="10"><input type="checkbox" name="delloginId" value="${users.loginId}"></td>
-									<td width="50" height="10"><span
-										class="${users.icon} pe-2x pe-va"></span></td>
-									<td width="130" height="10">${users.userName}</td>
-									<td width="120" height="10">${users.loginId}</td>
-									<td width="170" height="10">${users.profile}</td>
-									<td><input type="button" onclick="location.href='./uui?loginId=${users.loginId}'"
-									value="更新" class="btn"></td>
-									<td><input type="button" onclick="location.href='./udi?loginId=${users.loginId}'"
-									value="削除" class="btn"></td>
+									<%-- リクエストスコープのalertの値を出力 --%>
+									<td colspan="2" class="color-error text-left"><c:out
+											value="${requestScope.alert}" /></td>
 								</tr>
-							</c:forEach>
-						</tr>
-					</table>
-					<table>
-					<tr>
-						<td colspan="4" class="text-left"><input type="submit"
-						value="複数削除" class="btn"></td>
-					</tr>
-			</table>
-				</form>
+							</c:if>
+						</table>
+						<table>
+							<tr>
+								<td colspan="4" class="text-center"><input type="submit"
+								value="複数削除" class="btn"></td>
+							</tr>
+						</table>
+					</form>
 
+				</div>
 			</div>
-		</div>
-	<form action="./userSearchInput.jsp" method="post">
-		<%
-			//文字化け対策
-			request.setCharacterEncoding("UTF-8");
+		<form action="./usib" method="post">
+			<%
+				//文字化け対策
+				request.setCharacterEncoding("UTF-8");
 
-			String[] icon = (String[]) request.getAttribute("icon");
-			String loginId = (String) request.getAttribute("loginId");
-			String userName = (String) request.getAttribute("userName");
-			String profile = (String) request.getAttribute("profile");
+				String[] icon = (String[]) request.getAttribute("icon");
+				String loginId = (String) request.getAttribute("loginId");
+				String userName = (String) request.getAttribute("userName");
+				String profile = (String) request.getAttribute("profile");
 
-			if(userName == null){
-				userName = "";
-			}
-			if(loginId == null){
-				loginId = "";
-			}
-			if(profile == null){
-				profile = "";
-			}
-			request.setAttribute("icons", icon);
+				if(userName == null){
+					userName = "";
+				}
+				if(loginId == null){
+					loginId = "";
+				}
+				if(profile == null){
+					profile = "";
+				}
+				request.setAttribute("icons", icon);
 
-		%>
-		<input type="hidden" name="suserName" value="<%=userName%>">
-		<input type="hidden" name="sloginId" value="<%=loginId%>">
-		<input type="hidden" name="sprofile" value="<%=profile%>">
-		<c:choose>
-			<c:when test="${length == 1}">
-				<input type="hidden" name="sicon" value="<%=icon[0]%>">
-				<input type="hidden" name="length" value="${length}">
-				<input type="hidden" name="flag" value="<%="on"%>">
-			</c:when>
-			<c:when test="${length == 2}">
-				<input type="hidden" name="sicon" value="<%=icon[0]%>">
-				<input type="hidden" name="sicon2" value="<%=icon[1]%>">
-				<input type="hidden" name="length" value="${length}">
-				<input type="hidden" name="flag" value="<%="on"%>">
-			</c:when>
-		</c:choose>
+			%>
+			<input type="hidden" name="suserName" value="<%=userName%>">
+			<input type="hidden" name="sloginId" value="<%=loginId%>">
+			<input type="hidden" name="sprofile" value="<%=profile%>">
+			<c:choose>
+				<c:when test="${length == 1}">
+					<input type="hidden" name="sicon" value="<%=icon[0]%>">
+					<input type="hidden" name="length" value="${length}">
+					<input type="hidden" name="flag" value="<%="on"%>">
+				</c:when>
+				<c:when test="${length == 2}">
+					<input type="hidden" name="sicon" value="<%=icon[0]%>">
+					<input type="hidden" name="sicon2" value="<%=icon[1]%>">
+					<input type="hidden" name="length" value="${length}">
+					<input type="hidden" name="flag" value="<%="on"%>">
+				</c:when>
+			</c:choose>
 
-		<table style="width: 500px" class="table">
-			<tr>
-				<td></td>
-				<td colspan="4" class="text-center"><input type="submit"
-					value="戻る" class="btn"></td>
-			</tr>
-		</table>
-	</form>
-</body>
+			<table>
+				<tr>
+					<td></td>
+					<td colspan="4" class="text-center"><input type="submit"
+						value="戻る" class="btn"></td>
+				</tr>
+			</table>
+		</form>
+	</body>
 </html>

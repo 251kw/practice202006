@@ -34,36 +34,51 @@ public class UserMultiDelInput extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//複数選択されたログインIDを取得
 		String[] sloginId = request.getParameterValues("delloginId");
+		//保持用のログインID
+		//String[] hogeId  = request.getParameterValues("hogeloginId");
+
+		request.setAttribute("hogeId", sloginId);
+
 		// セッションに接続
-		HttpSession session2 = request.getSession();
-		String userName = (String) session2.getAttribute("userName");
-		String loginId = (String) session2.getAttribute("loginId");
-		String[] sicon = (String[]) session2.getAttribute("sicon");
-		String profile = (String) session2.getAttribute("profile");
+		HttpSession session = request.getSession();
+		String userName = (String) session.getAttribute("userName");
+		String seloginId = (String) session.getAttribute("seloginId");
+		String[] sicon = (String[]) session.getAttribute("sicon");
+		String profile = (String) session.getAttribute("profile");
+
+		String message = null;
 
 		UserSearch us = new UserSearch();
 
 		RequestDispatcher dispatcher = null;
 
+		ArrayList<SearchDTO> sdlist = null;
+
 		//ログインユーザーの検索
-		ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId, userName, profile, sicon);
 
 		//チェックをつけていない場合
 		if(sloginId == null) {
+			ArrayList<SearchDTO> list = us.SearchloginIDlUser(seloginId, userName, profile, sicon);
 			request.setAttribute("users", list);
+			//エラーメッセージ
+			message = "チェックボックスを入力してください";
+			//エラーメッセージをオブジェクトに保存
+			request.setAttribute("alert", message);
+
 			//検索結果画面に遷移
 			dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 			dispatcher.forward(request, response);
 		}else {
 			//配列からユーザーをリストに
 			for (int i = 0; i <= sloginId.length - 1; i++) {
-				String dloginId = sloginId[i];
-				ArrayList<SearchDTO> dlist = us.SearchloginId(dloginId);
-				request.setAttribute("muldel", dlist);
+				String loginId = sloginId[i];
+				sdlist = us.SearchloginId(loginId);
+
 			}
+			request.setAttribute("muldel", sdlist);
 
 			//削除する複数のユーザーログインIDをもった配列
-			request.setAttribute("delloginId", loginId);
+			request.setAttribute("delloginId", sloginId);
 
 			//削除確認画面へ
 			dispatcher = request.getRequestDispatcher("userMultiDelConfirm.jsp");

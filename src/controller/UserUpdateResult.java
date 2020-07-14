@@ -54,10 +54,15 @@ public class UserUpdateResult extends HttpServlet {
 
 		UserSearch us = new UserSearch();
 
+		//DBManager dbm = new DBManager();
+
+
 		//更新情報が入力されていれば更新を行う
 
 		if(!userName.equals("") && userName != null) {
 			us.updateUserName(userName,sloginId);
+			//名前が変更された場合叫びも連動する
+			us.updateShoutsName(userName, sloginId);
 		}
 
 		if(!password.equals("") && password != null) {

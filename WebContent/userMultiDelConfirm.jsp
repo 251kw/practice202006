@@ -57,6 +57,12 @@
 			</table>
 		</form>
 		<form action="./udb" method="post">
+			<%
+				String[] hogeId = (String[])request.getAttribute("hogeId");
+			%>
+			<c:forEach var="hloginId" items="${hogeId}">
+				<input type='hidden' name='hId' value="${hloginId}">
+			</c:forEach>
 			<table>
 				<tr>
 					<td colspan="4" class="text-center"><input type="submit"value="戻る" class="btn"></td>
