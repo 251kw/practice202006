@@ -11,6 +11,7 @@ public class ShoutDTO {
 	private String icon; //ユーザアイコン
 	private String date; //書き込み日時
 	private String writing; //書き込み内容
+	private int d_flg;		//削除フラグ
 
 	public ShoutDTO() {
 		//
@@ -23,13 +24,14 @@ public class ShoutDTO {
 	 * @param icon アイコン
 	 * @param date 日付
 	 * @param writing 書き込み内容
-	 *
+	 * @param d_flg 削除フラグ
 	 */
-	public ShoutDTO(String userName, String icon, String date, String writing) {
+	public ShoutDTO(String userName, String icon, String date, String writing, int d_flg) {
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
 		this.writing = writing;
+		this.d_flg = d_flg;
 	}
 
 	/**
@@ -66,6 +68,14 @@ public class ShoutDTO {
 
 	public void setWriting(String writing) {
 		this.writing = writing;
+	}
+
+	public int getD_flg() {
+		return d_flg;
+	}
+
+	public void setD_flg(int d_flg) {
+		this.d_flg = d_flg;
 	}
 
 }

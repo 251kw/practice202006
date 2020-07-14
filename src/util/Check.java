@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
  * 入力チェッククラス
  *
  * checkLogic
- * checkIcons
+ * checkBox
  *
  * @author y.sato
  *
@@ -40,7 +40,7 @@ public class Check {
 	  }
 
 	/**
-	 * check項目と選択した項目を比較して
+	 * item項目と選択した項目(複数)を比較して
 	 * 選択状態を返すメソッド
 	 *
 	 * @param item htmlで設定してある項目の種類

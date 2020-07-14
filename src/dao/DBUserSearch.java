@@ -13,6 +13,8 @@ import dto.UserDTO;
  * ユーザー情報検索クラス
  *
  * userSearch
+ * userIdSearch
+ * getAllId
  *
  * @author y.sato
  *
@@ -111,6 +113,7 @@ public class DBUserSearch extends SnsDAO {
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
+				user.setD_flg(rset.getInt(7));
 
 				list.add(user);		//ユーザー情報をリストに追加
 

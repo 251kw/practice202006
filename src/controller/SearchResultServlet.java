@@ -112,9 +112,10 @@ public class SearchResultServlet extends HttpServlet {
 			String userName = upuser.getUserName();
 			String icon = upuser.getIcon();
 			String profile = upuser.getProfile();
+			int d_flg = upuser.getD_flg();
 
 			//beanに入れて
-			UserDTO user = new UserDTO(loginId, pass, userName, icon, profile);
+			UserDTO user = new UserDTO(loginId, pass, userName, icon, profile, d_flg);
 
 			//リクエストスコープに置く
 			request.setAttribute("user", user);

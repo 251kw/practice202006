@@ -11,6 +11,7 @@ import java.sql.SQLException;
  * SnsDAO継承
  *
  * userDelete
+ * shoutsDelete
  *
  * @author y.sato
  *
@@ -35,7 +36,7 @@ public class DBUserDelete extends SnsDAO{
 			conn = getConnection();
 
 			//SELECT文の登録と実行
-			String sql = "DELETE FROM users WHERE loginId=? LIMIT 1";		//一応ひとつづつ削除
+			String sql = "UPDATE users SET d_flg=1 WHERE loginId=?";		////削除フラグ１で画面上からは消える
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, loginId);
@@ -74,7 +75,7 @@ public class DBUserDelete extends SnsDAO{
 			conn = getConnection();
 
 			//SELECT文の登録と実行
-			String sql = "DELETE FROM shouts WHERE loginId=?";
+			String sql = "UPDATE shouts SET d_flg=1 WHERE loginId=?";	//削除フラグ１で画面上からは消える
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, loginId);

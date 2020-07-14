@@ -44,8 +44,12 @@
 					<%--検索結果回す --%>
 					<c:forEach var="users" items="${users}" varStatus="loop">
 					<tbody>
-						<tr>
-							<td><input type="checkbox" name="checkbox" value="${users.loginId}" ${Check.checkBox(users.loginId, loginIds)}/>${loop.count}</td>
+						<tr><c:choose>
+								<c:when test="${users.d_flg == 1}"><td><font color="#FF0000">削除済</font></td></c:when>
+								<c:otherwise>
+									<td><input type="checkbox" name="checkbox" value="${users.loginId}" ${Check.checkBox(users.loginId, loginIds)}/></td>
+									</c:otherwise>
+							</c:choose>
 							<td>${users.loginId}</td>
 							<td>${users.userName}</td>
 							<td><span class="${users.icon} pe-2x pe-va"></span></td>

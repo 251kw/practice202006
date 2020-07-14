@@ -38,7 +38,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null; //SQL管理情報
 		ResultSet rset = null; //検索結果
 
-		String sql = "SELECT * FROM users WHERE loginId=? AND password=?";
+		String sql = "SELECT * FROM users WHERE loginId=? AND password=? AND d_flg=0";
 		UserDTO user = null; //登録ユーザ情報
 
 		try {
@@ -85,7 +85,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null; //SQL管理情報
 		ResultSet rset = null; //検索結果
 
-		String sql = "INSERT INTO users(loginId, password, userName, icon, profile) VALUES(?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO users(loginId, password, userName, icon, profile, d_flg) VALUES(?, ?, ?, ?, ?, 0)";
 
 		try {
 			//データベース接続情報取得
@@ -181,7 +181,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT文の実行
-			String sql = "SELECT * FROM shouts ORDER BY date DESC";
+			String sql = "SELECT * FROM shouts WHERE d_flg=0 ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
@@ -230,7 +230,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?, ?, ?, ?, ?)";
+			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing, d_flg) VALUES(?, ?, ?, ?, ?, 0)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getLoginId());
 			pstmt.setString(2, user.getUserName());

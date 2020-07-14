@@ -13,6 +13,7 @@ public class UserDTO {
 	private String userName="";	//ユーザ名
 	private String icon="";		//ユーザアイコン
 	private String profile="";	//プロフィール
+	private int d_flg;		//削除フラグ
 
 	public UserDTO() {
 		//
@@ -26,14 +27,15 @@ public class UserDTO {
 	 * @param userName ユーザー名
 	 * @param icon アイコン
 	 * @param profile プロフィール
-	 *
+	 * @param d_flg 削除フラグ
 	 */
-	public UserDTO(String loginId, String password, String userName, String icon, String profile) {
+	public UserDTO(String loginId, String password, String userName, String icon, String profile, int d_flg) {
 		this.loginId = loginId;
 		this.password = password;
 		this.userName = userName;
 		this.icon = icon;
 		this.profile = profile;
+		this.d_flg = d_flg;
 	}
 
 	/**
@@ -78,6 +80,14 @@ public class UserDTO {
 
 	public void setProfile(String profile) {
 		this.profile = profile;
+	}
+
+	public int getD_flg() {
+		return d_flg;
+	}
+
+	public void setD_flg(int d_flg) {
+		this.d_flg = d_flg;
 	}
 
 }

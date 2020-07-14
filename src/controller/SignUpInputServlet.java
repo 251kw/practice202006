@@ -58,7 +58,7 @@ public class SignUpInputServlet extends HttpServlet {
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
 
-		UserDTO newuser = new UserDTO(loginId, pass, userName, icon, profile);
+		UserDTO newuser = new UserDTO(loginId, pass, userName, icon, profile, 0);
 
 		if (botton.equals("確認画面へ")) {
 			request.setAttribute("newuser", newuser);

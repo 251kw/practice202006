@@ -55,18 +55,18 @@ public class SearchInputServlet extends HttpServlet {
 		DBManager dbm = new DBManager();
 		HttpSession session = request.getSession();
 
-		if(botton.equals("掲示板へ戻る")) {
+		if(botton.equals("掲示板へ戻る")) {	//search_input.jspの
 			//処理の転送先をtop.jspに指定
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
 			session.setAttribute("shouts", list);
 			dispatcher = request.getRequestDispatcher("top.jsp");
 
-		} else if(botton.equals("検索")) {
+		} else if(botton.equals("検索")) {	//top.jspの
 			SearchUserDTO search = new SearchUserDTO("", "", null, "");
 			session.setAttribute("search", search);
 			dispatcher = request.getRequestDispatcher("search_input.jsp");
 
-		} else if(botton.equals("検索する")) {
+		} else if(botton.equals("検索する")) {	//search_input.jspの
 			request.setCharacterEncoding("UTF-8");
 			response.setContentType("text/html;charset=UTF-8");
 			DBUserSearch dbu = new DBUserSearch();

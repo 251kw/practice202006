@@ -84,7 +84,7 @@
 
 		<div class="padding-y-5 text-center">
 			<div style="width: 40%" class="container padding-y-5 text-left">
-				<strong class="color-main">みんなの叫び</strong>
+				<strong class="color-main">みんなの叫び</strong>&nbsp;&nbsp;&nbsp;<a href="/" class="btn-flat-dashed-filled-red">☑選択項目を削除</a>
 			</div>
 		</div>
 		<%---------------------------------------------------------------------------------%>
@@ -101,14 +101,19 @@
 								<span class="${shout.icon} pe-3x pe-va"></span>
 							</td>
 							<td>${shout.userName}</td>
+							<td><label class="fancy-checkbox"><input type="checkbox"><span></span>
+								</label></td>
 						</tr>
 						<tr>
 							<td>${shout.date}</td>
+							<td><a href="#" class="btn-flat-dashed-filled-yellow">編集</a></td>
 						</tr>
+
 						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea>
-							</td>
-						</tr>
+							<td colspan="2" class="text-center">
+							<div class="balloon2-top">
+  							<p>${shout.writing}</p>
+							</div></td></tr>
 					</table>
 				</c:forEach>
 			</div>

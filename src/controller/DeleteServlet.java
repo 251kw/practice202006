@@ -23,20 +23,19 @@ import dto.UserDTO;
  *
  */
 @WebServlet("/drs")
-public class DeleteResultServlet extends HttpServlet {
+public class DeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public DeleteResultServlet() {
+    public DeleteServlet() {
         super();
     }
 
 	/**
-	 * 直接アクセスがないように、index.jspに飛ぶ
+	 *
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
-		dispatcher.forward(request, response);
+		//TODO
 	}
 
 
