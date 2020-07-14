@@ -35,11 +35,13 @@ public class TurnEditUserInputServlet extends HttpServlet {
 		String suserName = request.getParameter("suserName");
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
+		String checkall = request.getParameter("checkall");
 
 		request.setAttribute("sloginId", sloginId);
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
+		request.setAttribute("checkall", checkall);
 
 		dispatcher = request.getRequestDispatcher("editUserInput.jsp");
 		dispatcher.forward(request, response);

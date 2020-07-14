@@ -65,7 +65,7 @@
 				</c:if>
 			</table>
 		</form>
-		<form action="" method="Get">
+		<form action="./ShoutRelayFunction" method="Post">
 			<%-- セッションスコープにあるArrayList型のオブジェクトを参照 --%>
 			<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 			<div class="padding-y-5">
@@ -85,8 +85,8 @@
 									<textarea rows="5" class="form-control">${shout.writing}</textarea>
 								</td>
 							<tr>
-								<td colspan="2" class="text-right"><button type="submit" name="sheloginId" value="${shout.loginId}">編集</button>
-								<button type="submit" name="shdloginId" value="${shout.loginId}">削除</button></td>
+								<td colspan="2" class="text-right"><button type="submit" name="eshoutsId" value="${shout.shoutsId}">編集</button>
+								<button type="submit" name="dshoutsId" value="${shout.shoutsId}">削除</button></td>
 							</tr>
 						</table>
 					</c:forEach>

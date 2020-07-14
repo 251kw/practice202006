@@ -1,4 +1,4 @@
-package connecter;
+package controller;
 
 import java.io.IOException;
 
@@ -9,14 +9,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import util.CheckDB;
+
 /**
- * 叫び内容編集入力画面に移行するために経由するサーブレット
+ * Servlet implementation class ShoutDeleteServlet
  */
-@WebServlet("/TurnEditShoutsInput")
-public class TurnEditShoutsInputServlet extends HttpServlet {
+@WebServlet("/ShoutDelete")
+public class ShoutDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public TurnEditShoutsInputServlet() {
+    public ShoutDeleteServlet() {
         super();
     }
 
@@ -32,14 +34,21 @@ public class TurnEditShoutsInputServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
-		// 該当する叫びを特定するための情報を保持
-		String sheloginId = request.getParameter("sheloginId");
-		request.setAttribute("sheloginId", sheloginId);
-		String shdloginId = request.getParameter("shdloginId");
-		request.setAttribute("shdloginId", shdloginId);
+		String dshoutsId = request.getParameter("dshoutsId");
+		String dsloginId = request.getParameter("dsloginId");
+		String dsuserName = request.getParameter("dsuserName");
+		String dsicon = request.getParameter("dsicon");
+		String dswriting = request.getParameter("dswriting");
 
-		// 編集入力画面に移動
-		dispatcher = request.getRequestDispatcher("editShoutsInput.jsp");
+		request.setAttribute("dsloginId", dsloginId);
+		request.setAttribute("dsuserName", dsuserName);
+		request.setAttribute("dsicon", dsicon);
+		request.setAttribute("dswriting", dswriting);
+
+		// 該当する書き込みを削除
+		CheckDB.DeleteShout(dshoutsId);
+
+		dispatcher = request.getRequestDispatcher("deleteShoutResult.jsp");
 		dispatcher.forward(request,response);
 	}
 

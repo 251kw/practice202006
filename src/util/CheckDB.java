@@ -70,14 +70,6 @@ public class CheckDB {
 			sqlList.add(profstr);
 		}
 
-		// flagが1の時は論理削除
-		if(sqlList.isEmpty()) {
-			profstr = "where del_flag=0";
-		}else {
-			profstr = "&& del_flag=0";
-		}
-		sqlList.add(profstr);
-
 		try {
 
 			// 条件に沿ったsql文を繋ぐ
@@ -100,6 +92,7 @@ public class CheckDB {
 					user.setUserName(rset.getString(4));
 					user.setIcon(rset.getString(5));
 					user.setProfile(rset.getString(6));
+					user.setDel_flag(rset.getString(7));
 					resultList.add(user);
 				}
 			} catch (SQLException e) {
@@ -201,6 +194,7 @@ public class CheckDB {
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
+				user.setDel_flag(rset.getString(7));
 			}
 
 		}catch(ClassNotFoundException e) {
@@ -342,5 +336,111 @@ public class CheckDB {
 			}catch(SQLException e) {}
 		}
 		return deleteList;
+	}
+
+
+	public static ShoutDTO SearchShouts(String shoutsId) {
+
+		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+		final String USER = "root";
+		final String PASSWORD = "root";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+		ShoutDTO shoutinfo = null;
+
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
+			String sql = "select * from shouts where shoutsId = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, shoutsId);
+			rset = pstmt.executeQuery();
+
+			if(rset.next()) {
+				shoutinfo = new ShoutDTO();
+				shoutinfo.setLoginId(rset.getString(2));
+				shoutinfo.setUserName(rset.getString(3));
+				shoutinfo.setIcon(rset.getString(4));
+				shoutinfo.setDate(rset.getString(5));
+				shoutinfo.setWriting(rset.getString(6));
+			}
+
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {}
+		}
+		return shoutinfo;
+	}
+
+
+	public static void EditShouts(String shoutsId, String writing) {
+
+
+		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+		final String USER = "root";
+		final String PASSWORD = "root";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
+
+			String sql = "update shouts set writing=? where shoutsId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writing);
+			pstmt.setString(2, shoutsId);
+			pstmt.executeUpdate();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+		}
+
+		return;
+	}
+
+
+	public static void DeleteShout(String shoutsId) {
+
+		final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
+		final String USER = "root";
+		final String PASSWORD = "root";
+
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		int dshoutsId = Integer.parseInt(shoutsId);
+
+		try {
+
+			Class.forName("com.mysql.jdbc.Driver");
+			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
+			String sql = "delete from shouts where shoutsId = ?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, dshoutsId);
+			pstmt.executeUpdate();
+
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			try {
+				pstmt.close();
+			}catch(SQLException e) {}
+		}
+
+		return;
 	}
 }

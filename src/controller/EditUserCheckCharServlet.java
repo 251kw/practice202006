@@ -50,6 +50,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 		String euserName = request.getParameter("euserName");
 		String eicon = request.getParameter("eicon");
 		String eprofile = request.getParameter("eprofile");
+		String checkall = request.getParameter("checkall");
 
 		UserDTO euser = new UserDTO();
 		euser.setPassword(epassword);
@@ -70,6 +71,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 		request.setAttribute("suserName", suserName);
 		request.setAttribute("sicon", sicon);
 		request.setAttribute("sprofile", sprofile);
+		request.setAttribute("checkall", checkall);
 
 
 		if (CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {

@@ -86,6 +86,7 @@ public class DBManager extends SnsDAO{
 			while(rset.next()) {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
+				shout.setShoutsId(rset.getString(1));
 				shout.setLoginId(rset.getString(2));
 				shout.setUserName(rset.getString(3));
 				shout.setIcon(rset.getString(4));

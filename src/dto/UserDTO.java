@@ -7,6 +7,7 @@ public class UserDTO {
 	private String userName;	// ユーザー名
 	private String icon;	// ユーザーアイコン
 	private String profile;	// プロフィール
+	private String del_flag;	// deleteflag
 
 	// getter and setter
 	public UserDTO() {
@@ -52,6 +53,16 @@ public class UserDTO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
+
+	public String getDel_flag() {
+		return del_flag;
+	}
+
+	public void setDel_flag(String del_flag) {
+		this.del_flag = del_flag;
+	}
+
+
 
 	// ユーザー情報１人分の情報を保持するクラス
 	public UserDTO(String loginId, String password, String userName, String icon, String profile) {

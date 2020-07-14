@@ -1,7 +1,6 @@
-package connecter;
+package controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -9,19 +8,18 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import dao.DBManager;
 import dto.ShoutDTO;
+import util.CheckDB;
 
 /**
- * 検索入力画面から掲示板に移動するために経由するサーブレット
+ * Servlet implementation class ShoutEditRegistServlet
  */
-@WebServlet("/TurnBoardTop")
-public class TurnBoardTopServlet extends HttpServlet {
+@WebServlet("/ShoutEditRegist")
+public class ShoutEditRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public TurnBoardTopServlet() {
+    public ShoutEditRegistServlet() {
         super();
     }
 
@@ -35,21 +33,18 @@ public class TurnBoardTopServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		HttpSession session = request.getSession();
-
-		// チェックボックスの保持を一旦リセット
-		String[] select = null;
-		session.setAttribute("select", select);
-
-		// sessionに新たな書き込みリストを保持
-		DBManager dbm = new DBManager();
-		ArrayList<ShoutDTO> shouts = new ArrayList<ShoutDTO>();
-		shouts = dbm.getShoutList();
-		session.setAttribute("shouts", shouts);
-
-		// 掲示板に移動
 		RequestDispatcher dispatcher = null;
-		dispatcher = request.getRequestDispatcher("boardTop.jsp");
+
+		String eshoutsId = request.getParameter("eshoutsId");
+		String eswriting = request.getParameter("eswriting");
+
+		ShoutDTO reshout = new ShoutDTO();
+		CheckDB.EditShouts(eshoutsId, eswriting);
+		reshout = CheckDB.SearchShouts(eshoutsId);
+
+		request.setAttribute("reshout", reshout);
+
+		dispatcher = request.getRequestDispatcher("editShoutResult.jsp");
 		dispatcher.forward(request,response);
 	}
 

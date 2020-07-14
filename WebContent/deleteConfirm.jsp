@@ -28,7 +28,6 @@
 					</tr>
 				</c:if>
 				<tr>
-				<tr>
 					<th class="color-main text-center">ログインID:</th>
 					<td class="text-center">${requestScope.duser.loginId}</td>
 				</tr>
@@ -69,6 +68,7 @@
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
 						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 				<tr>
