@@ -14,13 +14,14 @@ import dto.ShoutDTO;
 import util.MakeSelectSQL;
 
 /**
- * シャウト更新の確認処理
+ * 叫び確認画面から戻るときの処理
  */
-@WebServlet("/updateShoutConfirmServlet")
-public class UpdateShoutConfirmServlet extends HttpServlet {
+@WebServlet("/updateShoutFailureConfirm")
+public class UpdateShoutFailureConfirm extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public UpdateShoutConfirmServlet() {
+
+    public UpdateShoutFailureConfirm() {
         super();
     }
 
@@ -33,28 +34,26 @@ public class UpdateShoutConfirmServlet extends HttpServlet {
 	}
 
 	/**
-	 * updateShoutInput.jspの叫び直すボタンからの呼び出し
+	 * updateShoutConfirm.jspの戻るボタンからの呼び出し
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher;
 		request.setCharacterEncoding("UTF-8");
-		DBManager dbm = new DBManager();
 
-		//shoutsIdと叫び直したwaitingを受け取る
 		String shoutsId = request.getParameter("shoutsId");
 		String shout = request.getParameter("shout");
 
-		//shoutsIdをもとにShoutDTOを取り出すSQL文を生成し、実行
+		//変更ユーザーを取得
+		DBManager dbm = new DBManager();
 		String sql = MakeSelectSQL.makeSelectsShouts(shoutsId);
 		ShoutDTO searchShout = dbm.getShout(sql);
-		//叫び直したデータに置き換える
+		//未確定の変更内容を反映
 		searchShout.setWriting(shout);
-
+		//リクエストスコープへ入れる
 		request.setAttribute("searchShout", searchShout);
 
-		dispatcher = request.getRequestDispatcher("updateShoutConfirm.jsp");
+		dispatcher = request.getRequestDispatcher("updateShoutInput.jsp");
 		dispatcher.forward(request, response);
-
 	}
 
 }

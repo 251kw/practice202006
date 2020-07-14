@@ -45,7 +45,7 @@
 				</table>
 		</div>
 	</div>
-	<form action="./index.jsp" method="post">
+	<form action="./returnIndexResultServlet" method="post">
 		<div align="center">
 			<input class="btn" type="submit" value="INDEXに戻る" />
 		</div>

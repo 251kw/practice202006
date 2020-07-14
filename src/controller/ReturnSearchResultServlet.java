@@ -57,6 +57,16 @@ public class ReturnSearchResultServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		}
 
+		//チェックボックスの有無の確認と処理
+		String[] cks = request.getParameterValues("checkUsers");
+		if(cks == null) {
+			ArrayList<String> checkUsers = new ArrayList<String>();
+			checkUsers.add("");
+			request.setAttribute("checkUsers", checkUsers);
+		}else {
+			request.setAttribute("checkUsers", cks);
+		}
+
 		request.setAttribute("searchUser", searchUser);
 
 		dispatcher.forward(request, response);

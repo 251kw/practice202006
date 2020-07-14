@@ -52,7 +52,7 @@
 			</table>
 
 			<div align="center">
-				<input class="btn" type="submit" value="更新" />
+				<input class="btn" type="submit" value="叫び直す" />
 			</div>
 
 		</form>

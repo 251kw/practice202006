@@ -47,11 +47,12 @@ public class MultiDeleteUserComfirmServlet extends HttpServlet {
 		DBManager dbm = new DBManager();
 
 		String[] loginIds = request.getParameterValues("checked");
+		request.setAttribute("checkUsers", loginIds);
 
 		//ログインIDのチェックボックスが１つ以上選択されているか
 		if(loginIds != null) {
 			//選択されたユーザーの情報を取得
-			String sql = MakeSelectSQL.makeSelectsShouts(loginIds);
+			String sql = MakeSelectSQL.makeSelects(loginIds);
 			ArrayList<UserDTO> deleteUser = dbm.getSearchUserList(sql);
 
 			//取得したユーザー情報をリクエストスコープに入れる

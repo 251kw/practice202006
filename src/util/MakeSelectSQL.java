@@ -196,6 +196,10 @@ public class MakeSelectSQL {
 		return sql;
 	}
 
+	/**
+	 * @param shoutsId 取り出したいシャウトのshoutsId
+	 * @return sql String型のSELECTのSQL文(shouts論理削除)
+	 */
 	public static String makeSelectsShouts(String[] shoutsId) {
 		String sql ="";
 
@@ -214,7 +218,7 @@ public class MakeSelectSQL {
 
 	/**
 	 * @param loginIds 削除したいユーザーのログインIDの配列
-	 * @return sql String型のUPDETEのSQL文(user論理削除)
+	 * @return sql String型のUPDETEのSQL文
 	 */
 	public static String makeDeletesShoutslogIds(String[] loginIds) {
 		String sql ="";
@@ -232,6 +236,10 @@ public class MakeSelectSQL {
 		return sql;
 	}
 
+	/**
+	 * @param shoutsId 削除したいシャウトのshoutsId
+	 * @return sql String型のUPDATEのSQL文(shouts論理削除)
+	 */
 	public static String makeDeletesShoutsIds(String[] shoutsId) {
 		String sql ="";
 

@@ -91,6 +91,9 @@
 
 		<form action="./returnSearchResult" method="post">
 			<div align="center">
+			<c:forEach var="checkUsers" items="${checkUsers}">
+					<input type="hidden" name="checkUsers" value="${checkUsers}">
+			</c:forEach>
 				<input class="btn btn-grey btn-sm" type="submit" value="検索結果に戻る" />
 			</div>
 		</form>

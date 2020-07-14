@@ -76,6 +76,11 @@ public class SerachInputServlet extends HttpServlet {
 		if(searchUser.isEmpty()) {
 			dispatcher = request.getRequestDispatcher("searchEmptyResult.jsp");
 		}else {
+			//チェックボックスの判定に空の値をいれる
+			ArrayList<String> checkUsers = new ArrayList<String>();
+			checkUsers.add("");
+			request.setAttribute("checkUsers", checkUsers);
+
 			dispatcher = request.getRequestDispatcher("searchResult.jsp");
 		}
 
