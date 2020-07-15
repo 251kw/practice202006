@@ -23,7 +23,7 @@
 			<div class="padding-y-5">
 				<div style="width: 80%" class="container padding-y-5">
 					<%-- リストにある要素の数だけ繰り返し --%>
-					<form action="./umdi" method="post">
+					<form action="./umdi" method="post" name="form">
 						<%@ page import="javafx.scene.control.CheckBox"%>
 						<%
 							String[] hoge = (String[])request.getAttribute("hId");
@@ -31,7 +31,8 @@
 						%>
 						<table  width="500" class="table table-striped table-bordered">
 							<tr>
-								<td width="50" height="10"></td>
+								<td width="50" height="8"><input type="button"  value="全部選択" onclick="allcheck(true);" class="btn btn-sm">
+								<input type="button" value="全部解除" onclick="allcheck(false);" class="btn btn-sm"></td>
 								<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
 								<td width="113" height="10">名前</td>
 								<td width="120" height="10">ログインID</td>
@@ -40,7 +41,7 @@
 								<!-- <td width="120" height="10">削除</td>  -->
 								<c:forEach var="users" items="${users}">
 									<tr>
-										<td width="50" height="10"><input type="checkbox" name="delloginId" value="${users.loginId}"  ${cbc.boxCheck(hId, users.loginId)}></td>
+										<td width="50" height="10"><input type="checkbox" name="delloginId" value="${users.loginId}"  ${cbc.boxCheck(hId, users.loginId)} ></td>
 
 										<td width="50" height="10"><span
 											class="${users.icon} pe-2x pe-va"></span></td>
@@ -69,12 +70,24 @@
 						</table>
 						<table>
 							<tr>
-								<td colspan="4" class="text-center"><input type="submit"
+								<td colspan="2" class="text-left"><input type="submit"
 								value="削除" class="btn"></td>
 							</tr>
 						</table>
 					</form>
 
+
+					<script language="JavaScript" type="text/javascript">
+						<!--
+							function allcheck( tf ) {
+							   var ElementsCount = document.form.delloginId.length; // チェックボックスの数
+							   for( i=0 ; i<ElementsCount ; i++ ) {
+							      document.form.delloginId[i].checked = tf; // ON・OFFを切り替え
+							   }
+							}
+						-->
+
+					</script>
 				</div>
 			</div>
 		<form action="./usib" method="post">
@@ -118,8 +131,7 @@
 
 			<table>
 				<tr>
-					<td></td>
-					<td colspan="4" class="text-center"><input type="submit"
+					<td colspan="2" class="text-left"><input type="submit"
 						value="戻る" class="btn"></td>
 				</tr>
 			</table>

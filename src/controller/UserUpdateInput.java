@@ -38,7 +38,12 @@ public class UserUpdateInput extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 
 		String loginId = request.getParameter("loginId");
-		String sloginId = loginId;
+		String uloginId = loginId;
+
+		//複数選択されたログインIDを取得
+		String[] sloginId = request.getParameterValues("delloginId");
+		//保持用のログインID
+		request.setAttribute("hogeId", sloginId);
 
 		RequestDispatcher dispatcher = null;
 
@@ -48,7 +53,7 @@ public class UserUpdateInput extends HttpServlet {
 		if(loginId != null) {
 			ArrayList<SearchDTO> list = us.SearchloginId(loginId);
 			request.setAttribute("update", list);
-			request.setAttribute("sloginId", sloginId);
+			request.setAttribute("sloginId", uloginId);
 		}
 		//更新入力画面へ
 		dispatcher = request.getRequestDispatcher("userUpdateInput.jsp");

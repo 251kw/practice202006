@@ -35,8 +35,6 @@ public class UserMultiDelInput extends HttpServlet {
 		//複数選択されたログインIDを取得
 		String[] sloginId = request.getParameterValues("delloginId");
 		//保持用のログインID
-		//String[] hogeId  = request.getParameterValues("hogeloginId");
-
 		request.setAttribute("hogeId", sloginId);
 
 		// セッションに接続

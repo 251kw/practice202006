@@ -55,6 +55,9 @@
 
 		sicon = request.getParameter("sicon");
 	%>
+	<%
+				String[] dloginId = (String[])request.getAttribute("hogeId");
+	%>
 		<div class="bg-success padding-y-5">
 			<div class="padding-y-5 text-center">
 				<strong>ユーザー情報更新</strong>
@@ -122,6 +125,9 @@
 			</table>
 		</form>
 		<form action="./udb" method="post">
+		<c:forEach var="hloginId" items="${hogeId}">
+				<input type='hidden' name='hId' value="${hloginId}">
+		</c:forEach>
 		<input type="hidden" name="suserName" value="<%=userName%>">
 			<input type="hidden" name="spassword" value="<%=password%>">
 			<input type="hidden" name="sloginId" value="<%=loginId%>">
