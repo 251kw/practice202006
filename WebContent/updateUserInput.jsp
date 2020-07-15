@@ -22,7 +22,7 @@
 
 		<form action="./updateUserComfirm" method="post">
 		<input type="hidden" name="loginID" value="${loginID}">
-			<input type="hidden" name="originalLoginId" value="${originalloginId}">
+			<input type="hidden" name="originalLoginId" value="${originalLoginId}">
 			<table style="width: 70%" class="table container">
 				<tr>
 					<td colspan="2" class="color-error text-left">

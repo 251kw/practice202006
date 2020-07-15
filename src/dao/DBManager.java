@@ -110,47 +110,6 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-
-	public ShoutDTO getShout(String sql) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		ShoutDTO shout = null;
-
-		try {
-
-			//データベース接続情報取得
-			conn = getConnection();
-
-			//SERECT文の登録と実行
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-
-			// 検索結果があれば
-			if (rset.next()) {
-				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				shout = new ShoutDTO();
-				shout.setShoutsId(String.valueOf(rset.getInt(1)));
-				shout.setUserName(rset.getString(2));
-				shout.setIcon(rset.getString(3));
-				String str = rset.getString(4);
-				shout.setDate(str.substring(0, str.indexOf('.')));
-				shout.setWriting(rset.getString(5));
-				shout.setLoginId(rset.getString(6));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
-		}
-
-		return shout;
-	}
-
 	/**
 	 * @param udto 追加したいユーザー情報
 	 * @return INSERT文の実行結果が1ならTRUE
@@ -234,6 +193,7 @@ public class DBManager extends SnsDAO {
 	 * @param udto 更新されたユーザー情報
 	 * @return UPDATE文の実行結果が1ならTRUE
 	 */
+	@Deprecated
 	public boolean uppdateShouts(UserDTO udto) {
 		boolean result = false;
 
@@ -282,7 +242,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement(); //SQL実行準備(JAVAのメソッド)
 
 			//SELECT文の実行(日付順にshoutsを取得)
-			String sql = "SELECT * FROM shouts WHERE d_flg=0 ORDER BY date DESC";
+			String sql = "SELECT shoutsId,userName,icon,date,writing,u.loginId FROM shouts s INNER JOIN users u ON s.loginid=u.loginId WHERE s.d_flg=0 ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果(shouts)の数だけ繰り返す
@@ -313,6 +273,97 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
+	 * @param sql 取り出したいシャウトのSELECT文
+	 * @return ShoutDTOの配列
+	 */
+	public ArrayList<ShoutDTO> getSearchShoutsList(String sql) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>(); //UserDTOをインスタンス化してリスト化
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SERECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+				//検索結果(users)の数だけ繰り返す6
+				while (rset.next()) {
+					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					ShoutDTO shout = new ShoutDTO();
+					shout.setShoutsId(String.valueOf(rset.getInt(1)));
+					shout.setUserName(rset.getString(2));
+					shout.setIcon(rset.getString(3));
+					String str = rset.getString(4);
+					shout.setDate(str.substring(0, str.indexOf('.')));
+					shout.setWriting(rset.getString(5));
+					shout.setLoginId(rset.getString(6));
+
+					//書き込み内容をリストに追加
+					list.add(shout);
+				}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	/**
+	 * @param sql 取り出したいシャウトのSELECT文
+	 * @return ShoutDTO
+	 */
+	public ShoutDTO getShout(String sql) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ShoutDTO shout = null;
+
+		try {
+
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SERECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			// 検索結果があれば
+			if (rset.next()) {
+				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+				shout = new ShoutDTO();
+				shout.setShoutsId(String.valueOf(rset.getInt(1)));
+				shout.setUserName(rset.getString(2));
+				shout.setIcon(rset.getString(3));
+				String str = rset.getString(4);
+				shout.setDate(str.substring(0, str.indexOf('.')));
+				shout.setWriting(rset.getString(5));
+				shout.setLoginId(rset.getString(6));
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return shout;
+	}
+
+	/**
 	 * @param user ユーザー情報
 	 * @param writing 叫び内容
 	 * @return tf INSERT文の実行結果が1ならTRUE
@@ -327,17 +378,15 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(userName,icon,date,writing,loginId,d_flg) VALUES(?,?,?,?,?,?)";
+			String sql = "INSERT INTO shouts(date,writing,loginId,d_flg) VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, user.getUserName());
-			pstmt.setString(2, user.getIcon());
 			//現在日時の取得と日付の書式設定
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(3, sdf.format(calendar.getTime()));
-			pstmt.setString(4, writing);
-			pstmt.setString(5, user.getLoginId());
-			pstmt.setInt(6, 0);
+			pstmt.setString(1, sdf.format(calendar.getTime()));
+			pstmt.setString(2, writing);
+			pstmt.setString(3, user.getLoginId());
+			pstmt.setInt(4, 0);
 
 			int cnt = pstmt.executeUpdate(); //実行
 			if (cnt == 1) {
@@ -460,49 +509,6 @@ public class DBManager extends SnsDAO {
 
 					//書き込み内容をリストに追加
 					list.add(searchUser);
-				}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
-		}
-
-		return list;
-	}
-
-	public ArrayList<ShoutDTO> getSearchShoutsList(String sql) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>(); //UserDTOをインスタンス化してリスト化
-
-		try {
-			//データベース接続情報取得
-			conn = getConnection();
-
-			//SERECT文の登録と実行
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-
-				//検索結果(users)の数だけ繰り返す6
-				while (rset.next()) {
-					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
-					ShoutDTO shout = new ShoutDTO();
-					shout.setShoutsId(String.valueOf(rset.getInt(1)));
-					shout.setUserName(rset.getString(2));
-					shout.setIcon(rset.getString(3));
-					String str = rset.getString(4);
-					shout.setDate(str.substring(0, str.indexOf('.')));
-					shout.setWriting(rset.getString(5));
-					shout.setLoginId(rset.getString(6));
-
-					//書き込み内容をリストに追加
-					list.add(shout);
 				}
 
 		} catch (SQLException e) {

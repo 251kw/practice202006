@@ -191,7 +191,7 @@ public class MakeSelectSQL {
 	 */
 	public static String makeSelectsShouts(String shoutsId) {
 		String sql ="";
-		sql = ("SELECT * FROM shouts WHERE shoutsId='" + shoutsId + "' AND d_flg=0;");
+		sql = ("SELECT shoutsId,userName,icon,date,writing,u.loginId FROM shouts s INNER JOIN users u ON s.loginid=u.loginId WHERE shoutsId='" + shoutsId + "' AND s.d_flg=0;");
 
 		return sql;
 	}
@@ -204,13 +204,13 @@ public class MakeSelectSQL {
 		String sql ="";
 
 		if(shoutsId.length == 1) {
-			sql = ("SELECT * FROM shouts WHERE shoutsId='" + shoutsId[0] + "' AND d_flg=0;");
+			sql = ("SELECT shoutsId,userName,icon,date,writing,u.loginId FROM shouts s INNER JOIN users u ON s.loginid=u.loginId WHERE shoutsId='" + shoutsId[0] + "' AND s.d_flg=0;");
 		}else {
-			sql = ("SELECT * FROM shouts WHERE shoutsId='"+shoutsId[0]+"'");
+			sql = ("SELECT shoutsId,userName,icon,date,writing,u.loginId FROM shouts s INNER JOIN users u ON s.loginid=u.loginId WHERE shoutsId='"+shoutsId[0]+"'");
 			for(int i =1 ;shoutsId.length > i ; i++) {
 				sql = (sql + " OR shoutsId='" +shoutsId[i] + "'");
 			}
-			sql = (sql +"AND d_flg=0;");
+			sql = (sql +"AND s.d_flg=0;");
 		}
 
 		return sql;

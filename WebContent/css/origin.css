@@ -1,0 +1,27 @@
+@charset "UTF-8";
+
+.upper{
+	position:fixed;
+	right:5px;
+	bottom:50px;
+	transition:1s;
+	opacity:1;
+}
+
+.upper:hover{
+	opacity:1;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1.7fr 0.3fr;
+  gap: 1px 1px;
+  grid-template-areas: "menus shouts shouts shouts" "menus shouts shouts shouts" "shouting shouting shouting shouting";
+}
+
+.menus { grid-area: menus; }
+
+.shouting { grid-area: shouting; }
+
+.shouts { grid-area: shouts; }

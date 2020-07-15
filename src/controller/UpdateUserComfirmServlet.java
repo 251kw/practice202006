@@ -57,7 +57,7 @@ public class UpdateUserComfirmServlet extends HttpServlet {
 		udto = new UserDTO(loginID, password1, userName,  icon,  profile,0);
 		request.setAttribute("user", udto);//リクエストスコープへ入れる
 
-		//エラーがなければ入賞
+		//エラーがない場合
 		String checker = CheckAddUserInfo.checkinfo(loginID,password1,password2,userName);
 		if (checker == null) {
 			dispatcher = request.getRequestDispatcher("updateUserComfirm.jsp");

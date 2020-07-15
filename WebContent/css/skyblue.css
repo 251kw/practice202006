@@ -5195,3 +5195,14 @@ img {
 .selection-group input[type="radio"]:checked + label img {
   background: orange;
 }
+
+.upper{
+position:fixed;
+right:50px;
+bottom:50px;
+transition:1s;
+opacity:0.7;
+}
+.upper:hover{
+opacity:1;
+}

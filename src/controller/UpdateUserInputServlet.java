@@ -44,7 +44,7 @@ public class UpdateUserInputServlet extends HttpServlet {
 			UserDTO updateUser = dbm.getUser(loginId);
 
 			//必要な情報をリクエストスコープへリクエストスコープへ
-			request.setAttribute("originalloginId",updateUser.getLoginId());
+			request.setAttribute("originalLoginId",updateUser.getLoginId());
 			request.setAttribute("loginID",updateUser.getLoginId());
 			request.setAttribute("password",updateUser.getPassword());
 			request.setAttribute("icon",updateUser.getIcon());

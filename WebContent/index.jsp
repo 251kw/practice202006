@@ -18,18 +18,14 @@
 				<span class="icon-speaker pe-2x pe-va"></span>
 			</div>
 		</div>
-		<div align="right">
-			<form action="./newuser" method="get">
-				<input class="btn" type="submit" value="新規ユーザー登録" />
-			</form>
-		</div>
+
 		<h5 class="padding-y-5 text-center">ログインIDとパスワードを入力してください</h5>
 		<form action="./login" method="post">
 			<table style="width: 40%" class="table container">
 				<tr>
 					<%-- ログインID入力欄はloginId --%>
 					<td class="color-main text-left">ログインID</td>
-					<td class="text-left"><input class="form-control" type="text" name="loginID" value="" size="20" /></td>
+					<td class="text-left"><input class="form-control" type="text" name="loginID" value="" size="20" autofocus /></td>
 				</tr>
 				<tr>
 					<%-- パスワード入力欄の名前はpassword --%>
@@ -37,7 +33,7 @@
 					<td class="text-left"><input class="form-control" type="password" name="password" value="" size="20" /></td>
 				</tr>
 				<tr>
-					<td colspan="2" class="text-right"><input class="btn" type="submit" value="ログイン" /></td>
+					<td colspan="2" class="text-center"><input class="btn" type="submit" value="ログイン" /></td>
 				</tr>
 				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
 					<tr>
@@ -49,5 +45,12 @@
 
 			</table>
 		</form>
+
+		<div align="center">
+			<form action="./newuser" method="get">
+				<input class="btn" type="submit" value="新規ユーザー登録" />
+			</form>
+		</div>
+
 	</body>
 </html>

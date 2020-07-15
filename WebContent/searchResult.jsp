@@ -15,8 +15,11 @@
 
 	<script type="text/javascript">
 		function Click_Sub1(check) {
-			for (i = 0; i < document.all.checked.length; i++) {
-				document.all.checked[i].checked = check;
+
+			document.cks.checked.checked = check;
+
+			for (i = 0; i < document.cks.checked.length; i++) {
+				document.cks.checked[i].checked = check;
 			}
 		}
 
