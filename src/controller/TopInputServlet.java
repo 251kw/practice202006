@@ -47,6 +47,7 @@ public class TopInputServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		String writing = request.getParameter("shout");
 		String button = request.getParameter("btn");
+		String[] shoutIds = request.getParameterValues("shoutId");
 		RequestDispatcher dispatcher;
 		String message = null;
 		HttpSession session = request.getSession();	//セッションオブジェクト取得
@@ -56,6 +57,10 @@ public class TopInputServlet extends HttpServlet {
 		}
 
 		if(button.equals("掲示板に戻る")) {
+			if(shoutIds!=null) {
+				request.setAttribute("shoutIds", shoutIds);
+			}
+
 			// 書き込み内容追加後のリストを取得
 			ArrayList<ShoutDTO> list = dbm.getShoutList();
 			// リストをセッションに保存

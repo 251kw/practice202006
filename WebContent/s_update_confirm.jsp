@@ -43,11 +43,16 @@
 
 							<tr>
 								<th><font color="#80ffff"><span class="icon-chat pe-2x pe-va"></span></font>&nbsp;叫び</th>
-								<td>${shout.writing}</td>
+								<td>${comment}<input type="hidden" name="comment" value="${comment}"></td>
 							</tr>
 
 							<tr>
 								<td colspan="2" class="text-right">
+								<input type="hidden" value="${upshoutId}" name="upshoutId">
+								<c:forEach var="s" items="${shoutIds}">
+									<input type="hidden" value="${s}" name="shoutId">
+								</c:forEach>
+
 								<input class="btn" type="submit" value="更新する" name="btn"/>
 								<input class="btn" type="submit" value="戻る" name="btn">
 								</td>

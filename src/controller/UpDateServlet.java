@@ -37,30 +37,46 @@ public class UpDateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
-		String shoutIds = request.getParameter("shoutId");
+		String[] shoutIds = request.getParameterValues("shoutId");
 		String upshoutId = request.getParameter("upshoutId");
 		String botton = request.getParameter("btn");
+		String comment = request.getParameter("comment");
+
 		RequestDispatcher dispatcher = null;
 		DBUserSearch dbs = new DBUserSearch();
-//		String message = null;
+		DBUserUpdate dbu = new DBUserUpdate();
+		String message = null;
 		ShoutDTO shout = new ShoutDTO();
 		shout = dbs.shoutIdSearch(Integer.valueOf(upshoutId));
 
 		request.setAttribute("upshoutId", upshoutId);
 		request.setAttribute("shoutIds", shoutIds);
 		request.setAttribute("shout", shout);
+		request.setAttribute("comment", comment);
 
-		if(botton.equals("upshoutId")) {
-			request.setAttribute("shoutIds", shoutIds);
-			request.setAttribute("shout", shout);
+		if(upshoutId!=null && botton==null) {
+
 			dispatcher = request.getRequestDispatcher("s_update_input.jsp");
+
 		} else if(botton.equals("キャンセル")) {
 			dispatcher = request.getRequestDispatcher("top.jsp");
+
 		} else if(botton.equals("確認画面へ")) {
-			dispatcher = request.getRequestDispatcher("s_update_confirm.jsp");
+			if(comment.equals("")) {
+				message = "叫んでください。";
+				request.setAttribute("alert", message);
+				dispatcher = request.getRequestDispatcher("s_update_input.jsp");
+			} else {
+				dispatcher = request.getRequestDispatcher("s_update_confirm.jsp");
+			}
+
 		} else if(botton.equals("戻る")) {
+
 			dispatcher = request.getRequestDispatcher("s_update_input.jsp");
+
 		} else if(botton.equals("更新する")) {
+
+			dbu.shoutUpDate(Integer.valueOf(upshoutId), comment);
 			dispatcher = request.getRequestDispatcher("s_update_result.jsp");
 		}
 		dispatcher.forward(request, response);

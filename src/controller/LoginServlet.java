@@ -41,7 +41,7 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 * index.jspから呼び出される
 	 * doPostメソッド
-	 * 
+	 *
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
@@ -73,7 +73,7 @@ public class LoginServlet extends HttpServlet {
 				DBManager dbm = new DBManager();
 				UserDTO user = dbm.getLoginUser(loginId, password);
 
-				if (user != null) {
+				if (user != null && user.getLoginId().equals(loginId)) {		//小文字、大文字区別するように
 					//ユーザー情報を取得出来たら、書き込み内容リストを取得
 					ArrayList<ShoutDTO> list = dbm.getShoutList();
 					HttpSession session = request.getSession();

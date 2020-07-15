@@ -44,14 +44,29 @@
 
 						<tr>
 							<th><font color="#80ffff"><span class="icon-chat pe-2x pe-va"></span></font>&nbsp;叫び</th>
-							<td><textarea rows="5" cols="20" name="profile" class="form-control">${shout.writing}</textarea></td>
+							<td><c:choose>
+									<c:when test="${comment==null}">
+									<textarea rows="5" cols="20" name="comment" class="form-control">${shout.writing}</textarea></c:when>
+									<c:otherwise>
+									<textarea rows="5" cols="20" name="comment" class="form-control">${comment}</textarea></c:otherwise>
+							</c:choose></td>
 						</tr>
+
+						<%-- リクエストスコープにalertがあれば --%>
+						<c:if
+							test="${requestScope.alert != null && requestScorpe.alert !=''}">
+							<tr>
+								<%--リクエストスコープのalertの値を出力 --%>
+								<td colspan="2" class="color-error text-left">
+								<c:out value="${requestScope.alert}" /></td>
+							</tr>
+						</c:if>
 
 						<tr>
 							<td colspan="2" class="text-right">
-							<input type="hidden" value="upshoutId" name="upshoutId">
+							<input type="hidden" value="${upshoutId}" name="upshoutId">
 							<c:forEach var="s" items="${shoutIds}">
-								<input type="hidden" value="upshoutId" name="upshoutId">
+								<input type="hidden" value="${s}" name="shoutId">
 							</c:forEach>
 							<input class="btn" type="submit" value="確認画面へ" name="btn"/>
 							<input class="btn" type="submit" value="キャンセル" name="btn">

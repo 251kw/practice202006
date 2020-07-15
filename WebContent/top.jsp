@@ -83,17 +83,21 @@
 			</div>
 		</div>
 		</c:if>
+		<jsp:useBean id="shouts" scope="session"
+			type="java.util.ArrayList<dto.ShoutDTO>" />
 		<form action="./drs" method="get">
 		<div class="padding-y-5 text-center">
 			<div style="width: 40%" class="container padding-y-5 text-left">
-				<strong class="color-main">みんなの叫び</strong>&nbsp;&nbsp;&nbsp;<input type="submit" class="btn-flat-dashed-filled-red" name="btn" value="☑選択項目を削除">
+				<strong class="color-main">みんなの叫び</strong>&nbsp;&nbsp;&nbsp;
+				<c:if test="${shouts[0]!=null}">
+				<input type="submit" class="btn-flat-dashed-filled-red" name="btn" value="☑選択項目を削除"></c:if>
 			</div>
 		</div>
 		<%---------------------------------------------------------------------------------%>
 
 		<%--セッションスコープにあるArrayList型のオブジェクトを参照 --%>
-		<jsp:useBean id="shouts" scope="session"
-			type="java.util.ArrayList<dto.ShoutDTO>" />
+		<%--jsp:useBean id="shouts" scope="session"
+			type="java.util.ArrayList<dto.ShoutDTO>" --%>
 		<div class="padding-y-5">
 			<div style="width: 40%" class="container padding-y-5">
 				<c:forEach var="shout" items="${shouts}">
@@ -109,7 +113,7 @@
 						</tr>
 						<tr>
 							<td>${shout.date}</td>
-							<td><button type="submit" formaction="./top" class="btn-flat-dashed-filled-yellow" name="upshoutId" value="${shout.shoutsId}">編集</button></td>
+							<td><button type="submit" formaction="./udis" class="btn-flat-dashed-filled-yellow" name="upshoutId" value="${shout.shoutsId}">編集</button></td>
 						</tr>
 
 						<tr>

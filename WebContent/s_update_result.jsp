@@ -26,7 +26,7 @@
 		<jsp:useBean id="shout" scope="request" type="dto.ShoutDTO"/>
 			<div class="padding-y-5">
 				<div style="width: 40%" class="container padding-y-5">
-					<form action="./top" method="get">
+					<form action="./top" method="post">
 					<table border="1" class="table">
 
 							<tr>
@@ -43,11 +43,14 @@
 
 							<tr>
 								<th><font color="#80ffff"><span class="icon-chat pe-2x pe-va"></span></font>&nbsp;叫び</th>
-								<td><textarea rows="5" cols="20" name="profile" class="form-control">${shout.writing}</textarea></td>
+								<td>${comment}</td>
 							</tr>
 
 							<tr>
 								<td colspan="2" class="text-right">
+								<c:forEach var="s" items="${shoutIds}">
+									<input type="hidden" value="${s}" name="shoutId">
+								</c:forEach>
 								<input class="btn" type="submit" value="掲示板に戻る" name="btn"/>
 								</td>
 							</tr>

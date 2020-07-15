@@ -32,7 +32,7 @@ public class DeleteServlet extends HttpServlet {
     }
 
 	/**
-	 *
+	 * 叫び削除時に起動
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,7 +47,7 @@ public class DeleteServlet extends HttpServlet {
 		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
 
 		if(botton.equals("☑選択項目を削除")) {
-			if(shoutIds==null) {
+			if(shoutIds==null) {	//チェックボックスが選択されていなければ、エラーをもって掲示板へ
 				message = "☑チェックボックスが選択されていません。";
 				request.setAttribute("alert", message);
 
@@ -55,26 +55,26 @@ public class DeleteServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				return;
 			}
-			for(String s: shoutIds) {
+			for(String s: shoutIds) {	//shoutIdはint、パラメーターは文字列だったので変換、、、
 				int shout = Integer.parseInt(s);
 				list.add(dbs.shoutIdSearch(shout));
 			}
 			request.setAttribute("shouts", list);
 			dispatcher = request.getRequestDispatcher("s_delete_confirm.jsp");
 
-		} else if(botton.equals("キャンセル")) {
+		} else if(botton.equals("キャンセル")) {	//選択状態保持のために、shoutIdをもって掲示板へ
 
 			request.setAttribute("shoutIds", shoutIds);
 			dispatcher = request.getRequestDispatcher("top.jsp");
 
 		} else if(botton.equals("削除")) {
-			for(String s: shoutIds) {
+			for(String s: shoutIds) {		//削除前のリストを保持
 				int shout = Integer.parseInt(s);
 				list.add(dbs.shoutIdSearch(shout));
 			}
 			request.setAttribute("shouts", list);
 
-			for(String s: shoutIds) {
+			for(String s: shoutIds) {		//削除して、結果画面へ
 				int shout = Integer.parseInt(s);
 				dbd.shoutDelete(shout);
 			}
