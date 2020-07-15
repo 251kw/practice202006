@@ -181,7 +181,11 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT文の実行
-			String sql = "SELECT * FROM shouts WHERE d_flg=0 ORDER BY date DESC";
+			String sql = "SELECT s.shoutsId,s.loginId,u.userName,u.icon,s.date,s.writing,s.d_flg\r\n" +
+						 "FROM sns.users u, sns.shouts s \r\n" +
+						 "WHERE s.loginId=u.loginId AND s.d_flg=0\r\n" +
+						 "ORDER BY date DESC;";
+
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
@@ -231,16 +235,14 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing, d_flg) VALUES(?, ?, ?, ?, ?, 0)";
+			String sql = "INSERT INTO shouts(loginId, date, writing, d_flg) VALUES(?, ?, ?, 0)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getLoginId());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getIcon());
 			//現在日時の取得と日図家の書式設定
 			Calendar calender = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(4, sdf.format(calender.getTime()));
-			pstmt.setString(5, writing);
+			pstmt.setString(2, sdf.format(calender.getTime()));
+			pstmt.setString(3, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 1) {

@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import dao.DBManager;
 import dao.DBUserDelete;
 import dao.DBUserSearch;
 import dto.SearchUserDTO;
@@ -44,7 +43,6 @@ public class DeleteServlet extends HttpServlet {
 		String message = null;
 		DBUserSearch dbs = new DBUserSearch();
 		DBUserDelete dbd = new DBUserDelete();
-		DBManager dbm = new DBManager();
 
 		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
 
@@ -52,11 +50,6 @@ public class DeleteServlet extends HttpServlet {
 			if(shoutIds==null) {
 				message = "☑チェックボックスが選択されていません。";
 				request.setAttribute("alert", message);
-
-				// 書き込み内容追加後のリストを取得
-				list = dbm.getShoutList();
-				// リストをセッションに保存
-				request.setAttribute("shouts", list);
 
 				dispatcher = request.getRequestDispatcher("top.jsp");
 				dispatcher.forward(request, response);
@@ -70,6 +63,7 @@ public class DeleteServlet extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("s_delete_confirm.jsp");
 
 		} else if(botton.equals("キャンセル")) {
+
 			request.setAttribute("shoutIds", shoutIds);
 			dispatcher = request.getRequestDispatcher("top.jsp");
 

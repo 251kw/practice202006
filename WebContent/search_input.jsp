@@ -46,7 +46,7 @@
 							</th>
 							<td>
 								<div><h6>半角英数字で入力してください</h6></div>
-								<input type="text" name="loginId" id="loginId" value="${search.loginId}" class="form-control">
+								<input type="text" name="loginId" id="loginId" value="${search.loginId}" class="form-control" autofocus>
 							</td>
 						</tr>
 

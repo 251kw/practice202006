@@ -226,7 +226,10 @@ public class DBUserSearch extends SnsDAO {
 			conn = getConnection();
 
 			//SELECT文の作成と実行
-			String sql = "SELECT * FROM shouts WHERE shoutsId=?";
+			String sql = "SELECT s.shoutsId,u.userName,u.icon,s.writing,s.d_flg\r\n" +
+						 "FROM sns.users u, sns.shouts s \r\n" +
+						 "WHERE s.loginId=u.loginId AND s.shoutsId=?";
+
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, shoutsId);
 
@@ -236,10 +239,10 @@ public class DBUserSearch extends SnsDAO {
 			while (rset.next()) {
 				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				shout.setShoutsId(rset.getInt(1));
-				shout.setUserName(rset.getString(3));
-				shout.setIcon(rset.getString(4));
-				shout.setWriting(rset.getString(6));
-				shout.setD_flg(rset.getInt(7));
+				shout.setUserName(rset.getString(2));
+				shout.setIcon(rset.getString(3));
+				shout.setWriting(rset.getString(4));
+				shout.setD_flg(rset.getInt(5));
 
 			}
 

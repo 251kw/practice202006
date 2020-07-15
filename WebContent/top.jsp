@@ -51,7 +51,9 @@
 		</div>
 		<div class="padding-y-5">
 			<div style="width: 40%" class="container padding-y-5 text-left">
+				<img src="tw.png" alt="tw" width="96" height="65">
 				<strong class="color-main">今の気持ちを叫ぼう</strong>
+				<img src="tobipen.gif" alt="pen" width="96" height="65">
 			</div>
 		</div>
 		<div class="padding-y-5 text-center">
@@ -62,7 +64,7 @@
 					<table class="table">
 						<tr>
 							<%--今の気持ち入力欄の名前は shout--%>
-							<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
+							<td><input class="form-control" type="text" name="shout" value="" size="60" autofocus/></td>
 							<td><input type="submit" class="btn-gradient-3d-simple" name="btn" value="叫ぶ"></td>
 						</tr>
 					</table>
@@ -107,7 +109,7 @@
 						</tr>
 						<tr>
 							<td>${shout.date}</td>
-							<td><a href="#" class="btn-flat-dashed-filled-yellow">編集</a></td>
+							<td><button type="submit" formaction="./top" class="btn-flat-dashed-filled-yellow" name="upshoutId" value="${shout.shoutsId}">編集</button></td>
 						</tr>
 
 						<tr>

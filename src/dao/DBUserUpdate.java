@@ -84,8 +84,32 @@ public class DBUserUpdate extends SnsDAO{
 			close(pstmt);
 			close(conn);
 		}
-
 	}
 
+	public void shoutUpDate(int shoutId, String writing) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL管理情報
+
+		String sql = "UPDATE shouts SET writing=? WHERE shoutsId=?";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, writing);
+			pstmt.setInt(2, shoutId);
+			pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+	}
 
 }

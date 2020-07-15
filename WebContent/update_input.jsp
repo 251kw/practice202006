@@ -48,7 +48,7 @@
 						<tr>
 
 							<th><label for="pass"><font color="#CC99CC"><span class="icon-key pe-2x pe-va"></span></font>&nbsp;パスワード</label></th>
-							<td><input type="password"name="pass" id="pass" value="${user.password}" class="form-control"></td>
+							<td><input type="password"name="pass" id="pass" value="${user.password}" class="form-control" autofocus></td>
 						</tr>
 						<tr>
 							<th><label for="userName"><font color="#FF3333"><span class="icon-users pe-2x pe-va"></span></font>&nbsp;ユーザ名</label></th>

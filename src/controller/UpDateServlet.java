@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import dao.DBUserSearch;
 import dao.DBUserUpdate;
 import dto.SearchUserDTO;
+import dto.ShoutDTO;
 import dto.UserDTO;
 
 /**
@@ -31,11 +32,37 @@ public class UpDateServlet extends HttpServlet {
 
 
 	/**
-	 * 直接アクセスがないように、index.jspに飛ぶ
+	 * 叫び編集時に起動
 	 *
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher= request.getRequestDispatcher("index.jsp");
+		request.setCharacterEncoding("UTF-8");
+		String shoutIds = request.getParameter("shoutId");
+		String upshoutId = request.getParameter("upshoutId");
+		String botton = request.getParameter("btn");
+		RequestDispatcher dispatcher = null;
+		DBUserSearch dbs = new DBUserSearch();
+//		String message = null;
+		ShoutDTO shout = new ShoutDTO();
+		shout = dbs.shoutIdSearch(Integer.valueOf(upshoutId));
+
+		request.setAttribute("upshoutId", upshoutId);
+		request.setAttribute("shoutIds", shoutIds);
+		request.setAttribute("shout", shout);
+
+		if(botton.equals("upshoutId")) {
+			request.setAttribute("shoutIds", shoutIds);
+			request.setAttribute("shout", shout);
+			dispatcher = request.getRequestDispatcher("s_update_input.jsp");
+		} else if(botton.equals("キャンセル")) {
+			dispatcher = request.getRequestDispatcher("top.jsp");
+		} else if(botton.equals("確認画面へ")) {
+			dispatcher = request.getRequestDispatcher("s_update_confirm.jsp");
+		} else if(botton.equals("戻る")) {
+			dispatcher = request.getRequestDispatcher("s_update_input.jsp");
+		} else if(botton.equals("更新する")) {
+			dispatcher = request.getRequestDispatcher("s_update_result.jsp");
+		}
 		dispatcher.forward(request, response);
 	}
 
@@ -87,7 +114,7 @@ public class UpDateServlet extends HttpServlet {
 			//変更完了へ
 			request.setAttribute("user", user);
 
-			dbu.shoutsUpDate(oldId, user);
+//			dbu.shoutsUpDate(oldId, user);
 			dbu.userUpDate(oldId, user);
 
 			if(loginUser.getLoginId().equals(oldId)) { //ログインユーザーの変更の時

@@ -49,6 +49,7 @@ public class TopInputServlet extends HttpServlet {
 		String button = request.getParameter("btn");
 		RequestDispatcher dispatcher;
 		String message = null;
+		HttpSession session = request.getSession();	//セッションオブジェクト取得
 		// １度だけ DataManager オブジェクトを生成
 		if(dbm == null){
 			dbm = new DBManager();
@@ -64,7 +65,6 @@ public class TopInputServlet extends HttpServlet {
 
 			if(!writing.equals("")) {// 書き込み内容があれば、リストに追加
 
-				HttpSession session = request.getSession();	//セッションオブジェクト取得
 				// セッションからログインユーザ情報を取得
 				UserDTO user = (UserDTO) session.getAttribute("user");
 
@@ -75,7 +75,7 @@ public class TopInputServlet extends HttpServlet {
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
 
 				// リストをセッションに保存
-				request.setAttribute("shouts", list);
+				session.setAttribute("shouts", list);
 
 			} else {
 				//書き込み未入力なら
@@ -86,7 +86,7 @@ public class TopInputServlet extends HttpServlet {
 				// 書き込み内容追加後のリストを取得
 				ArrayList<ShoutDTO> list = dbm.getShoutList();
 				// リストをセッションに保存
-				request.setAttribute("shouts", list);
+				session.setAttribute("shouts", list);
 			}
 		}
 
