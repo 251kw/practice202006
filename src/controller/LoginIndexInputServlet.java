@@ -64,7 +64,7 @@ public class LoginIndexInputServlet extends HttpServlet {
 			DBManager dbm = new DBManager();
 			UserDTO user = dbm.getloginUser(loginId, password);   //DBM内にあるメソッド 検索結果がなければnullで帰ってくる
 
-			if(user != null) {
+			if(user != null && loginId.equals(user.getLoginId()) && password.equals(user.getPassword())) {
 				//ユーザー情報を取得できたら、書き込み内容リストを取得
 				ArrayList<ShoutDTO> list = dbm.getShoutList();  //DBM内にあるメソッド
 				HttpSession session = request.getSession();

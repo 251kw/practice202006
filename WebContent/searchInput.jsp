@@ -27,7 +27,7 @@
 			<tr>
 				<td class="color-main text-left">ログインID</td>
 				<td class="text-left">
-					<input class="form-control" type="text" name="loginId" value="${sUser.loginId}" size="20" maxlength="20" />
+					<input class="form-control" type="text" name="loginId" value="${sUser.loginId}" size="20" maxlength="20" autofocus/>
 				</td>
 			</tr>
 			<tr>

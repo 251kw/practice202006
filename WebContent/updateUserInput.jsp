@@ -37,7 +37,7 @@
 					<td class="color-main text-left">パスワード</td>
 					<td class="text-left">
 						<p align="right" style="font-size: small; color: #ff0000;">半角英数字,4文字以上で入力してください</p>
-						<input class="form-control" type="password" name="password1" value="${password}" size="20" maxlength="20" />
+						<input class="form-control" type="password" name="password1" value="${password}" size="20" maxlength="20" autofocus/>
 					</td>
 				</tr>
 				<tr>

@@ -19,6 +19,13 @@
 			</div>
 		</div>
 
+		<div style="margin-bottom:10px"></div>
+		<div align="center">
+			<form action="./newuser" method="get">
+				<input class="btn btn-sm" type="submit" value="新規ユーザー登録" />
+			</form>
+		</div>
+
 		<h5 class="padding-y-5 text-center">ログインIDとパスワードを入力してください</h5>
 		<form action="./login" method="post">
 			<table style="width: 40%" class="table container">
@@ -45,12 +52,6 @@
 
 			</table>
 		</form>
-
-		<div align="center">
-			<form action="./newuser" method="get">
-				<input class="btn" type="submit" value="新規ユーザー登録" />
-			</form>
-		</div>
 
 	</body>
 </html>

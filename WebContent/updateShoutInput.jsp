@@ -39,7 +39,7 @@
 				<tr>
 					<td class="color-main text-left" height="100%">叫び直そう</td>
 					<td>
-						<textarea name="shout" rows="4" cols="40">${searchShout.writing}</textarea>
+						<textarea name="shout" rows="4" cols="40" autofocus>${searchShout.writing}</textarea>
 					</td>
 				</tr>
 				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
