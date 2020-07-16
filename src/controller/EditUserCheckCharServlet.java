@@ -95,7 +95,7 @@ public class EditUserCheckCharServlet extends HttpServlet {
 			}else {
 				// パスワードが正常な時
 				// その他の入力欄が入力されているか確認
-				if (false == CheckInput.excludeBlank3(epassword, euserName, eicon, eprofile)) {
+				if (false == CheckInput.exceptId(epassword, euserName, eicon, eprofile)) {
 					// 未入力項目があるとき
 					checkblank = "全ての入力欄を埋めてください";
 

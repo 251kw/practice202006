@@ -46,25 +46,6 @@ public class CheckInput{
 	}
 
 	/**
-	 * パスワード以外が入力されているかどうかをチェック
-	 * @param id
-	 * @param name
-	 * @param icon
-	 * @param profile
-	 * @return 上と同じ
-	 */
-	// パスワード以外入力チェック
-	public static boolean excludeBlank2(String id, String name, String icon, String profile){	//TODO 現在未使用のメソッド
-		if(id.equals("") && name.equals("") && icon.equals("") && profile.equals("")){
-		    boolean result = false;
-		    return result;
-		}else {
-		    boolean result = true;
-		    return result;
-		}
-	}
-
-	/**
 	 * ログインID以外が入力されているかどうかをチェック
 	 * @param pass
 	 * @param name
@@ -73,7 +54,7 @@ public class CheckInput{
 	 * @return 上と同じ
 	 */
 	// パスワード以外入力チェック
-	public static boolean excludeBlank3(String pass, String name, String icon, String profile){
+	public static boolean exceptId(String pass, String name, String icon, String profile){
 		if(pass.equals("") || name.equals("") || icon.equals("") || profile.equals("")){
 		    boolean result = false;
 		    return result;

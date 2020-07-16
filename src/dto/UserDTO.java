@@ -7,7 +7,7 @@ public class UserDTO {
 	private String userName;	// ユーザー名
 	private String icon;	// ユーザーアイコン
 	private String profile;	// プロフィール
-	private String del_flag;	// deleteflag
+	private String d_flg;	// deleteflag
 
 	// getter and setter
 	public UserDTO() {
@@ -54,12 +54,12 @@ public class UserDTO {
 		this.profile = profile;
 	}
 
-	public String getDel_flag() {
-		return del_flag;
+	public String getD_flg() {
+		return d_flg;
 	}
 
-	public void setDel_flag(String del_flag) {
-		this.del_flag = del_flag;
+	public void setD_flg(String d_flg) {
+		this.d_flg = d_flg;
 	}
 
 

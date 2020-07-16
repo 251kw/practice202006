@@ -26,7 +26,7 @@ public class DBManager extends SnsDAO{
 		PreparedStatement pstmt = null;	// SQL 管理情報
 		ResultSet rset = null;		// 検索結果
 
-		String sql = "SELECT * FROM users WHERE loginId=? AND password=? AND del_flag=0";
+		String sql = "SELECT * FROM users WHERE loginId=? AND password=? AND d_flg=0";
 		UserDTO user = null;	// 登録ユーザー情報
 
 		try {

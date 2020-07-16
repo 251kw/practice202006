@@ -40,8 +40,8 @@
 				</tr>
 				<c:forEach var="resultList" items="${resultList}">
 					<tr>
-						<%--チェックボックス(del_flag==0の時だけ) --%>
-						<c:if test="${resultList.del_flag==0}">
+						<%--チェックボックス(d_flg==0の時だけ) --%>
+						<c:if test="${resultList.d_flg==0}">
 							<%-- ↓チェックボックスにチェックがあるとき↓ --%>
 							<c:if test="${!empty sessionScope.select}"><%-- この時は必ずcheckallは空 --%>
 								<%-- チェックがあるユーザーに該当する場合 --%>
@@ -91,7 +91,7 @@
 								<button type="submit" name="dloginId" value="${resultList.loginId}">削除</button>
 							</td>
 						</c:if>
-						<c:if test="${resultList.del_flag==1}">
+						<c:if test="${resultList.d_flg==1}">
 							<td class="text-center color-error">削除済み</td>
 							<td class="text-center">${resultList.loginId}</td>
 							<td class="text-center">${resultList.userName}</td>

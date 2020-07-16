@@ -26,7 +26,7 @@ public class RevivalUserServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 
-		RequestDispatcher dispatcher = request.getRequestDispatcher("revivalUserResult.jsp");
+		RequestDispatcher dispatcher = null;
 
 		// 値を保持するための処理
 		String sloginId = request.getParameter("sloginId");
@@ -34,13 +34,23 @@ public class RevivalUserServlet extends HttpServlet {
 		String sicon = request.getParameter("sicon");
 		String sprofile = request.getParameter("sprofile");
 
-		// 値の保持用
-		request.setAttribute("sloginId", sloginId);
-		request.setAttribute("suserName", suserName);
-		request.setAttribute("sicon", sicon);
-		request.setAttribute("sprofile", sprofile);
+		if(sloginId==null && suserName==null && sicon==null && sprofile==null) {
+			// ログイン画面で押された場合
+			CheckDB.RevivalUser();
 
-		CheckDB.RevivalUser();
+			dispatcher = request.getRequestDispatcher("index.jsp");
+
+		}else {
+			// 値の保持用
+			request.setAttribute("sloginId", sloginId);
+			request.setAttribute("suserName", suserName);
+			request.setAttribute("sicon", sicon);
+			request.setAttribute("sprofile", sprofile);
+
+			CheckDB.RevivalUser();
+
+			dispatcher = request.getRequestDispatcher("revivalUserResult.jsp");
+		}
 
 		dispatcher.forward(request, response);
 

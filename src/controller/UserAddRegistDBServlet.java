@@ -65,7 +65,7 @@ public class UserAddRegistDBServlet extends HttpServlet {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN, USER, PASSWORD);
 
-			String sql = "INSERT INTO users(loginId,password,userName,icon,profile,del_flag) VALUES(?,?,?,?,?,?)";
+			String sql = "INSERT INTO users(loginId,password,userName,icon,profile,d_flg) VALUES(?,?,?,?,?,?)";
 
 			pstmt1 = conn.prepareStatement(sql);
 

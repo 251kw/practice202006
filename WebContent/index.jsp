@@ -16,6 +16,7 @@
 				<h2 class="text-center">Shouter&nbsp;<span class="icon-speaker pe-2x pe-va"></span></h2>
 			</div>
 		</div>
+		<a href="./RevivalUser" class="text-right hidelink" style="color: #FFFFEE; text-decoration: none;">復活の呪文</a>
 		<%-- 新規登録ボタン --%>
 		<form action="./TurnUserAddInput" method="post">
 			<table style="width: 400px" class="table container padding-y-5">

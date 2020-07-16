@@ -96,7 +96,7 @@ public class CheckDB {
 					user.setUserName(rset.getString(4));
 					user.setIcon(rset.getString(5));
 					user.setProfile(rset.getString(6));
-					user.setDel_flag(rset.getString(7));
+					user.setD_flg(rset.getString(7));
 					resultList.add(user);
 				}
 			} catch (SQLException e) {
@@ -140,7 +140,7 @@ public class CheckDB {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
 			String sql1 = "delete from shouts where loginId = ?";
-			String sql2 = "update users set del_flag=? where loginId=?";
+			String sql2 = "update users set d_flg=? where loginId=?";
 			pstmt1 = conn.prepareStatement(sql1);
 			pstmt2 = conn.prepareStatement(sql2);
 			pstmt1.setString(1, dloginId);
@@ -201,7 +201,7 @@ public class CheckDB {
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
-				user.setDel_flag(rset.getString(7));
+				user.setD_flg(rset.getString(7));
 			}
 
 		}catch(ClassNotFoundException e) {
@@ -497,7 +497,7 @@ public class CheckDB {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
-			String sql = "update users set del_flag=0 where del_flag=1";
+			String sql = "update users set d_flg=0 where d_flg=1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();
 

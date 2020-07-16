@@ -19,7 +19,7 @@
 		<br>
 		<h4 class="text-center">以下の書き込みを削除しますか？</h4>
 		<br>
-		<form action="./ShoutDelete?dsloginId=${requestScope.shoutinfo.loginId}&dsuserName=${requestScope.shoutinfo.userName}&dicon=${requestScope.shoutinfo.icon}&dswriting=${requestScope.shoutinfo.writing}&dshoutsId=${requestScope.dshoutsId}" method="Post">
+		<form action="./ShoutDelete?dsloginId=${requestScope.shoutinfo.loginId}&dsuserName=${requestScope.shoutinfo.userName}&dsicon=${requestScope.shoutinfo.icon}&dswriting=${requestScope.shoutinfo.writing}&dshoutsId=${requestScope.dshoutsId}" method="Post">
 			<table style="width: 400px" class="table table-borderd container padding-y-5">
 				<tr>
 					<th class="color-main text-center">ログインID:</th>
