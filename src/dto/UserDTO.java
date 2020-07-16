@@ -7,16 +7,18 @@ public class UserDTO {
 	private String userName;	//氏名
 	private String icon;		//アイコン
 	private String profile;		//プロフィール
+	private int dFlg;
 
 	public UserDTO() {
 	}
 
-	public UserDTO(String loginId, String password, String userName, String icon, String profile) {
+	public UserDTO(String loginId, String password, String userName, String icon, String profile, int dFlg) {
 		this.loginId = loginId;
 		this.password = password;
 		this.userName = userName;
 		this.icon = icon;
 		this.profile = profile;
+		this.dFlg = dFlg;
 	}
 
 	//ゲッターセッター
@@ -59,6 +61,16 @@ public class UserDTO {
 	public void setIcon(String icon) {
 		this.icon = icon;
 	}
+
+	public int getDFlg() {
+		return dFlg;
+	}
+
+	public void setDFlg(int dFlg) {
+		this.dFlg = dFlg;
+	}
+
+
 
 
 }

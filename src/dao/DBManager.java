@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 
 import dto.ShoutDTO;
 import dto.UserDTO;
+import util.CheckUtil;
 
 /*
  * DBを操作するDAO
@@ -175,6 +176,7 @@ public class DBManager extends SnsDAO{
 			//データベースに接続
 			conn = getConnection();
 
+			//TODO shoutsテーブルへのd_flgカラムへの追加あとで
 			//INSERT文の登録と実行
 			String sql = "INSERT INTO shouts(loginId, date, writing) VALUES(?,?,?)";
 			pstmt = conn.prepareStatement(sql);
@@ -273,11 +275,66 @@ public class DBManager extends SnsDAO{
 		return result;
 	}
 
+	//TODO DELETE文をUPDATE文にする
 	/**
 	 * 登録ユーザのDB削除
 	 * @param loginId	//削除するログインID
 	 * @return	result	//戻り値はDELETE文が成功したかどうかのboolean型
 	 */
+	@SuppressWarnings("resource")
+	public boolean deleteUser(String loginId) {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+
+		//送信情報の取得
+		String getLogId = loginId;
+		boolean result = false; //削除結果
+		//新規追加時のフラグ(int = 0)
+		int delDFlg = CheckUtil.delDFlg();
+
+		try {
+			//データベースに接続
+			conn = getConnection();
+
+			//shoutsテーブルのDELETE文の登録と実行
+			String sqlShouts = "UPDATE Shouts SET d_flg=? WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sqlShouts);
+			pstmt.setInt(1, delDFlg);
+			pstmt.setString(2, getLogId);
+			int cnt1 = pstmt.executeUpdate();
+
+			if(cnt1 >= 0) {
+				//userテーブルのDELETE文の登録と実行
+				String sqlUser = "UPDATE users SET d_flg=? WHERE LoginId=?";
+				pstmt = conn.prepareStatement(sqlUser);
+				pstmt.setInt(1, delDFlg);
+				pstmt.setString(2, getLogId);
+				int cnt2 = pstmt.executeUpdate();
+
+				if(cnt2 == 1) {
+					//DELETE文の実行結果が1なら登録成功
+					result = true;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+		return result;
+	}
+
+
+
+
+	/*
+	/**
+	 * 登録ユーザのDB削除
+	 * @param loginId	//削除するログインID
+	 * @return	result	//戻り値はDELETE文が成功したかどうかのboolean型
+
 	@SuppressWarnings("resource")
 	public boolean deleteUser(String loginId) {
 		Connection conn = null;
@@ -318,6 +375,7 @@ public class DBManager extends SnsDAO{
 		}
 		return result;
 	}
+	*/
 
 	/**
 	 * ユーザの新規登録情報をDBへ追加する
@@ -337,6 +395,8 @@ public class DBManager extends SnsDAO{
 		String getUName = userName;
 		String getIcon = icon;
 		String getProf = profile;
+		//新規追加時のフラグ(int = 0)
+		int okDFlg = CheckUtil.okDFlg();
 
 		boolean result = false;
 		try {
@@ -344,13 +404,14 @@ public class DBManager extends SnsDAO{
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO users (loginId, password, userName, icon, profile) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO users (loginId, password, userName, icon, profile,d_flg) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, getLogId);
 			pstmt.setString(2, getPass);
 			pstmt.setString(3, getUName);
 			pstmt.setString(4, getIcon);
 			pstmt.setString(5, getProf);
+			pstmt.setInt(6, okDFlg);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
@@ -434,6 +495,8 @@ public class DBManager extends SnsDAO{
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
+				//削除フラグも取得する
+				user.setDFlg(rset.getInt(7));
 
 				//書き込み内容をリストに追加
 				list.add(user);

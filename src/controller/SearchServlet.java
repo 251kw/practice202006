@@ -117,6 +117,7 @@ public class SearchServlet extends HttpServlet {
 		if(errId == "" || errId == null) {
 			//searchListで検索結果を取得
 			DBManager dbm = new DBManager();
+			//7.15　下記リストで取得できているdFlgがuserSearchComp.jspで取得できない
 			ArrayList<UserDTO> searchList = dbm.getSearchList(loginId, userName, icon, profile);
 
 			//検索結果を取得し、完了画面に遷移

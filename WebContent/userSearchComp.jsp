@@ -45,7 +45,12 @@
 						<%-- リストにある要素の数だけ繰り返し --%>
 						<c:forEach var="search" items="${searchList}">
 							<tr>
-								<td>${search.loginId}</td>
+								<td>${search.loginId}
+								 	/<%-- 7.16 ${search.dFlg}がないとエラーでる --%>
+									<c:if test="${search.dFlg == 1}">
+										<div class="color-error text-left"><font size="3">※削除済みユーザ※</font></div>
+									</c:if>
+								</td>
 								<td>${search.userName}</td>
 								<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
 								<td>${search.profile}</td>

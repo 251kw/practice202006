@@ -151,4 +151,16 @@ public class CheckUtil {
 		return message;
 	}
 
+	//新規登録
+	public static int okDFlg() {
+		int okDFlg = 0;
+		return okDFlg;
+	}
+
+	//ユーザ論理削除
+	public static int delDFlg() {
+		int delDFlg = 1;
+		return delDFlg;
+	}
+
 }
