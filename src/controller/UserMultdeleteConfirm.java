@@ -55,7 +55,7 @@ public class UserMultdeleteConfirm extends HttpServlet {
 		}
 
 		//delete文作成ループ
-		String str = "WHERE loginId IN (";
+		String str = "loginId IN (";
 		for(i=0; i<user.length; i++) {
 			str = str+"'"+user[i]+"',";
 		}

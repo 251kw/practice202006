@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
 </head>
-<body>
+<body onload="document.getElementById('loginId').focus();">
 	<% request.setCharacterEncoding("UTF-8"); %>
 	<div class="bg-success padding-y-5">
 		<div class="padding-y-5 text-center">

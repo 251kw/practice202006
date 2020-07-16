@@ -28,7 +28,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null; //SQL 管理情報
 		ResultSet rset = null; //検索結果
 
-		String sql = "SELECT * FROM users WHERE loginId=? AND password=?";
+		String sql = "SELECT * FROM users WHERE d_flg=0 AND loginId=? AND password=?";
 		UserDTO user = null; //登録ユーザー情報
 
 		try {
@@ -119,7 +119,11 @@ public class DBManager extends SnsDAO {
 
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-		String sql = "SELECT * FROM users "+str;
+		String sql = "SELECT * FROM users WHERE d_flg=0 AND "+str;
+
+		if(str.equals("")){
+			sql = sql.substring(0, (sql.length() - 4));
+		}
 
 		try {
 			//データベース接続情報取得
@@ -155,9 +159,56 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * 登録されているすべてのユーザーのログインIDを持ってくる
+	 * 削除済みユーザーの情報を持ってくる
+	 * @return 削除済みユーザーの情報リスト
+	 */
+	public ArrayList<UserDTO> getDeleteUser(){
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL 管理情報
+		ResultSet rset = null; //検索結果
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+		String sql = "SELECT * FROM users WHERE d_flg=1";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT 文の登録と実行
+			pstmt = conn.prepareStatement(sql); //SELeCT 構文登録
+			rset = pstmt.executeQuery();
+
+			//検索結果の数だけ繰り返す
+			while (rset.next()) {
+				//必要なれつから値を取り出し、書き込み内容オブジェクトを生産
+				UserDTO user = new UserDTO();
+				user.setLoginId(rset.getString(2));
+				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
+
+				//書き込み内容をリストに追加
+				list.add(user);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+
+	/**
+	 * ユーザーのログインIDだけ持ってくる
 	 * @param str 検索で使ったsql文
-	 * @return すべてのログインID
+	 * @return ログインID
 	 */
 	public ArrayList<String> allGetId(String str) {
 		Connection conn = null; //データベース接続情報
@@ -166,7 +217,11 @@ public class DBManager extends SnsDAO {
 
 		ArrayList<String> list = new ArrayList<String>();
 
-		String sql = "SELECT * FROM users "+str;
+		String sql = "SELECT * FROM users WHERE d_flg=0 AND "+str;
+
+		if(str.equals("")){
+			sql = sql.substring(0, (sql.length() - 4));
+		}
 
 		try {
 			//データベース接続情報取得
@@ -204,7 +259,7 @@ public class DBManager extends SnsDAO {
 		boolean result = false;
 
 
-		String sql = "DELETE FROM users WHERE loginId="+str;
+		String sql = "UPDATE users SET d_flg=1 WHERE loginId="+str;
 
 		try {
 			//データベース接続情報取得
@@ -243,7 +298,7 @@ public class DBManager extends SnsDAO {
 		int cnt = 0;
 
 
-		String sql = "UPDATE users SET "+str1+" WHERE loginId='"+str2+"'";
+		String sql = "UPDATE users SET "+str1+" WHERE d_flg=0 AND loginId='"+str2+"'";
 
 		try {
 			//データベース接続情報取得
@@ -286,18 +341,18 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT文の実行
-			String sql = "SELECT * FROM shouts ORDER BY date DESC";
+			String sql = "SELECT u.userName,u.icon,s.date,s.writing FROM users AS u,shouts AS s WHERE u.loginId=s.loginId AND s.d_flg=0 ORDER BY s.date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
 			while (rset.next()) {
 				//必要なれつから値を取り出し、書き込み内容オブジェクトを生産
 				ShoutDTO shout = new ShoutDTO();
-				shout.setUserName(rset.getString(3));
-				shout.setIcon(rset.getString(4));
-				String str = rset.getString(5);
+				shout.setUserName(rset.getString(1));
+				shout.setIcon(rset.getString(2));
+				String str = rset.getString(3);
 				shout.setDate(str.substring(0, str.indexOf('.')));
-				shout.setWriting(rset.getString(6));
+				shout.setWriting(rset.getString(4));
 
 				//書き込み内容をリストに追加
 				list.add(shout);
@@ -325,7 +380,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null; //検索結果
 		boolean result = false;
 
-		String sql = "SELECT * FROM shouts WHERE loginId="+loginId;
+		String sql = "SELECT * FROM shouts WHERE d_flg=0 AND loginId="+loginId;
 
 		try {
 			//データベース接続情報取得
@@ -363,7 +418,7 @@ public class DBManager extends SnsDAO {
 		boolean result = false;
 
 
-		String sql = "DELETE FROM shouts WHERE loginId="+str;
+		String sql = "UPDATE shouts SET d_flg=1 WHERE loginId="+str;
 
 		try {
 			//データベース接続情報取得
@@ -402,7 +457,7 @@ public class DBManager extends SnsDAO {
 		int cnt = 0;
 
 
-		String sql = "UPDATE shouts SET "+str1+" WHERE loginId='"+str2+"'";
+		String sql = "UPDATE shouts SET "+str1+" WHERE d_flg=0 AND loginId='"+str2+"'";
 
 		try {
 			//データベース接続情報取得
@@ -443,17 +498,15 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			//INSErt文の登録と実行
-			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO shouts(loginId, date, writing) VALUES(?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getLoginId());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getIcon());
 			//現在日時の日付の書式指定
 			Calendar calender = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-			pstmt.setString(4, sdf.format(calender.getTime()));
-			pstmt.setString(5, writing);
+			pstmt.setString(2, sdf.format(calender.getTime()));
+			pstmt.setString(3, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if (cnt == 1) {

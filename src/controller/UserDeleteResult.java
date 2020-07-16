@@ -65,6 +65,10 @@ public class UserDeleteResult extends HttpServlet {
 				String str = (String)session.getAttribute("str");
 				ArrayList<UserDTO> list = db.searchUser(str);
 				request.setAttribute("users", list);
+				//削除済みユーザー
+				list = db.getDeleteUser();
+				request.setAttribute("d_users", list);
+
 				dispatcher = request.getRequestDispatcher("search_result.jsp");
 		}
 

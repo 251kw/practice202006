@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
 </head>
-<body>
+<body onload="document.getElementById('firstinput').focus();">
 	<div class="bg-success padding-y-10">
 		<div class="text-center ">
 			<h1>
@@ -35,7 +35,7 @@
 	<div style="width: 40%" class="container padding-y-5">
 		<%-- action 属性にサーブレットを指定 --%>
 		<form action="./logout" method="post">
-			<table class="table table-bordered container padding-y-5 ">
+			<table class="table table-bordered  padding-y-5 ">
 				<tr>
 					<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td>
 					<td width="256">${user.userName}</td>
@@ -58,7 +58,7 @@
 			<tr>
 				<%-- 今の気持ち入力欄の名前は shout --%>
 				<td class="text-center"><input class="form-contorol"
-				type="text" name="shout" value="" size="60" /></td>
+				type="text" name="shout" value="" id="firstinput" size="60" /></td>
 				<td><input class="btn" type="submit" value="叫ぶ" /></td>
 			</tr>
 			<%-- リクエストスコープにalertがあれば --%>
@@ -88,7 +88,10 @@
 						<td>${shout.date}</td>
 					</tr>
 					<tr>
-						<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea>
+						<td colspan="2">
+							<div class="mybox">
+								${shout.writing}
+							</div>
 						</td>
 					</tr>
 				</table>

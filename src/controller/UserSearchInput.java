@@ -75,9 +75,6 @@ public class UserSearchInput extends HttpServlet {
 				request.setAttribute("alert", msg);
 				dispatcher = request.getRequestDispatcher("search_input.jsp");
 				dispatcher.forward(request, response);
-
-			}else {
-				str = "WHERE ";
 			}
 
 			//それぞれの項目名付けたし
@@ -120,6 +117,9 @@ public class UserSearchInput extends HttpServlet {
 			session.setAttribute("str", str);
 			ArrayList<UserDTO> list = db.searchUser(str);
 			request.setAttribute("users", list);
+			//削除済みユーザー
+			list = db.getDeleteUser();
+			request.setAttribute("d_users", list);
 
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 			dispatcher.forward(request, response);

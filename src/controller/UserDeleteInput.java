@@ -58,7 +58,7 @@ public class UserDeleteInput extends HttpServlet {
 		//複数削除
 		if(all != null && deleteList != null) {
 			DBManager db = new DBManager();
-			String str = "WHERE loginId IN (";
+			String str = "loginId IN (";
 			for(int i=0; i<deleteList.length; i++) {
 				str = str+"'"+deleteList[i]+"',";
 				if(deleteList[i].equals(loginuser.getLoginId())){
@@ -82,6 +82,10 @@ public class UserDeleteInput extends HttpServlet {
 			String str = (String)session.getAttribute("str");
 			ArrayList<UserDTO> list = db.searchUser(str);
 			request.setAttribute("users", list);
+			//削除済みユーザー
+			list = db.getDeleteUser();
+			request.setAttribute("d_users", list);
+
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
 		//全選択
@@ -101,6 +105,10 @@ public class UserDeleteInput extends HttpServlet {
 			session.setAttribute("check", idList);
 			ArrayList<UserDTO> list = db.searchUser(str);
 			request.setAttribute("users", list);
+			//削除済みユーザー
+			list = db.getDeleteUser();
+			request.setAttribute("d_users", list);
+
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 
 		//個別の削除、更新

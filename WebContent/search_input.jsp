@@ -10,7 +10,7 @@
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
 </head>
-<body>
+<body onload="document.getElementById('loginId').focus();">
 	<% request.setCharacterEncoding("UTF-8");%>
 	<c:if test="${sessionScope.check != null}">${sessionScope.check = ""}</c:if>
 	<div class="bg-success padding-y-5">

@@ -76,11 +76,11 @@ public class UserUpdateConfirm extends HttpServlet {
 			}
 			if (!userName.equals(olduser[2])) {
 				str = str + "userName='" + userName + "',";
-				db.updateShouts("userName='"+userName+"'",olduser[0]);
+				// TODO db.updateShouts("userName='"+userName+"'",olduser[0]);
 			}
 			if (!icon.equals(olduser[3])) {
 				str = str + "icon='" + icon + "',";
-				db.updateShouts("icon='"+icon+"'",olduser[0]);
+				//db.updateShouts("icon='"+icon+"'",olduser[0]);
 			}
 			if (!profile.equals(olduser[4])) {
 				str = str + "profile='" + profile + "',";

@@ -66,7 +66,6 @@
 								 value="${user.loginId},${user.password},${user.userName},${user.icon},${user.profile},更新">更新</button>
 							</td>
 						</tr>
-
 					</c:forEach>
 					<tr>
 						<td colspan="8" class="text-left">
@@ -77,10 +76,33 @@
 								<div class="color-error"><c:out  value="${requestScope.alert}" /></div>
 							</c:if>
 						</td>
-
 					</tr>
 				</table>
 			</form>
+			<jsp:useBean id="d_users" scope="request" type="java.util.ArrayList<dto.UserDTO>" />
+			<table class="table table-striped table-bordered">
+				<tr>
+					<td colspan="5" class="text-center color-error">*削除済みユーザー</td>
+				</tr>
+				<tr>
+					<th scope="col" class="text-center">アイコン</th>
+					<th scope="col" class="text-center">名前</th>
+					<th scope="col" class="text-center">ログインID</th>
+					<th scope="col" class="text-center">パスワード</th>
+					<th scope="col" class="text-center">プロフィール</th>
+				</tr>
+				<%-- リストにある要素の数だけ繰り返し --%>
+				<c:forEach var="duser" items="${d_users}">
+					<tr>
+						<td  class="text-center">
+						<span class="${duser.icon} pe-3x pe-va"></span></td>
+						<td class="text-center">${duser.userName}</td>
+						<td  class="text-center">${duser.loginId}</td>
+						<td  class="text-center">${duser.password}</td>
+						<td class="text-center">${duser.profile}</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</div>
 	<div style="width: 70%" class="container padding-y-5">

@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 	<link rel="stylesheet" href="./css/helper.css">
 </head>
-<body>
+<body onload="document.getElementById('firstinput').focus();">
 	<div class="bg-success padding-y-10">
 		<div class="text-center ">
 			<h1>
@@ -27,7 +27,7 @@
 				<%-- ログインID入力欄の名前はloginId --%>
 				<td class="color-main text-center">ログインID</td>
 				<td class="text-center"><input class="form-control" type="text"
-					name="loginId" value="" size="20" /></td>
+					name="loginId" value="" size="20" id="firstinput" /></td>
 			</tr>
 			<tr>
 				<%-- パスワード入力欄の名前はloginId --%>
@@ -36,9 +36,12 @@
 					name="password" value="" size="20" /></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-left"><a href="add_input.jsp">
-				<button	type="button" class="btn">新規登録</button></a>
-				<input class="btn" type="submit" value="ログイン"></td>
+				<td colspan="2" class="text-left">
+					<input class="btn" type="submit" value="ログイン">
+					<a href="add_input.jsp">
+						<button	type="button" class="btn">新規登録</button>
+					</a>
+				</td>
 
 			</tr>
 			<%-- リクエストスコープにalertがあれば --%>
