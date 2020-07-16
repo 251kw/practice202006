@@ -55,7 +55,7 @@
 				</div>
 			</div>
 
-		<div class="upper">
+		<%-- <div class="upper"> --%>
 
 			<h5 class="padding-y-5 text-center">今の気持ちを叫ぼう</h5>
 			<form action="./bbs" method="post">
@@ -67,7 +67,7 @@
 				</table>
 			</form>
 
-		</div>
+		<%-- </div> --%>
 
 			<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 			<form action="./deleteOrUpdateShoutsConfirmServlet" method="post">
@@ -110,7 +110,7 @@
 				</div>
 			</form>
 
-			<div style="margin-bottom:200px"></div>
+			<%-- <div style="margin-bottom:200px"></div> --%>
 
 
 	</body>
