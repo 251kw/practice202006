@@ -79,20 +79,20 @@ public class DBManager extends SnsDAO{
 			pstmt = conn.createStatement();
 
 			// SELECT 文の実行
-			String sql = "SELECT * FROM shouts ORDER BY date DESC";
+			String sql = "SELECT * FROM users INNER JOIN shouts ON users.loginId = shouts.loginId order by date desc";
 			rset = pstmt.executeQuery(sql);
 
 			// 検索結果の数だけ繰り返す
 			while(rset.next()) {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
-				shout.setShoutsId(rset.getString(1));
-				shout.setLoginId(rset.getString(2));
-				shout.setUserName(rset.getString(3));
-				shout.setIcon(rset.getString(4));
-				String str = rset.getString(5);
+				shout.setShoutsId(rset.getString(8));
+				shout.setLoginId(rset.getString(9));
+				shout.setUserName(rset.getString(4));
+				shout.setIcon(rset.getString(5));
+				String str = rset.getString(10);
 				shout.setDate(str.substring(0, str.indexOf('.')));;
-				shout.setWriting(rset.getString(6));
+				shout.setWriting(rset.getString(11));
 
 				// 書き込み内容リストに追加
 				list.add(shout);
@@ -125,16 +125,14 @@ public class DBManager extends SnsDAO{
 			conn = getConnection();
 
 			// INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO shouts(loginId, date, writing) VALUES(?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getLoginId());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getIcon());
 			// 現在日時の取得と日付の書式設定
 			Calendar calender = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(4, sdf.format(calender.getTime()));
-			pstmt.setString(5, writing);
+			pstmt.setString(2, sdf.format(calender.getTime()));
+			pstmt.setString(3, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {

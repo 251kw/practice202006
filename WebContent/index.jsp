@@ -33,7 +33,7 @@
 				<tr>
 					<%-- ログインID入力欄の名前はloginId --%>
 					<td class="color-main text-left">ログインID</td>
-					<td class="text-left"><input class="form-control" type="text" name="loginId" value="" size="20" /></td>
+					<td class="text-left"><input autofocus class="form-control" type="text" name="loginId" value="" size="20" /></td>
 				</tr>
 				<tr>
 					<%-- パスワード入力欄の名前はpassword --%>

@@ -15,7 +15,7 @@ import dao.DBManager;
 import dto.ShoutDTO;
 
 /**
- * 検索入力画面から掲示板に移動するために経由するサーブレット
+ * 掲示板に移動するために経由するサーブレット
  */
 @WebServlet("/TurnBoardTop")
 public class TurnBoardTopServlet extends HttpServlet {

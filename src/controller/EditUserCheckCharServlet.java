@@ -73,6 +73,9 @@ public class EditUserCheckCharServlet extends HttpServlet {
 		request.setAttribute("sprofile", sprofile);
 		request.setAttribute("checkall", checkall);
 
+		UserDTO originaluser = new UserDTO();
+
+		String allsame = null;
 
 		if (CheckInput.checkLogic(regex_AlphaNum, epassword) == false) {
 			// 文字チェック
@@ -104,9 +107,22 @@ public class EditUserCheckCharServlet extends HttpServlet {
 					dispatcher.forward(request, response);
 				}else {
 					// 未入力項目がないとき
-					// editUserConfirm.jsp に処理を転送
-					dispatcher = request.getRequestDispatcher("editUserConfirm.jsp");
-					dispatcher.forward(request, response);
+					// 変更内容があるかどうか確認
+					originaluser = (UserDTO)session.getAttribute("originaluser");
+
+					if(originaluser.getPassword().equals(epassword) && originaluser.getUserName().equals(euserName) && originaluser.getIcon().equals(eicon) && originaluser.getProfile().equals(eprofile)) {
+
+						allsame = "内容が変更されていません";
+						request.setAttribute("allsame", allsame);
+						// editUserInput.jsp に処理を転送
+						dispatcher = request.getRequestDispatcher("editUserInput.jsp");
+						dispatcher.forward(request, response);
+					}else {
+						// 全て異常なし
+						// editUserConfirm.jsp に処理を転送
+						dispatcher = request.getRequestDispatcher("editUserConfirm.jsp");
+						dispatcher.forward(request, response);
+					}
 				}
 			}
 		}

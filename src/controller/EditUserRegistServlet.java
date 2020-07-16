@@ -67,6 +67,10 @@ public class EditUserRegistServlet extends HttpServlet {
 		ArrayList<ShoutDTO> list = dbm.getShoutList();
 		session.setAttribute("shouts", list);
 
+		// チェックボックスをリセット
+		String[] select = null;
+		session.setAttribute("select", select);
+
 		// 変更結果に移動
 		dispatcher = request.getRequestDispatcher("editUserResult.jsp");
 		dispatcher.forward(request, response);

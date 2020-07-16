@@ -42,10 +42,10 @@
 					<th class="color-main text-center">書き込み内容</th>
 					<c:choose>
 						<c:when test="${empty requestScope.eswriting}">
-							<td class="text-center"><input class="form-control" type="text" name="eswriting" value="${requestScope.shoutinfo.writing}" size="20" /></td>
+							<td class="text-center"><input autofocus class="form-control" type="text" name="eswriting" value="${requestScope.shoutinfo.writing}" size="20" /></td>
 						</c:when>
 						<c:when test="${!empty requestScope.eswriting}">
-							<td class="text-center"><input class="form-control" type="text" name="eswriting" value="${requestScope.eswriting}" size="20" /></td>
+							<td class="text-center"><input autofocus class="form-control" type="text" name="eswriting" value="${requestScope.eswriting}" size="20" /></td>
 						</c:when>
 					</c:choose>
 				</tr>

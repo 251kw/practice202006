@@ -27,13 +27,19 @@
 						<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alertblank}" /></td>
 					</tr>
 				</c:if>
+				<%-- 変更があるかチェック --%>
+				<c:if test="${requestScope.allsame != null && requestScope.allsame != ''}">
+					<tr>
+						<td colspan="2" class="color-error text-left"><c:out value="${requestScope.allsame}" /></td>
+					</tr>
+				</c:if>
 				<tr>
 					<td class="color-main text-center">ログインID</td>
 					<td class="text-center">${sessionScope.euser.loginId}</td>
 				</tr>
 				<tr>
 					<td class="color-main text-center">パスワード</td>
-					<td class="text-center"><input class="form-control" type="password" name="epassword" value="${sessionScope.euser.password}" size="20" /></td>
+					<td class="text-center"><input autofocus class="form-control" type="password" name="epassword" value="${sessionScope.euser.password}" size="20" /></td>
 				</tr>
 				<%-- パスワード文字数チェック --%>
 				<c:if test="${requestScope.alertpass != null && requestScope.alertpass != ''}">

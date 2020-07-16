@@ -52,23 +52,21 @@
 				<td><input type="hidden" name="newprofile" value="${requestScope.newprofile}"></td>
 			</tr>
 			<tr>
-				<td colspan="2" class="text-right"><input class="btn"
-					type="submit" value="この内容で登録" /></td>
+				<td colspan="3" class="text-right">
+					<input class="btn" type="submit" value="この内容で登録" />
+				</td>
 			</tr>
 		</table>
 	</form>
 	<form action="./TurnInput" method="post">
 		<table style="width: 400px" class="table container padding-y-5">
 			<tr>
-				<td><input type="hidden" name="newloginId" value="${requestScope.newloginId}"></td>
-				<td><input type="hidden" name="newpassword" value=""></td>
-				<td><input type="hidden" name="newuserName" value="${requestScope.newuserName}"></td>
-				<td><input type="hidden" name="newicon" value="${requestScope.newicon}"></td>
-				<td><input type="hidden" name="newprofile" value="${requestScope.newprofile}"></td>
-			</tr>
-			<tr>
-				<td colspan="2" class="text-right">
-					<input class="btn" type="submit" value="入力画面に戻る" />
+				<td colspan="2" class="text-right"><input class="btn" type="submit" value="入力画面に戻る" />
+					<input type="hidden" name="newloginId" value="${requestScope.newloginId}">
+					<input type="hidden" name="newpassword" value="">
+					<input type="hidden" name="newuserName" value="${requestScope.newuserName}">
+					<input type="hidden" name="newicon" value="${requestScope.newicon}">
+					<input type="hidden" name="newprofile" value="${requestScope.newprofile}">
 				</td>
 			</tr>
 		</table>

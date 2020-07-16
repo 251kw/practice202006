@@ -13,7 +13,7 @@ import dto.ShoutDTO;
 import util.CheckDB;
 
 /**
- * Servlet implementation class ShoutEditRegistServlet
+ * 変更された書き込み内容をデータベースに登録するサーブレット
  */
 @WebServlet("/ShoutEditRegist")
 public class ShoutEditRegistServlet extends HttpServlet {
@@ -35,15 +35,19 @@ public class ShoutEditRegistServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		// 値の受け取り
 		String eshoutsId = request.getParameter("eshoutsId");
 		String eswriting = request.getParameter("eswriting");
 
+		// 書き込み内容を変更するメソッドを呼び出す
 		ShoutDTO reshout = new ShoutDTO();
 		CheckDB.EditShouts(eshoutsId, eswriting);
-		reshout = CheckDB.SearchShouts(eshoutsId);
 
+		// 結果画面に出力するために該当箇所の情報を渡す
+		reshout = CheckDB.SearchShouts(eshoutsId);
 		request.setAttribute("reshout", reshout);
 
+		// 結果画面に移動
 		dispatcher = request.getRequestDispatcher("editShoutResult.jsp");
 		dispatcher.forward(request,response);
 	}

@@ -16,7 +16,7 @@
 				<h2 class="text-center">Shouter&nbsp;<span class="icon-speaker pe-2x pe-va"></span></h2>
 			</div>
 		</div>
-		<br>
+		<a href="./RevivalUser?sloginId=${requestScope.sloginId}&suserName=${requestScope.suserName}&sicon=${requestScope.sicon}&sprofile=${requestScope.sprofile}" class="text-right hidelink" style="color: #FFFFEE; text-decoration: none;">復活の呪文</a>
 		<h4 class="text-center">検索結果</h4>
 		<br>
 		<form action="./RelayFunction" method="post">

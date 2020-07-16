@@ -50,10 +50,10 @@
 	<%-- action 属性にサーブレットを指定 --%>
 	<h4 class="color-main text-center">みんなの叫び</h4>
 		<form action="./ShoutsRegistDB" method="post">
-			<table style="width: 40%" class="table container padding-y-5 text-right">
+			<table style="width:40%" class="table container padding-y-5 text-right">
 				<tr>
 					<%-- 今の気持ち入力欄の名前は shout --%>
-					<td><input class="form-control" type="text" name="shout" value="" size="40"/></td>
+					<td><input autofocus class="form-control" type="text" name="shout" value="" size="40"/></td>
 					<td><input class="btn" type="submit" value="叫ぶ" /></td>
 				</tr>
 				<%--入力エラーメッセージ --%>
@@ -82,7 +82,7 @@
 							</tr>
 							<tr>
 								<td colspan="2">
-									<textarea rows="5" class="form-control">${shout.writing}</textarea>
+									<textarea readonly rows="5" class="form-control">${shout.writing}</textarea>
 								</td>
 							<tr>
 								<td colspan="2" class="text-right"><button type="submit" name="eshoutsId" value="${shout.shoutsId}">編集</button>

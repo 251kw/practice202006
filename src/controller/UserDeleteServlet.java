@@ -65,6 +65,10 @@ public class UserDeleteServlet extends HttpServlet {
 		// リストをセッションに保存
 		session.setAttribute("shouts", list);
 
+		// チェックボックスをリセット
+		String[] select = null;
+		session.setAttribute("select", select);
+
 		// ログイン中のアカウントを削除する場合
 		if(logoutalert!=null) {
 			request.setAttribute("logoutalert",logoutalert);

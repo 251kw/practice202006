@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import util.CheckDB;
 
 /**
- * Servlet implementation class ShoutDeleteServlet
+ * 指定された書き込み内容を削除する
  */
 @WebServlet("/ShoutDelete")
 public class ShoutDeleteServlet extends HttpServlet {
@@ -34,6 +34,7 @@ public class ShoutDeleteServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		// 結果画面に出力するために値を保持
 		String dshoutsId = request.getParameter("dshoutsId");
 		String dsloginId = request.getParameter("dsloginId");
 		String dsuserName = request.getParameter("dsuserName");
@@ -48,6 +49,7 @@ public class ShoutDeleteServlet extends HttpServlet {
 		// 該当する書き込みを削除
 		CheckDB.DeleteShout(dshoutsId);
 
+		// 削除結果画面に移動
 		dispatcher = request.getRequestDispatcher("deleteShoutResult.jsp");
 		dispatcher.forward(request,response);
 	}

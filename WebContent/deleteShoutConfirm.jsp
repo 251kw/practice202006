@@ -19,7 +19,7 @@
 		<br>
 		<h4 class="text-center">以下の書き込みを削除しますか？</h4>
 		<br>
-		<form action="./ShoutDelete" method="post">
+		<form action="./ShoutDelete?dsloginId=${requestScope.shoutinfo.loginId}&dsuserName=${requestScope.shoutinfo.userName}&dicon=${requestScope.shoutinfo.icon}&dswriting=${requestScope.shoutinfo.writing}&dshoutsId=${requestScope.dshoutsId}" method="Post">
 			<table style="width: 400px" class="table table-borderd container padding-y-5">
 				<tr>
 					<th class="color-main text-center">ログインID:</th>
@@ -39,12 +39,7 @@
 				</tr>
 				<tr>
 					<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="この内容で削除" />
-						<input type="hidden" name="dsloginId" value="${requestScope.shoutinfo.loginId}">
-						<input type="hidden" name="dsuserName" value="${requestScope.shoutinfo.userName}">
-						<input type="hidden" name="dsicon" value="${requestScope.shoutinfo.icon}">
-						<input type="hidden" name="dswriting" value="${requestScope.shoutinfo.writing}">
-						<input type="hidden" name="dshoutsId" value="${requestScope.dshoutsId}">
+						<input class="btn" type="submit" value="この書き込みを削除" />
 					</td>
 				</tr>
 			</table>

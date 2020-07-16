@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dto.ShoutDTO;
 
 /**
- * Servlet implementation class TurnEditShoutInputServlet
+ * 叫びの情報を保持しつつ叫び編集画面に移行する
  */
 @WebServlet("/TurnEditShoutInput")
 public class TurnEditShoutInputServlet extends HttpServlet {

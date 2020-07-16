@@ -44,7 +44,7 @@
 				</c:forEach>
 				<tr>
 					<td colspan="4" class="text-right">
-						<input class="btn" type="submit" value="削除" />
+						<input class="btn" type="submit" value="削除する" />
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
 						<input type="hidden" name="suserName" value="${requestScope.suserName}">
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">

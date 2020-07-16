@@ -37,7 +37,7 @@
 				</c:if>
 				<tr>
 					<td class="color-main text-center">ログインID</td>
-					<td class="text-center"><input class="form-control" type="text" name="newloginId" value="${requestScope.newloginId}" size="20" /></td>
+					<td class="text-center"><input autofocus class="form-control" type="text" name="newloginId" value="${requestScope.newloginId}" size="20" /></td>
 				</tr>
 				<%-- ID被りチェック --%>
 				<c:if test="${requestScope.alertsame != null && requestScope.alertsame != ''}">

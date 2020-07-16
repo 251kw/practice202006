@@ -15,7 +15,7 @@ import dto.UserDTO;
 import util.CheckDB;
 
 /**
- * Servlet implementation class AllSelectedServlet
+ * 全選択ボタンの機能を切り替える
  */
 @WebServlet("/AllSelected")
 public class AllSelectedServlet extends HttpServlet {

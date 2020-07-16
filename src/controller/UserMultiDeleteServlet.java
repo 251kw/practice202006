@@ -65,6 +65,10 @@ public class UserMultiDeleteServlet extends HttpServlet {
 		// 書き込みリストをセット
 		session.setAttribute("shouts", list);
 
+		// チェックボックスをリセット
+		select = null;
+		session.setAttribute("select", select);
+
 		// 削除結果画面に移動
 		dispatcher = request.getRequestDispatcher("multiDeleteResult.jsp");
 		dispatcher.forward(request,response);

@@ -36,7 +36,7 @@
 				<tr>
 					<%-- ログインID検索入力欄の名前はsloginId --%>
 					<td class="color-main text-center">ログインID</td>
-					<td class="text-center"><input class="form-control" type="text" name="sloginId" value="${requestScope.sloginId}" size="20" /></td>
+					<td class="text-center"><input autofocus class="form-control" type="text" name="sloginId" value="${requestScope.sloginId}" size="20" /></td>
 				</tr>
 				<%-- ID文字数or半角英数チェック --%>
 				<c:if test="${requestScope.alertid != null && requestScope.alertid != ''}">
