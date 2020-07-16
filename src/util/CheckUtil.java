@@ -1,5 +1,7 @@
 package util;
 
+import java.util.ArrayList;
+
 import dao.DBManager;
 import dto.UserDTO;
 
@@ -110,7 +112,11 @@ public class CheckUtil {
 		return boo;
 	}
 
-	//現在ログインしているユーザがDB内にいるか検索する
+	/**
+	 * 現在ログインしているユーザがDB内にいるか検索する
+	 * @param loginId	//現在ログイン中のログインID
+	 * @return	user	//現在ログイン中のユーザ情報
+	 */
 	public static UserDTO nowLoginCheck(String loginId) {
 		//DB内にあるユーザ情報を取得する
 		DBManager dbm = new DBManager();
@@ -119,5 +125,30 @@ public class CheckUtil {
 		return user;
 	}
 
+	/**
+	 * 該当ユーザのすべての情報を引き出す
+	 * @param loginId	//対象のユーザID
+	 * @return list		//対象ユーザ情報をいれたリスト
+	 */
+	public static ArrayList<UserDTO> checkedUser(String loginId) {
+		//DB内にあるユーザ情報を取得する
+		DBManager dbm = new DBManager();
+		UserDTO user = dbm.getCheckUser(loginId);
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
+
+		list.add(user);
+
+		return list;
+	}
+
+	/**チェックボックス未入力時のエラー文
+	 * @return message //エラー文
+	 */
+	public static String errCheckbox() {
+		String message = null;
+			message = "該当ユーザをチェックしてください";
+		return message;
+	}
 
 }

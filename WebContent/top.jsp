@@ -55,8 +55,14 @@
 			<table style="width: 40%" class="table container padding-y-5">
 				<tr>
 					<%-- 今の気持ち入力欄の名前はshout --%>
-					<td class="none"><input class="form-control" type="text" name="shout" value="" size="60" /></td>
+					<td class="none"><input class="form-control" type="text" name="shout" value="" size="60" id="focus" />
+						<script type="text/javascript">
+						    // 上記の入力欄にフォーカスを与える
+						    document.getElementById('focus').focus();
+						</script>
+					</td>
 					<td class="none"><input class="btn" type="submit" value="叫ぶ" /></td>
+
 				</tr>
 					<%-- 空の状態で叫ぶボタンが押された時のエラーメッセージを表示 --%>
 					<%-- レスポンスにセットAttributeでぶち込んだアラートをrequestScope.alertで取り出す --%>
@@ -85,7 +91,9 @@
 							<td>${shout.date}</td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea></td>
+							<td colspan="2">
+							<input id="sample" class="form-control" type="text" name="event" value="${shout.writing}" readonly>
+						<%--<textarea readonly="readonly" rows="5" class="form-control">${shout.writing}</textarea></td>--%>
 						</tr>
 					</table>
 				</c:forEach>

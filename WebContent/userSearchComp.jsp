@@ -5,7 +5,7 @@
 <%@ page import="controller.SearchServlet"%>
 <%@ page import="java.net.URLEncoder" %>
 <%@ page import="java.net.URLDecoder" %>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -24,28 +24,27 @@
 		<%request.setCharacterEncoding("UTF-8"); //文字化け防止%>
 		<%-- requestスコープにあるArrayList型のオブジェクトを参照 --%>
 		<jsp:useBean id="searchList" scope="request" type="java.util.ArrayList<UserDTO>" />
+		<jsp:useBean id="checkedUserLogId" scope="request" class="java.util.ArrayList" type="java.util.ArrayList<String>" />
 		<div class="container padding-y-5" style="width: 60%">
 			<span class="color-main text-left padding-y-5"><font size="4">検索結果</font></span>
 		</div>
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
+				<form action="./userMultiSelSrv" method="post">
 					<table class="table table-striped table-bordered">
-					<tr>
-						<td class="color-main container padding-y-5"><font size="3">チェック<br>
-							<input type="checkbox" name="" value=""></font>
-						</td>
-						<td class="color-main container padding-y-5"><font size="3">ログインID</font>
-						<td class="color-main container padding-y-5"><font size="3">氏名</font>
-						<td class="color-main container padding-y-5"><font size="3">アイコン</font>
-						<td class="color-main container padding-y-5"><font size="3">プロフィール</font>
-						<td class="color-main container padding-y-5"><font size="3">変更</font>
-						<td class="color-main container padding-y-5"><font size="3">削除</font>
-					</tr>
+						<tr>
+							<td class="color-main container padding-y-5"><font size="3">ログインID</font>
+							<td class="color-main container padding-y-5"><font size="3">氏名</font>
+							<td class="color-main container padding-y-5"><font size="3">アイコン</font>
+							<td class="color-main container padding-y-5"><font size="3">プロフィール</font>
+							<td class="color-main container padding-y-5"><font size="3">変更</font>
+							<td class="color-main container padding-y-5"><font size="3">チェック<br>
+								<input type="checkbox" name="all" onClick="AllChecked();"></font>
+							</td>
+						</tr>
 						<%-- リストにある要素の数だけ繰り返し --%>
 						<c:forEach var="search" items="${searchList}">
 							<tr>
-								<%-- チェックボックスのname=valueを配列として取得 --%>
-								<td><input type="checkbox" name="checkedLogId" value="${search.loginId}"></td>
 								<td>${search.loginId}</td>
 								<td>${search.userName}</td>
 								<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
@@ -62,52 +61,62 @@
 										</c:url>">変更
 									</a>
 								</td>
-								<td>
-									<%-- ユーザ情報削除ボタン searchListに入っているパスワード情報も渡す --%>
-									<a href="
-										<c:url value="/userDelete.jsp" >
-											<c:param name="loginId" value="${search.loginId}" />
-											<c:param name="password" value="${search.password}" />
-											<c:param name="userName" value="${search.userName}" />
-											<c:param name="icon" value="${search.icon}" />
-											<c:param name="profile" value="${search.profile}" />
-										</c:url>">削除
-									</a>
+								<td><input type="checkbox" name="checkedLogId" value="${search.loginId}" onClick="DisChecked()"
+									<c:forEach var="checkedLogId" items="${checkedUserLogId}">
+										<c:if test="${checkedLogId == search.loginId}">
+											checked="checked"
+										</c:if>
+									</c:forEach>
+									>
 								</td>
 							</tr>
 						</c:forEach>
 					</table>
-				<%-- 検索結果が0件の場合はエラーメッセージを表示する --%>
-				<c:if test="${not empty searchList}">
-					<tr>
-					<td nowrap><div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div></td>
-					<td></td>
-					</tr>
-				</c:if>
-				<c:if test="${empty searchList}">
-					<tr>
-					<td nowrap><div class="color-error text-left"><font size="3">検索結果は0件です</font></div></td>
-					<td></td>
-					</tr>
-				</c:if>
+					<table style="width: 100%" class="container padding-y-5">
+						<%-- 検索結果が0件の場合はエラーメッセージを表示する --%>
+						<c:if test="${not empty searchList}">
+							<tr>
+							<td nowrap><div class="color-error text-left"><font size="3">上記の方がHitしました！</font></div></td>
+							<td></td>
+							</tr>
+						</c:if>
+						<c:if test="${empty searchList}">
+							<tr>
+							<td nowrap><div class="color-error text-left"><font size="3">検索結果は0件です</font></div></td>
+							<td></td>
+							</tr>
+						</c:if>
+						<c:if test="${errCheckBoxMsg != null}">
+							<tr>
+							<td nowrap><div class="color-error text-right"><font size="3">${errCheckBoxMsg}</font></div></td>
+							<td></td>
+							</tr>
+						</c:if>
+						<tr>
+							<%-- ./userMultiSelSrvへ処理を転送 --%>
+							<td class="none text-right" colspan="2"><input class="btn" type="submit" value="チェック項目を削除する" /></td>
+						</tr>
+					</table>
+				</form>
 			</div>
 		</div>
 		<%-- 入力情報保持したままuserSearch.jspに戻る --%>
-		<%-- 7/12 --%>
-		<form action="userSearch.jsp" method="post">
-			<table style="width: 60%" class="container padding-y-5 table">
-				<tr>
-					<td class="none text-right" colspan="2"><input class="btn" type="submit" value="戻る" /></td>
-				</tr>
-			</table>
-			<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
-			<input type="hidden" name="reLoginId" value="${param.reLoginId}">
-			<input type="hidden" name="rePassword" value="${param.rePassword}">
-			<%-- userSearch.jspに、sessionの中に入れた検索条件を取得して返す --%>
-			<input type="hidden" name="loginId" value="<%= (String)session.getAttribute("loginId") %>">
-			<input type="hidden" name="userName" value="<%= (String)session.getAttribute("userName") %>">
-			<input type="hidden" name="icon" value="<%= (String)session.getAttribute("icon") %>">
-			<input type="hidden" name="profile" value="<%= (String)session.getAttribute("profile") %>">
-		</form>
+		<div style="width: 60%" class="container padding-y-5">
+			<form action="userSearch.jsp" method="post">
+				<table style="width: 100%" class="container padding-y-5">
+					<tr>
+						<td class="none text-right" colspan="2"><input class="btn" type="submit" value="戻る" /></td>
+					</tr>
+				</table>
+				<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
+				<input type="hidden" name="reLoginId" value="${param.reLoginId}">
+				<input type="hidden" name="rePassword" value="${param.rePassword}">
+				<%-- userSearch.jspに、sessionの中に入れた検索条件を取得して返す --%>
+				<input type="hidden" name="loginId" value="<%= (String)session.getAttribute("loginId") %>">
+				<input type="hidden" name="userName" value="<%= (String)session.getAttribute("userName") %>">
+				<input type="hidden" name="icon" value="<%= (String)session.getAttribute("icon") %>">
+				<input type="hidden" name="profile" value="<%= (String)session.getAttribute("profile") %>">
+			</form>
+		</div>
 	</body>
 </html>

@@ -65,7 +65,7 @@
 					</c:if>
 					<tr>
 						<%-- SearchSrvへ戻る --%>
-						<td class="none text-right" colspan="2" class="text-right"><input class="btn" type="submit" value="戻る" /></td>
+						<td class="none text-right" colspan="2" class="text-right"><input class="btn" type="submit" name="updateBtn" value="戻る" /></td>
 					</tr>
 				</table>
 			</form>

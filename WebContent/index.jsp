@@ -25,7 +25,12 @@
 					<tr>
 						<%-- ログインID入力欄の名前はloginId --%>
 						<td class="color-main text-left">ログインID</td>
-						<td class="text-left"><input class="form-control" type="text" name="loginId" value="" size="30" /></td>
+						<td class="text-left"><input class="form-control" type="text" name="loginId" value="" size="30" id="focus"/>
+							<script type="text/javascript">
+							    // 上記の入力欄にフォーカスを与える
+							    document.getElementById('focus').focus();
+							</script>
+						</td>
 					</tr>
 					<tr>
 						<%-- パスワード入力欄の名前はpassword --%>

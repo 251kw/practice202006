@@ -2,6 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -47,7 +48,7 @@ public class SearchServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String errId = null;	//ログインIDの入力制限
 
-//一度更新完了したあと、再度前回のユーザ検索条件で検索結果を表示する場合の処理--------------------------------
+//一度更新.削除完了したあと、再度前回のユーザ検索条件で検索結果を表示する場合の処理--------------------------------
 
 		//sessionスコープの保存領域を確保
 		HttpSession session = request.getSession();
@@ -55,8 +56,9 @@ public class SearchServlet extends HttpServlet {
 		UserDTO user = (UserDTO)session.getAttribute("user");
 		String seUserLoginId = user.getLoginId();
 
-		//更新、削除から来た場合のみ、前回のユーザ検索条件を取得
-		if(request.getParameter("searchBtn") == null) {
+		//更新、削除から来た場合、チェックボックス未入力だった場合は前回のユーザ検索条件を取得
+		if(request.getParameter("searchBtn") == null && request.getParameter("deleteBtn") != null
+			|| request.getParameter("updateBtn") != null || request.getParameter("errCheckBoxMsg") != null) {
 			//セッション内のログインIDと新しいパスワードでログイン認証を行い、変数reuserにユーザ情報を取得
 			UserDTO reuser = CheckUtil.nowLoginCheck(seUserLoginId);
 
@@ -77,15 +79,40 @@ public class SearchServlet extends HttpServlet {
 			}
 		}
 
+//削除手前で戻ってきた場合、選択時にチェックボックス未入力だった場合、セッションに入れた前回の検索条件を取得------
+		if(request.getParameter("userMultiBtn") != null || request.getAttribute("errCheckBoxMsg") != null) {
+			loginId = (String)session.getAttribute("loginId");
+			userName = (String)session.getAttribute("userName");
+			icon = (String)session.getAttribute("icon");
+			profile = (String)session.getAttribute("profile");
+		}
+
 //ログインIDの入力制限のエラーチェック------------------------------------
 
-		if(loginId != "") {
-			errId = CheckUtil.charCheck(loginId,"ログインID");
-		}else {
+		if(request.getParameter("userMultiBtn") == null && request.getParameter("errCheckBoxMsg") == null) {
+			if(loginId != "") {
+				errId = CheckUtil.charCheck(loginId,"ログインID");
+			}else {
 
+			}
 		}
 
 //エラーがなければユーザ検索してuserSearchComp.jspへ、あれば入力情報を保持したまま再度userSearch.jsp画面へ遷移-----------
+
+		//削除前の確認画面から帰ってきたときにしか下記を通らない。
+		//更新削除しないで検索結果に戻るとき、チェック情報を保持する
+		if(request.getParameter("userMultiBtn") != null) {
+			//削除対象のログインIDを配列で取得
+			String[] checkedUserLogId = (String[]) request.getParameterValues("checkedUserLogId");
+			//Arraylistに変換
+			List<String> list = new ArrayList<>();
+				for(String a : checkedUserLogId) {
+					list.add(a);
+				}
+			//String[] array = list.toArray(new String[list.size()]);
+			//リクエストスコープにセット
+			request.setAttribute("checkedUserLogId", list);
+		}
 
 		if(errId == "" || errId == null) {
 			//searchListで検索結果を取得
@@ -102,6 +129,7 @@ public class SearchServlet extends HttpServlet {
 				session.setAttribute("userName", userName);
 				session.setAttribute("icon", icon);
 				session.setAttribute("profile", profile);
+
 
 				//更新・削除から戻ってきた時に、top.jspに戻るまでセッション内の自分のログインIDと新しくしたパスワード情報を保持しておく
 				if(request.getParameter("searchBtn") == null) {

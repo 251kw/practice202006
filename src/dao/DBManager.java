@@ -67,8 +67,8 @@ public class DBManager extends SnsDAO{
 	}
 
 	/**
-	 * ユーザID重複チェック
-	 * @param loginId	//新規登録時、入力されたユーザID
+	 * ユーザID重複チェック,複数選択時のユーザーチェック
+	 * @param loginId	//新規登録時、入力されたログインID	または複数選択されたログインID
 	 * @return	user	//戻り値は該当するログインIDが入った変数user
 	 */
 	public UserDTO getCheckUser(String loginId) {
@@ -95,8 +95,10 @@ public class DBManager extends SnsDAO{
 				//必要な列から値を取り出し、ユーザ情報オブジェクトを生成
 				user = new UserDTO();
 				user.setLoginId(rset.getString(2));
-				//TODO 7.10に追加
 				user.setPassword(rset.getString(3));
+				user.setUserName(rset.getString(4));
+				user.setIcon(rset.getString(5));
+				user.setProfile(rset.getString(6));
 			}else {
 				user = null;
 			}
@@ -129,18 +131,20 @@ public class DBManager extends SnsDAO{
 			//.createStatement()はパラメータなしのSQL実行に使用する
 			pstmt = conn.createStatement();
 
-			//SELECT文の登録と実行　パラメータなしの、SQL文だけ突っ込んでる
-			String sql = "SELECT * FROM shouts ORDER BY date DESC";
+			//SELECT文の登録と実行　外部結合してloginIdに対応するiconとuserNameも取得
+			String sql = "SELECT * FROM shouts LEFT OUTER JOIN sns.users ON shouts.loginId = users.loginid ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
 			while (rset.next()) {
 				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
-				shout.setUserName(rset.getString(3));
-				shout.setIcon(rset.getString(4));
-				shout.setDate(rset.getString(5));
-				shout.setWriting(rset.getString(6));
+				shout.setUserName(rset.getString(8));
+				shout.setIcon(rset.getString(9));
+				//shout.setDate(rset.getString(3));
+				String str = rset.getString(3);
+				shout.setDate(str.substring(0, str.indexOf('.')));
+				shout.setWriting(rset.getString(4));
 
 				//書き込み内容をリストに追加
 				list.add(shout);
@@ -172,16 +176,14 @@ public class DBManager extends SnsDAO{
 			conn = getConnection();
 
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(loginId, userName, icon, date, writing) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO shouts(loginId, date, writing) VALUES(?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getLoginId());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getIcon());
 			//現在日時の取得と日付の書式の指定
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(4, sdf.format(calendar.getTime()));
-			pstmt.setString(5, writing);
+			pstmt.setString(2, sdf.format(calendar.getTime()));
+			pstmt.setString(3, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
@@ -246,29 +248,20 @@ public class DBManager extends SnsDAO{
 				getLog = user.getLoginId();
 			}
 
-			//shoutsテーブルのUPDATE文の登録と実行
-			String sql1 = "UPDATE shouts SET userName=? WHERE LoginId=?";
-			pstmt = conn.prepareStatement(sql1);
-			pstmt.setString(1, getUName);
-			pstmt.setString(2, getLogId);
-			int cnt1 = pstmt.executeUpdate();
+			//userテーブルのUPDATE文の登録と実行
+			String sql = "UPDATE users SET loginId=?, password=?, userName=?, icon=?, profile=? WHERE LoginId=?";
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, getLogId);
+			pstmt.setString(2, getPass);
+			pstmt.setString(3, getUName);
+			pstmt.setString(4, getIcon);
+			pstmt.setString(5, getProf);
+			pstmt.setString(6, getLog);	//変更前のログインID
 
-			if(cnt1 >= 0) {
-				//userテーブルのUPDATE文の登録と実行
-				String sql2 = "UPDATE users SET loginId=?, password=?, userName=?, icon=?, profile=? WHERE LoginId=?";
-				pstmt = conn.prepareStatement(sql2);
-				pstmt.setString(1, getLogId);
-				pstmt.setString(2, getPass);
-				pstmt.setString(3, getUName);
-				pstmt.setString(4, getIcon);
-				pstmt.setString(5, getProf);
-				pstmt.setString(6, getLog);	//変更前のログインID
-
-				int cnt2 = pstmt.executeUpdate();
-				if(cnt2 == 1) {
-					//user,shoutsテーブルのINSERT文の実行結果が1なら登録成功
-					result = true;
-					}
+			int cnt = pstmt.executeUpdate();
+			if(cnt == 1) {
+				//user,shoutsテーブルのINSERT文の実行結果が1なら登録成功
+				result = true;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

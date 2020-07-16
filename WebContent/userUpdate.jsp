@@ -37,7 +37,11 @@
 					<tr>
 						<%-- パスワード欄の名前はpassword --%>
 						<td class="color-main text-left">パスワード<br><font size="2" color="color-error">※半角英数字で入力してください</font></td>
-						<td class="text-left"><input class="form-control" type="text" name="password" value="${param.password}" size="30" maxlength="100" />
+						<td class="text-left"><input class="form-control" type="text" name="password" value="${param.password}" size="30" maxlength="100" id="focus"/>
+							<script type="text/javascript">
+							    // 上記の入力欄にフォーカスを与える
+							    document.getElementById('focus').focus();
+							</script>
 							<c:if test="${errorDTO != null && errorDTO != ''}">
 								<br><font size="2" color="color-error">${errorDTO.errMsPass}<br>${errorDTO.errPass}</font>
 							</c:if>
