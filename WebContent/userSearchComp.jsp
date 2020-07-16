@@ -46,7 +46,6 @@
 						<c:forEach var="search" items="${searchList}">
 							<tr>
 								<td>${search.loginId}
-								 	/<%-- 7.16 ${search.dFlg}がないとエラーでる --%>
 									<c:if test="${search.dFlg == 1}">
 										<div class="color-error text-left"><font size="3">※削除済みユーザ※</font></div>
 									</c:if>
@@ -54,19 +53,37 @@
 								<td>${search.userName}</td>
 								<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
 								<td>${search.profile}</td>
+								<%--
+								<td>
+									<a href="./userUpdate.jsp?loginId=${search.loginId}&password=${search.password}&userName=${search.userName}
+											&icon=${search.icon}&profile=${search.profile}">
+										変更
+									</a>
+								</td>
+								--%>
 								<td>
 									<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
-									<a href="
-										<c:url value="/userUpdate.jsp" >
-											<c:param name="loginId" value="${search.loginId}" />
-											<c:param name="password" value="${search.password}" />
-											<c:param name="userName" value="${search.userName}" />
-											<c:param name="icon" value="${search.icon}" />
-											<c:param name="profile" value="${search.profile}" />
-										</c:url>">変更
+									<a
+										<c:if test="${search.dFlg == 0}">
+											href="
+											<c:url value="/userUpdate.jsp" >
+												<c:param name="loginId" value="${search.loginId}" />
+												<c:param name="password" value="${search.password}" />
+												<c:param name="userName" value="${search.userName}" />
+												<c:param name="icon" value="${search.icon}" />
+												<c:param name="profile" value="${search.profile}" />
+											</c:url>"
+										</c:if>
+										<c:if test="${search.dFlg == 1}">
+											tabindex="-1"
+										</c:if>
+										>変更
 									</a>
 								</td>
 								<td><input type="checkbox" name="checkedLogId" value="${search.loginId}" onClick="DisChecked()"
+									<c:if test="${search.dFlg == 1}">
+										disabled=disabled
+									</c:if>
 									<c:forEach var="checkedLogId" items="${checkedUserLogId}">
 										<c:if test="${checkedLogId == search.loginId}">
 											checked="checked"
@@ -111,7 +128,6 @@
 					      document.form.checkedLogId[i].checked = all;
 					    }
 					  }
-
 					  // 一つでもチェックを外すと「全て選択」のチェック外れる
 					  function DisChecked(){
 					    var checks = document.form.checkedLogId;
@@ -128,7 +144,6 @@
 					    }
 					  }
 				</script>
-
 			</div>
 		</div>
 		<%-- 入力情報保持したままuserSearch.jspに戻る --%>

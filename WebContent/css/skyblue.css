@@ -5237,3 +5237,7 @@ input.sample:readonly {
 
 td.example1 { width: 300px; }
 td.example2 { width: 400px; }
+
+a.disabled{
+    pointer-events: none;
+}

@@ -122,6 +122,11 @@ public class CheckUtil {
 		DBManager dbm = new DBManager();
 		UserDTO user = dbm.getCheckUser(loginId);
 
+		if(user.getdFlg()==1) {
+			//削除フラグが立っているユーザはnullにする
+			user = null;
+		}
+
 		return user;
 	}
 

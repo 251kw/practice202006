@@ -62,13 +62,15 @@ public class UserDTO {
 		this.icon = icon;
 	}
 
-	public int getDFlg() {
+	public int getdFlg() {
 		return dFlg;
 	}
 
-	public void setDFlg(int dFlg) {
+	public void setdFlg(int dFlg) {
 		this.dFlg = dFlg;
 	}
+
+
 
 
 

@@ -97,7 +97,7 @@
 			<form action="./searchSrv" method="post">
 				<table style="width: 40%" class="container padding-y-5 table">
 					<tr>
-						<td class="none text-right"><input class="btn" type="submit" value="前のページへ戻る" /></td>
+						<td class="none text-right"><input class="btn" type="submit" name="userUpQuitBtn" value="前のページへ戻る" /></td>
 					</tr>
 				</table>
 			</form>

@@ -58,7 +58,8 @@ public class SearchServlet extends HttpServlet {
 
 		//更新、削除から来た場合、チェックボックス未入力だった場合は前回のユーザ検索条件を取得
 		if(request.getParameter("searchBtn") == null && request.getParameter("deleteBtn") != null
-			|| request.getParameter("updateBtn") != null || request.getParameter("errCheckBoxMsg") != null) {
+			|| request.getParameter("updateBtn") != null || request.getParameter("errCheckBoxMsg") != null
+			|| request.getParameter("userUpQuitBtn") != null) {
 			//セッション内のログインIDと新しいパスワードでログイン認証を行い、変数reuserにユーザ情報を取得
 			UserDTO reuser = CheckUtil.nowLoginCheck(seUserLoginId);
 
@@ -89,7 +90,8 @@ public class SearchServlet extends HttpServlet {
 
 //ログインIDの入力制限のエラーチェック------------------------------------
 
-		if(request.getParameter("userMultiBtn") == null && request.getParameter("errCheckBoxMsg") == null) {
+		if(request.getParameter("userMultiBtn") == null && request.getParameter("errCheckBoxMsg") == null
+				&& request.getParameter("userUpQuitBtn") == null) {
 			if(loginId != "") {
 				errId = CheckUtil.charCheck(loginId,"ログインID");
 			}else {

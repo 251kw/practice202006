@@ -55,6 +55,12 @@ public class DBManager extends SnsDAO{
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
+				user.setdFlg(rset.getInt(7));
+			}
+
+			//削除フラグ入っていたらuserにnullを入れる
+			if(rset.getInt(7) == 1) {
+				user = null;
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,6 +106,7 @@ public class DBManager extends SnsDAO{
 				user.setUserName(rset.getString(4));
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
+				user.setdFlg(rset.getInt(7));
 			}else {
 				user = null;
 			}
@@ -140,8 +147,8 @@ public class DBManager extends SnsDAO{
 			while (rset.next()) {
 				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
-				shout.setUserName(rset.getString(8));
-				shout.setIcon(rset.getString(9));
+				shout.setUserName(rset.getString(9));
+				shout.setIcon(rset.getString(10));
 				//shout.setDate(rset.getString(3));
 				String str = rset.getString(3);
 				shout.setDate(str.substring(0, str.indexOf('.')));
@@ -496,7 +503,7 @@ public class DBManager extends SnsDAO{
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 				//削除フラグも取得する
-				user.setDFlg(rset.getInt(7));
+				user.setdFlg(rset.getInt(7));
 
 				//書き込み内容をリストに追加
 				list.add(user);
