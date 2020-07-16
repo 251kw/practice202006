@@ -55,19 +55,19 @@
 				</div>
 			</div>
 
-		<%-- <div class="upper"> --%>
+		<div class="upper">
 
 			<h5 class="padding-y-5 text-center">今の気持ちを叫ぼう</h5>
 			<form action="./bbs" method="post">
 				<table style="width: 70%" class="container padding-y-5">
 					<tr>
-						<td><input class="form-control" type="text" name="shout" value="" size="60" /></td>
-						<td><input class="btn" type="submit" value="叫ぶ" autofocus/></td>
+						<td><input class="form-control" type="text" name="shout" value="" size="60" autofocus/></td>
+						<td><input class="btn" type="submit" value="叫ぶ" /></td>
 					</tr>
 				</table>
 			</form>
 
-		<%-- </div> --%>
+		</div>
 
 			<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 			<form action="./deleteOrUpdateShoutsConfirmServlet" method="post">
@@ -110,7 +110,7 @@
 				</div>
 			</form>
 
-			<%-- <div style="margin-bottom:200px"></div> --%>
+			<div style="margin-bottom:200px"></div>
 
 
 	</body>

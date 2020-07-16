@@ -65,45 +65,6 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	public UserDTO getloginUser() {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-		ResultSet rset = null;
-
-		String sql = "SELECT * FROM users ";
-
-		UserDTO user = null;
-
-		try {
-			//データベース接続情報取得
-			conn = getConnection();
-
-			//SERECT文の登録と実行
-			pstmt = conn.prepareStatement(sql);
-			rset = pstmt.executeQuery();
-
-			// 検索結果があれば
-			if (rset.next()) {
-				//必要な列から値を取り出し、ユーザ情報オブジェクトの生成
-				user = new UserDTO();
-				user.setLoginId(rset.getString(2));
-				user.setPassword(rset.getString(3));
-				user.setUserName(rset.getString(4));
-				user.setIcon(rset.getString(5));
-				user.setProfile(rset.getString(6));
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(rset);
-			close(pstmt);
-			close(conn);
-		}
-
-		return user;
-	}
-
 	/**
 	 * @param loginId
 	 * @return ユーザー情報
@@ -533,6 +494,48 @@ public class DBManager extends SnsDAO {
 
 			//SERECT文の登録と実行
 			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+				//検索結果(users)の数だけ繰り返す6
+				while (rset.next()) {
+					//必要な列から値を取り出し、書き込み内容オブジェクトを生成
+					UserDTO searchUser = new UserDTO();
+					searchUser.setLoginId(rset.getString(2));
+					searchUser.setPassword(rset.getString(3));
+					searchUser.setUserName(rset.getString(4));
+					searchUser.setIcon(rset.getString(5));
+					searchUser.setProfile(rset.getString(6));
+					searchUser.setD_flg(rset.getInt(7));
+
+					//書き込み内容をリストに追加
+					list.add(searchUser);
+				}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			// データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return list;
+	}
+
+	public ArrayList<UserDTO> getSearchUserList() {
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rset = null;
+
+		ArrayList<UserDTO> list = new ArrayList<UserDTO>(); //UserDTOをインスタンス化してリスト化
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SERECT文の登録と実行
+			pstmt = conn.prepareStatement("SELECT * FROM users");
 			rset = pstmt.executeQuery();
 
 				//検索結果(users)の数だけ繰り返す6
