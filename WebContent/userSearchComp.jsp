@@ -30,7 +30,7 @@
 		</div>
 		<div class="padding-y-5">
 			<div style="width: 60%" class="container padding-y-5">
-				<form action="./userMultiSelSrv" method="post">
+				<form name="form" action="./userMultiSelSrv" method="post">
 					<table class="table table-striped table-bordered">
 						<tr>
 							<td class="color-main container padding-y-5"><font size="3">ログインID</font>
@@ -98,6 +98,32 @@
 						</tr>
 					</table>
 				</form>
+				<script type="text/javascript">
+					  // 「全て選択」チェックで全てにチェック付く
+					  function AllChecked(){
+					    var all = document.form.all.checked;
+					    for (var i=0; i<document.form.checkedLogId.length; i++){
+					      document.form.checkedLogId[i].checked = all;
+					    }
+					  }
+
+					  // 一つでもチェックを外すと「全て選択」のチェック外れる
+					  function DisChecked(){
+					    var checks = document.form.checkedLogId;
+					    var checksCount = 0;
+					    for (var i=0; i<checks.length; i++){
+					      if(checks[i].checked == false){
+					        document.form.all.checked = false;
+					      }else{
+					        checksCount += 1;
+					        if(checksCount == checks.length){
+					          document.form.all.checked = true;
+					        }
+					      }
+					    }
+					  }
+				</script>
+
 			</div>
 		</div>
 		<%-- 入力情報保持したままuserSearch.jspに戻る --%>
