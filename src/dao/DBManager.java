@@ -28,7 +28,7 @@ public class DBManager extends SnsDAO {
 		PreparedStatement pstmt = null; //SQL 管理情報
 		ResultSet rset = null; //検索結果
 
-		String sql = "SELECT * FROM users WHERE d_flg=0 AND loginId=? AND password=?";
+		String sql = "SELECT * FROM users WHERE d_flg IN (0,null) AND loginId=? AND password=?";
 		UserDTO user = null; //登録ユーザー情報
 
 		try {
@@ -119,7 +119,7 @@ public class DBManager extends SnsDAO {
 
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 
-		String sql = "SELECT * FROM users WHERE d_flg=0 AND "+str;
+		String sql = "SELECT * FROM users WHERE d_flg IN (0,null) AND "+str;
 
 		if(str.equals("")){
 			sql = sql.substring(0, (sql.length() - 4));
@@ -217,7 +217,7 @@ public class DBManager extends SnsDAO {
 
 		ArrayList<String> list = new ArrayList<String>();
 
-		String sql = "SELECT * FROM users WHERE d_flg=0 AND "+str;
+		String sql = "SELECT * FROM users WHERE d_flg IN (0,null) AND "+str;
 
 		if(str.equals("")){
 			sql = sql.substring(0, (sql.length() - 4));
@@ -298,7 +298,7 @@ public class DBManager extends SnsDAO {
 		int cnt = 0;
 
 
-		String sql = "UPDATE users SET "+str1+" WHERE d_flg=0 AND loginId='"+str2+"'";
+		String sql = "UPDATE users SET "+str1+" WHERE d_flg IN (0,null) AND loginId='"+str2+"'";
 
 		try {
 			//データベース接続情報取得
@@ -341,7 +341,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT文の実行
-			String sql = "SELECT u.userName,u.icon,s.date,s.writing FROM users AS u,shouts AS s WHERE u.loginId=s.loginId AND s.d_flg=0 ORDER BY s.date DESC";
+			String sql = "SELECT u.userName,u.icon,s.date,s.writing FROM users AS u,shouts AS s WHERE u.loginId=s.loginId AND s.d_flg IN (0,null) ORDER BY s.date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
@@ -380,7 +380,7 @@ public class DBManager extends SnsDAO {
 		ResultSet rset = null; //検索結果
 		boolean result = false;
 
-		String sql = "SELECT * FROM shouts WHERE d_flg=0 AND loginId="+loginId;
+		String sql = "SELECT * FROM shouts WHERE d_flg IN (0,null) AND loginId="+loginId;
 
 		try {
 			//データベース接続情報取得
@@ -457,7 +457,7 @@ public class DBManager extends SnsDAO {
 		int cnt = 0;
 
 
-		String sql = "UPDATE shouts SET "+str1+" WHERE d_flg=0 AND loginId='"+str2+"'";
+		String sql = "UPDATE shouts SET "+str1+" WHERE d_flg IN (0,null) AND loginId='"+str2+"'";
 
 		try {
 			//データベース接続情報取得
