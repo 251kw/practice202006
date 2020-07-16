@@ -62,7 +62,7 @@
 				<table style="width: 70%" class="container padding-y-5">
 					<tr>
 						<td><input class="form-control" type="text" name="shout" value="" size="60" autofocus/></td>
-						<td><input class="btn" type="submit" value="叫ぶ" /></td>
+						<td><input class="btn btn-empty" type="submit" value="叫ぶ" /></td>
 					</tr>
 				</table>
 			</form>

@@ -35,7 +35,7 @@
 							<td>${searchShout.date}</td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${searchShout.writing}</textarea></td>
+							<td colspan="2" height="150">${searchShout.writing}</td>
 						</tr>
 					</table>
 			</div>

@@ -67,22 +67,6 @@ public class SerachInputServlet extends HttpServlet {
 
 		SearchUserBean sUser = new SearchUserBean(loginId, userName, profile, car, clip, radio);
 
-		//TODO ユーザーネームの空白処理
-		/*
-		String noBlankUserName = userName;
-		noBlankUserName.replaceAll("　", " ").replaceAll(" ", "");
-		ArrayList<String> checkBlank = new ArrayList<String>();
-		ArrayList<UserDTO> allUser = dbm.getSearchUserList();
-		for (UserDTO name : allUser) {
-			String allUserName = name.getUserName();
-			allUserName.replaceAll("　", " ").replaceAll(" ", "");
-			if(noBlankUserName.equals(allUserName)) {
-				checkBlank.add(name.getLoginId());
-			}
-		}
-		*/
-
-
 		//SQL文の作成メソッド
 		String sql = MakeSelectSQL.makeSelect(loginId, userName, profile, car, clip, radio);
 		//作成したSQLを渡しserchUserで受け取る

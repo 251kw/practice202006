@@ -190,43 +190,6 @@ public class DBManager extends SnsDAO {
 	}
 
 	/**
-	 * @param udto 更新されたユーザー情報
-	 * @return UPDATE文の実行結果が1ならTRUE
-	 */
-	@Deprecated
-	public boolean uppdateShouts(UserDTO udto) {
-		boolean result = false;
-
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		try {
-			conn = getConnection();
-
-			//UPDATE文の登録と実行
-			String sql = "UPDATE shouts SET userName=? ,icon=? WHERE loginId =?";
-			pstmt = conn.prepareStatement(sql);
-			pstmt.setString(1, udto.getUserName());
-			pstmt.setString(2, udto.getIcon());
-			pstmt.setString(3, udto.getLoginId());
-
-			int cnt = pstmt.executeUpdate(); //実行
-			if (cnt == 1) {
-				//UPDATE文の実行結果が1なら登録成功
-				result = true;
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			// データベース切断処理
-			close(pstmt);
-			close(conn);
-		}
-
-		return result;
-	}
-
-	/**
 	 * 書き込み内容リストの getter
 	 * @return ShoutDTOのリスト
 	 */
@@ -404,6 +367,11 @@ public class DBManager extends SnsDAO {
 		return result;
 	}
 
+	/**
+	 * @param writing 更新するシャウトの内容
+	 * @param shoutsId 更新したいシャウトのshoutsId
+	 * @return tf UPDATE文の実行結果が1ならTRUE
+	 */
 	public boolean updateWriting(String writing,String shoutsId) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -523,6 +491,9 @@ public class DBManager extends SnsDAO {
 		return list;
 	}
 
+	/**
+	 * @return UserDTOのリスト
+	 */
 	public ArrayList<UserDTO> getSearchUserList() {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -564,79 +535,6 @@ public class DBManager extends SnsDAO {
 
 		return list;
 	}
-
-	//ログインIDを受け取りユーザー情報を返す
-		/**
-		 * @param loginId 削除したいユーザーのログインID
-		 * @return tf DELETE文の実行結果が1ならTRUE
-		 */
-		@Deprecated
-		public boolean deleteUser(String loginId) {
-			boolean result = false;
-
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-
-			try {
-				conn = getConnection();
-
-				//DELETE文の登録と実行
-				String sql = "DELETE FROM users WHERE loginId=? AND d_flg=0";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, loginId);
-
-				int cnt = pstmt.executeUpdate(); //実行
-				if (cnt == 1) {
-					//DELETE文の実行結果が1なら登録成功
-					result = true;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(pstmt);
-				close(conn);
-			}
-
-			return result;
-
-		}
-
-		/**
-		 * @param loginId 削除するshoutsのログインID
-		 * @return tf DELETE文の実行結果が1ならTRUE
-		 */
-		@Deprecated
-		public boolean deleteUserShout(String loginId) {
-			boolean result = false;
-
-			Connection conn = null;
-			PreparedStatement pstmt = null;
-
-			try {
-				conn = getConnection();
-
-				//DELETE文の登録と実行
-				String sql = "DELETE FROM shouts WHERE loginId=? ";
-				pstmt = conn.prepareStatement(sql);
-				pstmt.setString(1, loginId);
-
-				int cnt = pstmt.executeUpdate(); //実行
-				if (cnt == 1) {
-					//DELETE文の実行結果が1なら登録成功
-					result = true;
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				// データベース切断処理
-				close(pstmt);
-				close(conn);
-			}
-
-			return result;
-
-		}
 
 		/**
 		 * @param sql 作成したSQLの実行
