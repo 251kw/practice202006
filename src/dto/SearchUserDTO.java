@@ -17,7 +17,7 @@ public class SearchUserDTO {
 	private String profile;
 
 	public SearchUserDTO() {
-		//
+
 	}
 
 	/**

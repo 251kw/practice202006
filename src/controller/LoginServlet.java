@@ -32,8 +32,7 @@ public class LoginServlet extends HttpServlet {
 	/**
 	 *  直接アクセスがあった場合は index.jsp  に処理を転送
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
@@ -73,7 +72,7 @@ public class LoginServlet extends HttpServlet {
 				DBManager dbm = new DBManager();
 				UserDTO user = dbm.getLoginUser(loginId, password);
 
-				if (user != null && user.getLoginId().equals(loginId)) {		//小文字、大文字区別するように
+				if (user != null) {
 					//ユーザー情報を取得出来たら、書き込み内容リストを取得
 					ArrayList<ShoutDTO> list = dbm.getShoutList();
 					HttpSession session = request.getSession();

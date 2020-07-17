@@ -147,6 +147,23 @@
   color: #FFF;
 }
 
+.btn-flat-dashed-filled-blue {
+  display: inline-block;
+  padding: 0.5em 1em;
+  text-decoration: none;
+  color: #0080c0;
+  border: dashed 1px #0080c0;
+  background: #ffffff;
+  border-radius: 3px;
+  transition: .4s;
+}
+
+.btn-flat-dashed-filled-blue:hover {
+  background: #80ffff;
+  color: #FFF;
+}
+
+
 .balloon2-top {
   position: relative;
   display: inline-block;
@@ -233,7 +250,7 @@
 .balloon4 {
   position: relative;
   margin: 2em 0 2em 40px;
-  padding: 15px;
+  padding: 25px 0px 25px 0px;
   background: #80ffff;
   border-radius: 30px;
 }

@@ -180,7 +180,7 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 			pstmt = conn.createStatement();
 
-			//SELECT文の実行
+			//SELECT文の実行、結合取得
 			String sql = "SELECT s.shoutsId,s.loginId,u.userName,u.icon,s.date,s.writing,s.d_flg\r\n" +
 						 "FROM sns.users u, sns.shouts s \r\n" +
 						 "WHERE s.loginId=u.loginId AND s.d_flg=0\r\n" +

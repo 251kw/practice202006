@@ -39,7 +39,7 @@ public class DeleteServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
-		String[] shoutIds = request.getParameterValues("shoutId");
+		String[] shoutIds = request.getParameterValues("shoutId");	//shoutsIdのチェックボックス
 		String message = null;
 		DBUserSearch dbs = new DBUserSearch();
 		DBUserDelete dbd = new DBUserDelete();
@@ -55,7 +55,7 @@ public class DeleteServlet extends HttpServlet {
 				dispatcher.forward(request, response);
 				return;
 			}
-			for(String s: shoutIds) {	//shoutIdはint、パラメーターは文字列だったので変換、、、
+			for(String s: shoutIds) {	//shoutIdはint、パラメーターは文字列だったので変換
 				int shout = Integer.parseInt(s);
 				list.add(dbs.shoutIdSearch(shout));
 			}
@@ -65,6 +65,9 @@ public class DeleteServlet extends HttpServlet {
 		} else if(botton.equals("キャンセル")) {	//選択状態保持のために、shoutIdをもって掲示板へ
 
 			request.setAttribute("shoutIds", shoutIds);
+			if(shoutIds!=null) {
+				request.setAttribute("flg", "off");
+			}
 			dispatcher = request.getRequestDispatcher("top.jsp");
 
 		} else if(botton.equals("削除")) {
@@ -79,6 +82,18 @@ public class DeleteServlet extends HttpServlet {
 				dbd.shoutDelete(shout);
 			}
 			dispatcher = request.getRequestDispatcher("s_delete_result.jsp");
+		} else {
+			//全選択ボタンで
+			if(botton.equals("off")) {
+				//offならonにかえて、
+				request.setAttribute("flg", "on");
+			} else if(botton.equals("on") || botton.equals("")) {
+				//onまたは初回はoffに、全チェックのためにすべてのshoutsIdをセット
+				request.setAttribute("flg", "off");
+				String[] allid = dbs.getAllShoutId();
+				request.setAttribute("shoutIds", allid);
+			}
+			dispatcher = request.getRequestDispatcher("top.jsp");
 		}
 		dispatcher.forward(request, response);
 	}
@@ -95,7 +110,6 @@ public class DeleteServlet extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String botton = request.getParameter("btn");
 		String[] loginId = request.getParameterValues("loginId");
-		String[] checkbox = request.getParameterValues("checkbox");
 		ArrayList<UserDTO> list = new ArrayList<UserDTO>();
 		DBUserSearch dbs = new DBUserSearch();
 
@@ -128,10 +142,9 @@ public class DeleteServlet extends HttpServlet {
 
 		} else if(botton.equals("キャンセル")) {
 			//削除キャンセルなら、検索結果画面へ
-			if(request.getParameter("only").equals("")) {	//単独削除ボタンの時はチェックつけない
-				request.setAttribute("loginIds", loginId);	//チェックボックス保持
-			} else {
-				request.setAttribute("loginIds", checkbox);	//複数☑で単独ボタンの時
+			request.setAttribute("loginIds", loginId);	//チェックボックス保持
+			if(loginId!=null) {
+				request.setAttribute("flg", "off");
 			}
 			dispatcher = request.getRequestDispatcher("search_result.jsp");
 

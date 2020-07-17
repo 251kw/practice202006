@@ -66,7 +66,7 @@
 				</c:otherwise>
 			</c:choose>
 
-				<tr><th><img src="odorupen.gif" alt="pen" width="96" height="65"></th>
+				<tr><th><img src="odorupen.gif" alt="tw" width="96" height="65"></th>
 					<td colspan="2" class="text-right">
 					<input class="btn" type="submit" value="新規登録" name="btn"/>
 					<input class="btn" type="submit" value="ログイン" name="btn"/></td>

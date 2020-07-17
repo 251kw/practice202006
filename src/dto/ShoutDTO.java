@@ -15,7 +15,7 @@ public class ShoutDTO {
 	private int d_flg;		//削除フラグ
 
 	public ShoutDTO() {
-		//
+
 	}
 
 	/**

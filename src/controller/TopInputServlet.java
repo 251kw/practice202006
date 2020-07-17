@@ -58,7 +58,8 @@ public class TopInputServlet extends HttpServlet {
 
 		if(button.equals("掲示板に戻る")) {
 			if(shoutIds!=null) {
-				request.setAttribute("shoutIds", shoutIds);
+				request.setAttribute("shoutIds", shoutIds);		//叫び更新後、☑の値保持の必要があるなら
+				request.setAttribute("flg", "off");
 			}
 
 			// 書き込み内容追加後のリストを取得

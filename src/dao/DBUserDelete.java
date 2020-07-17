@@ -36,7 +36,7 @@ public class DBUserDelete extends SnsDAO{
 			conn = getConnection();
 
 			//SELECT文の登録と実行
-			String sql = "UPDATE users SET d_flg=1 WHERE loginId=?";		////削除フラグ１で画面上からは消える
+			String sql = "UPDATE users SET d_flg=1 WHERE loginId=?";		//削除フラグ１で画面上からは消える
 			pstmt = conn.prepareStatement(sql);
 
 			pstmt.setString(1, loginId);
@@ -95,6 +95,14 @@ public class DBUserDelete extends SnsDAO{
 		return result;
 	}
 
+	/**
+	 * shouts削除メソッド
+	 * 削除完了で真を返す
+	 *
+	 * @param shoutsId
+	 * @return result 真偽値
+	 *
+	 */
 	public  boolean shoutDelete(int shoutsId) {
 		boolean result = false;
 		Connection conn = null; //データベース接続情報

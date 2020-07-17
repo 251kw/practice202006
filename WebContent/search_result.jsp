@@ -34,7 +34,7 @@
 
 					<thead>
 						<tr>
-							<th><button class="btn btn-sm btn-light" type="submit" name="btn" value="${flg}">全選択/解除</button></th>
+							<th><button class="btn btn-sm" type="submit" name="btn" value="${flg}">全選択/解除</button></th>
 							<th>ログインID</th>
 							<th>ユーザー名</th>
 							<th>アイコン</th>

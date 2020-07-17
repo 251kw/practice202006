@@ -72,11 +72,9 @@
 							<input class="btn" type="submit" value="キャンセル" name="btn">
 							</td>
 						</tr>
-
 					</table>
 				</form>
 			</div>
 		</div>
-
-</body>
+	</body>
 </html>

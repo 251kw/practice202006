@@ -38,31 +38,31 @@ public class UpDateServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String[] shoutIds = request.getParameterValues("shoutId");
-		String upshoutId = request.getParameter("upshoutId");
-		String botton = request.getParameter("btn");
-		String comment = request.getParameter("comment");
+		String upshoutId = request.getParameter("upshoutId");	//編集ボタン
+		String botton = request.getParameter("btn");			//その他のボタン
+		String comment = request.getParameter("comment");		//叫び内容
 
 		RequestDispatcher dispatcher = null;
 		DBUserSearch dbs = new DBUserSearch();
 		DBUserUpdate dbu = new DBUserUpdate();
 		String message = null;
 		ShoutDTO shout = new ShoutDTO();
-		shout = dbs.shoutIdSearch(Integer.valueOf(upshoutId));
+		shout = dbs.shoutIdSearch(Integer.valueOf(upshoutId));		//shoutdsIdはintなので
+																	//shoutIdで情報検索
+		request.setAttribute("upshoutId", upshoutId);			//更新するshoutId
+		request.setAttribute("shoutIds", shoutIds);				//選択されたshoutIdのデータ保持
+		request.setAttribute("shout", shout);					//shoutIdによって検索された叫び情報
+		request.setAttribute("comment", comment);				//更新内容
 
-		request.setAttribute("upshoutId", upshoutId);
-		request.setAttribute("shoutIds", shoutIds);
-		request.setAttribute("shout", shout);
-		request.setAttribute("comment", comment);
-
-		if(upshoutId!=null && botton==null) {
+		if(upshoutId!=null && botton==null) {	//編集ボタンが押されたとき
 
 			dispatcher = request.getRequestDispatcher("s_update_input.jsp");
 
-		} else if(botton.equals("キャンセル")) {
+		} else if(botton.equals("キャンセル")) {	//編集やめたとき
 			dispatcher = request.getRequestDispatcher("top.jsp");
 
 		} else if(botton.equals("確認画面へ")) {
-			if(comment.equals("")) {
+			if(comment.equals("")) {				//コメントは未記入での更新はしない
 				message = "叫んでください。";
 				request.setAttribute("alert", message);
 				dispatcher = request.getRequestDispatcher("s_update_input.jsp");
@@ -70,13 +70,13 @@ public class UpDateServlet extends HttpServlet {
 				dispatcher = request.getRequestDispatcher("s_update_confirm.jsp");
 			}
 
-		} else if(botton.equals("戻る")) {
+		} else if(botton.equals("戻る")) {			//編集しなおすとき
 
 			dispatcher = request.getRequestDispatcher("s_update_input.jsp");
 
 		} else if(botton.equals("更新する")) {
 
-			dbu.shoutUpDate(Integer.valueOf(upshoutId), comment);
+			dbu.shoutUpDate(Integer.valueOf(upshoutId), comment);	//shoutId更新メソッド
 			dispatcher = request.getRequestDispatcher("s_update_result.jsp");
 		}
 		dispatcher.forward(request, response);
@@ -130,7 +130,6 @@ public class UpDateServlet extends HttpServlet {
 			//変更完了へ
 			request.setAttribute("user", user);
 
-//			dbu.shoutsUpDate(oldId, user);
 			dbu.userUpDate(oldId, user);
 
 			if(loginUser.getLoginId().equals(oldId)) { //ログインユーザーの変更の時

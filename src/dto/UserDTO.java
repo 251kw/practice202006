@@ -16,7 +16,7 @@ public class UserDTO {
 	private int d_flg;		//削除フラグ
 
 	public UserDTO() {
-		//
+
 	}
 
 	/**

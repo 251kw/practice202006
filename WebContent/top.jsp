@@ -90,41 +90,41 @@
 			<div style="width: 40%" class="container padding-y-5 text-left">
 				<strong class="color-main">みんなの叫び</strong>&nbsp;&nbsp;&nbsp;
 				<c:if test="${shouts[0]!=null}">
-				<input type="submit" class="btn-flat-dashed-filled-red" name="btn" value="☑選択項目を削除"></c:if>
+				<input type="submit" class="btn-flat-dashed-filled-red" name="btn" value="☑選択項目を削除">
+				<button type="submit" class="btn-flat-dashed-filled-blue" name="btn" value="${flg}">全選択/解除</button></c:if>
 			</div>
 		</div>
 		<%---------------------------------------------------------------------------------%>
 
-		<%--セッションスコープにあるArrayList型のオブジェクトを参照 --%>
-		<%--jsp:useBean id="shouts" scope="session"
-			type="java.util.ArrayList<dto.ShoutDTO>" --%>
-		<div class="padding-y-5">
-			<div style="width: 40%" class="container padding-y-5">
-				<c:forEach var="shout" items="${shouts}">
-					<table class="table table-bordered">
-						<tr>
-							<td rowspan="2" class="text-center">
-								<span class="${shout.icon} pe-3x pe-va"></span>
-							</td>
-							<td>${shout.userName}</td>
-							<td><label class="fancy-checkbox">
-								<input type="checkbox" name="shoutId" value="${shout.shoutsId}" ${Check.checkBox(String.valueOf(shout.shoutsId), shoutIds)}><span>${String.valueOf(shout.shoutsId)}</span>
-								</label></td>
-						</tr>
-						<tr>
-							<td>${shout.date}</td>
-							<td><button type="submit" formaction="./udis" class="btn-flat-dashed-filled-yellow" name="upshoutId" value="${shout.shoutsId}">編集</button></td>
-						</tr>
+			<%--セッションスコープにあるArrayList型のオブジェクトを参照 --%>
 
-						<tr>
-							<td colspan="2" class="text-center">
-							<div class="balloon4">
-  							<p>${shout.writing}</p>
-							</div></td></tr>
-					</table>
-				</c:forEach>
+			<div class="padding-y-5">
+				<div style="width: 40%" class="container padding-y-5">
+					<c:forEach var="shout" items="${shouts}">
+						<table class="table table-bordered">
+							<tr>
+								<td rowspan="2" class="text-center">
+									<span class="${shout.icon} pe-3x pe-va"></span>
+								</td>
+								<td>${shout.userName}</td>
+								<td class="text-center"><label class="fancy-checkbox">
+									<input type="checkbox" name="shoutId" value="${shout.shoutsId}" ${Check.checkBox(String.valueOf(shout.shoutsId), shoutIds)}><span></span>
+									</label></td>
+							</tr>
+							<tr>
+								<td>${shout.date}</td>
+								<td><button type="submit" formaction="./udis" class="btn-flat-dashed-filled-yellow" name="upshoutId" value="${shout.shoutsId}">編集</button></td>
+							</tr>
+
+							<tr>
+								<td colspan="3" class="text-center">
+								<div class="balloon4">
+	  							<p>${shout.writing}</p>
+								</div></td></tr>
+						</table>
+					</c:forEach>
+				</div>
 			</div>
-		</div>
 		</form>
 	</body>
 </html>

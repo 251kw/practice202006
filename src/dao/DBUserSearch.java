@@ -33,7 +33,6 @@ public class DBUserSearch extends SnsDAO {
 	 * @param icon 選択されたアイコンの配列
 	 * @return list 検索結果が格納されたarrylist
 	 *
-	 *
 	 */
 	public  ArrayList<UserDTO> userSearch(String loginId, String userName, String profile, String[] icon) {
 		Connection conn = null; //データベース接続情報
@@ -137,7 +136,7 @@ public class DBUserSearch extends SnsDAO {
 	 * 取得するメソッド
 	 *
 	 * @param loginId
-	 * @return
+	 * @return user ユーザー情報
 	 */
 	public  UserDTO userIdSearch(String loginId){
 		Connection conn = null; //データベース接続情報
@@ -179,6 +178,13 @@ public class DBUserSearch extends SnsDAO {
 		return user;
 	}
 
+	/**
+	 * すべてのloginIdを
+	 * 取得するメソッド
+	 *
+	 * @param 無し
+	 * @return loginIdの配列
+	 */
 	public String[] getAllId() {
 		ArrayList<String> list = new ArrayList<>();
 		String[] all = null;
@@ -215,6 +221,56 @@ public class DBUserSearch extends SnsDAO {
 		return all;
 	}
 
+	/**
+	 * すべてのshoutsIdを
+	 * 取得するメソッド
+	 *
+	 * @param 無し
+	 * @return shoutsIdの配列
+	 */
+	public String[] getAllShoutId() {
+		ArrayList<String> list = new ArrayList<>();
+		String[] all = null;
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL管理情報
+		ResultSet rset = null; //検索結果
+
+		String sql = "SELECT shoutsId FROM sns.shouts";
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//SELECT文の登録と実行
+			pstmt = conn.prepareStatement(sql);
+			rset = pstmt.executeQuery();
+
+			//検索結果があれば
+			while(rset.next()) {
+				list.add(rset.getString(1));
+			}
+
+			all = list.toArray(new String[list.size()]);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(rset);
+			close(pstmt);
+			close(conn);
+		}
+
+		return all;
+	}
+
+	/**
+	 * shoutsIdでユーザー情報を
+	 * 取得するメソッド
+	 *
+	 * @param shoutsId 一意のshoutsId
+	 * @return shout 叫び情報
+	 */
 	public  ShoutDTO shoutIdSearch(int shoutsId){
 		Connection conn = null; //データベース接続情報
 		PreparedStatement pstmt = null; //SQL管理情報
