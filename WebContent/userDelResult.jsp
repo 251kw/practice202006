@@ -22,40 +22,37 @@
 		</div>
 		<form action="./udb" method="post">
 			<div class="padding-y-5">
-					<div style="width: 40%" class="container padding-y-5">
-						<table width="450"  class="table table-striped table-bordered">
-							<tr>
-								<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
-								<td width="113" height="10">名前</td>
-								<td width="120" height="10">ログインID</td>
-								<td width="170" height="10">プロフィール</td>
-								<c:forEach var="delcon" items="${delcon}">
-									<tr>
-										<td width="50" height="10"><span
-											class="${delcon.icon} pe-2x pe-va"></span></td>
-										<td width="140" height="10">${delcon.userName}</td>
-										<td width="120" height="10">${delcon.loginId}</td>
-										<td width="170" height="10">${delcon.profile}</td>
+				<div style="width: 40%" class="container padding-y-5">
+					<table width="450"  class="table table-striped table-bordered">
+						<tr>
+							<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
+							<td width="113" height="10">名前</td>
+							<td width="120" height="10">ログインID</td>
+							<td width="170" height="10">プロフィール</td>
+							<c:forEach var="delcon" items="${delcon}">
+								<tr>
+									<td width="50" height="10"><span class="${delcon.icon} pe-2x pe-va"></span></td>
+									<td width="140" height="10">${delcon.userName}</td>
+									<td width="120" height="10">${delcon.loginId}</td>
+									<td width="170" height="10">${delcon.profile}</td>
 
-									</tr>
-								</c:forEach>
-
-							</tr>
-						</table>
-						<input type="hidden" name="sloginId" value="<%=sloginId%>">
-						<table   class="table table-striped table-bordered">
-							<tr>
-								<td class="color-main text-center"><nobr>上記のユーザーを削除しました</nobr></td>
-							</tr>
-						</table>
-						<table >
-							<tr>
-								<td colspan="4" class="text-center"><input type="submit"
-									value="戻る" class="btn"></td>
-							</tr>
-						</table>
-					</div>
+								</tr>
+							</c:forEach>
+						</tr>
+					</table>
+					<input type="hidden" name="sloginId" value="<%=sloginId%>">
+					<table   class="table table-striped table-bordered">
+						<tr>
+							<td class="color-main text-center"><nobr>上記のユーザーを削除しました</nobr></td>
+						</tr>
+					</table>
+					<table >
+						<tr>
+							<td colspan="4" class="text-center"><input type="submit" value="戻る" class="btn"></td>
+						</tr>
+					</table>
 				</div>
+			</div>
 		</form>
 	</body>
 </html>

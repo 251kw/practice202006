@@ -40,6 +40,7 @@ public class UserAddResult extends HttpServlet {
 		String userName = (String) request.getParameter("suserName");
 		String password = (String) request.getParameter("spassword");
 		String profile = (String) request.getParameter("sprofile");
+
 		//新規ユーザー情報のセット
 		dnu.setNewUser(loginId, password, userName, icon, profile);
 

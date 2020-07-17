@@ -2,10 +2,10 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="ja">
 	<head>
-		<meta charset="UTF-8">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>shouter-ログイン-</title>
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
@@ -31,7 +31,7 @@
 					<%-- ログインID入力欄の名前はloginId --%>
 					<td class="color-main text-left">ログインID</td>
 					<td class="text-right"><input class="form-control" type="text"
-						name="loginId" value="" /></td>
+						name="loginId" value="" id="firstinput"/></td>
 				</tr>
 				<tr>
 					<%-- パスワード入力欄の名前はpassword --%>
@@ -43,7 +43,6 @@
 			</table>
 			<table style="width: 450px" class="table">
 				<tr>
-					<!--  <td><input type="submit" value="新規登録" class="btn"></td> -->
 					<td><input type="button"
 						onclick="location.href='./userAddInput.jsp'" value="新規登録はこちら"
 						class="btn"></td>
@@ -61,5 +60,10 @@
 				</c:if>
 			</table>
 		</form>
+		<script language="JavaScript" type="text/javascript">
+			<!--
+				document.getElementById('firstinput').focus();
+			-->
+		</script>
 	</body>
 </html>

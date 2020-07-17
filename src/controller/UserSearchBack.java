@@ -45,10 +45,4 @@ public class UserSearchBack extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-
-
 }

@@ -73,7 +73,7 @@
 					<%-- ログインID入力欄の名前はloginId --%>
 					<td class="color-main text-left">ログインID</td>
 					<td class="text-right"><input class="form-control" type="text"
-						name="loginId" value="<%=sloginId%>" /></td>
+						name="loginId" value="<%=sloginId%>" id="firstinput"/></td>
 				</tr>
 				<tr>
 					<%-- パスワード入力欄の名前はpassword --%>
@@ -93,7 +93,7 @@
 				<tr>
 					<c:choose>
 						<c:when test="${sicon == null }">
-									<td><input type="checkbox"name="sicon" value="icon-rocket" >
+							<td><input type="checkbox"name="sicon" value="icon-rocket" >
 								<span class="icon-rocket pe-2x pe-va"></span>
 							</td>
 							<td><input type="checkbox"name="sicon" value="icon-plane" >
@@ -112,10 +112,8 @@
 
 				</tr>
 				<tr>
-					<td><input type="button" onclick="location.href='./usb'"
-						value="戻る" class="btn"></td>
-					<td colspan="2" class="text-right"><input type="submit"
-						value="検索" class="btn"></td>
+					<td><input type="button" onclick="location.href='./usb'" value="戻る" class="btn"></td>
+					<td colspan="2" class="text-right"><input type="submit" value="検索" class="btn"></td>
 				</tr>
 				<%-- エラー検出 --%>
 				<c:if test="${requestScope.alert != null && requestScope.alert != ''}">
@@ -126,5 +124,10 @@
 				</c:if>
 			</table>
 		</form>
+		<script type="text/javascript">
+			<!--
+				document.getElementById('firstinput').focus();
+			-->
+		</script>
 	</body>
 </html>

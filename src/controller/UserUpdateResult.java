@@ -38,7 +38,6 @@ public class UserUpdateResult extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// 送信データの取得
 		String userName = request.getParameter("userName");
-	//	String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
 		String icon = request.getParameter("icon");
 		String profile = request.getParameter("profile");
@@ -46,15 +45,12 @@ public class UserUpdateResult extends HttpServlet {
 
 		//結果画面へ送信
 		request.setAttribute("userName", userName);
-	//	request.setAttribute("loginId", loginId);
 		request.setAttribute("password", password);
 		request.setAttribute("icon", icon);
 		request.setAttribute("profile", profile);
 		request.setAttribute("sloginId", sloginId);
 
 		UserSearch us = new UserSearch();
-
-		//DBManager dbm = new DBManager();
 
 
 		//更新情報が入力されていれば更新を行う

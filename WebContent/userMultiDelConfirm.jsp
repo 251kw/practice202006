@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -24,7 +23,7 @@
 			<c:forEach var="mloginId" items="${delloginId}">
 				<input type='hidden' name='dloginId' value="${mloginId}">
 			</c:forEach>
-		<div class="padding-y-5">
+			<div class="padding-y-5">
 				<div style="width: 40%" class="container padding-y-5">
 					<table width="450"  class="table table-striped table-bordered">
 						<tr>
@@ -34,8 +33,7 @@
 							<td width="170" height="10">プロフィール</td>
 							<c:forEach var="muldel" items="${muldel}">
 								<tr>
-									<td width="50" height="10"><span
-										class="${muldel.icon} pe-2x pe-va"></span></td>
+									<td width="50" height="10"><span class="${muldel.icon} pe-2x pe-va"></span></td>
 									<td width="140" height="10">${muldel.userName}</td>
 									<td width="120" height="10">${muldel.loginId}</td>
 									<td width="170" height="10">${muldel.profile}</td>

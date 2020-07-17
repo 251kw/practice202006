@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,21 +13,20 @@
 	<body>
 		<div class="padding-y-5">
 			<div style="width: 40%" class="container padding-y-5">
-			<table width="450"  class="table table-striped table-bordered">
-				<tr>
-					<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
-					<td width="113" height="10">名前</td>
-					<td width="120" height="10">ログインID</td>
-					<td width="170" height="10">プロフィール</td>
-					<c:forEach var="delcon" items="${delcon}">
-						<tr>
-							<td width="50" height="10"><span class="${delcon.icon} pe-2x pe-va"></span></td>
-							<td width="140" height="10">${delcon.userName}</td>
-							<td width="120" height="10">${delcon.loginId}</td>
-							<td width="170" height="10">${delcon.profile}</td>
-
-						</tr>
-					</c:forEach>
+				<table width="450"  class="table table-striped table-bordered">
+					<tr>
+						<td width="50" height="10"><span class="icon-users pe-2x pe-va"></span></td>
+						<td width="113" height="10">名前</td>
+						<td width="120" height="10">ログインID</td>
+						<td width="170" height="10">プロフィール</td>
+						<c:forEach var="delcon" items="${delcon}">
+							<tr>
+								<td width="50" height="10"><span class="${delcon.icon} pe-2x pe-va"></span></td>
+								<td width="140" height="10">${delcon.userName}</td>
+								<td width="120" height="10">${delcon.loginId}</td>
+								<td width="170" height="10">${delcon.profile}</td>
+							</tr>
+						</c:forEach>
 					</tr>
 				</table>
 				<table   class="table table-striped table-bordered">

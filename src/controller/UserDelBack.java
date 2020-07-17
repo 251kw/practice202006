@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.DBManager;
+import dao.DBUserAddInput;
 import dto.SearchDTO;
 import dto.ShoutDTO;
+import dto.UserDTO;
 import util.CheckBoxCheck;
 import util.UserSearch;
 
@@ -59,9 +61,12 @@ public class UserDelBack extends HttpServlet {
 
 		UserSearch us = new UserSearch();
 
+		DBUserAddInput dbui = new DBUserAddInput();
+
 		//ログインユーザーの検索
 		ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId, userName, profile, sicon);
-
+		//削除済みユーザーの検索
+		ArrayList<UserDTO> dlist = dbui.SearchDelloginIDlUser(loginId,userName,profile,sicon);
 		if(hId != null) {
 			CheckBoxCheck cbc = new CheckBoxCheck();
 			request.setAttribute("hId", hId);
@@ -95,6 +100,20 @@ public class UserDelBack extends HttpServlet {
 			} else {
 				//検索したユーザー情報を、ユーザリストとしてリクエストスコープに追加
 				request.setAttribute("users", list);
+				request.setAttribute("dusers", dlist);
+				//検索ユーザーがいないなら
+				if(list == null || list.size() == 0) {
+					request.setAttribute("flag", "off");
+				}else {
+					request.setAttribute("flag", "on");
+				}
+
+				//削除済みユーザーがいないなら
+				if(dlist == null || dlist.size() == 0) {
+					request.setAttribute("dflag", "off");
+				}else {
+					request.setAttribute("dflag", "on");
+				}
 				dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 			}
 		}
@@ -110,6 +129,21 @@ public class UserDelBack extends HttpServlet {
 				} else {
 					//検索したユーザー情報を、ユーザリストとしてリクエストスコープに追加
 					request.setAttribute("users", list);
+					request.setAttribute("dusers", dlist);
+
+					//検索ユーザーがいないなら
+					if(list == null || list.size() == 0) {
+						request.setAttribute("flag", "off");
+					}else {
+						request.setAttribute("flag", "on");
+					}
+
+					//削除済みユーザーがいないなら
+					if(dlist == null || dlist.size() == 0) {
+						request.setAttribute("dflag", "off");
+					}else {
+						request.setAttribute("dflag", "on");
+					}
 					dispatcher = request.getRequestDispatcher("userSearchResult.jsp");
 				}
 			}

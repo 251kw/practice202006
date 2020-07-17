@@ -7,10 +7,10 @@
 <html lang="ja">
 	<head>
 	<meta charset="UTF-8">
-	<title>新規登録</title>
-	<link rel="stylesheet" href="./css/skyblue.css">
-	<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
-	<link rel="stylesheet" href="./css/helper.css">
+		<title>新規登録</title>
+		<link rel="stylesheet" href="./css/skyblue.css">
+		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
+		<link rel="stylesheet" href="./css/helper.css">
 	</head>
 	<body>
 		<div class="bg-success padding-y-5">
@@ -70,7 +70,7 @@
 					<%-- ユーザー名入力欄の名前はuserName --%>
 					<td class="color-main text-left">名前</td>
 					<td class="text-left"><input class="form-control" type="text"
-						name="userName" value="<%=suserName%>" size="20" /></td>
+						name="userName" value="<%=suserName%>" size="20" id="firstinput"/></td>
 
 				</tr>
 				<tr>
@@ -143,5 +143,10 @@
 
 			</table>
 		</form>
+		<script type="text/javascript">
+			<!--
+				document.getElementById('firstinput').focus();
+			-->
+		</script>
 	</body>
 </html>

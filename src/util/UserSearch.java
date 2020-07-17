@@ -24,15 +24,15 @@ public class UserSearch extends SnsDAO {
 	//リスト取得
 	ArrayList<SearchDTO> list = new ArrayList<SearchDTO>();
 
-	//全件検索
 	/**
 	 * @return
+	 * 全件検索
 	 */
 	public ArrayList<SearchDTO> SearchAllUser() {
 		try {
 			conn = getConnection();
 			// sql文全件検索
-			String sql = "SELECT * FROM sns.users";
+			String sql = "SELECT * FROM sns.users WHERE d_flag = 0";
 			pstmt = conn.clientPrepareStatement(sql);
 			//sql文の実行
 			rset = pstmt.executeQuery();
@@ -61,6 +61,8 @@ public class UserSearch extends SnsDAO {
 	}
 
 
+
+
 	/**
 	 * @param loginId
 	 * @param userName
@@ -74,7 +76,7 @@ public class UserSearch extends SnsDAO {
 			int counter = 0;
 			conn = getConnection();
 			// sql文 SLECT文の登録
-			String sql = "SELECT * FROM sns.users WHERE 1=1 ";
+			String sql = "SELECT * FROM sns.users WHERE 1=1 AND d_flag = 0 ";
 
 			//ログインIDが空白でなければ
 			if(!loginId.equals("")){
@@ -199,7 +201,7 @@ public class UserSearch extends SnsDAO {
 			//配列の数を数えるカウンター
 			int counter = 0;
 			// sql文全件検索
-			String sql = "DELETE FROM sns.users WHERE ";
+			String sql = "UPDATE sns.users SET d_flag = 1 WHERE ";
 
 			//ioginidが空でなければWHERE句追加
 			if(loginId.length == 1) {
@@ -608,7 +610,7 @@ public class UserSearch extends SnsDAO {
 		try {
 			conn = getConnection();
 			// sql文
-			String sql = "UPDATE sns.shouts SET userName=? WHERE loginId=?";
+			String sql = "UPDATE sns.shouts INNER JOIN sns.users ON shouts.loginId = users.loginId SET userName=? WHERE loginId=?";
 			pstmt = conn.clientPrepareStatement(sql);
 			pstmt.setString(1, userName);
 			pstmt.setString(2, sloginId);

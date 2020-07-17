@@ -1,5 +1,9 @@
 package util;
 
+/**
+ * @author d.ito
+ *チェックボックスの値保持を判定するメソッド
+ */
 public class CheckBoxCheck {
 	public static String boxCheck(String[] hId, String loginId) {
 		String result = "";

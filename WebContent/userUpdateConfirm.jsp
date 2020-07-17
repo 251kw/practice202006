@@ -42,6 +42,10 @@
 							<td  width="50" height="10"><%=userName%></td>
 						</tr>
 						<tr>
+							<td  width="50" height="10">ログインID</td>
+							<td  width="50" height="10"><%=loginId%></td>
+						</tr>
+						<tr>
 							<td   width="50" height="10">パスワード</td>
 							<td   width="50" height="10"><%=password%></td>
 						</tr>
@@ -71,12 +75,13 @@
 			<input type="hidden" name="suserName" value="<%=userName%>">
 			<input type="hidden" name="spassword" value="<%=password%>">
 			<input type="hidden" name="sloginId" value="<%=loginId%>">
+			<input type="hidden" name="disloginId" value="<%=loginId%>">
 			<input type="hidden" name="sicon" value="<%=icon%>">
 			<input type="hidden" name="sprofile" value="<%=profile%>">
+			<input type="hidden" name="flag" value="on">
 			<table border="1" style="border-collapse: collapse">
 				<tr>
-				<td colspan="4" class="text-center"><input type="submit"
-					value="いいえ" class="btn"></td>
+				<td colspan="4" class="text-center"><input type="submit" value="いいえ" class="btn"></td>
 				</tr>
 			</table>
 		</form>

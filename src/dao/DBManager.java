@@ -15,12 +15,18 @@ import dto.UserDTO;
 
 public class DBManager extends SnsDAO {
 	//ログインIDとパスワードを受け取り、登録ユーザー一覧に一致したものがあるか検索
+	/**
+	 * @param loginId
+	 * @param password
+	 * @return
+	 * ログインユーザー情報取得
+	 */
 	public UserDTO getLoginUser(String loginId, String password) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rset = null;
 
-		String sql = "SELECT * FROM users WHERE loginId=? AND password=?";
+		String sql = "SELECT * FROM users WHERE loginId=? AND password=? AND d_flag = 0";
 		UserDTO user = null; //登録ユーザー情報
 
 		try {
@@ -55,7 +61,10 @@ public class DBManager extends SnsDAO {
 		return user;
 	}
 
-	// 書き込み内容リストの getter
+	/**
+	 * @return
+	 * 書き込みリスト情報を取得
+	 */
 	public ArrayList<ShoutDTO> getShoutList() {
 		Connection conn = null;
 		Statement pstmt = null;
@@ -69,7 +78,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT　分の実行
-			String sql = "SELECT * FROM Shouts ORDER BY date DESC";
+			String sql = "SELECT * FROM sns.shouts INNER JOIN sns.users ON shouts.loginId = users.loginId WHERE users.d_flag = 0 ORDER BY date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
@@ -77,11 +86,11 @@ public class DBManager extends SnsDAO {
 				// 必要な列から値を取り出し、書き込み内容オブジェクトを生成
 				ShoutDTO shout = new ShoutDTO();
 				shout.setloginId(rset.getString(2));
-				shout.setUserName(rset.getString(3));
-				shout.setIcon(rset.getString(4));
-  				String str = rset.getString(5);
+				shout.setUserName(rset.getString(9));
+				shout.setIcon(rset.getString(10));
+  				String str = rset.getString(3);
 				shout.setDate(str.substring(0, str.indexOf('.')));
-				shout.setWriting(rset.getString(6));
+				shout.setWriting(rset.getString(4));
 
 
 
@@ -102,7 +111,13 @@ public class DBManager extends SnsDAO {
 		return list;
 
 	}
-	//ログインユーザー情報
+
+	/**
+	 * @param user		UserDTO
+	 * @param writing 叫び内容
+	 * @return
+	 * 叫び情報出力
+	 */
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -112,16 +127,14 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			// INSERT文
-			String sql = "INSERT INTO shouts(loginId,userName,icon,date, writing) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO sns.shouts(loginId,date,writing) VALUES(?,?,?)";
 			pstmt = conn.clientPrepareStatement(sql);
 			pstmt.setString(1,user.getLoginId());
-			pstmt.setString(2, user.getUserName());
-			pstmt.setString(3, user.getIcon());
 			// 日時取得
 			Calendar calendar = Calendar.getInstance();
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			pstmt.setString(4, sdf.format(calendar.getTime()));
-			pstmt.setString(5, writing);
+			pstmt.setString(2, sdf.format(calendar.getTime()));
+			pstmt.setString(3, writing);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
@@ -136,7 +149,17 @@ public class DBManager extends SnsDAO {
 
 		return result;
 	}
-	public boolean setNewUser(String loginId, String password, String userName, String icon ,String profile) {
+	/**
+	 * @param loginId
+	 * @param password
+	 * @param userName
+	 * @param icon
+	 * @param profile
+	 * @param d_flag
+	 * @return
+	 * 新規ユーザー登録
+	 */
+	public boolean setNewUser(String loginId, String password, String userName, String icon ,String profile, int d_flag) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 
@@ -145,13 +168,14 @@ public class DBManager extends SnsDAO {
 			conn = getConnection();
 
 			// INSERT文
-			String sql = "INSERT INTO sns.user(loginId,password,userName,icon ,profile) VALUES(?,?,?,?,?)";
+			String sql = "INSERT INTO sns.users(loginId,password,userName,icon ,profile,d_flag) VALUES(?,?,?,?,?,?)";
 			pstmt = conn.clientPrepareStatement(sql);
 			pstmt.setString(1, loginId);
 			pstmt.setString(2, password);
 			pstmt.setString(3, userName);
 			pstmt.setString(4, icon);
 			pstmt.setString(5, profile);
+			pstmt.setInt(6, d_flag);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {

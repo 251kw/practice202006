@@ -54,8 +54,7 @@ public class BbsServlet extends HttpServlet {
 			//エラーメッセージをオブジェクトへ
 			request.setAttribute("alert2", message);
 			//top.jspへ転送
-			dispatcher = request.getRequestDispatcher("top.jsp");
-			dispatcher.forward(request, response);
+
 
 
 		}

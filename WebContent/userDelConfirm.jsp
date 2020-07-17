@@ -11,19 +11,19 @@
 <link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 <link rel="stylesheet" href="./css/helper.css">
 </head>
-<body>
-	<%
-		//送信情報の取得
-		//ログインIdを取得
-		String sloginId = (String)request.getAttribute("sloginId");
-	%>
-	<div class="bg-success padding-y-5">
-		<div class="padding-y-5 text-center">
-			<strong>削除確認</strong>
+	<body>
+		<%
+			//送信情報の取得
+			//ログインIdを取得
+			String sloginId = (String)request.getAttribute("sloginId");
+		%>
+		<div class="bg-success padding-y-5">
+			<div class="padding-y-5 text-center">
+				<strong>削除確認</strong>
+			</div>
 		</div>
-	</div>
-	<form action="./udr" method="post">
-		<div class="padding-y-5">
+		<form action="./udr" method="post">
+			<div class="padding-y-5">
 				<div style="width: 40%" class="container padding-y-5">
 					<table width="450"  class="table table-striped table-bordered">
 						<tr>
@@ -38,10 +38,8 @@
 									<td width="140" height="10">${del.userName}</td>
 									<td width="120" height="10">${del.loginId}</td>
 									<td width="170" height="10">${del.profile}</td>
-
 								</tr>
 							</c:forEach>
-
 						</tr>
 					</table>
 					<input type="hidden" name="sloginId" value="${sloginId}">
@@ -58,14 +56,14 @@
 					</table>
 				</div>
 			</div>
-	</form>
-	<form action="./udb" method="post">
-		<table>
-			<tr>
-				<td colspan="4" class="text-center"><input type="submit"
-								value="戻る" class="btn"></td>
-			</tr>
-		</table>
-	</form>
-</body>
+		</form>
+		<form action="./udb" method="post">
+			<table>
+				<tr>
+					<td colspan="4" class="text-center"><input type="submit"
+									value="戻る" class="btn"></td>
+				</tr>
+			</table>
+		</form>
+	</body>
 </html>

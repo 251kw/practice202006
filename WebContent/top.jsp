@@ -6,7 +6,7 @@
 <html lang="ja">
 	<head>
 		<meta charset="UTF-8">
-		<title>Insert title here</title>
+		<title>掲示板画面</title>
 		<link rel="stylesheet" href="./css/skyblue.css">
 		<link rel="stylesheet" href="./css/pe-icon-7-stroke.css">
 		<link rel="stylesheet" href="./css/helper.css">
@@ -27,7 +27,6 @@
 				<%-- action属性にサーブレット指定 --%>
 				<form action="./logout" method="post">
 					<table class="table table-borderd">
-
 						<tr>
 							<td rowspan="2" class="text-center"><span
 								class="${user.icon} pe-3x pe-va"></span></td>
@@ -53,8 +52,8 @@
 			<table class="shout">
 				<tr>
 					<td><input class="form-control" type="text" name="shout"
-						value="" size="20" /></td>
-					<td><input class="btn" type="submit" value="叫ぶ" /></td>
+						value="" size="20" id="firstinput"/></td>
+					<td><input class="btn" type="submit" value="叫ぶ"  /></td>
 				</tr>
 				<%-- リクエストスコープにalertがあれば --%>
 				<c:if
@@ -69,6 +68,11 @@
 
 			</table>
 		</form>
+		<script type="text/javascript">
+			<!--
+				document.getElementById('firstinput').focus();
+			-->
+		</script>
 		<form action="./userSearchInput.jsp" method="post">
 			<table class="table table-borderd" style="width:400">
 				<tr>
@@ -96,8 +100,8 @@
 							<td>${shout.date}</td>
 						</tr>
 						<tr>
-							<td colspan="2"><textarea rows="5" class="form-control">${shout.writing}</textarea>
-							</td>
+							<td rowspan="2" class="text-center"><span class="icon-speaker pe-2x pe-va"></span></td>
+							<td >${shout.writing}</td>
 						</tr>
 					</table>
 				</c:forEach>

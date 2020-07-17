@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import dao.DBUserAddInput;
 import dto.SearchDTO;
+import dto.UserDTO;
 import util.CheckBoxCheck;
 import util.UserSearch;
 
@@ -80,15 +82,22 @@ public class UserSearchInput extends HttpServlet {
 
 		UserSearch us = new UserSearch();
 
-		//チェックボックスの値保持のメソッド
-	/*	CheckBoxCheck cbc = new CheckBoxCheck();
-		request.setAttribute("cbc", cbc);*/
+		DBUserAddInput dbui = new DBUserAddInput();
 
 		//全件検索の場合
 		 if(loginId.equals("") &&  userName.equals("") && sicon == null && profile.equals("")){
 			 ArrayList<SearchDTO> list = us.SearchAllUser();
+			 ArrayList<UserDTO> dlist = dbui.SearchDelAllUser();
 			 	//検索したユーザー情報を、ユーザリストとしてセッションに追加
 				request.setAttribute("users", list);
+				//フラグをon
+				request.setAttribute("flag", "on");
+				request.setAttribute("dusers", dlist);
+				if(dlist == null || dlist.size() == 0) {
+					request.setAttribute("dflag", "off");
+				}else {
+					request.setAttribute("dflag", "on");
+				}
 
 				if (list == null || list.size() == 0) {
 					//エラーメッセージをリクエストオブジェクトに保存
@@ -106,10 +115,26 @@ public class UserSearchInput extends HttpServlet {
 		 }else{
 			 //ユーザーを検索するメソッド
 			 ArrayList<SearchDTO> list = us.SearchloginIDlUser(loginId,userName,profile,sicon);
+			 ArrayList<UserDTO> dlist = dbui.SearchDelloginIDlUser(loginId,userName,profile,sicon);
 				//検索したユーザー情報を、ユーザリストとしてセッションに追加
 				request.setAttribute("users", list);
+				request.setAttribute("dusers", dlist);
 
-				if (list == null || list.size() == 0) {
+				//検索ユーザーがいないなら
+				if(list == null || list.size() == 0) {
+					request.setAttribute("flag", "off");
+				}else {
+					request.setAttribute("flag", "on");
+				}
+
+				//削除済みユーザーがいないなら
+				if(dlist == null || dlist.size() == 0) {
+					request.setAttribute("dflag", "off");
+				}else {
+					request.setAttribute("dflag", "on");
+				}
+
+				if ((list == null || list.size() == 0) && (dlist == null || dlist.size() == 0)) {
 					//エラーメッセージをリクエストオブジェクトに保存
 					CheckBoxCheck cbc = new CheckBoxCheck();
 					request.setAttribute("cbc", cbc);
