@@ -7,7 +7,7 @@ public class UserDTO {
 	private String userName;	//氏名
 	private String icon;		//アイコン
 	private String profile;		//プロフィール
-	private int dFlg;
+	private int dFlg;			//削除フラグ
 
 	public UserDTO() {
 	}

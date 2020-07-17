@@ -153,6 +153,7 @@ public class DBManager extends SnsDAO{
 				String str = rset.getString(3);
 				shout.setDate(str.substring(0, str.indexOf('.')));
 				shout.setWriting(rset.getString(4));
+				shout.setdFlg(rset.getInt(5));
 
 				//書き込み内容をリストに追加
 				list.add(shout);
@@ -168,6 +169,7 @@ public class DBManager extends SnsDAO{
 		return list;
 	}
 
+	//TODO
 	/**
 	 * ログインユーザ情報と書き込み内容リストを受け取り、shoutsテーブルへの追加する
 	 * @param user		//UserDTOにセットしたユーザ情報
@@ -177,6 +179,8 @@ public class DBManager extends SnsDAO{
 	public boolean setWriting(UserDTO user, String writing) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
+		//新規追加時のフラグ(int = 0)
+		int okDFlg = CheckUtil.okDFlg();
 
 		boolean result = false;
 		try {
@@ -185,7 +189,7 @@ public class DBManager extends SnsDAO{
 
 			//TODO shoutsテーブルへのd_flgカラムへの追加あとで
 			//INSERT文の登録と実行
-			String sql = "INSERT INTO shouts(loginId, date, writing) VALUES(?,?,?)";
+			String sql = "INSERT INTO shouts(loginId, date, writing,d_flg) VALUES(?,?,?,?)";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, user.getLoginId());
 			//現在日時の取得と日付の書式の指定
@@ -193,6 +197,7 @@ public class DBManager extends SnsDAO{
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			pstmt.setString(2, sdf.format(calendar.getTime()));
 			pstmt.setString(3, writing);
+			pstmt.setInt(4, okDFlg);
 
 			int cnt = pstmt.executeUpdate();
 			if(cnt == 1) {
@@ -282,11 +287,10 @@ public class DBManager extends SnsDAO{
 		return result;
 	}
 
-	//TODO DELETE文をUPDATE文にする
 	/**
-	 * 登録ユーザのDB削除
+	 * 登録ユーザのDB削除(論理削除)
 	 * @param loginId	//削除するログインID
-	 * @return	result	//戻り値はDELETE文が成功したかどうかのboolean型
+	 * @return	result	//戻り値はUPDATE文が成功したかどうかのboolean型
 	 */
 	@SuppressWarnings("resource")
 	public boolean deleteUser(String loginId) {
@@ -296,14 +300,14 @@ public class DBManager extends SnsDAO{
 		//送信情報の取得
 		String getLogId = loginId;
 		boolean result = false; //削除結果
-		//新規追加時のフラグ(int = 0)
+		//論理削除時のフラグ(int = 1)
 		int delDFlg = CheckUtil.delDFlg();
 
 		try {
 			//データベースに接続
 			conn = getConnection();
 
-			//shoutsテーブルのDELETE文の登録と実行
+			//shoutsテーブルのUPDATE文の登録と実行
 			String sqlShouts = "UPDATE Shouts SET d_flg=? WHERE LoginId=?";
 			pstmt = conn.prepareStatement(sqlShouts);
 			pstmt.setInt(1, delDFlg);
@@ -311,7 +315,7 @@ public class DBManager extends SnsDAO{
 			int cnt1 = pstmt.executeUpdate();
 
 			if(cnt1 >= 0) {
-				//userテーブルのDELETE文の登録と実行
+				//userテーブルのUPDATE文の登録と実行
 				String sqlUser = "UPDATE users SET d_flg=? WHERE LoginId=?";
 				pstmt = conn.prepareStatement(sqlUser);
 				pstmt.setInt(1, delDFlg);
@@ -332,57 +336,6 @@ public class DBManager extends SnsDAO{
 		}
 		return result;
 	}
-
-
-
-
-	/*
-	/**
-	 * 登録ユーザのDB削除
-	 * @param loginId	//削除するログインID
-	 * @return	result	//戻り値はDELETE文が成功したかどうかのboolean型
-
-	@SuppressWarnings("resource")
-	public boolean deleteUser(String loginId) {
-		Connection conn = null;
-		PreparedStatement pstmt = null;
-
-		//送信情報の取得
-		String getLogId = loginId;
-		boolean result = false; //削除結果
-
-		try {
-			//データベースに接続
-			conn = getConnection();
-
-			//shoutsテーブルのDELETE文の登録と実行
-			String sqlShouts = "DELETE FROM Shouts WHERE LoginId=?";
-			pstmt = conn.prepareStatement(sqlShouts);
-			pstmt.setString(1, getLogId);
-			int cnt1 = pstmt.executeUpdate();
-
-			if(cnt1 >= 0) {
-				//userテーブルのDELETE文の登録と実行
-				String sqlUser = "DELETE FROM users WHERE LoginId=?";
-				pstmt = conn.prepareStatement(sqlUser);
-				pstmt.setString(1, getLogId);
-				int cnt2 = pstmt.executeUpdate();
-
-				if(cnt2 == 1) {
-					//DELETE文の実行結果が1なら登録成功
-					result = true;
-				}
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}finally {
-			//データベース切断処理
-			close(pstmt);
-			close(conn);
-		}
-		return result;
-	}
-	*/
 
 	/**
 	 * ユーザの新規登録情報をDBへ追加する

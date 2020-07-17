@@ -9,17 +9,20 @@ public class ShoutDTO {
 	private String icon;	//ユーザアイコン
 	private String date;	//書き込み日時
 	private String writing;	//書き込み内容
+	private int dFlg;			//削除フラグ
 
 	public ShoutDTO() {
 
 	}
 
-	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
+	public ShoutDTO(String loginId, String userName, String icon, String date, String writing, int dFlg) {
 		this.loginId = loginId;
 		this.userName = userName;
 		this.icon = icon;
 		this.date = date;
 		this.writing = writing;
+		this.dFlg = dFlg;
+
 	}
 
 	//ゲッターセッターの生成
@@ -62,6 +65,14 @@ public class ShoutDTO {
 
 	public void setLoginId(String loginId) {
 		this.loginId = loginId;
+	}
+
+	public int getdFlg() {
+		return dFlg;
+	}
+
+	public void setdFlg(int dFlg) {
+		this.dFlg = dFlg;
 	}
 
 

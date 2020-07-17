@@ -82,20 +82,25 @@
 			<div style="width: 40%" class="container padding-y-5">
 				<%-- リストにある要素の数だけ繰り返し --%>
 				<c:forEach var="shout" items="${shouts}">
-					<table class="table table-striped table-bordered">
-						<tr>
-							<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
-							<td>${shout.userName}</td>
-						</tr>
-						<tr>
-							<td>${shout.date}</td>
-						</tr>
-						<tr>
-							<td colspan="2">
-							<input id="sample" class="form-control" type="text" name="event" value="${shout.writing}" readonly>
-						<%--<textarea readonly="readonly" rows="5" class="form-control">${shout.writing}</textarea></td>--%>
-						</tr>
-					</table>
+					<c:if test="${shout.dFlg != 1}">
+						<table class="table table-striped table-bordered">
+							<tr>
+								<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
+								<td>${shout.userName}</td>
+							</tr>
+							<tr>
+								<td>${shout.date}</td>
+							</tr>
+							<tr></tr>
+							<tr>
+								<td colspan="2">
+							<%-- 	<input id="sample" class="form-control" type="text" name="event" value="${shout.writing}" readonly>
+--%>
+								<label class="back container padding-y-5 table-striped:none">${shout.writing}</label>
+								</td>
+							</tr>
+						</table>
+					</c:if>
 				</c:forEach>
 			</div>
 		</div>
