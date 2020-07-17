@@ -56,12 +56,20 @@ public class DBManager extends SnsDAO{
 				user.setIcon(rset.getString(5));
 				user.setProfile(rset.getString(6));
 				user.setdFlg(rset.getInt(7));
+
+				//削除フラグ入っていたらuserにnullを入れる
+				if(rset.getInt(7) == 1) {
+					user = null;
+				}
 			}
 
-			//削除フラグ入っていたらuserにnullを入れる
-			if(rset.getInt(7) == 1) {
+
+
+			//検索結果がnullならnullいれる
+			if(user == null) {
 				user = null;
 			}
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {

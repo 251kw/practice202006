@@ -93,11 +93,7 @@
 							</tr>
 							<tr></tr>
 							<tr>
-								<td colspan="2">
-							<%-- 	<input id="sample" class="form-control" type="text" name="event" value="${shout.writing}" readonly>
---%>
-								<label class="back container padding-y-5 table-striped:none">${shout.writing}</label>
-								</td>
+								<td colspan="2" class="back container padding-y-5 table-striped:none">${shout.writing}</td>
 							</tr>
 						</table>
 					</c:if>

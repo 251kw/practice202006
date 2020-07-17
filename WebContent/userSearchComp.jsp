@@ -53,14 +53,6 @@
 								<td>${search.userName}</td>
 								<td  class="container"><span class="${search.icon} pe-3x pe-va"></span></td>
 								<td>${search.profile}</td>
-								<%--
-								<td>
-									<a href="./userUpdate.jsp?loginId=${search.loginId}&password=${search.password}&userName=${search.userName}
-											&icon=${search.icon}&profile=${search.profile}">
-										変更
-									</a>
-								</td>
-								--%>
 								<td>
 									<%-- ユーザ情報変更ボタン searchListに入っているパスワード情報も渡す --%>
 									<a
@@ -80,16 +72,16 @@
 										>変更
 									</a>
 								</td>
-								<td><input type="checkbox" name="checkedLogId" value="${search.loginId}" onClick="DisChecked()"
-									<c:if test="${search.dFlg == 1}">
-										disabled=disabled
-									</c:if>
+								<td>
+									<c:if test="${search.dFlg != 1}">
+									<input type="checkbox" name="checkedLogId" value="${search.loginId}" onClick="DisChecked()"
 									<c:forEach var="checkedLogId" items="${checkedUserLogId}">
 										<c:if test="${checkedLogId == search.loginId}">
 											checked="checked"
 										</c:if>
 									</c:forEach>
 									>
+									</c:if>
 								</td>
 							</tr>
 						</c:forEach>
@@ -155,8 +147,8 @@
 					</tr>
 				</table>
 				<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
-				<input type="hidden" name="reLoginId" value="${param.reLoginId}">
-				<input type="hidden" name="rePassword" value="${param.rePassword}">
+				<input type="hidden" name="reLoginId" value="<%= request.getAttribute("reLoginId") %>">
+				<input type="hidden" name="rePassword" value="<%= request.getAttribute("rePassword") %>">
 				<%-- userSearch.jspに、sessionの中に入れた検索条件を取得して返す --%>
 				<input type="hidden" name="loginId" value="<%= (String)session.getAttribute("loginId") %>">
 				<input type="hidden" name="userName" value="<%= (String)session.getAttribute("userName") %>">

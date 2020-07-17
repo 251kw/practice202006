@@ -45,7 +45,7 @@
 						test="${requestScope.alert != null && requestScope.alert != ''}">
 						<tr>
 							<%-- リクエストスコープのalertの値を出力 --%>
-							<td colspan="2" class="color-error text-left"><c:out value="${requestScope.alert}" /></td>
+							<td colspan="2" class="color-error text-left none"><c:out value="${requestScope.alert}" /></td>
 						</tr>
 					</c:if>
 				</table>

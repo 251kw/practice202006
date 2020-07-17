@@ -42,9 +42,11 @@ public class LoginServlet extends HttpServlet {
 		String message = null;
 
 		//更新、削除完了画面から戻って場合は下記を通り、再取得し保持していたユーザ情報を取得。index.jspから来た場合はここを通らない。
-		if(request.getParameter("reLoginId") != "" && request.getParameter("reLoginId") != null) {
+		if(request.getParameter("reLoginId") != null && request.getParameter("reLoginId") != null) {
+			if(!(request.getParameter("reLoginId").equals("null"))) {
 			loginId = (String)request.getParameter("reLoginId");
 			password = (String)request.getParameter("rePassword");
+			}
 		}
 
 		if(loginId.equals("") || password.equals("")) {

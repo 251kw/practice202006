@@ -138,7 +138,7 @@ public class SearchServlet extends HttpServlet {
 				if(request.getParameter("searchBtn") == null) {
 					//現在ログインしている情報をDBから再取得
 					UserDTO reuser = CheckUtil.nowLoginCheck(seUserLoginId);
-					String reLoginId = reuser.getPassword();	//再取得した現在のログインID
+					String reLoginId = reuser.getLoginId();	//再取得した現在のログインID
 					String rePassword = reuser.getPassword();	//再取得した現在のパスワード
 					request.setAttribute("reLoginId", reLoginId);
 					request.setAttribute("rePassword", rePassword);

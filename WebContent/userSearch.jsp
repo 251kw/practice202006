@@ -98,8 +98,9 @@
 				<input type="hidden" name="loginId" value="${user.loginId}">
 				<input type="hidden" name="password" value="${user.password}">
 				<%-- 更新/削除完了画面から./searchSrvを通ってtop.jspに戻るときまでhiddenで情報を保持する --%>
-				<input type="hidden" name="reLoginId" value="${param.reLoginId}">
-				<input type="hidden" name="rePassword" value="${param.rePassword}">
+				<% String a = request.getParameter("reLoginId"); %>
+				<input type="hidden" name="reLoginId" value="<%= request.getParameter("reLoginId") %>">
+				<input type="hidden" name="rePassword" value="<%= request.getParameter("rePassword") %>">
 			</form>
 		</div>
 	</body>
