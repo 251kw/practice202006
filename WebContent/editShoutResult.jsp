@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<br>
-			<h5 class="text-center">以下の内容で変更しました</h5>
+		<h5 class="text-center">以下の内容で変更しました</h5>
 		<br>
 		<form action="./TurnBoardTop" method="post">
 			<table style="width: 400px" class="table table-borderd container padding-y-5">

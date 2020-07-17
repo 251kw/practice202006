@@ -109,7 +109,7 @@
 						<button type="submit" class="btn">選択したユーザーを削除</button>
 						<%-- 入力情報を送る --%>
 						<input type="hidden" name="sloginId" value="${requestScope.sloginId}">
-						<input type="hidden" name="suserName" value="${requestScope.suserName}">
+						<input type="hidden" name="suserName" value="${requestScope.suserName}">c
 						<input type="hidden" name="sicon" value="${requestScope.sicon}">
 						<input type="hidden" name="sprofile" value="${requestScope.sprofile}">
 						<input type="hidden" name="checkall" value="${requestScope.checkall}">

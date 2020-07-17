@@ -37,9 +37,19 @@ public class TurnBoardTopServlet extends HttpServlet {
 
 		HttpSession session = request.getSession();
 
-		// チェックボックスの保持を一旦リセット
-		String[] select = null;
-		session.setAttribute("select", select);
+		String shoutselect = request.getParameter("shoutselect");
+		String checkall = request.getParameter("checkall");
+
+		if(checkall != null ) {
+			// 掲示板の全選択ボタンの値保持用
+			request.setAttribute("checkall", checkall);
+		}
+
+		if(shoutselect == null ) {
+			// チェックボックスの保持を一旦リセット
+			String[] select = null;
+			session.setAttribute("select", select);
+		}
 
 		// sessionに新たな書き込みリストを保持
 		DBManager dbm = new DBManager();

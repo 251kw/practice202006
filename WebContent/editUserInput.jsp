@@ -17,7 +17,7 @@
 			</div>
 		</div>
 		<br>
-			<h5 class="text-center">編集したい内容を入力または選択してください</h5>
+		<h5 class="text-center">編集したい内容を入力または選択してください</h5>
 		<br>
 		<form action="./EditUserCheckChar" method="post">
 			<table style="width: 400px" class="table container padding-y-5">

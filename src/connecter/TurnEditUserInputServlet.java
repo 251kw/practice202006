@@ -43,6 +43,7 @@ public class TurnEditUserInputServlet extends HttpServlet {
 		request.setAttribute("sprofile", sprofile);
 		request.setAttribute("checkall", checkall);
 
+		// ユーザー編集画面に移行
 		dispatcher = request.getRequestDispatcher("editUserInput.jsp");
 		dispatcher.forward(request, response);
 	}

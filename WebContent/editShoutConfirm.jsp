@@ -56,6 +56,7 @@
 						<input type="hidden" name="esuserName" value="${requestScope.esuserName}">
 						<input type="hidden" name="esicon" value="${requestScope.esicon}">
 						<input type="hidden" name="eswriting" value="${requestScope.eswriting}">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 			</table>

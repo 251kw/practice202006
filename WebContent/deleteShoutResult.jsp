@@ -20,25 +20,24 @@
 		<h4 class="text-center">以下の書き込みを削除しました</h4>
 		<br>
 		<form action="./TurnBoardTop" method="post">
-			<table style="width: 400px" class="table table-borderd container padding-y-5">
-				<tr>
-					<th class="color-main text-center">ログインID:</th>
-					<td class="text-center">${requestScope.dsloginId}</td>
+			<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
+			<jsp:useBean id="sdeleteList" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+			<%-- リストにある要素の数だけ繰り返し --%>
+			<table style="width: 600px" class="table table-borderd container padding-y-5">
+				<tr class="bg-light">
+					<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
+					<th class="text-center">アイコン</th><th class="text-center">プロフィール</th>
 				</tr>
+				<c:forEach var="sdeleteList" items="${sdeleteList}">
+					<tr>
+						<td class="text-center">${sdeleteList.loginId}</td>
+						<td class="text-center">${sdeleteList.userName}</td>
+						<td class="text-center"><span class="${sdeleteList.icon} pe-2x pe-va"></span></td>
+						<td class="text-center">${sdeleteList.writing}</td>
+					</tr>
+				</c:forEach>
 				<tr>
-					<th class="color-main text-center">ユーザー名:</th>
-					<td class="text-center">${requestScope.dsuserName}</td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">アイコン:</th>
-					<td class="text-center"><span class="${requestScope.dsicon} pe-2x pe-va"></span></td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">書き込み内容:</th>
-					<td class="text-center">${requestScope.dswriting}</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-right">
+					<td colspan="4" class="text-right">
 						<input class="btn" type="submit" value="掲示板に戻る" />
 					</td>
 				</tr>

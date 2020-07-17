@@ -19,36 +19,38 @@
 		<br>
 		<h4 class="text-center">以下の書き込みを削除しますか？</h4>
 		<br>
-		<form action="./ShoutDelete?dsloginId=${requestScope.shoutinfo.loginId}&dsuserName=${requestScope.shoutinfo.userName}&dsicon=${requestScope.shoutinfo.icon}&dswriting=${requestScope.shoutinfo.writing}&dshoutsId=${requestScope.dshoutsId}" method="Post">
-			<table style="width: 400px" class="table table-borderd container padding-y-5">
-				<tr>
-					<th class="color-main text-center">ログインID:</th>
-					<td class="text-center">${requestScope.shoutinfo.loginId}</td>
+		<form action="./ShoutDelete" method="post">
+			<%-- リクエストスコープにあるArrayList型のオブジェクトを参照 --%>
+			<jsp:useBean id="sdeleteList" scope="session" type="java.util.ArrayList<dto.UserDTO>" />
+			<%-- リストにある要素の数だけ繰り返し --%>
+			<table style="width: 600px" class="table table-borderd container padding-y-5">
+				<%-- ログアウト警告 --%>
+				<tr class="bg-light">
+					<th class="text-center">ログインID</th><th class="text-center">ユーザー名</th>
+					<th class="text-center">アイコン</th><th class="text-center">プロフィール</th>
 				</tr>
+				<c:forEach var="sdeleteList" items="${sdeleteList}">
+					<tr>
+						<td class="text-center">${sdeleteList.loginId}</td>
+						<td class="text-center">${sdeleteList.userName}</td>
+						<td class="text-center"><span class="${sdeleteList.icon} pe-2x pe-va"></span></td>
+						<td class="text-center">${sdeleteList.writing}</td>
+					</tr>
+				</c:forEach>
 				<tr>
-					<th class="color-main text-center">ユーザー名:</th>
-					<td class="text-center">${requestScope.shoutinfo.userName}</td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">アイコン:</th>
-					<td class="text-center"><span class="${requestScope.shoutinfo.icon} pe-2x pe-va"></span></td>
-				</tr>
-				<tr>
-					<th class="color-main text-center">書き込み内容:</th>
-					<td class="text-center">${requestScope.shoutinfo.writing}</td>
-				</tr>
-				<tr>
-					<td colspan="2" class="text-right">
-						<input class="btn" type="submit" value="この書き込みを削除" />
+					<td colspan="4" class="text-right">
+						<input class="btn" type="submit" value="削除する" />
 					</td>
 				</tr>
 			</table>
 		</form>
 		<form action="./TurnBoardTop" method="post">
-			<table style="width: 400px" class="table container padding-y-5">
+			<table style="width: 600px" class="table container padding-y-5">
 				<tr>
-					<td colspan="2" class="text-right">
+					<td colspan="4" class="text-right">
 						<input class="btn" type="submit" value="掲示板に戻る" />
+						<input type="hidden" name="shoutselect" value="shoutselect">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 			</table>

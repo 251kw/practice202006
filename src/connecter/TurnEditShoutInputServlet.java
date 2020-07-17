@@ -34,6 +34,7 @@ public class TurnEditShoutInputServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		// 値保持用の処理
 		String eshoutsId = request.getParameter("eshoutsId");
 		String esloginId = request.getParameter("esloginId");
 		String esuserName = request.getParameter("esuserName");
@@ -51,6 +52,7 @@ public class TurnEditShoutInputServlet extends HttpServlet {
 
 		request.setAttribute("shoutinfo", shoutinfo);
 
+		// 叫び編集画面に移行
 		dispatcher = request.getRequestDispatcher("editShoutInput.jsp");
 		dispatcher.forward(request,response);
 	}

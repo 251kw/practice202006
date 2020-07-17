@@ -38,7 +38,7 @@
 					<tr>
 						<td rowspan="2" class="text-center"><span class="${user.icon} pe-3x pe-va"></span></td>
 						<td width="256">${user.userName}</td>
-						<td><input class="btn btn-light" type="submit" value="ログアウト" /></td>
+						<td><input class="btn" type="submit" value="ログアウト" /></td>
 					</tr>
 					<tr>
 						<td colspan="2">${user.profile}</td>
@@ -70,23 +70,58 @@
 			<jsp:useBean id="shouts" scope="session" type="java.util.ArrayList<dto.ShoutDTO>" />
 			<div class="padding-y-5">
 				<div style="width: 40%" class="container padding-y-5">
+					<c:if test="${requestScope.notselectedalert != null && requestScope.notselectedalert != ''}">
+							<div class="color-error text-center"><c:out value="${requestScope.notselectedalert}" /></div>
+					</c:if>
+					<c:if test="${!empty sessionScope.shouts}">
+						<table class="table">
+							<tr>
+								<td><button type="submit" formaction="./AllSelected" name="checkall" value="${requestScope.checkall}">全選択</button></td>
+								<td class="text-right"><button type="submit" name="dpush" value="pushed">選択した書き込みを削除</button></td>
+							</tr>
+						</table>
+					</c:if>
 					<%-- リストにある要素の数だけ繰り返し --%>
 					<c:forEach var="shout" items="${shouts}">
 						<table class="table table-striped table-borderd">
 							<tr>
-								<td rowspan="2" class="text-center"><span class="${shout.icon} pe-3x pe-va"></span></td>
+								<td rowspan="2" class="text-center">
+									<c:if test="${!empty checkall}">
+										<input checked type="checkbox" name="select" value="${shout.shoutsId}">
+									</c:if>
+									<c:if test="${empty checkall}">
+										<c:if test="${!empty sessionScope.select}">
+											<c:set var="hitflag" value="zero" />
+											<c:forEach var="sessionselect" items="${sessionScope.select}">
+												<c:if test="${shout.shoutsId == sessionselect && endflg != 'one'}">
+													<input checked type="checkbox" name="select" value="${shout.shoutsId}">
+													<c:set var="hitflag" value="one" />
+												</c:if>
+											</c:forEach>
+											<c:if test="${hitflag != 'one'}">
+												<input type="checkbox" name="select" value="${shout.shoutsId}">
+											</c:if>
+										</c:if>
+										<c:if test="${empty sessionScope.select}">
+											<input type="checkbox" name="select" value="${shout.shoutsId}">
+										</c:if>
+									</c:if>
+								</td>
+								<td rowspan="2" class="text-center">
+									<span class="${shout.icon} text-center pe-3x pe-va"></span>
+								</td>
 								<td class="text-center">${shout.userName}</td>
 							</tr>
 							<tr>
 								<td class="text-center">${shout.date}</td>
 							</tr>
 							<tr>
-								<td colspan="2">
-									<textarea readonly rows="5" class="form-control">${shout.writing}</textarea>
+								<td colspan="3" style="height:100px">
+									${shout.writing}
+									<input type="hidden" name="checkall" value="${requestScope.checkall}">
 								</td>
 							<tr>
-								<td colspan="2" class="text-right"><button type="submit" name="eshoutsId" value="${shout.shoutsId}">編集</button>
-								<button type="submit" name="dshoutsId" value="${shout.shoutsId}">削除</button></td>
+								<td colspan="3" class="text-right"><button type="submit" name="eshoutsId" value="${shout.shoutsId}">編集</button>
 							</tr>
 						</table>
 					</c:forEach>

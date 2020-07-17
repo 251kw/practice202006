@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import dto.ShoutDTO;
 
@@ -34,6 +35,10 @@ public class ShoutEditCheckCharServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
+		HttpSession session = request.getSession();
+
+		ShoutDTO originalshoutinfo = new ShoutDTO();
+
 		// 値を受け取る
 		String eshoutsId = request.getParameter("eshoutsId");
 		String esloginId = request.getParameter("esloginId");
@@ -41,6 +46,7 @@ public class ShoutEditCheckCharServlet extends HttpServlet {
 		String esicon = request.getParameter("esicon");
 		String esdate = request.getParameter("esdate");
 		String eswriting = request.getParameter("eswriting");
+		String checkall = request.getParameter("checkall");
 
 		// 一旦全部保持
 		request.setAttribute("eshoutsId", eshoutsId);
@@ -49,28 +55,44 @@ public class ShoutEditCheckCharServlet extends HttpServlet {
 		request.setAttribute("esicon", esicon);
 		request.setAttribute("esdate", esdate);
 		request.setAttribute("eswriting", eswriting);
+		request.setAttribute("checkall", checkall);
 
 		String alertmessage = null;
+		String allsame = null;
+
+		// 値保持用の処理
+		ShoutDTO shoutinfo = new ShoutDTO();
+		shoutinfo.setShoutsId(eshoutsId);
+		shoutinfo.setLoginId(esloginId);
+		shoutinfo.setUserName(esuserName);
+		shoutinfo.setIcon(esicon);
+		shoutinfo.setDate(esdate);
+		shoutinfo.setWriting(eswriting);
+
+		request.setAttribute("shoutinfo", shoutinfo);
 
 		if(eswriting.equals("")) {
 			// 書き込みが空の場合
 
-			// 値の保持用のオブジェクトを生成
-			ShoutDTO shoutinfo = new ShoutDTO();
-			shoutinfo.setShoutsId(eshoutsId);
-			shoutinfo.setLoginId(esloginId);
-			shoutinfo.setUserName(esuserName);
-			shoutinfo.setIcon(esicon);
-			shoutinfo.setDate(esdate);
-			shoutinfo.setWriting(eswriting);
-
 			alertmessage = "書き込みを入力してください";
 			request.setAttribute("alertmessage", alertmessage);
-			request.setAttribute("shoutinfo", shoutinfo);
 			dispatcher = request.getRequestDispatcher("editShoutInput.jsp");
 		}else {
 			// 書き込みがある場合
-			dispatcher = request.getRequestDispatcher("editShoutConfirm.jsp");
+			originalshoutinfo = (ShoutDTO)session.getAttribute("originalshoutinfo");
+
+			if(originalshoutinfo.getWriting().equals(eswriting)) {
+				// 書き込み内容が変更されていない場合
+
+				allsame = "内容が変更されていません";
+				request.setAttribute("allsame", allsame);
+				// editUserInput.jsp に処理を転送
+				dispatcher = request.getRequestDispatcher("editShoutInput.jsp");
+			}else {
+				// 書き込み内容が変更されている場合
+
+				dispatcher = request.getRequestDispatcher("editShoutConfirm.jsp");
+			}
 		}
 		dispatcher.forward(request,response);
 	}

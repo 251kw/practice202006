@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import dao.DBManager;
+import dto.ShoutDTO;
 import util.CheckDB;
 
 /**
@@ -34,20 +38,22 @@ public class ShoutDeleteServlet extends HttpServlet {
 
 		RequestDispatcher dispatcher = null;
 
-		// 結果画面に出力するために値を保持
-		String dshoutsId = request.getParameter("dshoutsId");
-		String dsloginId = request.getParameter("dsloginId");
-		String dsuserName = request.getParameter("dsuserName");
-		String dsicon = request.getParameter("dsicon");
-		String dswriting = request.getParameter("dswriting");
+		HttpSession session = request.getSession();
 
-		request.setAttribute("dsloginId", dsloginId);
-		request.setAttribute("dsuserName", dsuserName);
-		request.setAttribute("dsicon", dsicon);
-		request.setAttribute("dswriting", dswriting);
+		ArrayList<ShoutDTO> list = new ArrayList<ShoutDTO>();
+
+		DBManager dbm = new DBManager();
+
+		 String[] select = (String[]) session.getAttribute("select");
 
 		// 該当する書き込みを削除
-		CheckDB.DeleteShout(dshoutsId);
+		for(String shoutsId:select) {
+			CheckDB.DeleteShout(shoutsId);
+		}
+
+		// 更新された書き込みを取得してセット
+		list = dbm.getShoutList();
+		session.setAttribute("shouts", list);
 
 		// 削除結果画面に移動
 		dispatcher = request.getRequestDispatcher("deleteShoutResult.jsp");

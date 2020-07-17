@@ -377,6 +377,7 @@ public class CheckDB {
 			// 検索結果をオブジェクトに保持
 			if(rset.next()) {
 				shoutinfo = new ShoutDTO();
+				shoutinfo.setShoutsId(rset.getString(1));
 				shoutinfo.setLoginId(rset.getString(2));
 				shoutinfo.setUserName(rset.getString(4));
 				shoutinfo.setIcon(rset.getString(5));
@@ -497,6 +498,7 @@ public class CheckDB {
 
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(DSN,USER,PASSWORD);
+			// フラグを１から０に変更
 			String sql = "update users set d_flg=0 where d_flg=1";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.executeUpdate();

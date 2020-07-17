@@ -21,9 +21,16 @@
 		<br>
 		<form action="./ShoutEditCheckChar" method="post">
 			<table style="width: 400px" class="table table-borderd container padding-y-5">
+			<%--書き込み内容があるかどうかチェック --%>
 				<c:if test="${requestScope.alertmessage != null && requestScope.alertmessage != ''}">
 					<tr>
 						<td colspan="4" class="color-error text-center"><c:out value="${requestScope.alertmessage}" /></td>
+					</tr>
+				</c:if>
+				<%-- 変更があるかチェック --%>
+				<c:if test="${requestScope.allsame != null && requestScope.allsame != ''}">
+					<tr>
+						<td colspan="2" class="color-error text-center"><c:out value="${requestScope.allsame}" /></td>
 					</tr>
 				</c:if>
 				<tr>
@@ -58,6 +65,7 @@
 						<input type="hidden" name="esicon" value="${requestScope.shoutinfo.icon}">
 						<input type="hidden" name="esdate" value="${requestScope.shoutinfo.date}">
 						<input type="hidden" name="eswriting" value="${requestScope.shoutinfo.writing}">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 			</table>
@@ -67,6 +75,8 @@
 				<tr>
 					<td colspan="2" class="text-right">
 						<input class="btn" type="submit" value="掲示板に戻る" />
+						<input type="hidden" name="shoutselect" value="shoutselect">
+						<input type="hidden" name="checkall" value="${requestScope.checkall}">
 					</td>
 				</tr>
 			</table>
