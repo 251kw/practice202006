@@ -38,10 +38,10 @@ public class UserSearchInput extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
+		//情報取得
 		String loginId = request.getParameter("loginId");
 		String userName = request.getParameter("userName");
-		//iconをStringで返すための変数
-		String icon = null;
+		String icon = null;	//iconをStringで返すための変数
 		String[] iconList =request.getParameterValues("icon");
 		String profile = request.getParameter("profile");
 		String cmd = request.getParameter("cmd");

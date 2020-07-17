@@ -38,9 +38,9 @@ public class UserDeleteInput extends HttpServlet {
 		response.setContentType("text/html;charset=UTF-8");
 
 		//ボタンの情報受け取る
-		String user = request.getParameter("user");
-		String all = request.getParameter("all");
-		String full = request.getParameter("full");
+		String user = request.getParameter("user");		//更新、削除
+		String all = request.getParameter("all");		//複数削除
+		String full = request.getParameter("full");		//全選択
 		//複数削除用
 		String[] deleteList =request.getParameterValues("select");
 		RequestDispatcher dispatcher = null;
@@ -61,6 +61,7 @@ public class UserDeleteInput extends HttpServlet {
 			String str = "loginId IN (";
 			for(int i=0; i<deleteList.length; i++) {
 				str = str+"'"+deleteList[i]+"',";
+				//ログインIDと比較
 				if(deleteList[i].equals(loginuser.getLoginId())){
 					String msg = null;
 					msg = "＊現在ログインしているユーザーを含むため消すとログアウトします。";

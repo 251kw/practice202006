@@ -1,8 +1,8 @@
 package dto;
 
 public class UserDTO {
-	private String loginId;		//ログインID
-	private String password;		//パスワード
+	private String loginId;	//ログインID
+	private String password;	//パスワード
 	private String userName;	//ユーザー名
 	private String icon;		//ユーザーアイコン
 	private String profile;	//プロフィール

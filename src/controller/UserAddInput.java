@@ -53,10 +53,12 @@ public class UserAddInput extends HttpServlet {
 		RequestDispatcher dispatcher = null;
 		String message = null;
 		DBManager dbm = new DBManager();
+
+		//同じIDチェック
 		UserDTO check_u = dbm.checkUser(loginId);
 
+		//未入力
 		if (loginId.equals("") || password.equals("")) {
-			//未入力
 			message = "*ログインIDとパスワードは必須です";
 
 			//エラーメッセージをリクエストオブジェクトに保存
@@ -65,8 +67,8 @@ public class UserAddInput extends HttpServlet {
 			//jspに処理を転送
 			dispatcher = request.getRequestDispatcher("add_input.jsp");
 			dispatcher.forward(request, response);
+		//Idかぶり
 		} else if (check_u != null) {
-			//Idかぶり
 			message = "*このIDは使われています";
 
 			//エラーメッセージをリクエストオブジェクトに保存
@@ -76,6 +78,7 @@ public class UserAddInput extends HttpServlet {
 			dispatcher = request.getRequestDispatcher("add_input.jsp");
 			dispatcher.forward(request, response);
 		} else {
+			//情報をセット
 			UserDTO user = null;
 			user = new UserDTO();
 			user.setLoginId(loginId);

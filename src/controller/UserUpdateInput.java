@@ -45,6 +45,7 @@ public class UserUpdateInput extends HttpServlet {
 		String oldicon = request.getParameter("oldicon");
 		String oldpro = request.getParameter("oldpro");
 
+		//戻るときに必要
 		String[] duser = {oldId,oldword,oldName,oldicon,oldpro};
 		request.setAttribute("duser", duser);
 

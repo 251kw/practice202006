@@ -47,6 +47,7 @@ public class UserMultdeleteConfirm extends HttpServlet {
 			result = db.checkShout("'"+user[i]+"'");
 			if(result == true) {
 				db.deleteShouts("'"+user[i]+"'");
+				//リスト更新
 				ArrayList<ShoutDTO> list = db.getShoutList();
 				HttpSession session = request.getSession();
 				session.setAttribute("shouts", list);
@@ -65,7 +66,7 @@ public class UserMultdeleteConfirm extends HttpServlet {
 		request.setAttribute("users", list);
 
 
-		//デリート文実行
+		//デリート文実行ループ
 		for(String us : user) {
 			String str_d = "'"+us+"'";
 			result =db.deleteUser(str_d);

@@ -92,6 +92,9 @@
 							<div class="mybox">
 								${shout.writing}
 							</div>
+							<a href="./sdc?shoutsId=${shout.shoutsId}&icon=${shout.icon}&userName=${shout.userName}&date=${shout.date}&writing=${shout.writing}">
+								<button	type="button" class="btn btn-sm">削除</button>
+							</a>
 						</td>
 					</tr>
 				</table>

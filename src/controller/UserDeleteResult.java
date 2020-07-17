@@ -59,17 +59,17 @@ public class UserDeleteResult extends HttpServlet {
 
 		//削除かつ現在ログインしているユーザーの場合最初の画面に飛ぶ
 		if(loginId != null && loginId.equals(user.getLoginId())){
-				dispatcher = request.getRequestDispatcher("index.jsp");
+			dispatcher = request.getRequestDispatcher("index.jsp");
 		}else {
-				//もう一度sqlをまわす
-				String str = (String)session.getAttribute("str");
-				ArrayList<UserDTO> list = db.searchUser(str);
-				request.setAttribute("users", list);
-				//削除済みユーザー
-				list = db.getDeleteUser();
-				request.setAttribute("d_users", list);
+			//もう一度sqlをまわす
+			String str = (String)session.getAttribute("str");
+			ArrayList<UserDTO> list = db.searchUser(str);
+			request.setAttribute("users", list);
+			//削除済みユーザー
+			list = db.getDeleteUser();
+			request.setAttribute("d_users", list);
 
-				dispatcher = request.getRequestDispatcher("search_result.jsp");
+			dispatcher = request.getRequestDispatcher("search_result.jsp");
 		}
 
 		dispatcher.forward(request, response);

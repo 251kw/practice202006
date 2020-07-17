@@ -36,6 +36,7 @@ public class UserAddConfirm extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
 
+		//情報取得
 		String loginId = (String)request.getParameter("loginId");
 		String password = (String)request.getParameter("password");
 		String userName = (String)request.getParameter("userName");

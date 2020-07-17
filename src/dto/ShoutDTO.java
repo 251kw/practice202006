@@ -6,6 +6,7 @@ public class ShoutDTO {
 	private String icon;		//ユーザーアイコン
 	private String date; 		//書き込み日時
 	private String writing;	//書き込み内容
+	private int shoutsId;		//シャウトID
 
 	public ShoutDTO() {
 
@@ -57,6 +58,14 @@ public class ShoutDTO {
 
 		public void setWriting(String writing) {
 			this.writing = writing;
+		}
+
+		public int getShoutsId() {
+			return shoutsId;
+		}
+
+		public void setShoutsId(int shoutId) {
+			this.shoutsId = shoutId;
 		}
 
 }

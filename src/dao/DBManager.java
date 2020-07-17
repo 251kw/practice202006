@@ -341,7 +341,7 @@ public class DBManager extends SnsDAO {
 			pstmt = conn.createStatement();
 
 			//SELECT文の実行
-			String sql = "SELECT u.userName,u.icon,s.date,s.writing FROM users AS u,shouts AS s WHERE u.loginId=s.loginId AND s.d_flg IN (0,null) ORDER BY s.date DESC";
+			String sql = "SELECT u.userName,u.icon,s.date,s.writing,s.shoutsId FROM users AS u,shouts AS s WHERE u.loginId=s.loginId AND s.d_flg IN (0,null) ORDER BY s.date DESC";
 			rset = pstmt.executeQuery(sql);
 
 			//検索結果の数だけ繰り返す
@@ -353,6 +353,7 @@ public class DBManager extends SnsDAO {
 				String str = rset.getString(3);
 				shout.setDate(str.substring(0, str.indexOf('.')));
 				shout.setWriting(rset.getString(4));
+				shout.setShoutsId(rset.getInt(5));
 
 				//書き込み内容をリストに追加
 				list.add(shout);
@@ -419,6 +420,43 @@ public class DBManager extends SnsDAO {
 
 
 		String sql = "UPDATE shouts SET d_flg=1 WHERE loginId="+str;
+
+		try {
+			//データベース接続情報取得
+			conn = getConnection();
+
+			//delete 文の登録と実行
+			pstmt = conn.prepareStatement(sql); //delete 構文登録
+
+
+			int cnt = pstmt.executeUpdate();
+			if (cnt == 1) {
+				//delete文の実行結果が１なら削除成功
+				result = true;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			//データベース切断処理
+			close(pstmt);
+			close(conn);
+		}
+
+		return result;
+	}
+
+	/**
+	 * shoutsIdから一つの叫びを選び、消す
+	 * @param s_id shoutsId
+	 * @return 削除できたかどうか
+	 */
+	public boolean deleteOneShout(int s_id) {
+		Connection conn = null; //データベース接続情報
+		PreparedStatement pstmt = null; //SQL 管理情報
+		boolean result = false;
+
+
+		String sql = "UPDATE shouts SET d_flg=1 WHERE shoutsId="+s_id;
 
 		try {
 			//データベース接続情報取得
