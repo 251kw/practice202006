@@ -156,13 +156,19 @@ public class CheckUtil {
 		return message;
 	}
 
-	//新規登録
+
+	/**DB新規追加時の論理削除フラグ(0)
+	 * @return okDFlg (int=0)
+	 */
 	public static int okDFlg() {
 		int okDFlg = 0;
 		return okDFlg;
 	}
 
-	//ユーザ論理削除
+
+	/**DB削除時の論理削除フラグ(1)
+	 * @return delDFlg(int=0)
+	 */
 	public static int delDFlg() {
 		int delDFlg = 1;
 		return delDFlg;
