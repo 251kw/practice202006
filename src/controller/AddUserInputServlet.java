@@ -66,7 +66,7 @@ public class AddUserInputServlet extends HttpServlet {
 		//入力に誤りがないか調べ、なければnull,あればString型でエラー文（エラー内容にあわせた）を返す
 		String checker = CheckAddUserInfo.checkinfo(loginID,password1,password2,userName);
 		if (checker == null) {
-			//エラーがなければ入賞
+			//エラーがなければ
 			if(dbm == null){
 				dbm = new DBManager();
 			}
