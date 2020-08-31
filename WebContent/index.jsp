@@ -17,6 +17,7 @@
 			</div>
 			</div>
 		<div class="padding-y-5 text-center">
+			<h5>aaaaaaaaaaaaaaaaaaaaaaaaa</h5>
 			<h5>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</h5>
 		</div>
 		<%---------------------------------------------------------------------------------%>
@@ -85,5 +86,6 @@
 			</table>
 		</form>
 		<h1>あってんのかわかんね</h1>
+		<h1>なんかわかってきた</h1>
 	</body>
 </html>
