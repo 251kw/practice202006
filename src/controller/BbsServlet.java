@@ -36,6 +36,19 @@ public class BbsServlet extends HttpServlet {
 
 		String message = null;
 
+		if(writing.equals("")) {
+
+			message = "入力してください";
+
+			//エラーメッセージをオブジェクトへ
+			request.setAttribute("alert2", message);
+			//top.jspへ転送
+			dispatcher = request.getRequestDispatcher("top.jsp");
+			dispatcher.forward(request, response);
+
+
+		}
+
 		// 書き込み内容があれば、リストに追加
 		if (!writing.equals("")) {
 			HttpSession session = request.getSession();
