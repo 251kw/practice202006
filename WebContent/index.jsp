@@ -11,8 +11,6 @@
 		<link rel="stylesheet" href="./css/helper.css">
 	</head>
 	<body>
-		<%---------------------------------------------------------------------------------%>
-		<%---------------------------------------------------------------------------------%>
 		<div class="bg-success padding-y-5">
 			<div class="padding-y-5 text-center">
 				<h1>Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
