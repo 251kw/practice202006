@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import dao.DBManager;
 import dto.ShoutDTO;
 import dto.UserDTO;
@@ -43,7 +44,7 @@ public class BbsServlet extends HttpServlet {
 		String writing = request.getParameter("shout");
 		RequestDispatcher dispatcher;
 
-		
+
 		String message = null;
 
 		if(writing.equals("")) {
