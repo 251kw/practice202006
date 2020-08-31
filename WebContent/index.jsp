@@ -24,18 +24,18 @@
 
 			<table style="width: 450px" class="table">
 				<tr>
-					<td><nobr>ログインIDとパスワードを入力してください</nobr></td>
+					<td><nobr>ゆりえだ</nobr></td>
 				</tr>
 
 				<tr>
 					<%-- ログインID入力欄の名前はloginId --%>
-					<td class="color-main text-left">ログインID</td>
+					<td class="color-main text-left">ゆりえだ</td>
 					<td class="text-right"><input class="form-control" type="text"
 						name="loginId" value="" id="firstinput"/></td>
 				</tr>
 				<tr>
 					<%-- パスワード入力欄の名前はpassword --%>
-					<td class="color-main text-left">パスワード</td>
+					<td class="color-main text-left">ゆりえだ</td>
 					<td class="text-right"><input class="form-control"
 						type="password" name="password" value="" /></td>
 				</tr>
@@ -65,6 +65,9 @@
 				document.getElementById('firstinput').focus();
 			-->
 		</script>
-		<h3>うぎゃーーーーーーーーーーーーーー</h3>
+
+		<h3>うぎゃーーーーーーーーーーーー</h3>
+		<h3>ちくしょおおおおおおおおおおおおおおおおおおおおおお</h3>
+		<h3>どうしてええええええええええ</h3>
 	</body>
 </html>
