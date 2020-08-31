@@ -17,7 +17,7 @@
 			</div>
 			</div>
 		<div class="padding-y-5 text-center">
-			<h5>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+			<h5>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</h5>
 		</div>
 		<%---------------------------------------------------------------------------------%>
 		<%---------------------------------------------------------------------------------%>
@@ -84,6 +84,6 @@
 				</c:if>
 			</table>
 		</form>
-		<h1>あってんのかわかんねえええええええええええええええええええ</h1>
+		<h1>あってんのかわかんね</h1>
 	</body>
 </html>
