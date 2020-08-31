@@ -19,7 +19,7 @@
 			</div>
 		</div>
 		<div class="padding-y-5 text-center">
-			<h5>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+			<h5>aaaaaaaaaaaaaaaaaaaaaaaaa</h5>
 		</div>
 		<%---------------------------------------------------------------------------------%>
 
