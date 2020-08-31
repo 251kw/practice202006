@@ -32,6 +32,7 @@ public class LoginServlet extends HttpServlet {
 		// 送信情報の取得
 		String loginId = request.getParameter("loginId");
 		String password = request.getParameter("password");
+		String test = null;
 
 		RequestDispatcher dispatcher = null;
 		String message = null;
