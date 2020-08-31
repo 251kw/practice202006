@@ -1,11 +1,12 @@
 package dto;
 
+// ユーザ情報を保持するクラス
 public class UserDTO {
-	private String loginId;
-	private String password;
-	private String userName;
-	private String icon;
-	private String profile;
+	private String loginId;		// ログインID
+	private String password;	// パスワード
+	private String userName;	// ユーザ名
+	private String icon;		// ユーザアイコン
+	private String profile;		// プロフィール
 
 	public UserDTO() {
 
@@ -19,6 +20,7 @@ public class UserDTO {
 		this.profile = profile;
 	}
 
+	// 各メンバ変数の getter および setter
 	public String getLoginId() {
 		return loginId;
 	}
@@ -58,6 +60,4 @@ public class UserDTO {
 	public void setProfile(String profile) {
 		this.profile = profile;
 	}
-
-
 }

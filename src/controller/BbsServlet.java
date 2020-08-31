@@ -60,6 +60,7 @@ public class BbsServlet extends HttpServlet {
 			// エラーメッセージをリクエストオブジェクトに保存
 			request.setAttribute("alert", message);
 
+
 		}
 
 		// top.jsp に処理を転送

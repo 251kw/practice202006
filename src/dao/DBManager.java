@@ -4,10 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
 
-import dto.ShoutDTO;
 import dto.UserDTO;
 
 public class DBManager extends SnsDAO {
@@ -51,36 +48,5 @@ public class DBManager extends SnsDAO {
 				}
 
 				return user;
-	}
-
-	// 書き込み内容リストの getter
-	public ArrayList<ShoutDTO> getShoutList(){
-		Connection conn = null;
-		Statement pstmt = null;
-		ResultSet rset = null;
-
-		ArrayList<ShoutDTO> list= new ArrayList<ShoutDTO>();
-
-		try {
-			conn = getConnection();
-			pstmt = conn.createStatement();
-
-			//SELECT文の実行
-			String sql = "SELECT * FROM shouts ORDER BY date DESC";
-			rset = pstmt.executeQuery(sql);
-
-			//検索結果の数だけ繰り返す
-			while(rset.next()) {
-				//必要な列から値を取り出し、書き込み内容オブジェクトを生成
-				ShoutDTO shout = new ShoutDTO();
-				shout.setUserName(rset.getString(2));
-				shout.setIcon(rset.getString(3));
-				shout.setData(rset.getString(4));
-				shout.setWriting(rset.getString(5));
-				
-				//書き込み内容をリストに追加
-				list.add(shout);
-			}
-		}
 	}
 }
