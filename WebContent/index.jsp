@@ -17,9 +17,8 @@
 			</div>
 		</div>
 		<div class="padding-y-5 text-center">
-			<h5>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
+			<h5>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</h5>
 		</div>
-		<%---------------------------------------------------------------------------------%>
 
 		<%-- action属性にサーブレットを指定 --%>
 		<form action="./login" method="post">
