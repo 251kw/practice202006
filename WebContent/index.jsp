@@ -15,10 +15,12 @@
 			<div class="padding-y-5 text-center">
 				<h1>Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
 			</div>
-		</div>
+			</div>
 		<div class="padding-y-5 text-center">
 			<h5>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</h5>
 		</div>
+		<%---------------------------------------------------------------------------------%>
+		<%---------------------------------------------------------------------------------%>
 
 		<%-- action属性にサーブレットを指定 --%>
 		<form action="./login" method="post">
@@ -54,6 +56,7 @@
 
 				<c:otherwise>
 				<tr>
+
 					<td class="color-main text-left">パスワード</td>
 					<td class="text-left"><input class="form-control"
 						type="password" name="password" value="${requestScope.pass}" size="20" /></td>
@@ -67,14 +70,17 @@
 					<input class="btn" type="submit" value="ログイン" name="btn"/></td>
 				</tr>
 
+
 				<c:if
 					test="${requestScope.alert != null && requestScorpe.alert !=''}">
 					<tr>
+
 						<td colspan="2" class="color-error text-left">
 						<c:out value="${requestScope.alert}" /></td>
 					</tr>
 				</c:if>
 			</table>
 		</form>
+		<h1>あってんのかわかんね</h1>
 	</body>
 </html>
