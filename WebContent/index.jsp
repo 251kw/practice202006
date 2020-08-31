@@ -11,15 +11,13 @@
 		<link rel="stylesheet" href="./css/helper.css">
 	</head>
 	<body>
-
-		<%---------------------------------------------------------------------------------%>
 		<div class="bg-success padding-y-5">
 			<div class="padding-y-5 text-center">
 				<h1>Shouter<span class="icon-speaker pe-1x pe-va"></span></h1>
 			</div>
 			</div>
 		<div class="padding-y-5 text-center">
-			<h5>ログインIDとパスワードを入力してください</h5>
+			<h5>aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</h5>
 		</div>
 		<%---------------------------------------------------------------------------------%>
 
