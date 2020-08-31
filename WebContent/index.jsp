@@ -41,6 +41,7 @@
 				</tr>
 
 			</table>
+			<img src="odorupen.gif" alt="tw" width="96" height="65">
 			<table style="width: 450px" class="table">
 				<tr>
 					<td><input type="button"
