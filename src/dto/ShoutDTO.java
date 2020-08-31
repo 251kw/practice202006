@@ -40,5 +40,5 @@ public class ShoutDTO {
 		this.writing = writing;
 	}
 
-
+	
 }
