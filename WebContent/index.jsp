@@ -20,10 +20,12 @@
 			<h5>aaaaaaaaaaaaaaaaaaaaaaaaa</h5>
 			<h5>bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb</h5>
 			<h5>cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc</h5>
+			<h5>dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd</h5>
 		</div>
 		<%---------------------------------------------------------------------------------%>
 		<%---------------------------------------------------------------------------------%>
 
+		<%---------------------------------------------------------------------------------%>
 		<%---------------------------------------------------------------------------------%>
 		<%---------------------------------------------------------------------------------%>
 
@@ -38,13 +40,13 @@
 					<td class="text-left"><input class="form-control" type="text"
 						name="loginId" value="" size="20" /></td>
 				</tr>
-				</c:when>
+				</c:when><%---------------------------------------------------------------------------------%>
 
 				<c:otherwise>
 				<tr>
 					<%-- ログインID入力欄の名前はloginId --%>
 					<td class="color-main text-left">ログインID</td>
-					<td class="text-left"><input class="form-control" type="text"
+					<td class="text-left"><input class="form-control" type="text"<%---------------------------------------------------------------------------------%>
 						name="loginId" value="${requestScope.id}" size="20" autofocus/></td>
 				</tr>
 				</c:otherwise>
@@ -88,10 +90,12 @@
 		</form>
 		<h1>あってんのかわかんね</h1>
 		<h1>あってんのかわかんね</h1>
-		<h1>あってんのかわかんね</h1>
+
 		<h1>( ;∀;)</h1>
 		<h1>なんかわかってきた</h1>
 		<h1>(-_-)</h1>
+		<h1>( ﾟДﾟ)</h1>
 		<h1>(-_-)</h1>
+		<h2>muzui</h2>
 	</body>
 </html>
