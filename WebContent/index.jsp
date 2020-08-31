@@ -49,7 +49,6 @@
 			<c:choose>
 				<c:when test="${requestScope.pass == null && requestScorpe.pass ==''}">
 				<tr>
-					<%-- パスワード入力欄の名前はpassword --%>
 					<td class="color-main text-left">パスワード</td>
 					<td class="text-left"><input class="form-control"
 						type="password" name="password" value="" size="20" /></td>
@@ -58,7 +57,6 @@
 
 				<c:otherwise>
 				<tr>
-					<%-- パスワード入力欄の名前はpassword --%>
 					<td class="color-main text-left">パスワード</td>
 					<td class="text-left"><input class="form-control"
 						type="password" name="password" value="${requestScope.pass}" size="20" /></td>
@@ -72,11 +70,9 @@
 					<input class="btn" type="submit" value="ログイン" name="btn"/></td>
 				</tr>
 
-				<%-- リクエストスコープにalertがあれば --%>
 				<c:if
 					test="${requestScope.alert != null && requestScorpe.alert !=''}">
 					<tr>
-						<%--リクエストスコープのalertの値を出力 --%>
 						<td colspan="2" class="color-error text-left">
 						<c:out value="${requestScope.alert}" /></td>
 					</tr>
