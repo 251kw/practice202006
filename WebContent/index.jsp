@@ -66,8 +66,7 @@
 				document.getElementById('firstinput').focus();
 			-->
 		</script>
-
-		<h1>うぎゃーーーーーーーーーーーー</h1>
-		<h3>ちくしょおおおおおおおおおおおおおおおおおおおおおお</h3>
-		<h3>どうしてええええええええええ</h3>
+		<img src="odorupen.gif" alt="tw" width="96" height="65">
+		<img src="odorupen.gif" alt="tw" width="96" height="65">
+		<img src="odorupen.gif" alt="tw" width="96" height="65">
 </html>
