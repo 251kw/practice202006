@@ -28,6 +28,7 @@ public class BbsServlet extends HttpServlet {
 	// 直接アクセスがあった場合は index.jsp  に処理を転送
 	/* (非 Javadoc)
 	 * @see javax.servlet.http.HttpServlet#doGet(javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 * aqaaaaaaa
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
