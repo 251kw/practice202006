@@ -8,7 +8,7 @@ import java.sql.Statement;
 import com.mysql.jdbc.Connection;
 
 public class SnsDAO {
-	private final String DSN = "jdbc:mysql://localhost:3306/sns2?useSSL=false";
+	private final String DSN = "jdbc:mysql://localhost:3306/sns?useSSL=false";
 	private final String USER = "root";
 	private final String PASSWORD = "root";
 
@@ -62,3 +62,4 @@ public class SnsDAO {
 		}
 	}
 }
+
