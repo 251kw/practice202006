@@ -9,30 +9,39 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 /**
- * Servlet implementation class LogoutServlet
- * ログアウトの管理
+ * Servlet implementation class Cut
  */
-@WebServlet("/logout")
-public class LogoutServlet extends HttpServlet {
+@WebServlet("/Cut")
+public class SessionCut extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    //直接アクセスがあった場合
-    public LogoutServlet() {
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public SessionCut() {
         super();
+        // TODO Auto-generated constructor stub
     }
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		HttpSession session = request.getSession();
+		session.invalidate();
 		RequestDispatcher dispatcher = request.getRequestDispatcher("index.jsp");
 		dispatcher.forward(request, response);
 	}
 
-	//topのログアウトボタンから呼び出し
-
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession();
-		session.invalidate();
-	//do getメソッド呼び出し
-		doGet(request, response);
+
+
 	}
 
 }
