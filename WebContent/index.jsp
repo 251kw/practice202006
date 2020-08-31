@@ -65,6 +65,6 @@
 				document.getElementById('firstinput').focus();
 			-->
 		</script>
-		<h3>ugyaaaaaaaaaaaaaaaaaa</h3>
+		<h3>うぎゃーーーーーーーーーーーー</h3>
 	</body>
 </html>
