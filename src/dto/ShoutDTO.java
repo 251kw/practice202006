@@ -11,7 +11,6 @@ public class ShoutDTO {
 	public ShoutDTO() {
 
 	}
-
 	public ShoutDTO(String loginId, String userName, String icon, String date, String writing) {
 		this.loginId = loginId;
 		this.userName = userName;
