@@ -78,7 +78,7 @@ public class LoginServlet extends HttpServlet {
 				//処理の転送先をindex.jspに指定
 				dispatcher = request.getRequestDispatcher("index.jsp");
 			}
-			//処理を転送
+			//処理を転送　　
 			dispatcher.forward(request, response);
 		}
 	}
