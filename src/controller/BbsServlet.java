@@ -18,7 +18,7 @@ import dto.UserDTO;
 /**
  * @author d.ito
  *top.jspから遷移
- *叫ぶボタンの制御を行う
+ *叫ぶボタンの制御を行うaaaaaaaaaa
  */
 @WebServlet("/bbs")
 public class BbsServlet extends HttpServlet {
