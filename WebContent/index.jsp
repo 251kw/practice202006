@@ -65,7 +65,5 @@
 				document.getElementById('firstinput').focus();
 			-->
 		</script>
-		<h3>うぎゃーーーーーーーーーーーー</h3>
-		<h3>ちくしょおおおおおおおおおおおおおおおおおおおおおお</h3>
 	</body>
 </html>
