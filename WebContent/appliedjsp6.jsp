@@ -11,7 +11,7 @@
 </head>
 	<body>
 		<%-- 変数宣言と値の代入 --%>
-		<c:set var="score" value="100"/>
+		<c:set var="score" value="50"/>
 
 		<%-- 値の出力 --%>
 		得点 : <c:out value="${score}"/><br>
@@ -25,6 +25,7 @@
 		<c:choose>
 		<c:when test="${score >= 80}">合格です<br></c:when>
 		<c:when test="${score >= 60}">補欠合格です<br></c:when>
+		<c:when test="${score >= 30}">補修です<br></c:when>
 		<c:otherwise>不合格です<br></c:otherwise>
 		</c:choose>
 		<hr>
@@ -47,11 +48,15 @@
 		</c:forEach>
 		<hr>
 		<c:set var="money" value="1234567"/>
+		<c:set var="dol" value="3.25"/>
 
 		<%-- 書式指定 --%>
-		<fmt:formatNumber value="${money}" pattern="###,###" var="fmtMoney"/>
+		<fmt:formatNumber value="${money}" pattern="000,000" var="fmtMoney"/>
+		<fmt:formatNumber value="${dol}" pattern="000.000" var="fmtdol"/>
 		書式指定なし : ${money} 円<br>
 		書式指定あり : ${fmtMoney}円 <br>
+		書式指定なし : ${dol} 円<br>
+		書式指定あり : ${fmtdol}円 <br>
 		<hr>
 
 		<%
